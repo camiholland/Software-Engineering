@@ -59,24 +59,30 @@ public class TrainControllerUI extends javax.swing.JFrame {
         TrainIDText = new javax.swing.JTextField();
         RouteIDLabel = new javax.swing.JLabel();
         RouteIDText = new javax.swing.JTextField();
+        SpeedLabel = new javax.swing.JLabel();
+        SpeedText = new javax.swing.JTextField();
+        PowerText = new javax.swing.JTextField();
+        PowerLabel = new javax.swing.JLabel();
         ModePane = new javax.swing.JPanel();
         ModeMan = new javax.swing.JRadioButton();
         ModeAuto = new javax.swing.JRadioButton();
         SpeedPane = new javax.swing.JPanel();
         SpeedSlider = new javax.swing.JSlider();
+        SetSpeedLabel = new javax.swing.JLabel();
+        SetSpeedText = new javax.swing.JTextField();
         StopButton = new javax.swing.JButton();
         BlockLimitPane = new javax.swing.JPanel();
         BlockLimitLabel1 = new javax.swing.JLabel();
         BlockLimitLabel2 = new javax.swing.JLabel();
         BlockLimitText = new javax.swing.JTextField();
-        SPPane = new javax.swing.JPanel();
-        SpeedLabel = new javax.swing.JLabel();
-        PowerLabel = new javax.swing.JLabel();
-        SpeedText = new javax.swing.JTextField();
-        PowerText = new javax.swing.JTextField();
         NotificationsPane = new javax.swing.JPanel();
         MovementPane = new javax.swing.JPanel();
         MovementText = new javax.swing.JTextField();
+        GainPane = new javax.swing.JPanel();
+        KpLabel = new javax.swing.JLabel();
+        KiLabel = new javax.swing.JLabel();
+        KpText = new javax.swing.JTextField();
+        KiText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,17 +178,10 @@ public class TrainControllerUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ACFail))
                             .addComponent(ACLabel)
-                            .addComponent(HeatLabel)
-                            .addComponent(LightsLabel))
+                            .addComponent(HeatLabel))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(CarControlsPaneLayout.createSequentialGroup()
                         .addGroup(CarControlsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(CarControlsPaneLayout.createSequentialGroup()
-                                .addComponent(LightsOn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(LightsOff)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(LightsFail))
                             .addGroup(CarControlsPaneLayout.createSequentialGroup()
                                 .addComponent(LeftDoorOpen)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,7 +195,14 @@ public class TrainControllerUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(RightDoorFail))
                             .addComponent(RightDoorLabel)
-                            .addComponent(LeftDoorLabel))
+                            .addComponent(LeftDoorLabel)
+                            .addComponent(LightsLabel)
+                            .addGroup(CarControlsPaneLayout.createSequentialGroup()
+                                .addComponent(LightsOn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LightsOff)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LightsFail)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         CarControlsPaneLayout.setVerticalGroup(
@@ -231,54 +237,70 @@ public class TrainControllerUI extends javax.swing.JFrame {
                     .addComponent(LeftDoorClosed)
                     .addComponent(LeftDoorFail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RightDoorLabel)
+                .addComponent(RightDoorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CarControlsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RightDoorOpen)
                     .addComponent(RightDoorClosed)
-                    .addComponent(RightDoorFail))
-                .addContainerGap())
+                    .addComponent(RightDoorFail)))
         );
 
         IDPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
 
-        TrainIDLabel.setText("Train ID");
+        TrainIDLabel.setText("Train ID:");
 
-        RouteIDLabel.setText("Route ID");
+        RouteIDLabel.setText("Route ID:");
+
+        SpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel.setText("Speed:");
+
+        SpeedText.setText("55");
+
+        PowerText.setText("30");
+
+        PowerLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        PowerLabel.setText("Power:");
 
         javax.swing.GroupLayout IDPaneLayout = new javax.swing.GroupLayout(IDPane);
         IDPane.setLayout(IDPaneLayout);
         IDPaneLayout.setHorizontalGroup(
             IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IDPaneLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RouteIDLabel)
                     .addGroup(IDPaneLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(6, 6, 6)
                         .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(IDPaneLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(TrainIDText))
-                            .addGroup(IDPaneLayout.createSequentialGroup()
-                                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TrainIDLabel)
-                                    .addComponent(RouteIDLabel))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(IDPaneLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(RouteIDText)))
+                            .addComponent(PowerLabel)
+                            .addComponent(SpeedLabel)))
+                    .addComponent(TrainIDLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TrainIDText)
+                    .addComponent(SpeedText, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                    .addComponent(RouteIDText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PowerText))
                 .addContainerGap())
         );
         IDPaneLayout.setVerticalGroup(
             IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IDPaneLayout.createSequentialGroup()
-                .addComponent(TrainIDLabel)
+                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TrainIDLabel)
+                    .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RouteIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RouteIDLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RouteIDLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RouteIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SpeedLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(IDPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PowerLabel)
+                    .addComponent(PowerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         ModePane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
@@ -323,6 +345,14 @@ public class TrainControllerUI extends javax.swing.JFrame {
         SpeedSlider.setPaintTicks(true);
         SpeedSlider.setValue(55);
 
+        SetSpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
+        SetSpeedLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SetSpeedLabel.setText("MPH");
+
+        SetSpeedText.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        SetSpeedText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        SetSpeedText.setText("55");
+
         javax.swing.GroupLayout SpeedPaneLayout = new javax.swing.GroupLayout(SpeedPane);
         SpeedPane.setLayout(SpeedPaneLayout);
         SpeedPaneLayout.setHorizontalGroup(
@@ -330,11 +360,23 @@ public class TrainControllerUI extends javax.swing.JFrame {
             .addGroup(SpeedPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(SpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SpeedPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SetSpeedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SetSpeedText))
+                .addContainerGap())
         );
         SpeedPaneLayout.setVerticalGroup(
             SpeedPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SpeedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(SpeedPaneLayout.createSequentialGroup()
+                .addComponent(SpeedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpeedPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SetSpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SetSpeedLabel)
+                .addGap(85, 85, 85))
         );
 
         StopButton.setBackground(new java.awt.Color(255, 92, 92));
@@ -365,16 +407,16 @@ public class TrainControllerUI extends javax.swing.JFrame {
         BlockLimitPane.setLayout(BlockLimitPaneLayout);
         BlockLimitPaneLayout.setHorizontalGroup(
             BlockLimitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BlockLimitPaneLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BlockLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
             .addGroup(BlockLimitPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BlockLimitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BlockLimitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BlockLimitLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BlockLimitPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BlockLimitText, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
         );
         BlockLimitPaneLayout.setVerticalGroup(
             BlockLimitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,47 +430,6 @@ public class TrainControllerUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        SPPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        SpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        SpeedLabel.setText("Speed:");
-
-        PowerLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        PowerLabel.setText("Power:");
-
-        SpeedText.setText("55");
-
-        PowerText.setText("30");
-
-        javax.swing.GroupLayout SPPaneLayout = new javax.swing.GroupLayout(SPPane);
-        SPPane.setLayout(SPPaneLayout);
-        SPPaneLayout.setHorizontalGroup(
-            SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SPPaneLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SpeedLabel)
-                    .addComponent(PowerLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SpeedText)
-                    .addComponent(PowerText, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-        SPPaneLayout.setVerticalGroup(
-            SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SPPaneLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SpeedLabel)
-                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SPPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PowerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PowerLabel))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
         NotificationsPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
 
         javax.swing.GroupLayout NotificationsPaneLayout = new javax.swing.GroupLayout(NotificationsPane);
@@ -439,7 +440,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         );
         NotificationsPaneLayout.setVerticalGroup(
             NotificationsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         MovementPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -461,7 +462,52 @@ public class TrainControllerUI extends javax.swing.JFrame {
             .addGroup(MovementPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(MovementText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        GainPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gain", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
+
+        KpLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        KpLabel.setText("Kp");
+
+        KiLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        KiLabel.setText("Ki");
+
+        KpText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KpTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout GainPaneLayout = new javax.swing.GroupLayout(GainPane);
+        GainPane.setLayout(GainPaneLayout);
+        GainPaneLayout.setHorizontalGroup(
+            GainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GainPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GainPaneLayout.createSequentialGroup()
+                        .addComponent(KiLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(KiText))
+                    .addGroup(GainPaneLayout.createSequentialGroup()
+                        .addComponent(KpLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(KpText)))
+                .addContainerGap())
+        );
+        GainPaneLayout.setVerticalGroup(
+            GainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GainPaneLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(GainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(KpLabel)
+                    .addComponent(KpText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(GainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(KiLabel)
+                    .addComponent(KiText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -470,19 +516,19 @@ public class TrainControllerUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(IDPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(CarControlsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SPPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CarControlsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GainPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(StopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(NotificationsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MovementPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(MovementPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(IDPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ModePane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(SpeedPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(StopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BlockLimitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -492,24 +538,25 @@ public class TrainControllerUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(IDPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(CarControlsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(SPPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(IDPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NotificationsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NotificationsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MovementPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ModePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BlockLimitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SpeedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(ModePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(BlockLimitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(SpeedPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(CarControlsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(GainPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -523,6 +570,10 @@ public class TrainControllerUI extends javax.swing.JFrame {
     private void ModeAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModeAutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModeAutoActionPerformed
+
+    private void KpTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KpTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KpTextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -570,12 +621,17 @@ public class TrainControllerUI extends javax.swing.JFrame {
     private javax.swing.JPanel BlockLimitPane;
     private javax.swing.JTextField BlockLimitText;
     private javax.swing.JPanel CarControlsPane;
+    private javax.swing.JPanel GainPane;
     private javax.swing.ButtonGroup HeatButtons;
     private javax.swing.JRadioButton HeatFail;
     private javax.swing.JLabel HeatLabel;
     private javax.swing.JRadioButton HeatOff;
     private javax.swing.JRadioButton HeatOn;
     private javax.swing.JPanel IDPane;
+    private javax.swing.JLabel KiLabel;
+    private javax.swing.JTextField KiText;
+    private javax.swing.JLabel KpLabel;
+    private javax.swing.JTextField KpText;
     private javax.swing.ButtonGroup LeftDoorButtons;
     private javax.swing.JRadioButton LeftDoorClosed;
     private javax.swing.JRadioButton LeftDoorFail;
@@ -602,7 +658,8 @@ public class TrainControllerUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton RightDoorOpen;
     private javax.swing.JLabel RouteIDLabel;
     private javax.swing.JTextField RouteIDText;
-    private javax.swing.JPanel SPPane;
+    private javax.swing.JLabel SetSpeedLabel;
+    private javax.swing.JTextField SetSpeedText;
     private javax.swing.JLabel SpeedLabel;
     private javax.swing.JPanel SpeedPane;
     private javax.swing.JSlider SpeedSlider;
