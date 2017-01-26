@@ -447,7 +447,7 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="jLabel35">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Section.Block:"/>
+                    <Property name="text" type="java.lang.String" value="Line.Section.Block:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField20">
@@ -1091,7 +1091,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel36">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Section.Block:"/>
+                    <Property name="text" type="java.lang.String" value="Line.Section.Block:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField4">
@@ -1216,7 +1216,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="90" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1291,7 +1291,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Section.Block:"/>
+                <Property name="text" type="java.lang.String" value="Line.Section.Block:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
@@ -1480,7 +1480,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel37">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Section.Block:"/>
+                <Property name="text" type="java.lang.String" value="Line.Section.Block:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField22">

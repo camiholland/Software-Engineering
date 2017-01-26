@@ -238,7 +238,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel35.setText("Section.Block:");
+        jLabel35.setText("Line.Section.Block:");
 
         jTextField20.setText("A.1");
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
@@ -589,7 +589,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel36.setText("Section.Block:");
+        jLabel36.setText("Line.Section.Block:");
 
         jTextField4.setText("A.2");
 
@@ -777,7 +777,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel19.setText("Authority:");
 
-        jLabel20.setText("Section.Block:");
+        jLabel20.setText("Line.Section.Block:");
 
         jLabel21.setText("Encoded:");
 
@@ -830,7 +830,7 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 90, Short.MAX_VALUE)))
+                        .addGap(0, 46, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         TrackCircuitLayout.setVerticalGroup(
@@ -895,7 +895,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel37.setText("Section.Block:");
+        jLabel37.setText("Line.Section.Block:");
 
         jTextField22.setText("A.2");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
