@@ -63,10 +63,12 @@ public class gui extends javax.swing.JFrame {
 
         redDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
+                {"000011", "9:45:00 PM"},
+                {"000013", "9:55:00 PM"},
+                {"000015", "10:05:00 PM"},
+                {"000016", "10:15:00 PM"},
+                {"000018", "10:25:00 PM"},
+                {"000020", "10:35:00 PM"},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -97,10 +99,12 @@ public class gui extends javax.swing.JFrame {
 
         greenDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
+                {"000010", "9:40:00 PM"},
+                {"000012", "9:50:00 PM"},
+                {"000014", "10:00:00 PM"},
+                {"000016", "10:10:00 PM"},
+                {"000018", "10:20:00 PM"},
+                {"000020", "10:30:00 PM"},
                 {null, null},
                 {null, null},
                 {null, null},
