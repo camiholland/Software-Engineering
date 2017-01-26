@@ -72,10 +72,20 @@ public class time{
         System.out.println(t.charAt(0)+""+t.charAt(1)+":"+t.charAt(2)+""+t.charAt(3)+":"+t.charAt(4)+""+t.charAt(5));
     }
     public static String stringTime(int time){
+        String ampm;
+        if (time>120000){
+            time=time-120000;
+            ampm="PM";
+        }
+        else{
+            ampm="AM";
+        }
         String t=""+time+"        ";
+        if (time<100000){
+            t="0"+t; 
+        }
         
-        if (t.length()==5){ t="0"+t; }
-        t=(t.charAt(0)+""+t.charAt(1)+":"+t.charAt(2)+""+t.charAt(3)+":"+t.charAt(4)+""+t.charAt(5));
+        t=(t.charAt(0)+""+t.charAt(1)+":"+t.charAt(2)+""+t.charAt(3)+":"+t.charAt(4)+""+t.charAt(5)+" "+ampm);
         return t;
     }
 }
