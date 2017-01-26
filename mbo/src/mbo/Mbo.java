@@ -20,7 +20,7 @@ public class Mbo {
     public static void main(String[] args) throws FileNotFoundException {
         String timeOutput="00:00:00";
         int running=1;
-        int timeConstant = 10;
+        int timeConstant = 1;
         int startTime=time.get(0, timeConstant);
         int currentTime=startTime;
         timeOutput=time.stringTime(startTime);
