@@ -14,6 +14,7 @@ public class gui extends javax.swing.JFrame {
     public gui() {
         System.out.println("before");
         initComponents();
+        DisplayPassengerCount.setText ("315");
         System.out.println("after");
         
     }
@@ -135,6 +136,9 @@ public class gui extends javax.swing.JFrame {
 
         displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"234", "8:00 PM", "TAKEN"},
+                {"001","10:00 PM", " NONE "},
+                {"002", "10:30PM", "NONE"},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -159,7 +163,7 @@ public class gui extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Worker ID", "Hours", "Break"
+                "Worker ID", "Time", "Break"
             }
         ) {
             Class[] types = new Class [] {
@@ -182,7 +186,7 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText(" Today's Passenger Count :");
+        jLabel1.setText("Passenger Count :");
 
         jLabel6.setText("Time:");
 
@@ -201,8 +205,8 @@ public class gui extends javax.swing.JFrame {
 
         displayClosedTrack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
+                {"Track 47 Closed : 4:47 PM"},
+                {"Track 110 CLosed : 5:57 PM"},
                 {null},
                 {null},
                 {null},
@@ -228,9 +232,12 @@ public class gui extends javax.swing.JFrame {
 
         trainDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
+                {"101","Red", "12: 0.12", "30 mph", "2.0 mi", "14"},
+               {"031","Green", "56: 0.13", "30 mph", "2.0 mi", "24"},
+                {"561","Red", "28: 0.10", "30 mph", "2.0 mi", "23"},
+                {"041","Red", "128: 0.23", "30 mph", "2.0 mi", "54"},
+                 {"401","Green", "134: 1.34", "20 mph", "2.6 mi", "200"},
+                  
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
