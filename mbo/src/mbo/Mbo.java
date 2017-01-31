@@ -24,7 +24,7 @@ public class Mbo {
         int startTime=time.get(0, timeConstant);
         int currentTime=startTime;
         timeOutput=time.stringTime(startTime);
-        ui2 ui = new ui2(); // GUI gui = new GUI() as well
+        ui3 ui = new ui3(); // GUI gui = new GUI() as well
         ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // ui.setTime(timeOutput);
         ui.setVisible(true);
