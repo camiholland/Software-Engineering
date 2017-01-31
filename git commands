@@ -1,0 +1,13 @@
+
+copy files into "Software-Engineering" folder on Desktop
+
+Commands to push to new GIT
+
+angie@MischiefManaged ~/Desktop $ git clone git@github.com:camiholland/Software-Engineering.git
+
+::copy and pasy module file into new Git file::
+
+angie@MischiefManaged ~/Desktop/Software-Engineering $ git add -A
+angie@MischiefManaged ~/Desktop/Software-Engineering $ git commit -m "mbo version 1"
+angie@MischiefManaged ~/Desktop/Software-Engineering $ git push
+
