@@ -20,14 +20,12 @@ public interface TrackToWaysideInterface extends TrackToCircuitInterface{
 	 *The settings of the track lights will be decided by the wayside controller and can be changed
 	 *using this method.
 	 *
-	 *@param line		Red/Green line 
-	 *@param section	Letter indicating the section of track light is found on.
-	 *@param block		Block number for more specific location (might not be necessary)
+	 *@param block		Block number for more specific location
 	 *@param direction	True means alphabetical order, False means reverse alphabetical, check map for reference
 	 *@param light		True for green (open), false for red (closed)
 	 *@return			True, if light succesfully changes. False, if no change occurs.
 	*/
-	public boolean setLights(char line, char section, int block, boolean direction, boolean light);
+	public boolean setLights(int block, boolean direction, boolean light);
 	
 	/*
 	 *The railroad crossing can be turned on or off with this method.

@@ -9,7 +9,6 @@ package trackmodel;
  * @author Kevin Carr
  */
 public interface TrackToCircuitInterface extends TrackModelInterface{
-    public int getSpeedLimit(int block);
     public int getSetPointSpeed();
     public int getSetAuthority();
     public boolean isTrainPresent(int block);
