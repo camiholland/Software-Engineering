@@ -7,12 +7,12 @@ package com.wonderfresh.trackcontroller;
 
 /**
  *
- * @author Orin
+ * @author obkeel
  */
 public class TrackControllerUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form TrainControllerUI
+     * Creates new form TrackControllerPickerUI
      */
     public TrackControllerUI() {
         initComponents();
@@ -27,198 +27,269 @@ public class TrackControllerUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ACButtons = new javax.swing.ButtonGroup();
-        HeatButtons = new javax.swing.ButtonGroup();
-        LightsButtons = new javax.swing.ButtonGroup();
-        LeftDoorButtons = new javax.swing.ButtonGroup();
-        RightDoorButtons = new javax.swing.ButtonGroup();
-        ModeButtons = new javax.swing.ButtonGroup();
-        BlockPane = new javax.swing.JPanel();
-        TrainIDLabel = new javax.swing.JLabel();
-        RouteIDLabel = new javax.swing.JLabel();
+        TrackControllerPane = new javax.swing.JPanel();
+        TrainIDText = new javax.swing.JTextField();
+        RouteIDText = new javax.swing.JTextField();
         SpeedLabel = new javax.swing.JLabel();
         SpeedText = new javax.swing.JTextField();
         PowerText = new javax.swing.JTextField();
-        PowerLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        blockComboBox = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        SpeedLabel1 = new javax.swing.JLabel();
+        SpeedLabel2 = new javax.swing.JLabel();
+        SpeedLabel3 = new javax.swing.JLabel();
+        SpeedLabel5 = new javax.swing.JLabel();
+        SpeedLabel6 = new javax.swing.JLabel();
+        SpeedText1 = new javax.swing.JTextField();
+        PowerLabel1 = new javax.swing.JLabel();
+        PowerLabel2 = new javax.swing.JLabel();
+        PowerLabel3 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        SpeedText3 = new javax.swing.JTextField();
+        SpeedText4 = new javax.swing.JTextField();
+        TrackControllerPane1 = new javax.swing.JPanel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        TrackControllerPane2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        PLCPane = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        NotificationsPane = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        TrackControllerPane3 = new javax.swing.JPanel();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
+        TrackControllerPane4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BlockPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
+        TrackControllerPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Block Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
 
-        TrainIDLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        TrainIDLabel.setText("Section:");
+        TrainIDText.setText("45");
 
-        RouteIDLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        RouteIDLabel.setText("Block:");
+        RouteIDText.setText("Green Line");
 
         SpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        SpeedLabel.setText("Train Presence:");
+        SpeedLabel.setText("Section:");
 
-        SpeedText.setText("No switch for Block 1");
-        SpeedText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SpeedTextActionPerformed(evt);
-            }
-        });
+        SpeedText.setText("No crossing in this block.");
 
-        PowerText.setText("Train 5");
+        PowerText.setText("Yes");
 
-        PowerLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        PowerLabel.setText("Switch:");
+        SpeedLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel1.setText("Line:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Section A", "Section B", "Section C", "Section D" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        SpeedLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel2.setText("Block:");
 
-        blockComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Block 1", "Block 2", "Block 3", "Block 4" }));
+        SpeedLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel3.setText("Set Speed:");
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        jLabel1.setText("Block Status:");
+        SpeedLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel5.setText("Crossing:");
 
-        jTextField1.setText("Open");
+        SpeedLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        SpeedLabel6.setText("Signal:");
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        jLabel2.setText("Railway Crossing:");
+        SpeedText1.setText("Green Light");
 
-        jTextField2.setText("Activated");
+        PowerLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        PowerLabel1.setText("Switch:");
 
-        javax.swing.GroupLayout BlockPaneLayout = new javax.swing.GroupLayout(BlockPane);
-        BlockPane.setLayout(BlockPaneLayout);
-        BlockPaneLayout.setHorizontalGroup(
-            BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BlockPaneLayout.createSequentialGroup()
+        PowerLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        PowerLabel2.setText("Open:");
+
+        PowerLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        PowerLabel3.setText("Train Present:");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Section A", "Section B", "Section C", "Section D" }));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Block 1", "Block 2", "Block 3", "Block 4" }));
+
+        SpeedText3.setText("Switch connected to Block 2");
+
+        SpeedText4.setText("No");
+
+        javax.swing.GroupLayout TrackControllerPaneLayout = new javax.swing.GroupLayout(TrackControllerPane);
+        TrackControllerPane.setLayout(TrackControllerPaneLayout);
+        TrackControllerPaneLayout.setHorizontalGroup(
+            TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TrainIDLabel)
-                    .addComponent(RouteIDLabel)
-                    .addComponent(jLabel1)
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PowerLabel3)
+                    .addComponent(PowerLabel1)
+                    .addComponent(SpeedLabel6)
+                    .addComponent(SpeedLabel5)
+                    .addComponent(SpeedLabel3)
                     .addComponent(SpeedLabel)
-                    .addComponent(PowerLabel)
-                    .addComponent(jLabel2))
+                    .addComponent(SpeedLabel1)
+                    .addComponent(SpeedLabel2)
+                    .addComponent(PowerLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(blockComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PowerText)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2)
-                    .addComponent(SpeedText, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RouteIDText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TrainIDText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SpeedText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SpeedText1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SpeedText3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PowerText, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SpeedText4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
-        BlockPaneLayout.setVerticalGroup(
-            BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BlockPaneLayout.createSequentialGroup()
+        TrackControllerPaneLayout.setVerticalGroup(
+            TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TrainIDLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RouteIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(blockComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel1)
+                    .addComponent(RouteIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PowerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SpeedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel2)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PowerLabel))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel3)
+                    .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BlockPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        PLCPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PLC Program", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        jLabel3.setText("Enter Program:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        jLabel4.setText("Upload File:");
-
-        jButton1.setText("Upload PLC Program");
-
-        javax.swing.GroupLayout PLCPaneLayout = new javax.swing.GroupLayout(PLCPane);
-        PLCPane.setLayout(PLCPaneLayout);
-        PLCPaneLayout.setHorizontalGroup(
-            PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PLCPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel5)
+                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                    .addGroup(PLCPaneLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        PLCPaneLayout.setVerticalGroup(
-            PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PLCPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PLCPaneLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PLCPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel4))
-                        .addContainerGap(34, Short.MAX_VALUE))
-                    .addGroup(PLCPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        NotificationsPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
-
-        jLabel5.setText("- List Notifications possibly generated by PLC program");
-
-        javax.swing.GroupLayout NotificationsPaneLayout = new javax.swing.GroupLayout(NotificationsPane);
-        NotificationsPane.setLayout(NotificationsPaneLayout);
-        NotificationsPaneLayout.setHorizontalGroup(
-            NotificationsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NotificationsPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        NotificationsPaneLayout.setVerticalGroup(
-            NotificationsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NotificationsPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedLabel6)
+                    .addComponent(SpeedText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PowerLabel1)
+                    .addComponent(SpeedText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PowerLabel2)
+                    .addComponent(PowerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TrackControllerPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PowerLabel3)
+                    .addComponent(SpeedText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        TrackControllerPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Track Controller", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Track Controller 1", "Track Controller 2", "Track Controller 3", "Track Controller 4" }));
+
+        jButton4.setText("Open New Window");
+
+        javax.swing.GroupLayout TrackControllerPane1Layout = new javax.swing.GroupLayout(TrackControllerPane1);
+        TrackControllerPane1.setLayout(TrackControllerPane1Layout);
+        TrackControllerPane1Layout.setHorizontalGroup(
+            TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TrackControllerPane1Layout.setVerticalGroup(
+            TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        TrackControllerPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Upload PLC Program", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
+
+        jTextField1.setText("C:/Users/obkeel/Documents/PLC.txt");
+
+        jButton1.setText("Pick File");
+
+        jButton2.setText("Submit File");
+
+        javax.swing.GroupLayout TrackControllerPane2Layout = new javax.swing.GroupLayout(TrackControllerPane2);
+        TrackControllerPane2.setLayout(TrackControllerPane2Layout);
+        TrackControllerPane2Layout.setHorizontalGroup(
+            TrackControllerPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TrackControllerPane2Layout.setVerticalGroup(
+            TrackControllerPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TrackControllerPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        TrackControllerPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Running Mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active Mode", "Test Mode" }));
+
+        jButton3.setText("Set Mode");
+
+        javax.swing.GroupLayout TrackControllerPane3Layout = new javax.swing.GroupLayout(TrackControllerPane3);
+        TrackControllerPane3.setLayout(TrackControllerPane3Layout);
+        TrackControllerPane3Layout.setHorizontalGroup(
+            TrackControllerPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap())
+        );
+        TrackControllerPane3Layout.setVerticalGroup(
+            TrackControllerPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TrackControllerPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        TrackControllerPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "- Track Closures", "- Communication with Communications Controller", "- Change in Track Model Values", "- Light and switch activations" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        javax.swing.GroupLayout TrackControllerPane4Layout = new javax.swing.GroupLayout(TrackControllerPane4);
+        TrackControllerPane4.setLayout(TrackControllerPane4Layout);
+        TrackControllerPane4Layout.setHorizontalGroup(
+            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrackControllerPane4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        TrackControllerPane4Layout.setVerticalGroup(
+            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TrackControllerPane4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,39 +298,34 @@ public class TrackControllerUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BlockPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PLCPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(TrackControllerPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TrackControllerPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TrackControllerPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TrackControllerPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NotificationsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TrackControllerPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NotificationsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TrackControllerPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BlockPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TrackControllerPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PLCPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(TrackControllerPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TrackControllerPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TrackControllerPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        BlockPane.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SpeedTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SpeedTextActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,32 +363,37 @@ public class TrackControllerUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup ACButtons;
-    private javax.swing.JPanel BlockPane;
-    private javax.swing.ButtonGroup HeatButtons;
-    private javax.swing.ButtonGroup LeftDoorButtons;
-    private javax.swing.ButtonGroup LightsButtons;
-    private javax.swing.ButtonGroup ModeButtons;
-    private javax.swing.JPanel NotificationsPane;
-    private javax.swing.JPanel PLCPane;
-    private javax.swing.JLabel PowerLabel;
+    private javax.swing.JLabel PowerLabel1;
+    private javax.swing.JLabel PowerLabel2;
+    private javax.swing.JLabel PowerLabel3;
     private javax.swing.JTextField PowerText;
-    private javax.swing.ButtonGroup RightDoorButtons;
-    private javax.swing.JLabel RouteIDLabel;
+    private javax.swing.JTextField RouteIDText;
     private javax.swing.JLabel SpeedLabel;
+    private javax.swing.JLabel SpeedLabel1;
+    private javax.swing.JLabel SpeedLabel2;
+    private javax.swing.JLabel SpeedLabel3;
+    private javax.swing.JLabel SpeedLabel5;
+    private javax.swing.JLabel SpeedLabel6;
     private javax.swing.JTextField SpeedText;
-    private javax.swing.JLabel TrainIDLabel;
-    private javax.swing.JComboBox<String> blockComboBox;
+    private javax.swing.JTextField SpeedText1;
+    private javax.swing.JTextField SpeedText3;
+    private javax.swing.JTextField SpeedText4;
+    private javax.swing.JPanel TrackControllerPane;
+    private javax.swing.JPanel TrackControllerPane1;
+    private javax.swing.JPanel TrackControllerPane2;
+    private javax.swing.JPanel TrackControllerPane3;
+    private javax.swing.JPanel TrackControllerPane4;
+    private javax.swing.JTextField TrainIDText;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
