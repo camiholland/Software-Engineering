@@ -58,4 +58,8 @@ public class Schedule {
         String s=("Line: "+a.line+"\t\tDeparture Time: "+h+":"+m);
         return s;
     }
+    public String getClosedTrack(){
+        
+        return null;
+    }
 }

@@ -3,7 +3,11 @@ import java.time.LocalTime;
 import java.util.Calendar;
 
 public class time{
-    public static int get(int beginTime, int TIMECONST){
+    int hr;
+    int min;
+    int sec;
+    
+    public static int get10x(int beginTime, int TIMECONST){
         LocalTime l = LocalTime.now();
         int militaryTime=0;
         //b for beginning time
@@ -64,28 +68,87 @@ public class time{
         }
         return militaryTime;
     }
-    public static void printTime(int time){
-        String t="      "+time;
-        //System.out.println("time: "+time+" String t:"+t+ "t.charAt(0)= "+t.charAt(0));
-        //System.out.println("length: "+t.length());
-        if (t.length()==5){ t="0"+t; }
-        System.out.println(t.charAt(0)+""+t.charAt(1)+":"+t.charAt(2)+""+t.charAt(3)+":"+t.charAt(4)+""+t.charAt(5));
-    }
-    public static String stringTime(int time){
+    
+    // Given time t, outputs time as "12:01:12 PM"
+    public static String stringTime(time t){
         String ampm;
-        if (time>120000){
-            time=time-120000;
-            ampm="PM";
+        int hour;
+        if(t.hr>12){hour=t.hr-12;}
+            else{hour=t.hr; }
+        if (t.hr>=12){ampm="PM"; }
+            else{ampm="AM";}
+        String h,m,s;
+        if(hour<10){h="0"+hour;}
+            else{h=""+hour;}
+        if(t.min<10){m="0"+t.min;}
+            else{m=""+t.min;}
+        if(t.sec<10){s="0"+t.sec;}
+            else{s=""+t.sec;}
+        String tString=" "+h+":"+m+":"+s+" "+ampm+" " ;
+        return tString;
+    }
+    /*
+     *   increments time when passed to function
+     *   increments by inc in format hhmmss
+     *   returns int endtime in format hhmmss
+     */       
+    public int increment(time t,int inc){
+        int endtime=0;
+        //get present time
+        LocalTime l = LocalTime.now();
+        int seconds=    l.getSecond();
+        int minutes=    l.getMinute();
+        int hours=      l.getHour();
+        //break increment
+        int iSeconds=   inc%100;
+        int iMinutes=   inc%10000;
+        int iHours=     inc%1000000;
+        //add increment
+        int eSeconds=seconds+iSeconds;
+        if (eSeconds>=60){
+            eSeconds=eSeconds-60;
+            minutes++;
         }
-        else{
-            ampm="AM";
+        int eMinutes=minutes+iMinutes;
+        if (eMinutes>=60){
+            eMinutes=eMinutes-60;
+            hours++;
         }
-        String t=""+time+"        ";
-        if (time<100000){
-            t="0"+t; 
+        int eHours=hours+iHours;
+        if(eHours>=24){
+            eHours=eHours-24;
         }
         
-        t=(t.charAt(0)+""+t.charAt(1)+":"+t.charAt(2)+""+t.charAt(3)+":"+t.charAt(4)+""+t.charAt(5)+" "+ampm);
-        return t;
+        return endtime;
     }
+    public static time getTimeNow(){
+        time n=new time();
+        LocalTime l = LocalTime.now();
+        n.sec=    l.getSecond();
+        n.min=    l.getMinute();
+        n.hr=      l.getHour();
+        return n;
+    }
+    
+    /*
+    put in 2 times and figure out if a is before b
+    if a is before b:return 1
+    if a is after b: return -1
+    if a=b return 0;
+    assumes a and b are within 6 hours of each other
+    */
+    public int getFirst(time a, time b){
+        int x;
+        if (a.hr<b.hr){
+            if (a.hr<18 && b.hr>a.hr){
+                return 1;
+            }
+            if(a.hr<18 && b.hr<a.hr){
+               return -1;
+            }
+        }
+        
+        return 0;
+    }
+            
 }
