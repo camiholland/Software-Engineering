@@ -2,6 +2,7 @@
 
 package mbo;
 public class closedTrack {
+    closedTrack[] closedtrackString;
     int blockNum;
     String problem;
     int timeToFix;
@@ -30,4 +31,5 @@ public class closedTrack {
         String s="Line:"+line+" Block:"+blockNum+" closed at:"+closingTime+"Problem:"+problem+" time to Fix:"+timeToFix; 
         return s;
     }
+    
 }

@@ -55,49 +55,28 @@ public class ui extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         displayClosedTrack = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        clockLabel = new javax.swing.JLabel();
+        clock = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-
+        passengerCount = new javax.swing.JTextField();
+        mboLabel = new javax.swing.JLabel();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel4.setText("Enter number of Drivers for the week :");
-
-        //numberOfDrivers.setText("10");
         numberOfDrivers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numberOfDriversActionPerformed(evt);
-            }
+            public void actionPerformed(java.awt.event.ActionEvent evt) { }
         });
         jLabel5.setText("Enter the number of passengers for the Green Train:");
-         greenText.setText("10,000");
+         greenText.setText("1000");
          greenText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                greenTextActionPerformed(evt);
-            }
-
-            private void greenTextActionPerformed(ActionEvent evt) {
-                String s=greenText.getText();
-                int i=Integer.parseInt(s);
-                greenPass=i; 
-            }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {}
         });
-         redText.setText("15,000");
+         redText.setText("1500");
         redText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                redTextActionPerformed(evt);
-            }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {}
         });
 
         jLabel6.setText("Enter the number of passengers for the Red Train:");
         generateButton.setText("Generate");
-
-        
-        
-        
-        
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -139,9 +118,7 @@ public class ui extends javax.swing.JFrame {
                 .addComponent(generateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(169, Short.MAX_VALUE))
         );
-
         jTabbedPane1.addTab("Generate Schedule", jPanel2);
-
         displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
             new String [][] {
                 {null, null, null, null, null, null, null, null},
@@ -178,13 +155,8 @@ public class ui extends javax.swing.JFrame {
                 true, true, true, true, true, true, true, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
+            public Class getColumnClass(int columnIndex) {return types [columnIndex];  }
+            public boolean isCellEditable(int rowIndex, int columnIndex) {return canEdit [columnIndex];}
         });
         jScrollPane4.setViewportView(displayWorkers);
 
@@ -295,8 +267,6 @@ public class ui extends javax.swing.JFrame {
 
         trainDetails1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"0105","YARD", "0-Waiting","0","0"},
-                {"0016", "58 : 22", "36 ", "428", "32"},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -327,8 +297,6 @@ public class ui extends javax.swing.JFrame {
 
         trainDetails2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"0011","YARD", "0-Waiting","0","0"},
-                {"0012", "117 : 34", "40 ", "909", "107"},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -421,21 +389,22 @@ public class ui extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Track Details", jPanel8);
 
-        jLabel1.setText("Time:");
-
-        jTextField1.setText("textfield1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        clockLabel.setText("Time:");
+        clock.setText("");
+        clock.setEditable(false);
+        clock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                clockActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Total Daily Passengers:");
 
-        jTextField2.setText("               3,456");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        passengerCount.setText("               3,456");
+        passengerCount.setEditable(false);
+        passengerCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                passengerCountActionPerformed(evt);
             }
         });
         generateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -465,7 +434,7 @@ public class ui extends javax.swing.JFrame {
         
         
         
-        jLabel3.setText("MBO & Scheduler");
+        mboLabel.setText("MBO & Scheduler");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -473,15 +442,15 @@ public class ui extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(jLabel3)
+                .addComponent(mboLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(3, 3, 3)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passengerCount, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
-                .addComponent(jLabel1)
+                .addComponent(clockLabel)
                 .addGap(1, 1, 1)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clock, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
@@ -489,11 +458,11 @@ public class ui extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clockLabel)
+                    .addComponent(clock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2))
+                    .addComponent(mboLabel)
+                    .addComponent(passengerCount))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -520,9 +489,9 @@ public class ui extends javax.swing.JFrame {
     }// </editor-fold>                        
     
     
-    public void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {}                                           
+    public void clockActionPerformed(java.awt.event.ActionEvent evt) {}                                           
 
-    public void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {}                                           
+    public void passengerCountActionPerformed(java.awt.event.ActionEvent evt) {}                                           
 
     public void redTextActionPerformed(java.awt.event.ActionEvent evt) {}                                           
 
@@ -577,9 +546,9 @@ public class ui extends javax.swing.JFrame {
     public javax.swing.JTable trainScheduleDisplay;
     public javax.swing.JButton generateButton;
     public javax.swing.JComboBox jComboBox1;
-    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel clockLabel;
     public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel mboLabel;
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
@@ -598,8 +567,8 @@ public class ui extends javax.swing.JFrame {
     public javax.swing.JScrollPane jScrollPane8;
     public javax.swing.JScrollPane jScrollPane9;
     public javax.swing.JTabbedPane jTabbedPane1;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
+    public javax.swing.JTextField clock;
+    public javax.swing.JTextField passengerCount;
     public javax.swing.JTextField numberOfDrivers;
     public javax.swing.JTextField greenText;
     public javax.swing.JTextField redText;
