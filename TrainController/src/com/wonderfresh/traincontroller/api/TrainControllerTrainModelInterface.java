@@ -11,7 +11,7 @@ package com.wonderfresh.traincontroller.api;
  */
 public interface TrainControllerTrainModelInterface extends TrainControllerInterface {
     
-    public int setSpeed(int speed, int trainID);
+    public int setSpeed(double speed, int trainID);
     
     public int setPassengerCount(int passengerCount, int trainID);
     

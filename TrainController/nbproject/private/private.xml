@@ -5,7 +5,8 @@
         <group>
             <file>file:/Users/Austin/NetBeansProjects/Software-Engineering/TrainController/src/com/wonderfresh/traincontroller/TrainControllerUI.java</file>
             <file>file:/Users/Austin/NetBeansProjects/Software-Engineering/TrainController/src/com/wonderfresh/traincontroller/TrainControllerExecutable.java</file>
-            <file>file:/Users/Austin/NetBeansProjects/Software-Engineering/TrainController/src/com/wonderfresh/traincontroller/TrainController.java</file>
+            <file>file:/Users/Austin/NetBeansProjects/Software-Engineering/TrainController/src/com/wonderfresh/traincontroller/model/TrainController.java</file>
+            <file>file:/Users/Austin/NetBeansProjects/Software-Engineering/TrainController/src/com/wonderfresh/traincontroller/model/PowerCalculator.java</file>
         </group>
     </open-files>
 </project-private>
