@@ -18,9 +18,14 @@ public class TrainControllerUI extends javax.swing.JFrame {
      * 
      * @param train
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public TrainControllerUI(TrainController train) {
         initComponents(); 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        NoteText.setLineWrap(true);
+        NoteText.setWrapStyleWord(true);
+        MemoText.setLineWrap(true);
+        MemoText.setWrapStyleWord(true);
         
         this.train = train;
     }
@@ -265,6 +270,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         SpeedLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         SpeedLabel.setText("Speed:");
 
+        SpeedText.setEditable(false);
         SpeedText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SpeedTextActionPerformed(evt);
@@ -365,12 +371,14 @@ public class TrainControllerUI extends javax.swing.JFrame {
 
         PointSpeedLabel.setText("Set Point Speed:");
 
+        PointSpeedText.setEditable(false);
         PointSpeedText.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         PointSpeedText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        PointSpeedText.setText("55");
+        PointSpeedText.setText("43");
 
         AuthorityLabel.setText("Authority:");
 
+        AuthorityText.setEditable(false);
         AuthorityText.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         AuthorityText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         AuthorityText.setText("100");
@@ -453,6 +461,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         BlockLimitLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BlockLimitLabel2.setText("MPH");
 
+        BlockLimitText.setEditable(false);
         BlockLimitText.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         BlockLimitText.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -485,6 +494,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
 
         NotificationsPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16))); // NOI18N
 
+        NoteText.setEditable(false);
         NoteText.setColumns(20);
         NoteText.setRows(5);
         NoteScroll.setViewportView(NoteText);
@@ -584,6 +594,8 @@ public class TrainControllerUI extends javax.swing.JFrame {
 
         SetTempLabel.setText("Set:");
         SetTempLabel.setToolTipText("");
+
+        CurrentTempText.setEditable(false);
 
         ACLabel.setText("A/C");
         ACLabel.setToolTipText("");
@@ -723,6 +735,11 @@ public class TrainControllerUI extends javax.swing.JFrame {
         MemoScroll.setViewportView(MemoText);
 
         MemoSend.setText("Send");
+        MemoSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MemoSendActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MemoPanelLayout = new javax.swing.GroupLayout(MemoPanel);
         MemoPanel.setLayout(MemoPanelLayout);
@@ -962,13 +979,29 @@ public class TrainControllerUI extends javax.swing.JFrame {
 
     private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
         
+        String notes = NoteText.getText();
+
         if (train.engageEmergencyBrake()) {
             StopButton.setText("Disengage Brake");
+            
+            NoteText.setText(notes + "\nEmergency Brake Engaged");
         } else {
             StopButton.setText("Emergency Brake");
+            
+            NoteText.setText(notes + "\nEmergency Brake Disengaged");
         }
         
     }//GEN-LAST:event_StopButtonActionPerformed
+
+    private void MemoSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemoSendActionPerformed
+        String msg = MemoText.getText();
+        
+        MemoText.setText("");
+        
+        String notes = NoteText.getText();
+        
+        NoteText.setText(String.format(notes + "\nMessage Sent: \"" + msg + "\""));
+    }//GEN-LAST:event_MemoSendActionPerformed
 
     public int setTrainID(int id){
         TrainIDText.setText("" + id);
@@ -1127,6 +1160,16 @@ public class TrainControllerUI extends javax.swing.JFrame {
     
     public int setSpeedLimit(int speed) {
         BlockLimitText.setText("" + speed);
+        
+        return 1;
+    }
+    
+    public int emergencyBrakeEngaged() {
+        StopButton.setText("Disengage Brake");
+        
+        String notes = NoteText.getText();
+        
+        NoteText.setText(notes + "\nEmergency Brake Engaged");
         
         return 1;
     }

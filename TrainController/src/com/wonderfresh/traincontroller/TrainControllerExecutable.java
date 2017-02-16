@@ -21,8 +21,8 @@ public class TrainControllerExecutable {
         Trains trains = new Trains();
         
         trains.addTrainController(new TrainController(1,3));
-        //trains.addTrainController(new TrainController(2,2));
-        //trains.addTrainController(new TrainController(3,1));
+        trains.addTrainController(new TrainController(2,2));
+        trains.addTrainController(new TrainController(3,1));
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

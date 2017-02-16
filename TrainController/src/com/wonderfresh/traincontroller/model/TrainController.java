@@ -193,8 +193,8 @@ public class TrainController {
           } else {
               setRealSpeed(realSpeed - 2.68);
           }
-      } else if (realSpeed <= setSpeed) {
-          setRealSpeed(realSpeed+1.75);
+      } else if (realSpeed < setSpeed) {
+          setRealSpeed(realSpeed+2);
       } else if (realSpeed > setSpeed) {
           setRealSpeed(realSpeed - 1);
       }
