@@ -42,7 +42,7 @@ public class PowerCalculator extends Thread{
         double M = 50*1000; //train is 50 metric tons / 1000kg
         double maxa = 0.5;
         double maxv = 70*((double)1000/(double)3600); // 70km/h * 1h/3600s * 1000m/1km
-        pMax = M*maxa*maxv;
+        pMax = 120000;
     }
 
     /**
@@ -129,9 +129,17 @@ public class PowerCalculator extends Thread{
 
                 //calculate power command
                 powerCommand = kp*ek + ki*uk;
+                
+                if (powerCommand >= pMax) {
+                    powerCommand = pMax;
+                }
                 if (vReq == 0 && vCur == 0) {
                     powerCommand = 0;
                 }
+            }
+            
+            if (vReq < vCur) {
+                powerCommand = 0;
             }
             
             train.setPowerCommand(powerCommand);

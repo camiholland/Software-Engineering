@@ -47,20 +47,19 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="NotificationsPane" max="32767" attributes="0"/>
+                  <Component id="MovementPane" alignment="0" max="32767" attributes="0"/>
+                  <Component id="IDPane" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="NotificationsPane" max="32767" attributes="0"/>
-                          <Component id="MovementPane" alignment="0" max="32767" attributes="0"/>
-                          <Component id="IDPane" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ModePane" max="32767" attributes="0"/>
-                          <Component id="SpeedPane" max="32767" attributes="0"/>
-                          <Component id="BlockLimitPane" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="MemoPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="MemoPanel" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="ModePane" max="32767" attributes="0"/>
+                  <Component id="SpeedPane" max="32767" attributes="0"/>
+                  <Component id="BlockLimitPane" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -335,7 +334,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="TrainIDText" max="32767" attributes="0"/>
-                      <Component id="SpeedText" alignment="0" pref="284" max="32767" attributes="0"/>
+                      <Component id="SpeedText" alignment="0" max="32767" attributes="0"/>
                       <Component id="RouteIDText" alignment="1" max="32767" attributes="0"/>
                       <Component id="PowerText" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -1084,16 +1083,13 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="MemoScroll" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="MemoSend" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="MemoScroll" min="-2" pref="355" max="-2" attributes="0"/>
+                      <Component id="MemoSend" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
