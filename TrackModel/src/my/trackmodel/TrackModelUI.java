@@ -5,20 +5,47 @@
  */
 
 package my.trackmodel;
-
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import trackmodel.TrackModel;
+import trackmodel.TrackGraph;
+import trackmodel.BetaBlock;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 /**
  *
  * @author kwc12
  */
 public class TrackModelUI extends javax.swing.JFrame {
-
+    private static ArrayList<Object[][]> Tracks;
+    private static TrackModel newTrack;
+    private static int lastTemp = 50;
     /**
      * Creates new form TrackModelUI
      */
-    public TrackModelUI() {
+    public TrackModelUI(){
+        
+        newTrack = new TrackModel();
+        
         initComponents();
-    }
+        
+        Timer timer = new Timer();
+        TimerTask tasknew;
+        tasknew = new TimerTask() {
 
+            @Override
+            public void run() {
+                String temp = newTrack.getTemp();
+                Auto_Temp_Text_Field.setText(temp);
+            }
+        };
+        timer.schedule(tasknew,10000,10000);
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,76 +61,78 @@ public class TrackModelUI extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel3 = new javax.swing.JLabel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        ExcelTable = new javax.swing.JTabbedPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        RedLineTable = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        GreenLineTable = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        RedSpecsTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        GreenSpecsTable = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel2 = new javax.swing.JLabel();
+        TrainMap = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        AutoTab = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        Auto_Temp_Text_Field = new javax.swing.JTextPane();
+        Auto_Temp_Label = new javax.swing.JLabel();
+        Auto_Heater_Label = new javax.swing.JLabel();
+        Auto_Heater_Text_Field = new javax.swing.JTextField();
+        NotificationBoardLabel = new javax.swing.JLabel();
+        TrainsOnTrackLabel = new javax.swing.JLabel();
+        TrainsOntrackField = new javax.swing.JTextField();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        AutoTab_SignalLightsText = new javax.swing.JTextArea();
+        FailureModesLabel = new javax.swing.JLabel();
+        BrokenRailLabel = new javax.swing.JLabel();
+        PowerFailureLabel = new javax.swing.JLabel();
+        TrackCircuitFailureLabel = new javax.swing.JLabel();
+        ToggleBrokenRail = new javax.swing.JToggleButton();
+        TogglePowerFailure = new javax.swing.JToggleButton();
+        ToggleTrackCircuitFailure = new javax.swing.JToggleButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        NotificationField = new javax.swing.JTextArea();
+        ManualTab = new javax.swing.JPanel();
+        Manual_Temp_Label = new javax.swing.JLabel();
+        Manual_Temp_Field = new javax.swing.JTextField();
+        ChangeTempButton = new javax.swing.JButton();
+        ChangeTempField = new javax.swing.JTextField();
+        ChangeTempLabel = new javax.swing.JLabel();
+        ReconfigureTrackLabel = new javax.swing.JLabel();
+        SubmitChangeButton = new javax.swing.JButton();
+        ChangeLine = new javax.swing.JTextField();
+        ChangeSection = new javax.swing.JTextField();
+        ChangeBlockNum = new javax.swing.JTextField();
+        ChangeBlockLen = new javax.swing.JTextField();
+        ChangeSpeed = new javax.swing.JTextField();
+        ChangeInfrastructure = new javax.swing.JTextField();
+        ChangeArrow = new javax.swing.JTextField();
+        ReconfigureEditor = new javax.swing.JTextField();
+        DateOfEdit = new javax.swing.JTextField();
+        ChangeSwitch = new javax.swing.JTextField();
+        HeaterSwitchLabel = new javax.swing.JLabel();
+        HeaterOnRadioButton = new javax.swing.JRadioButton();
+        HeaterOffRadioButton = new javax.swing.JRadioButton();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        ManTab_SignalLightText = new javax.swing.JTextArea();
+        DemoTab = new javax.swing.JPanel();
+        TrackControllerLabel = new javax.swing.JLabel();
+        DemoSetSpeed = new javax.swing.JTextField();
+        DemoSetAuthority = new javax.swing.JTextField();
+        DemoSetLine = new javax.swing.JTextField();
+        DemoSetSection = new javax.swing.JTextField();
+        DemoSetOrientation = new javax.swing.JTextField();
+        DemoSetLight = new javax.swing.JTextField();
+        SubmitInfoToTrainButton = new javax.swing.JButton();
+        SubmitInfoToTrackButton = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        DemoTab_SignalLightsText = new javax.swing.JTextArea();
+        MenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Open = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
 
         jLabel1.setText("jLabel1");
 
@@ -113,933 +142,504 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jLabel3.setText("TrackModelUI");
 
-        jTabbedPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
+        ExcelTable.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Red", "A", "1", null, null, null, "40", null},
-                {"Red", "A", "2", null, null, null, "40", null},
-                {"Red", "A", "3", null, null, null, "40", null},
-                {"Red", "B", "4", null, null, null, "40", null},
-                {"Red", "B", "5", null, null, null, "40", null},
-                {"Red", "B", "6", null, null, null, "40", null},
-                {"Red", "C", "7", null, null, null, "40", "STATION: SHADYSIDE"},
-                {"Red", "C", "8", null, null, null, "40", null},
-                {"Red", "C", "9", null, null, null, "40", "SWITCH TO/FROM YARD"},
-                {"Red", "D", "10", null, null, null, "40", null},
-                {"Red", "D", "11", null, null, null, "40", null},
-                {"Red", "D", "12", null, null, null, "40", null},
-                {"Red", "E", "13", null, null, null, "40", null},
-                {"Red", "E", "14", null, null, null, "40", null},
-                {"Red", "E", "15", null, null, null, "40", "SWITCH"},
-                {"Red", "F", "16", null, null, null, "40", "STATION: HERRON AVE"},
-                {"Red", "F", "17", null, null, null, "55", null},
-                {"Red", "F", "18", null, null, null, "70", null},
-                {"Red", "F", "19", null, null, null, "70", null},
-                {"Red", "F", "20", null, null, null, "70", null},
-                {"Red", "G", "21", null, null, null, "55", "STATION: SWISSVILLE"},
-                {"Red", "G", "22", null, null, null, "55", null},
-                {"Red", "G", "23", null, null, null, "55", null},
-                {"Red", "H", "24", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "25", null, null, null, "70", "STATION: PENN STATION; UNDERGROUND"},
-                {"Red", "H", "26", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "27", null, null, null, "70", "SWITCH; UNDERGROUND"},
-                {"Red", "H", "28", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "29", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "30", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "31", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "32", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "33", null, null, null, "70", "SWITCH; UNDERGROUND"},
-                {"Red", "H", "34", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "35", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "36", null, null, null, "70", "STATION: STEEL PLAZA; UNDERGROUND"},
-                {"Red", "H", "37", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "38", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "39", null, null, null, "70", "SWITCH; UNDERGROUND"},
-                {"Red", "H", "40", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "41", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "42", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "43", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "44", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "H", "45", null, null, null, "70", "STATION: FIRST AVE; UNDERGROUND"},
-                {"Red", "I", "46", null, null, null, "70", "UNDERGROUND"},
-                {"Red", "I", "47", null, null, null, "70", "RAILWAY CROSSING"},
-                {"Red", "I", "48", null, null, null, "70", "STATION: STATION SQUARE"},
-                {"Red", "J", "49", null, null, null, "60", null},
-                {"Red", "J", "50", null, null, null, "60", null},
-                {"Red", "J", "51", null, null, null, "55", null},
-                {"Red", "J", "52", null, null, null, "55", "SWITCH"},
-                {"Red", "J", "53", null, null, null, "55", null},
-                {"Red", "J", "54", null, null, null, "55", null},
-                {"Red", "K", "55", null, null, null, "55", null},
-                {"Red", "K", "56", null, null, null, "55", null},
-                {"Red", "K", "57", null, null, null, "55", null},
-                {"Red", "L", "58", null, null, null, "55", null},
-                {"Red", "L", "59", null, null, null, "55", null},
-                {"Red", "L", "60", null, null, null, "55", "STATION: SOUTH HILLS JUNCTION"},
-                {"Red", "M", "61", null, null, null, "55", null},
-                {"Red", "M", "62", null, null, null, "55", null},
-                {"Red", "M", "63", null, null, null, "55", null},
-                {"Red", "N", "64", null, null, null, "55", null},
-                {"Red", "N", "65", null, null, null, "55", null},
-                {"Red", "N", "66", null, null, null, "55", null},
-                {"Red", "O", "67", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "P", "68", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "P", "69", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "P", "70", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "Q", "71", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "R", "72", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "S", "73", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "S", "74", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "S", "75", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "T", "76", null, null, null, "55", "UNDERGROUND"},
-                {"Red", "U", "77", null, null, null, "35", null}
+        RedLineTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object[][]{
+
             },
             new String [] {
-                "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (km/hr)", "Infrastructure"
+                "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (mph)", "Infrastructure"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(RedLineTable);
 
-        jTabbedPane2.addTab("Red Line Tracking", jScrollPane3);
+        ExcelTable.addTab("Red Line Tracking", jScrollPane3);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        GreenLineTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Green", "A", "1", "", null, null, "55", ""},
-                {"Green", "A", "2", null, null, null, "55", "STATION: PIONEER"},
-                {"Green", "A", "3", null, null, null, "55", null},
-                {"Green", "B", "4", null, null, null, "55", null},
-                {"Green", "B", "5", null, null, null, "55", null},
-                {"Green", "B", "6", null, null, null, "55", null},
-                {"Green", "C", "7", null, null, null, "55", null},
-                {"Green", "C", "8", null, null, null, "55", null},
-                {"Green", "C", "9", null, null, null, "55", "STATION: EDGEBROOK"},
-                {"Green", "C", "10", null, null, null, "55", null},
-                {"Green", "C", "11", null, null, null, "55", null},
-                {"Green", "C", "12", null, null, null, "55", "SWITCH"},
-                {"Green", "D", "13", null, null, null, "70", null},
-                {"Green", "D", "14", null, null, null, "70", null},
-                {"Green", "D", "15", null, null, null, "70", null},
-                {"Green", "D", "16", null, null, null, "70", "STATION"},
-                {"Green", "E", "17", null, null, null, "60", null},
-                {"Green", "E", "18", null, null, null, "60", null},
-                {"Green", "E", "19", null, null, null, "60", "RAILWAY CROSSING"},
-                {"Green", "E", "20", null, null, null, "60", null},
-                {"Green", "F", "21", null, null, null, "70", null},
-                {"Green", "F", "22", null, null, null, "70", "STATION: WHITED"},
-                {"Green", "F", "23", null, null, null, "70", null},
-                {"Green", "F", "24", null, null, null, "70", null},
-                {"Green", "F", "25", null, null, null, "70", null},
-                {"Green", "F", "26", null, null, null, "70", null},
-                {"Green", "F", "27", null, null, null, "70", null},
-                {"Green", "F", "28", null, null, null, "70", null},
-                {"Green", "G", "29", null, null, null, "70", "SWITCH"},
-                {"Green", "G", "30", null, null, null, "70", null},
-                {"Green", "G", "31", null, null, null, "70", "STATION: SOUTH BANK"},
-                {"Green", "G", "32", null, null, null, "70", null},
-                {"Green", "H", "33", null, null, null, "70", null},
-                {"Green", "H", "34", null, null, null, "70", null},
-                {"Green", "H", "35", null, null, null, "70", null},
-                {"Green", "I", "36", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "37", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "38", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "39", null, null, null, "70", "STATION: CENTRAL; UNDERGROUND"},
-                {"Green", "I", "40", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "41", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "42", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "43", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "44", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "45", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "46", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "47", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "48", null, null, null, "70", "STATION: INGLEWOOD; UNDERGROUND"},
-                {"Green", "I", "49", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "50", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "51", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "52", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "53", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "54", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "55", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "56", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "I", "57", null, null, null, "70", "STATION: OVERBROOK; UNDERGROUND"},
-                {"Green", "J", "58", null, null, null, "60", "SWITCH TO YARD"},
-                {"Green", "J", "59", null, null, null, "60", null},
-                {"Green", "J", "60", null, null, null, "60", null},
-                {"Green", "J", "61", null, null, null, "60", null},
-                {"Green", "J", "62", null, null, null, "60", "SWITCH FROM YARD"},
-                {"Green", "K", "63", null, null, null, "70", null},
-                {"Green", "K", "64", null, null, null, "70", null},
-                {"Green", "K", "65", null, null, null, "70", "STATION: GLENBURY"},
-                {"Green", "K", "66", null, null, null, "70", null},
-                {"Green", "K", "67", null, null, null, "70", null},
-                {"Green", "K", "68", null, null, null, "70", null},
-                {"Green", "L", "69", null, null, null, "60", null},
-                {"Green", "L", "70", null, null, null, "60", null},
-                {"Green", "L", "71", null, null, null, "60", null},
-                {"Green", "L", "72", null, null, null, "60", null},
-                {"Green", "L", "73", null, null, null, "60", "STATION: DORMONT"},
-                {"Green", "M", "74", null, null, null, "60", null},
-                {"Green", "M", "75", null, null, null, "60", null},
-                {"Green", "M", "76", null, null, null, "60", "SWITCH"},
-                {"Green", "N", "77", null, null, null, "70", null},
-                {"Green", "N", "78", null, null, null, "70", "STATION: MT LEBANON"},
-                {"Green", "N", "79", null, null, null, "70", null},
-                {"Green", "N", "80", null, null, null, "70", null},
-                {"Green", "N", "81", null, null, null, "70", null},
-                {"Green", "N", "82", null, null, null, "70", null},
-                {"Green", "N", "83", null, null, null, "70", null},
-                {"Green", "N", "84", null, null, null, "70", null},
-                {"Green", "N", "85", null, null, null, "70", null},
-                {"Green", "O", "86", null, null, null, "55", "SWITCH"},
-                {"Green", "O", "87", null, null, null, "55", null},
-                {"Green", "O", "88", null, null, null, "55", "STATION: POPLAR"},
-                {"Green", "P", "89", null, null, null, "55", null},
-                {"Green", "P", "90", null, null, null, "55", null},
-                {"Green", "P", "91", null, null, null, "55", null},
-                {"Green", "P", "92", null, null, null, "55", null},
-                {"Green", "P", "93", null, null, null, "55", null},
-                {"Green", "P", "94", null, null, null, "55", null},
-                {"Green", "P", "95", null, null, null, "55", null},
-                {"Green", "P", "96", null, null, null, "55", "STATION: CASTLE SHANNON"},
-                {"Green", "P", "97", null, null, null, "55", null},
-                {"Green", "Q", "98", null, null, null, "55", null},
-                {"Green", "Q", "99", null, null, null, "55", null},
-                {"Green", "Q", "100", null, null, null, "55", null},
-                {"Green", "R", "101", null, null, null, "55", null},
-                {"Green", "S", "102", null, null, null, "60", null},
-                {"Green", "S", "103", null, null, null, "60", null},
-                {"Green", "S", "104", null, null, null, "60", null},
-                {"Green", "T", "105", null, null, null, "60", "STATION: DORMONT"},
-                {"Green", "T", "106", null, null, null, "60", null},
-                {"Green", "T", "107", null, null, null, "60", null},
-                {"Green", "T", "108", null, null, null, "60", null},
-                {"Green", "T", "109", null, null, null, "60", null},
-                {"Green", "U", "110", null, null, null, "70", null},
-                {"Green", "U", "111", null, null, null, "70", null},
-                {"Green", "U", "112", null, null, null, "70", null},
-                {"Green", "U", "113", null, null, null, "70", null},
-                {"Green", "U", "114", null, null, null, "70", "STATION: GLENBURY"},
-                {"Green", "U", "115", null, null, null, "70", null},
-                {"Green", "U", "116", null, null, null, "70", null},
-                {"Green", "V", "117", null, null, null, "60", null},
-                {"Green", "V", "118", null, null, null, "60", null},
-                {"Green", "V", "119", null, null, null, "60", null},
-                {"Green", "V", "120", null, null, null, "60", null},
-                {"Green", "V", "121", null, null, null, "60", null},
-                {"Green", "W", "122", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "123", null, null, null, "70", "STATION: OVERBROOK; UNDERGROUND"},
-                {"Green", "W", "124", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "125", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "126", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "127", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "128", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "129", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "130", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "131", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "132", null, null, null, "70", "STATION: INGLEWOOD; UNDERGROUND"},
-                {"Green", "W", "133", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "134", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "135", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "136", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "137", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "138", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "139", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "140", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "141", null, null, null, "70", "STATION: CENTRAL; UNDERGROUND"},
-                {"Green", "W", "142", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "W", "143", null, null, null, "70", "UNDERGROUND"},
-                {"Green", "X", "144", null, null, null, "70", null},
-                {"Green", "X", "145", null, null, null, "70", null},
-                {"Green", "X", "146", null, null, null, "70", null},
-                {"Green", "Y", "147", null, null, null, "70", null},
-                {"Green", "Y", "148", null, null, null, "70", null},
-                {"Green", "Y", "149", null, null, null, "70", null},
-                {"Green", "Z", "150", null, null, null, "70", null},
-                {"Green", "ZZ", "151", null, null, null, "35", null},
-                {"Green", "YY", "152", null, null, null, "35", null}
+
             },
             new String [] {
-                "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (km/h)", "Infrastructure"
+                "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (mph)", "Infrastructure"
             }
         ));
-        jScrollPane5.setViewportView(jTable3);
+        jScrollPane5.setViewportView(GreenLineTable);
 
-        jTabbedPane2.addTab("Green Line Tracking", jScrollPane5);
+        ExcelTable.addTab("Green Line Tracking", jScrollPane5);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Red", "A", "1", "50", "0.5", "Switch 6", "Head"},
-                {"Red", "A", "2", "50", "1", "", null},
-                {"Red", "A", "3", "50", "1.5", null, "Head"},
-                {"Red", "B", "4", "50", "2", null, "Head"},
-                {"Red", "B", "5", "50", "1.5", null, null},
-                {"Red", "B", "6", "50", "1", null, "Head"},
-                {"Red", "C", "7", "75", "0.5", null, "Head"},
-                {"Red", "C", "8", "75", "0", null, ""},
-                {"Red", "C", "9", "75", "0", "Switch 12", "Head"},
-                {"Red", "D", "10", "75", "0", "Switch 12", "Head"},
-                {"Red", "D", "11", "75", "0", null, null},
-                {"Red", "D", "12", "75", "-0.5", null, "Head"},
-                {"Red", "E", "13", "68.4", "-0.5", null, "Head"},
-                {"Red", "E", "14", "60", "-1", null, null},
-                {"Red", "E", "15", "60", "-1", "Switch 6", "Head"},
-                {"Red", "F", "16", "50", "-1", "Switch 6", "Head"},
-                {"Red", "F", "17", "200", "-0.5", null, null},
-                {"Red", "F", "18", "400", "-0.5", null, null},
-                {"Red", "F", "19", "400", "-0.06025", null, null},
-                {"Red", "F", "20", "200", "0", null, "Head"},
-                {"Red", "G", "21", "100", "0", null, "Head"},
-                {"Red", "G", "22", "100", "0", null, ""},
-                {"Red", "G", "23", "100", "0", null, "Head"},
-                {"Red", "H", "24", "50", "0", null, "Head"},
-                {"Red", "H", "25", "50", "0", null, null},
-                {"Red", "H", "26", "50", "0", null, null},
-                {"Red", "H", "27", "50", "0", "Switch 7", null},
-                {"Red", "H", "28", "50", "0", "Switch 7", null},
-                {"Red", "H", "29", "60", "0", null, null},
-                {"Red", "H", "30", "60", "0", null, null},
-                {"Red", "H", "31", "50", "0", null, null},
-                {"Red", "H", "32", "50", "0", "Switch 8", null},
-                {"Red", "H", "33", "50", "0", "Switch 8", null},
-                {"Red", "H", "34", "50", "0", null, null},
-                {"Red", "H", "35", "50", "0", null, null},
-                {"Red", "H", "36", "50", "0", null, null},
-                {"Red", "H", "37", "50", "0", null, null},
-                {"Red", "H", "38", "50", "0", "Switch 9", null},
-                {"Red", "H", "39", "50", "0", "Switch 9", null},
-                {"Red", "H", "40", "60", "0", "", null},
-                {"Red", "H", "41", "60", "0", null, null},
-                {"Red", "H", "42", "50", "0", null, null},
-                {"Red", "H", "43", "50", "0", "Switch 10", null},
-                {"Red", "H", "44", "50", "0", "Switch 10", null},
-                {"Red", "H", "45", "50", "0", null, "Head"},
-                {"Red", "I", "46", "75", "0", null, "Head"},
-                {"Red", "I", "47", "75", "0", null, null},
-                {"Red", "I", "48", "75", "0", null, "Head"},
-                {"Red", "J", "49", "50", "0", null, "Head"},
-                {"Red", "J", "50", "50", "0", null, null},
-                {"Red", "J", "51", "50", "0", null, ""},
-                {"Red", "J", "52", "43.2", "0", "Switch 11", ""},
-                {"Red", "J", "53", "50", "0", "Switch 11", null},
-                {"Red", "J", "54", "50", "0", null, "Head"},
-                {"Red", "K", "55", "75", "0.5", null, "Head"},
-                {"Red", "K", "56", "75", "0.5", null, null},
-                {"Red", "K", "57", "75", "0.5", null, "Head"},
-                {"Red", "L", "58", "75", "1", null, "Head"},
-                {"Red", "L", "59", "75", "0.5", null, null},
-                {"Red", "L", "60", "75", "0", null, "Head"},
-                {"Red", "M", "61", "75", "-0.5", null, "Head"},
-                {"Red", "M", "62", "75", "-1", null, null},
-                {"Red", "M", "63", "75", "-1", "", "Head"},
-                {"Red", "N", "64", "75", "-0.5", "", "Head"},
-                {"Red", "N", "65", "75", "0", null, null},
-                {"Red", "N", "66", "75", "0", "Switch 11", "Head"},
-                {"Red", "O", "67", "50", "0", "Switch 10", "Head/Head"},
-                {"Red", "P", "68", "50", "0", null, "Head"},
-                {"Red", "P", "69", "50", "0", null, null},
-                {"Red", "P", "70", "50", "0", null, "Head"},
-                {"Red", "Q", "71", "50", "0", "Switch 9", "Head/Head"},
-                {"Red", "R", "72", "50", "0", "Switch 8", "Head/Head"},
-                {"Red", "S", "73", "50", "0", null, "Head"},
-                {"Red", "S", "74", "50", "0", null, null},
-                {"Red", "S", "75", "50", "0", null, "Head"},
-                {"Red", "T", "76", "50", "0", "Switch 7", "Head/Head"},
-                {"Red", "U", "77", "50", "0", "Switch 12 ", ""}
+        RedSpecsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object[][]{
+
             },
             new String [] {
-                "Line", "Section", "Block Number", "Block Length (m)", "Block Grade (%)", "Switch Block", "Arrow Direction"
+                "Line", "Section", "Block Number", "Block Length (ft)", "Block Grade (%)", "Switch Block", "Arrow Direction"
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(RedSpecsTable);
 
-        jTabbedPane2.addTab("Red Line Specs", jScrollPane4);
+        ExcelTable.addTab("Red Line Specs", jScrollPane4);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        GreenSpecsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Green", "A", "1", "100", "0.5", "Switch 10", "Head"},
-                {"Green", "A", "2", "100", "1", null, null},
-                {"Green", "A", "3", "100", "1.5", null, "Tail"},
-                {"Green", "B", "4", "100", "2", null, "Head"},
-                {"Green", "B", "5", "100", "3", null, null},
-                {"Green", "B", "6", "100", "4", null, "Tail"},
-                {"Green", "C", "7", "100", "5", null, "Head"},
-                {"Green", "C", "8", "100", "0", null, null},
-                {"Green", "C", "9", "100", "-5", null, null},
-                {"Green", "C", "10", "100", "-5", null, null},
-                {"Green", "C", "11", "100", "-4", null, null},
-                {"Green", "C", "12", "100", "-3", "Switch 1", "Tail"},
-                {"Green", "D", "13", "150", "0", "Switch 1", "Head"},
-                {"Green", "D", "14", "150", "0", null, null},
-                {"Green", "D", "15", "150", "0", null, null},
-                {"Green", "D", "16", "150", "0", null, "Head"},
-                {"Green", "E", "17", "150", "0", null, "Head"},
-                {"Green", "E", "18", "150", "0", null, null},
-                {"Green", "E", "19", "150", "0", null, null},
-                {"Green", "E", "20", "150", "0", null, "Head"},
-                {"Green", "F", "21", "300", "0", null, "Head"},
-                {"Green", "F", "22", "300", "0", null, null},
-                {"Green", "F", "23", "300", "0", null, null},
-                {"Green", "F", "24", "300", "0", null, null},
-                {"Green", "F", "25", "200", "0", null, null},
-                {"Green", "F", "26", "100", "0", null, null},
-                {"Green", "F", "27", "50", "0", null, null},
-                {"Green", "F", "28", "50", "0", "Switch 2", "Head"},
-                {"Green", "G", "29", "50", "0", "Switch 2", "Tail"},
-                {"Green", "G", "30", "50", "0", null, null},
-                {"Green", "G", "31", "50", "0", null, null},
-                {"Green", "G", "32", "50", "0", null, "Head"},
-                {"Green", "H", "33", "50", "0", null, "Tail"},
-                {"Green", "H", "34", "50", "0", null, null},
-                {"Green", "H", "35", "50", "0", null, "Head"},
-                {"Green", "I", "36", "50", "0", null, "Tail"},
-                {"Green", "I", "37", "50", "0", null, null},
-                {"Green", "I", "38", "50", "0", null, null},
-                {"Green", "I", "39", "50", "0", null, null},
-                {"Green", "I", "40", "50", "0", null, null},
-                {"Green", "I", "41", "50", "0", null, null},
-                {"Green", "I", "42", "50", "0", null, null},
-                {"Green", "I", "43", "50", "0", null, null},
-                {"Green", "I", "44", "50", "0", null, null},
-                {"Green", "I", "45", "50", "0", null, null},
-                {"Green", "I", "46", "50", "0", null, null},
-                {"Green", "I", "47", "50", "0", null, null},
-                {"Green", "I", "48", "50", "0", null, null},
-                {"Green", "I", "49", "50", "0", null, null},
-                {"Green", "I", "50", "50", "0", null, null},
-                {"Green", "I", "51", "50", "0", null, null},
-                {"Green", "I", "52", "50", "0", null, null},
-                {"Green", "I", "53", "50", "0", null, null},
-                {"Green", "I", "54", "50", "0", null, null},
-                {"Green", "I", "55", "50", "0", null, null},
-                {"Green", "I", "56", "50", "0", null, null},
-                {"Green", "I", "57", "50", "0", "Switch 3", "Head"},
-                {"Green", "J", "58", "50", "0", "Switch 3", "Tail"},
-                {"Green", "J", "59", "50", "0", null, null},
-                {"Green", "J", "60", "50", "0", null, null},
-                {"Green", "J", "61", "50", "0", "Switch 0", null},
-                {"Green", "J", "62", "50", "0", "Switch 0", "Head"},
-                {"Green", "K", "63", "100", "0", null, "Tail"},
-                {"Green", "K", "64", "100", "0", null, ""},
-                {"Green", "K", "65", "200", "0", null, null},
-                {"Green", "K", "66", "200", "0", null, null},
-                {"Green", "K", "67", "100", "0", null, null},
-                {"Green", "K", "68", "100", "0", null, "Head"},
-                {"Green", "L", "69", "100", "0", null, "Tail"},
-                {"Green", "L", "70", "100", "0", null, null},
-                {"Green", "L", "71", "100", "0", null, null},
-                {"Green", "L", "72", "100", "0", null, null},
-                {"Green", "L", "73", "100", "0", null, "Head"},
-                {"Green", "M", "74", "100", "0", null, "Tail"},
-                {"Green", "M", "75", "100", "0", null, null},
-                {"Green", "M", "76", "100", "0", "Switch 4", "Head"},
-                {"Green", "N", "77", "300", "0", "Switch 4", "Head"},
-                {"Green", "N", "78", "300", "0", null, null},
-                {"Green", "N", "79", "300", "0", null, null},
-                {"Green", "N", "80", "300", "0", null, null},
-                {"Green", "N", "81", "300", "0", null, null},
-                {"Green", "N", "82", "300", "0", null, null},
-                {"Green", "N", "83", "300", "0", null, null},
-                {"Green", "N", "84", "300", "0", null, null},
-                {"Green", "N", "85", "300", "0", "Switch 5", "Head"},
-                {"Green", "O", "86", "100", "0", "Switch 5", "Tail"},
-                {"Green", "O", "87", "86.6", "0", null, null},
-                {"Green", "O", "88", "100", "0", null, "Head"},
-                {"Green", "P", "89", "75", "-0.5", null, "Tail"},
-                {"Green", "P", "90", "75", "-1", null, null},
-                {"Green", "P", "91", "75", "-2", null, null},
-                {"Green", "P", "92", "75", "0", null, null},
-                {"Green", "P", "93", "75", "2", null, null},
-                {"Green", "P", "94", "75", "1", null, null},
-                {"Green", "P", "95", "75", "0.5", null, null},
-                {"Green", "P", "96", "75", "0", null, null},
-                {"Green", "P", "97", "75", "0", null, "Head"},
-                {"Green", "Q", "98", "75", "0", null, "Tail"},
-                {"Green", "Q", "99", "75", "0", null, null},
-                {"Green", "Q", "100", "75", "0", "Switch 5", "Head"},
-                {"Green", "R", "101", "35", "0", "Switch 4", "Tail/Head"},
-                {"Green", "S", "102", "100", "0", null, "Tail"},
-                {"Green", "S", "103", "100", "0", null, null},
-                {"Green", "S", "104", "80", "0", null, "Head"},
-                {"Green", "T", "105", "100", "0", null, "Tail"},
-                {"Green", "T", "106", "100", "0", null, null},
-                {"Green", "T", "107", "90", "0", null, null},
-                {"Green", "T", "108", "100", "0", null, null},
-                {"Green", "T", "109", "100", "0", null, "Head"},
-                {"Green", "U", "110", "100", "0", null, "Tail"},
-                {"Green", "U", "111", "100", "0", null, null},
-                {"Green", "U", "112", "100", "0", null, null},
-                {"Green", "U", "113", "100", "0", null, null},
-                {"Green", "U", "114", "100", "0", null, null},
-                {"Green", "U", "115", "100", "0", null, null},
-                {"Green", "U", "116", "100", "0", null, "Head "},
-                {"Green", "V", "117", "50", "0", null, "Tail"},
-                {"Green", "V", "118", "50", "0", null, null},
-                {"Green", "V", "119", "40", "0", null, null},
-                {"Green", "V", "120", "50", "0", null, null},
-                {"Green", "V", "121", "50", "0", null, "Head"},
-                {"Green", "W", "122", "50", "0", null, "Tail"},
-                {"Green", "W", "123", "50", "0", null, null},
-                {"Green", "W", "124", "50", "0", null, null},
-                {"Green", "W", "125", "50", "0", null, null},
-                {"Green", "W", "126", "50", "0", null, null},
-                {"Green", "W", "127", "50", "0", null, null},
-                {"Green", "W", "128", "50", "0", null, null},
-                {"Green", "W", "129", "50", "0", null, null},
-                {"Green", "W", "130", "50", "0", null, null},
-                {"Green", "W", "131", "50", "0", null, null},
-                {"Green", "W", "132", "50", "0", null, null},
-                {"Green", "W", "133", "50", "0", null, null},
-                {"Green", "W", "134", "50", "0", null, null},
-                {"Green", "W", "135", "50", "0", null, null},
-                {"Green", "W", "136", "50", "0", null, null},
-                {"Green", "W", "137", "50", "0", null, null},
-                {"Green", "W", "138", "50", "0", null, null},
-                {"Green", "W", "139", "50", "0", null, null},
-                {"Green", "W", "140", "50", "0", null, null},
-                {"Green", "W", "141", "50", "0", null, null},
-                {"Green", "W", "142", "50", "0", null, null},
-                {"Green", "W", "143", "50", "0", null, "Head"},
-                {"Green", "X", "144", "50", "0", null, "Tail"},
-                {"Green", "X", "145", "50", "0", null, null},
-                {"Green", "X", "146", "50", "0", null, "Head"},
-                {"Green", "Y", "147", "50", "0", null, "Tail"},
-                {"Green", "Y", "148", "40", "0", null, null},
-                {"Green", "Y", "149", "40", "0", null, "Head"},
-                {"Green", "Z", "150", "35", "0", "Switch 2", "Tail/Head"},
-                {"Green", "ZZ", "151", "50", "0", "Switch 3", "Tail/Head"},
-                {"Greeen", "YY", "152", "50", "0", "Switch 0", "Tail/Head"}
+
             },
             new String [] {
-                "Line", "Section", "Block Number", "Block Length (m)", "Block Grade (%)", "Switch Block", "Arrow Direction"
+                "Line", "Section", "Block Number", "Block Length (ft)", "Block Grade (%)", "Switch Block", "Arrow Direction"
             }
         ));
-        jScrollPane6.setViewportView(jTable4);
+        jScrollPane6.setViewportView(GreenSpecsTable);
 
-        jTabbedPane2.addTab("Green Line Specs", jScrollPane6);
+        ExcelTable.addTab("Green Line Specs", jScrollPane6);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/trackmodel/media/Track_Layout.png"))); // NOI18N
-        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
-        jScrollPane1.setViewportView(jLabel2);
+        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/trackmodel/media/Track_Layout.png"))); // NOI18N
+        TrainMap.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
+        jScrollPane1.setViewportView(TrainMap);
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jScrollPane7.setViewportView(jTextPane1);
+        Auto_Temp_Text_Field.setText(newTrack.getTemp());
+        jScrollPane7.setViewportView(Auto_Temp_Text_Field);
 
-        jLabel4.setText("Temperature º F / º C");
+        Auto_Temp_Label.setText("Temperature º F ");
 
-        jLabel6.setText("Heater");
+        Auto_Heater_Label.setText("Heater");
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("OFF");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        Auto_Heater_Text_Field.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Auto_Heater_Text_Field.setText("OFF");
+        Auto_Heater_Text_Field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                Auto_Heater_Text_FieldActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("Messages");
+        NotificationBoardLabel.setText("Messages");
 
-        jLabel11.setText("Trains On Track");
+        TrainsOnTrackLabel.setText("Trains On Track");
 
         jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 153));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("*Signal Lights: Normal follows tracks in\n alphabetical order. Reverse follows tracks\n in reverse alphabetical order.");
-        jScrollPane8.setViewportView(jTextArea1);
+        AutoTab_SignalLightsText.setBackground(new java.awt.Color(255, 255, 153));
+        AutoTab_SignalLightsText.setColumns(20);
+        AutoTab_SignalLightsText.setRows(5);
+        AutoTab_SignalLightsText.setText("*Signal Lights: Normal follows tracks in\n alphabetical order. Reverse follows tracks\n in reverse alphabetical order.");
+        jScrollPane8.setViewportView(AutoTab_SignalLightsText);
 
-        jLabel17.setText("Failure Modes");
+        FailureModesLabel.setText("Failure Modes");
 
-        jLabel18.setText("Broken Rail:");
+        BrokenRailLabel.setText("Broken Rail:");
 
-        jLabel19.setText("Power Failure:");
+        PowerFailureLabel.setText("Power Failure:");
 
-        jLabel20.setText("Track Circuit Failure:");
+        TrackCircuitFailureLabel.setText("Track Circuit Failure:");
 
-        jToggleButton4.setText("ON/OFF");
+        ToggleBrokenRail.setText("ON/OFF");
 
-        jToggleButton5.setText("ON/OFF");
+        TogglePowerFailure.setText("ON/OFF");
 
-        jToggleButton6.setText("ON/OFF");
+        ToggleTrackCircuitFailure.setText("ON/OFF");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField15))
-                .addGap(63, 63, 63)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(157, 157, 157))
-                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+        NotificationField.setColumns(20);
+        NotificationField.setRows(5);
+        jScrollPane11.setViewportView(NotificationField);
+
+        javax.swing.GroupLayout AutoTabLayout = new javax.swing.GroupLayout(AutoTab);
+        AutoTab.setLayout(AutoTabLayout);
+        AutoTabLayout.setHorizontalGroup(
+            AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AutoTabLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TrainsOnTrackLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TrainsOntrackField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addComponent(NotificationBoardLabel)))
+                .addGap(126, 126, 126)
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AutoTabLayout.createSequentialGroup()
+                        .addComponent(Auto_Heater_Label)
                         .addGap(67, 67, 67))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AutoTabLayout.createSequentialGroup()
+                        .addComponent(Auto_Heater_Text_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel20))
+                .addGap(10, 10, 10)
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Auto_Temp_Label)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TrackCircuitFailureLabel)
+                            .addGroup(AutoTabLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BrokenRailLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(PowerFailureLabel, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jToggleButton4)
-                            .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton6))
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(983, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel17)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ToggleBrokenRail)
+                            .addComponent(TogglePowerFailure)
+                            .addComponent(ToggleTrackCircuitFailure))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(FailureModesLabel)))
+                .addContainerGap(1367, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        AutoTabLayout.setVerticalGroup(
+            AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AutoTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
+                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addComponent(FailureModesLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jToggleButton4))
+                        .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(AutoTabLayout.createSequentialGroup()
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BrokenRailLabel)
+                                    .addComponent(ToggleBrokenRail))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jToggleButton5)
-                                    .addComponent(jLabel19))
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TogglePowerFailure)
+                                    .addComponent(PowerFailureLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jToggleButton6)
-                                    .addComponent(jLabel20)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleTrackCircuitFailure)
+                                    .addComponent(TrackCircuitFailureLabel)))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(AutoTabLayout.createSequentialGroup()
+                        .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TrainsOnTrackLabel)
+                            .addComponent(NotificationBoardLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
+                        .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TrainsOntrackField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AutoTabLayout.createSequentialGroup()
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Auto_Temp_Label)
+                                    .addComponent(Auto_Heater_Label))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(AutoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane7)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 166, Short.MAX_VALUE))
+                                    .addComponent(Auto_Heater_Text_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Auto", jPanel1);
+        jTabbedPane1.addTab("Auto", AutoTab);
 
-        jLabel5.setText("Temperature º F / º C");
+        Manual_Temp_Label.setText("Temperature º F / º C");
 
-        jButton1.setText("Change Temp");
-        jButton1.setAlignmentX(0.5F);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ChangeTempButton.setText("Change Temp");
+        ChangeTempButton.setAlignmentX(0.5F);
+        ChangeTempButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeTempField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel7.setText("Change Temperature (º F)");
+        ChangeTempLabel.setText("Change Temperature (º F)");
 
-        jLabel8.setText("Reconfigure Track");
+        ReconfigureTrackLabel.setText("Reconfigure Track");
 
-        jButton2.setText("Submit Change");
+        SubmitChangeButton.setText("Submit Change");
 
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.setText("Line");
+        ChangeLine.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeLine.setText("Line");
 
-        jTextField6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField6.setText("Section");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        ChangeSection.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeSection.setText("Section");
+        ChangeSection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                ChangeSectionActionPerformed(evt);
             }
         });
 
-        jTextField7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField7.setText("Block #");
+        ChangeBlockNum.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeBlockNum.setText("Block #");
 
-        jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField8.setText("Block Length (m)");
+        ChangeBlockLen.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeBlockLen.setText("Block Length (m)");
 
-        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField9.setText("Speed Limit (km/h)");
+        ChangeSpeed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeSpeed.setText("Speed Limit (km/h)");
 
-        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField10.setText("Infrastructure (optional)");
+        ChangeInfrastructure.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeInfrastructure.setText("Infrastructure (optional)");
 
-        jTextField11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField11.setText("Arrow Direction (optional)");
-        jTextField11.setCursor(new java.awt.Cursor(java.awt.Cursor.NE_RESIZE_CURSOR));
+        ChangeArrow.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeArrow.setText("Arrow Direction (optional)");
+        ChangeArrow.setCursor(new java.awt.Cursor(java.awt.Cursor.NE_RESIZE_CURSOR));
 
-        jTextField12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField12.setText("Name (editor)");
+        ReconfigureEditor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ReconfigureEditor.setText("Name (editor)");
 
-        jTextField13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField13.setText("Date");
+        DateOfEdit.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DateOfEdit.setText("Date");
 
-        jTextField14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField14.setText("Switch Block (optional)");
+        ChangeSwitch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChangeSwitch.setText("Switch Block (optional)");
 
-        jLabel10.setText("Heater");
+        HeaterSwitchLabel.setText("Heater");
 
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("ON");
-        jRadioButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        HeaterOnRadioButton.setSelected(true);
+        HeaterOnRadioButton.setText("ON");
+        HeaterOnRadioButton.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jRadioButton2.setText("OFF");
+        HeaterOffRadioButton.setText("OFF");
 
         jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTextArea2.setBackground(new java.awt.Color(255, 255, 153));
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("*Signal Lights: Normal follows tracks in\n alphabetical order. Reverse follows tracks\n in reverse alphabetical order. ");
-        jScrollPane9.setViewportView(jTextArea2);
+        ManTab_SignalLightText.setBackground(new java.awt.Color(255, 255, 153));
+        ManTab_SignalLightText.setColumns(20);
+        ManTab_SignalLightText.setRows(5);
+        ManTab_SignalLightText.setText("*Signal Lights: Normal follows tracks in\n alphabetical order. Reverse follows tracks\n in reverse alphabetical order. ");
+        jScrollPane9.setViewportView(ManTab_SignalLightText);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout ManualTabLayout = new javax.swing.GroupLayout(ManualTab);
+        ManualTab.setLayout(ManualTabLayout);
+        ManualTabLayout.setHorizontalGroup(
+            ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ManualTabLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(ManualTabLayout.createSequentialGroup()
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ManualTabLayout.createSequentialGroup()
+                                .addComponent(ChangeLine, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ChangeSection, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ChangeBlockNum, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ChangeBlockLen, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ReconfigureEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(DateOfEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ManualTabLayout.createSequentialGroup()
+                                .addComponent(ReconfigureTrackLabel)
                                 .addGap(37, 37, 37)
-                                .addComponent(jButton2)))
+                                .addComponent(SubmitChangeButton)))
                         .addGap(155, 155, 155))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ManualTabLayout.createSequentialGroup()
+                        .addComponent(ChangeSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ChangeInfrastructure, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11)
+                        .addComponent(ChangeArrow)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ChangeSwitch, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jRadioButton1)
-                        .addComponent(jLabel10))
-                    .addComponent(jRadioButton2))
+                .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(HeaterOnRadioButton)
+                        .addComponent(HeaterSwitchLabel))
+                    .addComponent(HeaterOffRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ManualTabLayout.createSequentialGroup()
+                        .addComponent(ChangeTempLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Manual_Temp_Label))
+                    .addGroup(ManualTabLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ManualTabLayout.createSequentialGroup()
+                                .addComponent(ChangeTempField, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
+                                .addComponent(Manual_Temp_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ChangeTempButton))
                         .addGap(291, 291, 291)
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(983, Short.MAX_VALUE))
+                .addContainerGap(1374, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        ManualTabLayout.setVerticalGroup(
+            ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ManualTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
+                .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ManualTabLayout.createSequentialGroup()
+                        .addComponent(HeaterSwitchLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(HeaterOnRadioButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jButton2))
+                        .addComponent(HeaterOffRadioButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ManualTabLayout.createSequentialGroup()
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ReconfigureTrackLabel)
+                            .addComponent(SubmitChangeButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ChangeLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeBlockNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeBlockLen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReconfigureEditor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DateOfEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ChangeSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeInfrastructure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeArrow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChangeSwitch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ManualTabLayout.createSequentialGroup()
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Manual_Temp_Label)
+                            .addComponent(ChangeTempLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3))
+                        .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ManualTabLayout.createSequentialGroup()
+                                .addGroup(ManualTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Manual_Temp_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ChangeTempField))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(ChangeTempButton))
+                            .addGroup(ManualTabLayout.createSequentialGroup()
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(187, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Manual", jPanel2);
+        jTabbedPane1.addTab("Manual", ManualTab);
 
-        jLabel16.setText("Track Controller");
+        TrackControllerLabel.setText("Track Controller");
 
-        jTextField16.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField16.setText("Speed (km/h)");
+        DemoSetSpeed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetSpeed.setText("Speed (km/h)");
 
-        jTextField17.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField17.setText("Authority (m)");
+        DemoSetAuthority.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetAuthority.setText("Authority (m)");
 
-        jTextField18.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField18.setText("Line (Red/Green)");
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
+        DemoSetLine.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetLine.setText("Line (Red/Green)");
+        DemoSetLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
+                DemoSetLineActionPerformed(evt);
             }
         });
 
-        jTextField19.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField19.setText("Section (Letter)");
+        DemoSetSection.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetSection.setText("Section (Letter)");
 
-        jTextField20.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField20.setText("Orientation (Normal/Reverse)");
+        DemoSetOrientation.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetOrientation.setText("Orientation (Normal/Reverse)");
 
-        jTextField21.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField21.setText("Light Color (Red/Green)");
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+        DemoSetLight.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        DemoSetLight.setText("Light Color (Red/Green)");
+        DemoSetLight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
+                DemoSetLightActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Submit to Train");
+        SubmitInfoToTrainButton.setText("Submit to Train");
 
-        jButton4.setText("Submit to Track");
+        SubmitInfoToTrackButton.setText("Submit to Track");
 
         jScrollPane10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane10.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTextArea3.setBackground(new java.awt.Color(255, 255, 153));
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("*Signal Lights: Normal follows track in\n alphabetical order. Reverse follows \n track in reverse alphabetical order.");
-        jScrollPane10.setViewportView(jTextArea3);
+        DemoTab_SignalLightsText.setBackground(new java.awt.Color(255, 255, 153));
+        DemoTab_SignalLightsText.setColumns(20);
+        DemoTab_SignalLightsText.setRows(5);
+        DemoTab_SignalLightsText.setText("*Signal Lights: Normal follows track in\n alphabetical order. Reverse follows \n track in reverse alphabetical order.");
+        jScrollPane10.setViewportView(DemoTab_SignalLightsText);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout DemoTabLayout = new javax.swing.GroupLayout(DemoTab);
+        DemoTab.setLayout(DemoTabLayout);
+        DemoTabLayout.setHorizontalGroup(
+            DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DemoTabLayout.createSequentialGroup()
                 .addGap(78, 78, 78)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SubmitInfoToTrainButton)
+                    .addComponent(SubmitInfoToTrackButton))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DemoTabLayout.createSequentialGroup()
+                        .addComponent(DemoSetSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TrackControllerLabel)
+                            .addComponent(DemoSetAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(DemoTabLayout.createSequentialGroup()
+                        .addComponent(DemoSetLine, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DemoSetSection, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DemoSetOrientation, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(DemoSetLight, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(423, 423, 423)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1010, Short.MAX_VALUE))
+                .addContainerGap(1401, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        DemoTabLayout.setVerticalGroup(
+            DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DemoTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16)
+                .addComponent(TrackControllerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DemoTabLayout.createSequentialGroup()
+                        .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DemoSetSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SubmitInfoToTrainButton)
+                            .addComponent(DemoSetAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)))
+                        .addGroup(DemoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DemoSetLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DemoSetSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DemoSetOrientation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DemoSetLight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SubmitInfoToTrackButton)))
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Demo", jPanel3);
+        jTabbedPane1.addTab("Demo", DemoTab);
 
         jScrollPane2.setViewportView(jTabbedPane1);
 
         jMenu1.setBackground(new java.awt.Color(153, 102, 0));
         jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        Open.setText("Open");
+        Open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpenActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Open);
 
-        setJMenuBar(jMenuBar1);
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(Exit);
+
+        MenuBar.add(jMenu1);
+
+        setJMenuBar(MenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1051,10 +651,10 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(ExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1064,32 +664,148 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                        .addComponent(ExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
-        jTabbedPane2.getAccessibleContext().setAccessibleName("Block List");
+        ExcelTable.getAccessibleContext().setAccessibleName("Block List");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void Auto_Heater_Text_FieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Auto_Heater_Text_FieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        int outside = Integer.parseInt(Auto_Temp_Text_Field.getText());
+        if(lastTemp < 32 && outside < 32){
+            Auto_Heater_Text_Field.setText("ON");
+        }else if(lastTemp <=32 && outside > 37){
+            Auto_Heater_Text_Field.setText("OFF");
+        }else if(lastTemp > 32 && outside < 32){
+            Auto_Heater_Text_Field.setText("ON");
+        }
+        lastTemp = outside;
+    }//GEN-LAST:event_Auto_Heater_Text_FieldActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void ChangeSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeSectionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_ChangeSectionActionPerformed
 
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
+    private void DemoSetLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DemoSetLineActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
+    }//GEN-LAST:event_DemoSetLineActionPerformed
 
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+    private void DemoSetLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DemoSetLightActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
+    }//GEN-LAST:event_DemoSetLightActionPerformed
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        //NotificationField.setText(filename);
+        try{
+            
+            try{
+                newTrack.setDataFile(filename);
+                newTrack.ExcelToJavaGraph();
+            }catch(Exception e){
+                System.out.println("Excel to Graph did not run properly.");
+            }
+            Object[][] Line;
+            Object[][] Specs;
+            BetaBlock extractLine;
+            int numLine = 2;
+            int k;
+            for(k=0;k<numLine;k++){
+                int theRealCount;
+                if(k==0){
+                    theRealCount = newTrack.getRedCount();
+                }else{
+                    theRealCount = newTrack.getGreenCount();
+                }
+                Line = new Object[theRealCount][8];
+                Specs = new Object[theRealCount][7];
+                TrackGraph theRealGraph;
+                if(k==0){
+                    theRealGraph = newTrack.getRedLine();
+                }else{
+                    theRealGraph = newTrack.getGreenLine();
+                }
+                System.out.println("About to add data to array.");
+                String Name;
+                int i;
+                for(i = 0; i< theRealCount;i++){
+                    if(k==0){
+                        Name = "Red"+(i+1);
+                    }else{
+                        Name = "Green"+(i+1);
+                    }
+                    System.out.println(Name);
+                    extractLine = theRealGraph.getBlock(Name);
+                    System.out.println(extractLine.getLabel());
+                    Line[i][0] = extractLine.getLine();
+                    Line[i][1] = extractLine.getSection();
+                    Line[i][2] = (Integer)extractLine.getBlockNum();
+                    Line[i][3] = null;
+                    Line[i][4] = null;
+                    Line[i][5] = null;
+                    Line[i][6] = (Integer)extractLine.getSpeedLimit();
+                    Line[i][7] = extractLine.getInfraStructure();
+                    Specs[i][0] = extractLine.getLine();
+                    Specs[i][1] = extractLine.getSection();
+                    Specs[i][2] = (Integer)extractLine.getBlockNum();
+                    Specs[i][3] = (Double)extractLine.getBlockLength();
+                    Specs[i][4] = (Double)extractLine.getBlockGrade();
+                    Specs[i][5] = extractLine.getSwitchBlock();
+                    Specs[i][6] = extractLine.getArrowDirection();
+                }
+                if(k==0){
+                    RedLineTable.setModel(new javax.swing.table.DefaultTableModel(
+                    Line,
+                    new String [] {
+                        "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (mph)", "Infrastructure"
+                        }
+                    ));
+                    RedSpecsTable.setModel(new javax.swing.table.DefaultTableModel(
+                    Specs,
+                    new String [] {
+                        "Line", "Section", "Block Number", "Block Length (ft)", "Block Grade (%)", "Switch Block", "Arrow Direction"
+                        }
+                    ));
+                }else{
+                    GreenLineTable.setModel(new javax.swing.table.DefaultTableModel(
+                    Line,
+                    new String [] {
+                        "Line", "Section", "Block #", "Presence Detection", "Signal Lights Normal", "Signal Lights Reverse", "Speed Limit (mph)", "Infrastructure"
+                        }
+                    ));
+                    GreenSpecsTable.setModel(new javax.swing.table.DefaultTableModel(
+                    Specs,
+                    new String [] {
+                        "Line", "Section", "Block Number", "Block Length (ft)", "Block Grade (%)", "Switch Block", "Arrow Direction"
+                        }
+                    ));
+                }
+            }
+            
+            
+        }catch(Exception e){
+            System.out.println("File isn't formatted correctly.");
+        }
+        
+    }//GEN-LAST:event_OpenActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1117,7 +833,7 @@ public class TrackModelUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TrackModelUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        System.out.println("TrackModelUI is running.");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1127,40 +843,75 @@ public class TrackModelUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AutoTab;
+    private javax.swing.JTextArea AutoTab_SignalLightsText;
+    private javax.swing.JLabel Auto_Heater_Label;
+    private javax.swing.JTextField Auto_Heater_Text_Field;
+    private javax.swing.JLabel Auto_Temp_Label;
+    private javax.swing.JTextPane Auto_Temp_Text_Field;
+    private javax.swing.JLabel BrokenRailLabel;
+    private javax.swing.JTextField ChangeArrow;
+    private javax.swing.JTextField ChangeBlockLen;
+    private javax.swing.JTextField ChangeBlockNum;
+    private javax.swing.JTextField ChangeInfrastructure;
+    private javax.swing.JTextField ChangeLine;
+    private javax.swing.JTextField ChangeSection;
+    private javax.swing.JTextField ChangeSpeed;
+    private javax.swing.JTextField ChangeSwitch;
+    private javax.swing.JButton ChangeTempButton;
+    private javax.swing.JTextField ChangeTempField;
+    private javax.swing.JLabel ChangeTempLabel;
+    private javax.swing.JTextField DateOfEdit;
+    private javax.swing.JTextField DemoSetAuthority;
+    private javax.swing.JTextField DemoSetLight;
+    private javax.swing.JTextField DemoSetLine;
+    private javax.swing.JTextField DemoSetOrientation;
+    private javax.swing.JTextField DemoSetSection;
+    private javax.swing.JTextField DemoSetSpeed;
+    private javax.swing.JPanel DemoTab;
+    private javax.swing.JTextArea DemoTab_SignalLightsText;
+    private javax.swing.JTabbedPane ExcelTable;
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JLabel FailureModesLabel;
+    private javax.swing.JTable GreenLineTable;
+    private javax.swing.JTable GreenSpecsTable;
+    private javax.swing.JRadioButton HeaterOffRadioButton;
+    private javax.swing.JRadioButton HeaterOnRadioButton;
+    private javax.swing.JLabel HeaterSwitchLabel;
+    private javax.swing.JTextArea ManTab_SignalLightText;
+    private javax.swing.JPanel ManualTab;
+    private javax.swing.JTextField Manual_Temp_Field;
+    private javax.swing.JLabel Manual_Temp_Label;
+    private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JLabel NotificationBoardLabel;
+    private javax.swing.JTextArea NotificationField;
+    private javax.swing.JMenuItem Open;
+    private javax.swing.JLabel PowerFailureLabel;
+    private javax.swing.JTextField ReconfigureEditor;
+    private javax.swing.JLabel ReconfigureTrackLabel;
+    private javax.swing.JTable RedLineTable;
+    private javax.swing.JTable RedSpecsTable;
+    private javax.swing.JButton SubmitChangeButton;
+    private javax.swing.JButton SubmitInfoToTrackButton;
+    private javax.swing.JButton SubmitInfoToTrainButton;
+    private javax.swing.JToggleButton ToggleBrokenRail;
+    private javax.swing.JToggleButton TogglePowerFailure;
+    private javax.swing.JToggleButton ToggleTrackCircuitFailure;
+    private javax.swing.JLabel TrackCircuitFailureLabel;
+    private javax.swing.JLabel TrackControllerLabel;
+    private javax.swing.JLabel TrainMap;
+    private javax.swing.JLabel TrainsOnTrackLabel;
+    private javax.swing.JTextField TrainsOntrackField;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1170,38 +921,5 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
     // End of variables declaration//GEN-END:variables
-}
+} 
