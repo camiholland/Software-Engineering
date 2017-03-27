@@ -121,18 +121,16 @@ public class TrainController {
         trainUI.setAuto(mode);
   }
   
+  public void setSpeedAndAuthority(int speed, int authority){
+      setPointSpeed = speed;
+      setAuthority = authority;
+  }
+  
   public int getSetPointSpeed() { 
       return setPointSpeed; 
   }
-  public void setSetPointSpeed(int speed) {
-      setPointSpeed = speed;
-  }
-  
   public int getAuthority() {
       return setAuthority;
-  }
-  public void setAuthority(int authority) {
-      setAuthority = authority;
   }
   
   public int getSetSpeed() {
@@ -263,6 +261,10 @@ public class TrainController {
       }
       
       System.out.println("set temp = " + tempSet);
+  }
+  
+  public void setCurrentTemp(int temp) {
+        tempCurrent = temp;
   }
   
   public int getDoorsLeft() {

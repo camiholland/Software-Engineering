@@ -30,22 +30,20 @@ public class Trains {
         count++;
     }
     
-    public int getTrainControllerIndex(int id) {
+    public TrainController getTrainController(int id) {
         TrainController train;
+        int cid;
         
         for (int i = 0; i < count; i++) {
             train = trains.get(i);
+            cid = train.getTrainId();
             
-            if (train.getTrainId() == id) {
-                return i;
+            if (cid == id) {
+                return train;
             }
         }
         
-        return -1;
-    }
-    
-    public TrainController getTrainController(int index) {
-        return trains.get(index);
+        return null;
     }
     
 }

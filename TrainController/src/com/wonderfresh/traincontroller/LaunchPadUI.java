@@ -96,7 +96,7 @@ public class LaunchPadUI extends javax.swing.JFrame {
     private void LaunchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchButtonActionPerformed
         int trainID = Integer.parseInt((String)LaunchComboBox.getSelectedItem());
 
-        trains.getTrainController(trains.getTrainControllerIndex(trainID)).launchUI();
+        trains.getTrainController(trainID).launchUI();
     }//GEN-LAST:event_LaunchButtonActionPerformed
 
     public void initComboBox() {
