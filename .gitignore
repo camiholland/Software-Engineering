@@ -1,3 +1,11 @@
 /TrainModelUI/nbproject/private/
 /TrainModelUI/build/
 .DS_Store
+/System/nbproject/private/
+/System/build/
+/Interfaces/nbproject/private/
+/Interfaces/build/
+/Interfaces/dist/
+/Commons/nbproject/private/
+/Commons/build/
+/Commons/dist/

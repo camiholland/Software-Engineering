@@ -6,6 +6,7 @@
 package com.wonderfresh.traincontroller;
 
 import com.wonderfresh.traincontroller.model.TrainController;
+import com.wonderfresh.interfaces.TrainModelAPI;
 
 /**
  *
@@ -19,7 +20,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
      * @param train
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public TrainControllerUI(TrainController train) {
+    public TrainControllerUI(TrainController train, TrainModelAPI trainModel) {
         initComponents(); 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         NoteText.setLineWrap(true);
@@ -28,8 +29,10 @@ public class TrainControllerUI extends javax.swing.JFrame {
         MemoText.setWrapStyleWord(true);
         
         this.train = train;
+        this.trainModel = trainModel;
     }
     
+    public TrainModelAPI trainModel;
     public TrainController train;
 
     /**
@@ -833,7 +836,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         try {
             kp = Double.parseDouble(KpText.getText());
             ki = Double.parseDouble(KiText.getText());
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             System.out.println("Error parsing kp and ki");
             
             KpText.setText("" + train.getGainProportional());
@@ -849,7 +852,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         
         try {
             temp = Integer.parseInt(SetTempText.getText());
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             System.out.println("Error parsing set temperature");
             
             SetTempText.setText("" + train.getSetTemp());
@@ -993,6 +996,8 @@ public class TrainControllerUI extends javax.swing.JFrame {
 
     private void MemoSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemoSendActionPerformed
         String msg = MemoText.getText();
+        
+        trainModel.setAnnouncement(msg, train.getTrainId());
         
         MemoText.setText("");
         

@@ -6,6 +6,7 @@
 package com.wonderfresh.traincontroller.model;
 
 import com.wonderfresh.traincontroller.TrainControllerUI;
+import com.wonderfresh.interfaces.TrainModelAPI;
 
 /**
  *
@@ -13,15 +14,16 @@ import com.wonderfresh.traincontroller.TrainControllerUI;
  */
 public class TrainController {
 
-  public TrainController(int trainID, int routeID) {
+  public TrainController(int trainID, int routeID, TrainModelAPI trainModel) {
     this.trainID = trainID;
     this.routeID = routeID;
+    this.trainModel = trainModel;
     auto = true;
     setPointSpeed = 0;
     setAuthority = 0;
-    setSpeed = 43;
+    setSpeed = 0;
     realSpeed = 0;
-    speedLimit = 43;
+    speedLimit = 25;
     powerCommand = 0;
     lights = 0;
     doorsLeft = 0;
@@ -42,6 +44,7 @@ public class TrainController {
     dc.start();
   }    
 
+  public TrainModelAPI trainModel;
   public DistanceCalculator dc;
   public PowerCalculator pc;
   public TrainControllerUI trainUI;
@@ -70,7 +73,7 @@ public class TrainController {
   
   public int launchUI() {
     /* Create and display the form */
-    trainUI = new TrainControllerUI(this);
+    trainUI = new TrainControllerUI(this, trainModel);
     
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
@@ -138,10 +141,10 @@ public class TrainController {
   }
   public void setSetSpeed(int speed) {
       
-      if (setSpeed != speed && speed == 0) {
+      if (setSpeed == 0) {
           pc.stopTemp();
-      } else if (setSpeed != speed && setSpeed == 0) {
-          pc.stopTemp();
+      } else {
+          pc.startTemp();
       }
       
       setSpeed = speed;
@@ -179,6 +182,9 @@ public class TrainController {
   }
   public void setPowerCommand(double power) {
       powerCommand = power;
+      
+      trainModel.setPowerCommand(power, trainID);
+      
       if (brakeEmergency) {
           if (realSpeed < 6.11) {
               setRealSpeed(0);
@@ -260,6 +266,8 @@ public class TrainController {
           setHeat(0);
       }
       
+      trainModel.setTargetTemperature(temp,trainID);
+      
       System.out.println("set temp = " + tempSet);
   }
   
@@ -273,6 +281,8 @@ public class TrainController {
   public void setDoorsLeft(int status) {
       doorsLeft = status;
       
+      trainModel.setLeftDoors(status, trainID);
+      
       if(trainUI != null)
         trainUI.setLeftDoors(status);
   }
@@ -282,6 +292,8 @@ public class TrainController {
   }
   public void setDoorsRight(int status) {
       doorsRight = status;
+      
+      trainModel.setRightDoors(status, trainID);
       
       if(trainUI != null)
         trainUI.setRightDoors(status);
@@ -298,6 +310,8 @@ public class TrainController {
       brakeEmergency = !brakeEmergency;
       
       pc.stopTemp();
+      
+      trainModel.setEBrake(brakeEmergency, trainID);
       
       return brakeEmergency;
   }

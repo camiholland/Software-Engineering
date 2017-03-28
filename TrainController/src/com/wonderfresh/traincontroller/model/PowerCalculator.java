@@ -56,9 +56,12 @@ public class PowerCalculator extends Thread{
      * Used to temporarily stop the train
      */
     public void stopTemp() {
-        stop = !stop;
+        stop = true;
     }
-
+    
+    public void startTemp() {
+        stop = false;
+    }
     
     public void setGainValues(double kp, double ki){
         this.kp = kp;
@@ -83,7 +86,10 @@ public class PowerCalculator extends Thread{
         while (proceed) {
             
             while (stop) {
-                train.setPowerCommand(0); //ensure train sets power to 0
+                
+                if (powerCommand != 0) {
+                    train.setPowerCommand(0); //ensure train sets power to 0
+                }
             
                 try {
                     sleep(1000);
