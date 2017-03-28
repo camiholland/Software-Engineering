@@ -12,52 +12,42 @@ package trainmodel;
 public interface TrainModelAPI {
     //generic methods that both Train Controller and Track Model receive
     
-    
-}
-
-interface TrainToTrainController extends TrainModelAPI{
     //communications received by Train Controller
-    public double getActualSpeed(int trainID);
-    public double getSetPointSpeed(int trainID);
-    public int getAC(int trainID);
-    public int getHeat(int trainID);
-    public int getLights(int trainID);
-    public int getLeftDoors(int trainID);
-    public int getRightDoors(int trainID);
-    public int getServiceBrake(int trainID);
-    public double getTemperature(int trainID);
-    public boolean getEBrakeStatus(int trainID);
-    public String getAuthority(int trainID);
-    public int getNumPassengersOnBoard(int trainID);
-    public String getBeaconInfo(int trainID);
+    public void setEBrake(boolean status, int trainID);
+    public void setServiceBrake(int status, int trainID);
+    public void setLeftDoors(int status, int trainID);
+    public void setRightDoors(int status, int trainID);
+    public void setTargetTemperature(int status, int trainID);
+    public void setLights(int status, int trainID);
+    public void setPowerCommand(double pwrCmd, int trainID);
+    public void setAnnouncement(String announcement, int trainID);
+
 }
 
-interface TrainToTrack extends TrainModelAPI{
-    //communications received by Track Model
-    public int getNumAvailableSeats(int trainID, int numAvailableSeats);
-    public void setNumAvailableSeats(int trainID, int numAvailableSeats);
-}
-
-interface Testing extends TrainModelAPI{
+/*interface Testing extends TrainModelAPI{
     //testing for communications received by Train Model
     //from Track Model
-    public int getNumPassengersWaiting(int trainID);
-    public String getBeaconInfo(int trainID);
+    
+    //public Block getNextBlock(Block currentBlock, Block previousBlock);
     
     //from Train Controller
-    public boolean getEBrakeStatus();
-    public int getLeftDoors();
-    public int getRightDoors();
-    public int getAC();
-    public int getHeat();
-    public int getLights();
-    public double getPowerCommand();
-    public double getIntegralGain();
-    public double getProportionalGain();
+    public void setSpeedAndAuth(int speed, int authority, int trainID);
+    public void setSpeedLimit(int limit, int trainID);
+    public void setSpeed(double speed, int trainID);
+    public void setTemperature(int temperature, int trainID);
+    public void setRightDoors(int status, int trainID);
+    public void setLeftDoors(int status, int trainID);
+    public void setLights(int status, int trainID);
+    public void setAirConditioning(int status, int trainID);
+    public void setHeating(int status, int trainID);
+    public void failPower(int trainID);
+    public void failBrake(int trainID);
+    public void emergencyBrake(int trainID);
+    public void sendBeaconInfo(boolean doors, int distance, String station, int trainID);
     
     //from antenna
-    public double getSetPointSpeed();
-    public String getAuthority();
+    public double setSpeedAndAuth(double speed, int authority);
+    public String setBeaconInfo(String info);
     
     //from self
     public void setTemperature();
@@ -69,4 +59,4 @@ interface Testing extends TrainModelAPI{
     public void setRighDoorsFailure();
     public void setBrakesFailure();
     public void setBeaconFailure();
-}
+}*/

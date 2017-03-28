@@ -14,7 +14,10 @@ import static java.lang.Math.sin;
  * @author Cami
  */
 public class TrainModel {
-    static TrainModel G1;
+    static Train G1;
+    static Train G2;
+    static Train R1;
+    static Train R2;
     TrainModelUI gui;
     Testing testing;
     
@@ -24,10 +27,10 @@ public class TrainModel {
     double previousTempTime;
     
     final int MAX_POWER = 120000; //watts
-    final double CAR_MASS_TON = 40.9; //tons (short ton = 2000lbs, tonne = 1000kg, long ton = 2240lbs)
-    final double PASS_WEIGHT = 75; //kg
-    final double CAR_MASS = 40900; //kg, assuming tonne
-    final double FRICTION = 1;                                                  //FIX THIS
+    final double CAR_MASS_TON = 40.9; //tonnes (metric ton = 1000kg = 2204.62lbs)
+    final int PASS_WEIGHT = 75; //kg                                            //... or 70???
+    final int CAR_MASS = 40900; //kg
+    final double FRICTION = 1;                                                  //<-- that ain't right!
     final int T = 1;
     final double MAX_ACC = .5; //m/s2
     final double S_BRAKE_RATE = 1.2; //m/s2
@@ -112,7 +115,7 @@ public class TrainModel {
         eBrake = false;
         authority = null;
         
-        while(true){
+        /*while(true){
             
             
             sps = testing.getSetPointSpeed();
@@ -123,7 +126,7 @@ public class TrainModel {
             beacon = testing.getBeaconInfo(1);
             
             updateAll(Double.toString(speed), Double.toString(sps), Double.toString(speedLimit), Double.toString(powerCmd));
-        }
+        }*/
     }
     
     /**
@@ -134,6 +137,81 @@ public class TrainModel {
         // TODO code application logic here
         
         
+    }
+    
+    public void setEBrake(int trainID, boolean status){
+        
+        
+    }
+    public void setServiceBrake(int trainID, int status){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setLeftDoors(int trainID, int status){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setRightDoors(int trainID, int status){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setTemperature(int trainID, int status){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setLights(int trainID, int status){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setPowerCommand(int trainID, double pwrCmd){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
+    }
+    public void setAnnouncement(int trainID, String announcement){
+        if(trainID == 1)
+            G1.eBrake = status;
+        else if(trainID == 2)
+            G2.eBrake = status;
+        else if(trainID == 3)
+            R1.eBrake = status;
+        else
+            R2.eBrake = status;
     }
     
     private void updateAll(String speed, String sps, String speedLimit, String powerCmd){
