@@ -215,6 +215,23 @@ public class Time extends Thread{
         String tString=""+h+":"+m+""+ampm+"-"+h1+":"+m1+""+ampm1+"";
         return tString;
     }
+        public static String stringTime(Time t){
+        String ampm;
+        int hour;
+        if(t.hr>12){hour=t.hr-12;}
+            else{hour=t.hr; }
+        if (t.hr>=12){ampm="PM"; }
+            else{ampm="AM";}
+        String h,m,s;
+        if(hour<10){h="0"+hour;}
+            else{h=""+hour;}
+        if(t.min<10){m="0"+t.min;}
+            else{m=""+t.min;}
+        if(t.sec<10){s="0"+t.sec;}
+            else{s=""+t.sec;}
+        String tString=" "+h+":"+m+":"+s+" "+ampm+" " ;
+        return tString;
+    }
             
 }
 

@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import javax.swing.JFrame;
 
-public class Mbo implements mboInterface{
+public class Mbo {
     
     public static void main(String[] args) throws FileNotFoundException {
         //max 100 trains per line
@@ -24,13 +24,11 @@ public class Mbo implements mboInterface{
         int redRunTime,greenRunTime; 
         int passPerCar=300; //assume that all 300 wont ride at once
         int timeConst=1;
-        String timeOutput="00:00:00";
-        boolean test=true;
+       boolean test=true;
         int running=1;
-        int timeConstant = 10;
-        mbotime startTime=mbotime.getTimeNow();
-        mbotime currentTime=startTime;
-        timeOutput=mbotime.stringTime(startTime);
+        Time startTime=Time.getTimeNow();
+        String timeOutput;
+        Time currentTime=startTime;
         mboUI gui = new mboUI(); // GUI gui = new GUI() as well
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setVisible(true);
@@ -38,16 +36,10 @@ public class Mbo implements mboInterface{
 //Get User Inputs
         while(running==1){
 //keep clock running            
-            if (timeConst==1){
-                currentTime=mbotime.getTimeNow();
-                gui.clock.setText(mbotime.stringTime(currentTime));
-            }
-            else if (timeConst==10){ gui.clock.setText(mbotime.stringTime(mbotime.get10x(startTime, timeConst))); }
-            else{ System.out.println("Issue with time constant; not 1 or 10"); }
-            //wait for data
-           if (gui.getData==1){
-               running=0;
-           } 
+            gui.clock.setText(Time.stringTime(Time.getTimeNow()));    
+            if (gui.getData==1){
+                running=0;
+            } 
         }
         System.out.println("Accepted inputs");      
 //get tracks
@@ -163,14 +155,9 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
        
         running=1;
         while(running==1){
-            
             //update time
-            currentTime=mbotime.getTimeNow();
-            if (timeConst==10){timeOutput=mbotime.stringTime(mbotime.get10x(startTime, timeConst));}
-            else{timeOutput=mbotime.stringTime(currentTime);}
-            
-            gui.displayClosedTrack.getModel().setValueAt(timeOutput, 0, 0);
-            gui.clock.setText(timeOutput);
+            gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
+            gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
             gui.passengerCount.setText(" "+(passengerCount));
             
         }
@@ -180,12 +167,11 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
         int lengthOf2Cars=lengthOfCar*2;
         int distance=0;                         //calculated stopping distance to be returned
         int humanWeight=75;                     //Standardized Human weight in kg
-        int numHumansPerTrain=300;              //Max people per train
+        int numHumansPerTrain=300+1;              //Max people per train + driver
         int totalHumans=numHumansPerTrain*2;    //Double the total potential human weight to calculate brake distance for rush hour
         int totalHumanWeight=totalHumans*humanWeight;
         int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document
         int maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
-        
         int totalWeight=trainWeight+totalHumanWeight;
         System.out.println("\n\nStats for breaking distance:\n\nTotal Weight for calculated breaking distance(in kg): "+totalWeight);
         System.out.println("length of 2 cars to add to breaking distance, since using point mass: "+lengthOf2Cars);
@@ -219,44 +205,6 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
         
         return time;
     }
-    void setDispatchedTrain(int trainID, double speed, double authority, int locationBlock,double locationInBlock){
-        
-        
-        
-    }
-
-    @Override
-    public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] getDispatchedTrain(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] getUpdatedSpeedAuthority(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrainDepartInfo[] setTrainDepartInfo(String station, String trainIDandDepartTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public mboTrainDepartInfo[] getTrainDepartInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrainDepartInfo[] getTrainDepartInfo(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
 }
