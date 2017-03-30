@@ -11,7 +11,9 @@ package com.wonderfresh.trainmodel;
  */
 public interface TrainModelAPI {
     //generic methods that both Train Controller and Track Model receive
-    
+}
+
+interface TrainToTrainController extends TrainModelAPI{
     //communications received by Train Controller
     public void setEBrake(boolean status, int trainID);
     public void setServiceBrake(int status, int trainID);
@@ -30,7 +32,7 @@ interface Testing extends TrainModelAPI{
     
     //public Block getNextBlock(Block currentBlock, Block previousBlock);
     
-    //from Train Controller
+    //to Train Controller
     public void setSpeedAndAuth(int speed, int authority, int trainID);
     public void setSpeedLimit(int limit, int trainID);
     public void setSpeed(double speed, int trainID);
@@ -45,10 +47,10 @@ interface Testing extends TrainModelAPI{
     public void emergencyBrake(int trainID);
     public void sendBeaconInfo(boolean doors, int distance, String station, int trainID);
     
-    //from antenna
-    public double setSpeedAndAuth(double speed, int authority);
-    public String setBeaconInfo(String info);
-    
+    //to antenna
+    public void setSpeedAndAuth(double speed, int authority);
+    public void setBeaconInfo(String info);
+    /*
     //from self
     public void setTemperature();
     public void setEBrakeStatus();
@@ -58,5 +60,5 @@ interface Testing extends TrainModelAPI{
     public void setLeftDoorsFailure();
     public void setRighDoorsFailure();
     public void setBrakesFailure();
-    public void setBeaconFailure();
+    public void setBeaconFailure();*/
 }

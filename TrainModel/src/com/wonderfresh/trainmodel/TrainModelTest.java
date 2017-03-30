@@ -13,15 +13,18 @@ package com.wonderfresh.trainmodel;
 public class TrainModelTest {
     TrainToTrainController trainToTC;
     TrainModelTestUI gui;
+    TrainModel tm;
     
-    private double sps = 0;
-    private String authority = null;
+    int ID;
+    
+    private double speed = 0;
+    private int sps = 0;
+    private int speedLimit = 0;
+    private int authority = 0;
+    private int temperature = 0;
     private int numPassWaiting = 0;
     private String beacon = null;
     private double powerCmd = 0;
-    private double intGain = 0;
-    private double propGain = 0;
-    private int trainID = 1;
     
     int acStatus;
     int heatStatus;
@@ -33,9 +36,11 @@ public class TrainModelTest {
     
     public TrainModelTest(TrainModel TM){
         gui = new TrainModelTestUI(this);
-        gui.setVisible(true);
         trainToTC = new TrainToTrainControllerImpl(TM);
-
+        tm = TM;
+        gui.setVisible(true);
+        
+        ID = tm.getID();
         
         acStatus = 0;
         heatStatus = 0;
@@ -45,8 +50,10 @@ public class TrainModelTest {
         serviceBrakeStatus = 0;
         eBrake = false;
         
+        TrainModelTestTrain.addTrain(this);
         
-        //while(true){
+        
+        /*while(true){
             
             acStatus = trainToTC.getAC(1);
             heatStatus = trainToTC.getHeat(1);
@@ -56,71 +63,71 @@ public class TrainModelTest {
             serviceBrakeStatus = trainToTC.getServiceBrake(1);
             
             
-        //}
+        }*/
         
         //acting train controller:
         //final TrainToTrainController testingTC = new TrainToTrainControllerImpl();
         //acting track model:
         //final TrainToTrack testingTrack = new TrainToTrackImpl();
     }
-    
-    protected void setEBrake(boolean a){
-        eBrake = a;
-    }
-    protected boolean getEBrake(){
-        return eBrake;
+    public int getID(){
+        return ID;
     }
     
     
-    protected void setSPS(String spsString){
-        sps = Double.parseDouble(spsString);
-    }
-    protected double getSPS(){
-        return sps;
-    }
-    protected void setAuthority(String authorityString){
-        authority = authorityString;
-    }
-    protected String getAuthority(){
-        return authority;
-    }
-    protected void setNumPassengersWaiting(String numPassString){
-        numPassWaiting = Integer.parseInt(numPassString);
-    }
-    protected int getNumPassengersWaiting(){
-        return numPassWaiting;
-    }
-    protected void setBeaconInfo(String beaconString){
-        beacon = beaconString;
-    }
-    protected String getBeaconInfo(){
-        return beacon;
-    }
-    protected void setPowerCmd(String pwrCmdString){
-        powerCmd = Double.parseDouble(pwrCmdString);
-    }
-    protected double getPowerCmd(){
-        return powerCmd;
-    }
-    protected void setIntGain(String intGainString){
-        intGain = Double.parseDouble(intGainString);
-    }
-    protected double getIntGain(){
-        return intGain;
-    }
-    protected void setPropGain(String propGainString){
-        propGain = Double.parseDouble(propGainString);
-    }
-    protected double getPropGain(){
-        return propGain;
-    }
-    protected void setTrainID(int id){
-        trainID = id;
-    }
     
-    
-    protected int getAC(){
-        return acStatus;
+    protected void setSpeedAndAuthority(int speed, int auth){
+        sps = speed;
+        authority = auth;
+    }
+    protected void setSpeedLimit(int limit){
+        speedLimit = limit;
+    }
+    protected void setRealSpeed(double speed){
+        this.speed = speed;
+    }
+    protected void setCurrentTemp(int temperature){
+        this.temperature = temperature;
+        trainToTC.setTargetTemperature(temperature, ID);
+    }
+    protected void setDoorsLeft(int status){
+        leftDoorsStatus = status;
+        trainToTC.setLeftDoors(status, ID);
+        if(status > 0){
+            gui.on(4);
+        }
+        else if(status == 0){
+            gui.off(4);
+        }
+        else{
+            gui.fail(4);
+        }
+    }
+    protected void setDoorsRight(int status){
+        rightDoorsStatus = status;
+        trainToTC.setRightDoors(status, ID);
+        if(status > 0){
+            gui.on(5);
+        }
+        else if(status == 0){
+            gui.off(5);
+        }
+        else{
+            gui.fail(5);
+        }
+    }
+    protected void setLights(int status){
+        lightsStatus = status;
+        trainToTC.setLights(status, ID);
+        if(status > 0){
+            gui.on(3);
+        }
+        else if(status == 0){
+            gui.off(3);
+        }
+        else{
+            gui.fail(3);
+        }
     }
     protected void setAC(int status){
         acStatus = status;
@@ -134,9 +141,6 @@ public class TrainModelTest {
             gui.fail(1);
         }
     }
-    protected int getHeat(){
-        return heatStatus;
-    }
     protected void setHeat(int status){
         heatStatus = status;
         if(status > 0){
@@ -149,64 +153,26 @@ public class TrainModelTest {
             gui.fail(2);
         }
     }
-    protected int getLights(){
-        return lightsStatus;
+    protected void engageEmergencyBrake(){
+        eBrake = true;
+        trainToTC.setEBrake(eBrake, ID);
     }
-    protected void setLights(int status){
-        lightsStatus = status;
-        if(status > 0){
-            gui.on(3);
-        }
-        else if(status == 0){
-            gui.off(3);
-        }
+    
+    protected void setEBrake(boolean status){
+        if(status)
+            engageEmergencyBrake();
         else{
-            gui.fail(3);
+            eBrake = false;
+            trainToTC.setEBrake(eBrake, ID);
         }
     }
-    protected int getLeftDoors(){
-        return leftDoorsStatus;
-    }
-    protected void setLeftDoors(int status){
-        leftDoorsStatus = status;
-        if(status > 0){
-            gui.on(4);
-        }
-        else if(status == 0){
-            gui.off(4);
-        }
-        else{
-            gui.fail(4);
-        }
-    }
-    protected int getRightDoors(){
-        return rightDoorsStatus;
-    }
-    protected void setRightDoors(int status){
-        rightDoorsStatus = status;
-        if(status > 0){
-            gui.on(5);
-        }
-        else if(status == 0){
-            gui.off(5);
-        }
-        else{
-            gui.fail(5);
-        }
-    }
-    protected int getServiceBrake(){
-        return serviceBrakeStatus;
+    protected void setPowerCmd(String cmd){
+        double pwrCmd = Double.parseDouble(cmd);
+        trainToTC.setPowerCommand(pwrCmd, ID);
+        powerCmd = pwrCmd;
     }
     protected void setServiceBrake(int status){
+        trainToTC.setServiceBrake(status, ID);
         serviceBrakeStatus = status;
-        if(status > 0){
-            gui.on(6);
-        }
-        else if(status == 0){
-            gui.off(6);
-        }
-        else{
-            gui.fail(6);
-        }
     }
 }

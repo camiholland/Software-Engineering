@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author Cami
  */
-public class Train {
+public class TrainModelTestTrain {
     
-    public static ArrayList<TrainModel> trainList;
+    public static ArrayList<TrainModelTest> trainList;
     public static int count;
     
-    public Train(){
+    public TrainModelTestTrain(){
         trainList = new ArrayList<>();
         count = 0;
     }
@@ -25,21 +25,21 @@ public class Train {
         return count;
     }
     
-    public static void addTrain(TrainModel newTrain){
+    public static void addTrain(TrainModelTest newTrain){
         trainList.add(newTrain);
         count++;
     }
     
-    public static TrainModel getTrain(int trainID){
-        TrainModel trainmodel;
+    public static TrainModelTest getTrain(int trainID){
+        TrainModelTest trainmodeltest;
         int checkID;
         
         for (int i = 0; i < count; i++){
-            trainmodel = trainList.get(i);
-            checkID = trainmodel.getID();
+            trainmodeltest = trainList.get(i);
+            checkID = trainmodeltest.getID();
             
             if(checkID == trainID){
-                return trainmodel;
+                return trainmodeltest;
             }
         }
         return null;

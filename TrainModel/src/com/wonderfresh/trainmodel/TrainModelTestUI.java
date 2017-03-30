@@ -78,8 +78,6 @@ public class TrainModelTestUI extends javax.swing.JFrame {
         lightsOn = new javax.swing.JRadioButton();
         lightsOff = new javax.swing.JRadioButton();
         powerCmdText = new javax.swing.JTextField();
-        intGainText = new javax.swing.JTextField();
-        propGainText = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         trainG1 = new javax.swing.JRadioButton();
         trainG2 = new javax.swing.JRadioButton();
@@ -333,18 +331,6 @@ public class TrainModelTestUI extends javax.swing.JFrame {
             }
         });
 
-        intGainText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                intGainTextActionPerformed(evt);
-            }
-        });
-
-        propGainText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                propGainTextActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -399,10 +385,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                     .addComponent(propGainLabel)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(intGainText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(powerCmdText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(propGainText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(powerCmdText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -430,8 +413,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rightDoorsLabel)
                     .addComponent(rightDoorsOpen)
-                    .addComponent(rightDoorsClosed)
-                    .addComponent(intGainText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rightDoorsClosed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(acLabel)
@@ -442,14 +424,13 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(heatLabel)
                     .addComponent(heatOn)
-                    .addComponent(heatOff)
-                    .addComponent(propGainText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(heatOff))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lightsLabel)
                     .addComponent(lightsOn)
                     .addComponent(lightsOff))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train ID", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -544,22 +525,22 @@ public class TrainModelTestUI extends javax.swing.JFrame {
 
     private void spsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spsTextActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setSPS(spsText.getText());
+        //trainModelTest.setSPS(spsText.getText());
     }//GEN-LAST:event_spsTextActionPerformed
 
     private void authorityTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorityTextActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setAuthority(authorityText.getText());
+        //trainModelTest.setAuthority(authorityText.getText());
     }//GEN-LAST:event_authorityTextActionPerformed
 
     private void numPassTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numPassTextActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setNumPassengersWaiting(numPassText.getText());
+        //trainModelTest.setNumPassengersWaiting(numPassText.getText());
     }//GEN-LAST:event_numPassTextActionPerformed
 
     private void beaconTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beaconTextActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setBeaconInfo(beaconText.getText());
+        //trainModelTest.setBeaconInfo(beaconText.getText());
     }//GEN-LAST:event_beaconTextActionPerformed
 
     private void powerCmdTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_powerCmdTextActionPerformed
@@ -567,34 +548,24 @@ public class TrainModelTestUI extends javax.swing.JFrame {
         trainModelTest.setPowerCmd(powerCmdText.getText());
     }//GEN-LAST:event_powerCmdTextActionPerformed
 
-    private void intGainTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intGainTextActionPerformed
-        // TODO add your handling code here:
-        trainModelTest.setIntGain(intGainText.getText());
-    }//GEN-LAST:event_intGainTextActionPerformed
-
-    private void propGainTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propGainTextActionPerformed
-        // TODO add your handling code here:
-        trainModelTest.setPropGain(propGainText.getText());
-    }//GEN-LAST:event_propGainTextActionPerformed
-
     private void trainG1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainG1ActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setTrainID(1);
+        //trainModelTest.setTrainID(1);
     }//GEN-LAST:event_trainG1ActionPerformed
 
     private void trainG2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainG2ActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setTrainID(2);
+        //trainModelTest.setTrainID(2);
     }//GEN-LAST:event_trainG2ActionPerformed
 
     private void trainR1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainR1ActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setTrainID(3);
+        //trainModelTest.setTrainID(3);
     }//GEN-LAST:event_trainR1ActionPerformed
 
     private void trainR2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainR2ActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setTrainID(4);
+        //trainModelTest.setTrainID(4);
     }//GEN-LAST:event_trainR2ActionPerformed
 
     private void eBrakeOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eBrakeOnActionPerformed
@@ -607,6 +578,10 @@ public class TrainModelTestUI extends javax.swing.JFrame {
         trainModelTest.setEBrake(false);
     }//GEN-LAST:event_eBrakeOffActionPerformed
 
+    protected void setEBrake(boolean status){
+        eBrakeRadioButtons.setSelected(eBrakeOn.getModel(), status);
+        eBrakeRadioButtons.setSelected(eBrakeOff.getModel(), !status);
+    }
     private void heatOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heatOnActionPerformed
         // TODO add your handling code here:
         trainModelTest.setHeat(1);
@@ -629,22 +604,22 @@ public class TrainModelTestUI extends javax.swing.JFrame {
 
     private void rightDoorsOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightDoorsOpenActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setRightDoors(1);
+        trainModelTest.setDoorsRight(1);
     }//GEN-LAST:event_rightDoorsOpenActionPerformed
 
     private void rightDoorsClosedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightDoorsClosedActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setRightDoors(0);
+        trainModelTest.setDoorsRight(0);
     }//GEN-LAST:event_rightDoorsClosedActionPerformed
 
     private void leftDoorsOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftDoorsOpenActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setLeftDoors(1);
+        trainModelTest.setDoorsLeft(1);
     }//GEN-LAST:event_leftDoorsOpenActionPerformed
 
     private void leftDoorsClosedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftDoorsClosedActionPerformed
         // TODO add your handling code here:
-        trainModelTest.setLeftDoors(0);
+        trainModelTest.setDoorsLeft(0);
     }//GEN-LAST:event_leftDoorsClosedActionPerformed
 
     private void serviceBrakeOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serviceBrakeOnActionPerformed
@@ -796,7 +771,6 @@ public class TrainModelTestUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton heatOn;
     private javax.swing.ButtonGroup heatRadioButtons;
     private javax.swing.JLabel intGainLabel;
-    private javax.swing.JTextField intGainText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -819,7 +793,6 @@ public class TrainModelTestUI extends javax.swing.JFrame {
     private javax.swing.JLabel powerCmdLabel;
     private javax.swing.JTextField powerCmdText;
     private javax.swing.JLabel propGainLabel;
-    private javax.swing.JTextField propGainText;
     private javax.swing.JRadioButton rightDoorsClosed;
     private javax.swing.JLabel rightDoorsLabel;
     private javax.swing.JRadioButton rightDoorsOpen;

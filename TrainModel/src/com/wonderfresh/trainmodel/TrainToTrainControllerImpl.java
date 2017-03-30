@@ -17,43 +17,66 @@ public class TrainToTrainControllerImpl implements TrainToTrainController {
     }
     
     //communications received by Train Controller
-    public double getActualSpeed(int trainID){
-        return trainModel.getSpeed();
+    public void setEBrake(boolean status, int trainID){
+        Train.getTrain(trainID).eBrake = status;
     }
-    public double getSetPointSpeed(int trainID){
-        return trainModel.getSPS();
+    public void setServiceBrake(int status, int trainID){
+        TrainModel train = Train.getTrain(trainID);
+        train.setServiceBrake(1);
+        if(status == 1)
+            train.driverSetBrake = true;
+        else
+            train.driverSetBrake = false;
     }
-    public int getAC(int trainID){
-        return trainModel.getAC();
+    public void setLeftDoors(int status, int trainID){
+        TrainModel train = Train.getTrain(trainID);
+        train.leftDoorsStatus = status;
+        if(status > 0){
+            train.gui.on(4);
+        }
+        else if(status == 0){
+            train.gui.off(4);
+        }
+        else{
+            train.gui.fail(4);
+            train.testing.failPower(trainID);
+        }
     }
-    public int getHeat(int trainID){
-        return trainModel.getHeat();
+    public void setRightDoors(int status, int trainID){
+        TrainModel train = Train.getTrain(trainID);
+        train.rightDoorsStatus = status;
+        if(status > 0){
+            train.gui.on(5);
+        }
+        else if(status == 0){
+            train.gui.off(5);
+        }
+        else{
+            train.gui.fail(5);
+            train.testing.failPower(trainID);
+        }
     }
-    public int getLights(int trainID){
-        return trainModel.getLights();
+    public void setTargetTemperature(int status, int trainID){
+        Train.getTrain(trainID).targetTemp = status;
     }
-    public int getLeftDoors(int trainID){
-        return trainModel.getLeftDoors();
+    public void setLights(int status, int trainID){
+        TrainModel train = Train.getTrain(trainID);
+        train.lightsStatus = status;
+        if(status > 0){
+            train.gui.on(3);
+        }
+        else if(status == 0){
+            train.gui.off(3);
+        }
+        else{
+            train.gui.fail(3);
+            train.testing.failPower(trainID);
+        }
     }
-    public int getRightDoors(int trainID){
-        return trainModel.getRightDoors();
+    public void setPowerCommand(double pwrCmd, int trainID){
+        Train.getTrain(trainID).powerCmd = pwrCmd;
     }
-    public int getServiceBrake(int trainID){
-        return trainModel.getServiceBrake();
-    }
-    public double getTemperature(int trainID){
-        return trainModel.getTemp();
-    }
-    public boolean getEBrakeStatus(int trainID){
-        return trainModel.getEBrake();
-    }
-    public String getAuthority(int trainID){
-        return trainModel.getAuthority();
-    }
-    public int getNumPassengersOnBoard(int trainID){
-        return trainModel.getNumPass();
-    }
-    public String getBeaconInfo(int trainID){
-        return trainModel.getBeacon();
+    public void setAnnouncement(String announcement, int trainID){
+        Train.getTrain(trainID).announcement = announcement;
     }
 }

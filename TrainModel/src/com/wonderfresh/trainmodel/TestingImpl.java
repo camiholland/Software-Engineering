@@ -11,55 +11,102 @@ package com.wonderfresh.trainmodel;
  */
 public class TestingImpl implements Testing {
     TrainModelTest trainModelTest;
+    TrainModelTestTrain trainlist;
     public TestingImpl(TrainModel TM){
         trainModelTest = new TrainModelTest(TM);
+        trainlist = new TrainModelTestTrain();
     }
     
     //from Track Model
-    public int getNumPassengersWaiting(int trainID){
-        return trainModelTest.getNumPassengersWaiting();
+    /*public Block getNextBlock(Block currentBlock, Block previousBlock){
+        
+    }*/
+    
+    //to train controller
+    @Override
+    public void setSpeedAndAuth(int speed, int authority, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setSpeedAndAuthority(speed,authority);
     }
-    public String getBeaconInfo(int trainID){
-        return trainModelTest.getBeaconInfo();
+
+    @Override
+    public void setSpeedLimit(int limit, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setSpeedLimit(limit);
+    }
+
+    @Override
+    public void setSpeed(double speed, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setRealSpeed(speed);
+    }
+
+    @Override
+    public void setTemperature(int temperature, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setCurrentTemp(temperature);
+    }
+
+    @Override
+    public void setRightDoors(int status, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setDoorsRight(status);
+    }
+
+    @Override
+    public void setLeftDoors(int status, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setDoorsLeft(status);
+    }
+
+    @Override
+    public void setLights(int status, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setLights(status);
+    }
+
+    @Override
+    public void setAirConditioning(int status, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setAC(status);
+    }
+
+    @Override
+    public void setHeating(int status, int trainID) {
+        TrainModelTest train = TrainModelTestTrain.getTrain(trainID);
+        train.setHeat(status);
+    }
+
+    @Override
+    public void failPower(int trainID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void failBrake(int trainID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void emergencyBrake(int trainID) {
+        TrainModelTest train = trainlist.getTrain(trainID);
+        train.engageEmergencyBrake();
+    }
+
+    @Override
+    public void sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //from Train Controller
-    public boolean getEBrakeStatus(){
-        return trainModelTest.getEBrake();
-    }
-    public int getLeftDoors(){
-        return trainModelTest.getLeftDoors();
-    }
-    public int getRightDoors(){
-        return trainModelTest.getRightDoors();
-    }
-    public int getAC(){
-        return trainModelTest.getAC();
-    }
-    public int getHeat(){
-        return trainModelTest.getHeat();
-    }
-    public int getLights(){
-        return trainModelTest.getLights();
-    }
-    public double getPowerCommand(){
-        return trainModelTest.getPowerCmd();
-    }
-    public double getIntegralGain(){
-        return trainModelTest.getIntGain();
-    }
-    public double getProportionalGain(){
-        return trainModelTest.getPropGain();
-    }
     
     //from antenna
-    public double getSetPointSpeed(){
-        return trainModelTest.getSPS();
+    public void setSpeedAndAuth(double speed, int authority){
+        
     }
-    public String getAuthority(){
-        return trainModelTest.getAuthority();
+    public void setBeaconInfo(String info){
+        
     }
-    
+    /*
     //from self
     public void setTemperature(){
         
@@ -87,5 +134,5 @@ public class TestingImpl implements Testing {
     }
     public void setBeaconFailure(){
         
-    }
+    }*/
 }

@@ -5,8 +5,11 @@
  */
 package com.wonderfresh.trainmodel;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.ceil;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
+import javax.swing.JFrame;
 
 
 /**
@@ -19,10 +22,7 @@ public class TrainModel {
     
     int ID;
     
-    double currentSpeedTime;
-    double previousSpeedTime;
-    double currentTempTime;
-    double previousTempTime;
+    int currentSecond;
     
     final int MAX_POWER = 120000; //watts
     final double CAR_MASS_TON = 40.9; //tonnes (metric ton = 1000kg = 2204.62lbs)
@@ -31,9 +31,9 @@ public class TrainModel {
     final double FRICTION = 1;                                                  //<-- that ain't right!
     final int T = 1;
     final double MAX_ACC = .5; //m/s2
-    final double S_BRAKE_RATE = 1.2; //m/s2
-    final double E_BRAKE_RATE = 2.73; //m/s2
-    final double DEFAULT_TEMP = 75;
+    final double S_BRAKE_RATE = -1.2; //m/s2
+    final double E_BRAKE_RATE = -2.73; //m/s2
+    final int DEFAULT_TEMP = 75;
     
     int numCars;
     int numPass;
@@ -52,6 +52,7 @@ public class TrainModel {
     double sps;
     double speedLimit;
     double powerCmd;
+    double previousPowerCmd;
     
     int acStatus;
     int heatStatus;
@@ -59,23 +60,23 @@ public class TrainModel {
     int leftDoorsStatus;
     int rightDoorsStatus;
     int serviceBrakesStatus;
+    boolean driverSetBrake;
     
     String beacon;
     String previousBeacon;
     
-    double currentTemp;
-    double targetTemp;
+    int currentTemp;
+    int targetTemp;
     boolean eBrake;
     int authority;
     String announcement;
     
     public TrainModel(int trainID){
         gui = new TrainModelUI(this);
-        gui.setVisible(true);
         testing = new TestingImpl(this);
+        //gui.setVisible(true);
         
-        currentSpeedTime = 0;
-        previousSpeedTime = 0;
+        ID = trainID;
         
         numCars = 1;
         numPass = 0;
@@ -94,6 +95,7 @@ public class TrainModel {
         sps = 0;
         speedLimit = 0;
         powerCmd = 0;
+        previousPowerCmd = 0;
         
         acStatus = 0;
         heatStatus = 0;
@@ -101,6 +103,7 @@ public class TrainModel {
         leftDoorsStatus = 0;
         rightDoorsStatus = 0;
         serviceBrakesStatus = 0;
+        driverSetBrake = false;
         
         beacon = null;
         previousBeacon = null;
@@ -111,68 +114,38 @@ public class TrainModel {
         authority = 0;
         announcement = null;
         
+        gui.setVisible(true);
+        
+        currentSecond = (int) ceil(System.nanoTime()/1000000000);
         /*while(true){
-            
-            
-            sps = testing.getSetPointSpeed();
-            
-            powerCmd = testing.getPowerCommand();
-            setSpeed(powerCmd);
-            setTemp(targetTemp);
-            beacon = testing.getBeaconInfo(1);
-            
-            updateAll(Double.toString(speed), Double.toString(sps), Double.toString(speedLimit), Double.toString(powerCmd));
+            if(System.nanoTime()/1000000000 - currentSecond >= 1){
+                if(currentTemp > targetTemp + 2 || currentTemp < targetTemp - 2){
+                    adjustTemp();
+                }
+
+                if(eBrake || serviceBrakesStatus == 1 || sps != speed){
+                    adjustSpeed();
+                }
+            }
+            currentSecond++;
         }*/
     }
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // TODO code application logic here
         
-        
-    }
+    }*/
     
     public int getID(){
         return ID;
     }
     
-    public void setEBrake(int trainID, boolean status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.eBrake = status;
-        
-    }
-    public void setServiceBrake(int trainID, int status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.serviceBrakesStatus = status;
-    }
-    public void setLeftDoors(int trainID, int status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.leftDoorsStatus = status;
-    }
-    public void setRightDoors(int trainID, int status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.rightDoorsStatus = status;
-    }
-    public void setTemperature(int trainID, int status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.targetTemp = status;
-    }
-    public void setLights(int trainID, int status){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.lightsStatus = status;
-    }
-    public void setPowerCommand(int trainID, double pwrCmd){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.powerCmd = pwrCmd;
-    }
-    public void setAnnouncement(int trainID, String announcement){
-        TrainModel train = TrainA.getTrain(trainID);
-        train.announcement = announcement;
-    }
     
-    private void updateAll(String speed, String sps, String speedLimit, String powerCmd){
+    
+    /*private void updateAll(String speed, String sps, String speedLimit, String powerCmd){
         gui.setSpeed(speed);
         gui.setSPS(sps);
         gui.setPowerCmd(powerCmd);
@@ -185,142 +158,106 @@ public class TrainModel {
                 gui.setNotification(beacon);
             previousBeacon = beacon;
         }
-    }
+    }*/
     
-    protected double getSpeed(){
-        return speed;
-    }
-    protected void setSpeed(double power){
-        totalMass = CAR_MASS * numCars + PASS_WEIGHT * (numPass + numCrew);
+    protected void adjustSpeed(){
+        //totalMass = CAR_MASS * numCars + PASS_WEIGHT * (numPass + numCrew);
         //error = sps - speed;
         //netForceUphillDecel = totalMass * acc + totalMass * 9.8 * sin(grade) + FRICTION * totalMass * 9.8 * cos(grade);
         //netForceUphillAccel = totalMass * acc - totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
         //netForceDownhillDecel = totalMass * acc - totalMass * 9.8 * sin(grade) + FRICTION * totalMass * 9.8 * cos(grade);
         //netForceDownhillAccel = totalMass * acc + totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
-        
-        currentSpeedTime = System.nanoTime()/1000000000;
-        if(currentSpeedTime - previousSpeedTime >= 1){
-            if(power <= MAX_POWER){
-                acc = power / (totalMass * sps);
-                speed += acc;
-                //speed += T/2 * (error + previousError);
-                //previousError = error;
-            }
-            previousSpeedTime = currentSpeedTime;
+        if(eBrake){
+            acc = E_BRAKE_RATE;
+            speed += acc*1;
         }
-        
-    }
-    protected double getSPS(){
-        return sps;
-    }
-    protected double getTemp(){
-        return currentTemp;
-    }
-    protected void setTemp(double setTemp){
-        currentTempTime = System.nanoTime()/1000000000;
-        if(currentTempTime - previousTempTime >= 1){
-            if(setTemp < currentTemp){
-                currentTemp -= (currentTemp - setTemp)/5;
-            }
-            else if(setTemp > currentTemp){
-                currentTemp += (setTemp - currentTemp)/5;
-            }
-            previousTempTime = currentTempTime;
+        else if(driverSetBrake){
+            acc = S_BRAKE_RATE;
+            speed += acc*1;
         }
+        else if(powerCmd <= MAX_POWER){
+            //a = P/mv
+            acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed));
+            if(acc < 0){
+                acc = S_BRAKE_RATE;
+                setServiceBrake(1);
+            }
+            else{
+                setServiceBrake(0);
+                if(acc > MAX_ACC)
+                    acc = MAX_ACC;
+            }
+            //v = v0 + at, where t = 1
+            speed += acc*1;
+        }
+        testing.setSpeed(speed, ID);
     }
-    protected String getBeacon(){
-        return beacon;
-    }
-    protected int getAuthority(){
-        return authority;
-    }
-    protected boolean getEBrake(){
-        return eBrake;
-    }
-    protected void setEBrake(boolean a){
-        eBrake = a;
-    }
-    protected int getNumPass(){
-        return numPass;
+    protected void adjustTemp(){
+        if(targetTemp < currentTemp){
+            setAC(1);
+            currentTemp --;
+        }
+        else if(targetTemp > currentTemp){
+            setHeat(1);
+            currentTemp++;
+        }
+        testing.setTemperature(currentTemp, ID);
     }
     
-    protected int getAC(){
-        return acStatus;
-    }
     protected void setAC(int status){
         acStatus = status;
         if(status > 0){
             gui.on(1);
+            testing.setAirConditioning(1, ID);
         }
         else if(status == 0){
             gui.off(1);
+            testing.setAirConditioning(0, ID);
         }
         else{
             gui.fail(1);
+            testing.setAirConditioning(-1, ID);
+            testing.failPower(ID);
         }
-    }
-    protected int getHeat(){
-        return heatStatus;
     }
     protected void setHeat(int status){
         heatStatus = status;
         if(status > 0){
             gui.on(2);
+            testing.setHeating(1, ID);
         }
         else if(status == 0){
             gui.off(2);
+            testing.setHeating(0, ID);
         }
         else{
             gui.fail(2);
+            testing.setHeating(-1, ID);
+            testing.failPower(ID);
         }
     }
-    protected int getLights(){
-        return lightsStatus;
+    public void failLeftDoors(){
+        leftDoorsStatus = -1;
+        gui.fail(4);
+        testing.setLeftDoors(-1, ID);
+        testing.failPower(ID);
     }
-    protected void setLights(int status){
-        lightsStatus = status;
-        if(status > 0){
-            gui.on(3);
-        }
-        else if(status == 0){
-            gui.off(3);
-        }
-        else{
-            gui.fail(3);
-        }
+    public void failRightDoors(){
+        rightDoorsStatus = -1;
+        gui.fail(5);
+        testing.setRightDoors(-1, ID);
+        testing.failPower(ID);
     }
-    protected int getLeftDoors(){
-        return leftDoorsStatus;
+    public void failLights(){
+        lightsStatus = -1;
+        gui.fail(3);
+        testing.setLights(-1, ID);
+        testing.failPower(ID);
     }
-    protected void setLeftDoors(int status){
-        leftDoorsStatus = status;
-        if(status > 0){
-            gui.on(4);
-        }
-        else if(status == 0){
-            gui.off(4);
-        }
-        else{
-            gui.fail(4);
-        }
-    }
-    protected int getRightDoors(){
-        return rightDoorsStatus;
-    }
-    protected void setRightDoors(int status){
-        rightDoorsStatus = status;
-        if(status > 0){
-            gui.on(5);
-        }
-        else if(status == 0){
-            gui.off(5);
-        }
-        else{
-            gui.fail(5);
-        }
-    }
-    protected int getServiceBrake(){
-        return serviceBrakesStatus;
+    public void activateEBrake(){
+        eBrake = true;
+        testing.emergencyBrake(ID);
+        adjustSpeed();
     }
     protected void setServiceBrake(int status){
         serviceBrakesStatus = status;
@@ -332,7 +269,7 @@ public class TrainModel {
         }
         else{
             gui.fail(6);
+            testing.failBrake(ID);
         }
     }
-    
 }
