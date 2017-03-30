@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wonderfresh.trainmodel;
+package com.wonderfresh.interfaces;
 
 /**
  *
  * @author Cami
  */
 
-public class TrainToTrainControllerImpl implements TrainToTrainController {
+public class TrainModelAPIImpl implements TrainModelAPI {
     TrainModel trainModel;
-    public TrainToTrainControllerImpl(TrainModel TM){
+    public TrainModelAPIImpl(TrainModel TM){
         trainModel = TM;
     }
     

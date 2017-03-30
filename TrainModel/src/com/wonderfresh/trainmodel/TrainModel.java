@@ -72,11 +72,13 @@ public class TrainModel {
     String announcement;
     
     public TrainModel(int trainID){
+        ID = trainID;
+        
         gui = new TrainModelUI(this);
         testing = new TestingImpl(this);
-        //gui.setVisible(true);
+        gui.setVisible(true);
         
-        ID = trainID;
+        
         
         numCars = 1;
         numPass = 0;
@@ -114,7 +116,6 @@ public class TrainModel {
         authority = 0;
         announcement = null;
         
-        gui.setVisible(true);
         
         currentSecond = (int) ceil(System.nanoTime()/1000000000);
         /*while(true){
@@ -170,10 +171,14 @@ public class TrainModel {
         if(eBrake){
             acc = E_BRAKE_RATE;
             speed += acc*1;
+            if(speed < 0)
+                speed = 0;
         }
         else if(driverSetBrake){
             acc = S_BRAKE_RATE;
             speed += acc*1;
+            if(speed < 0)
+                speed = 0;
         }
         else if(powerCmd <= MAX_POWER){
             //a = P/mv
@@ -189,6 +194,8 @@ public class TrainModel {
             }
             //v = v0 + at, where t = 1
             speed += acc*1;
+            if(speed < 0)
+                speed = 0;
         }
         testing.setSpeed(speed, ID);
     }

@@ -41,6 +41,7 @@ public class TrainModelTest {
         gui.setVisible(true);
         
         ID = tm.getID();
+        System.out.println(ID);
         
         acStatus = 0;
         heatStatus = 0;
@@ -50,7 +51,7 @@ public class TrainModelTest {
         serviceBrakeStatus = 0;
         eBrake = false;
         
-        TrainModelTestTrain.addTrain(this);
+        //TrainModelTestTrain.addTrain(this);
         
         
         /*while(true){
@@ -174,5 +175,9 @@ public class TrainModelTest {
     protected void setServiceBrake(int status){
         trainToTC.setServiceBrake(status, ID);
         serviceBrakeStatus = status;
+    }
+    protected void setTemperature(String tempString){
+        int temp = Integer.parseInt(tempString);
+        trainToTC.setTargetTemperature(temp, ID);
     }
 }
