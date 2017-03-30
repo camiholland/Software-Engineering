@@ -8,7 +8,7 @@ package com.wonderfresh.commons;
 import java.time.LocalTime;
 
 /**
- * A universal singleton time class that runs at normal and 10x speed 
+ * A universal singleton time class that runs at normal to 100x speed 
  * 
  * @author Austin
  */
@@ -123,7 +123,7 @@ public class Time extends Thread{
                 ex.printStackTrace();
             }
             
-            //System.out.println(getTime());
+            System.out.println(getTime());
             
             
         }

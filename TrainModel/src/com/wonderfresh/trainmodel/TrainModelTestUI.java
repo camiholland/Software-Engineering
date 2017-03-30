@@ -78,6 +78,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
         lightsOn = new javax.swing.JRadioButton();
         lightsOff = new javax.swing.JRadioButton();
         powerCmdText = new javax.swing.JTextField();
+        temperatureText = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         trainG1 = new javax.swing.JRadioButton();
         trainG2 = new javax.swing.JRadioButton();
@@ -206,7 +207,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
 
         powerCmdLabel.setText("Power Command: ");
 
-        intGainLabel.setText("Integral Gain: ");
+        intGainLabel.setText("Target Temp: ");
 
         propGainLabel.setText("Proportional Gain: ");
 
@@ -331,6 +332,13 @@ public class TrainModelTestUI extends javax.swing.JFrame {
             }
         });
 
+        temperatureText.setPreferredSize(new java.awt.Dimension(6, 20));
+        temperatureText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temperatureTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -380,12 +388,16 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                     .addComponent(heatLabel))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(intGainLabel)
                     .addComponent(powerCmdLabel)
                     .addComponent(propGainLabel)
+                    .addComponent(intGainLabel)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(powerCmdText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(powerCmdText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(temperatureText, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -413,7 +425,8 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rightDoorsLabel)
                     .addComponent(rightDoorsOpen)
-                    .addComponent(rightDoorsClosed))
+                    .addComponent(rightDoorsClosed)
+                    .addComponent(temperatureText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(acLabel)
@@ -430,7 +443,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
                     .addComponent(lightsLabel)
                     .addComponent(lightsOn)
                     .addComponent(lightsOff))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Train ID", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -632,6 +645,11 @@ public class TrainModelTestUI extends javax.swing.JFrame {
         trainModelTest.setServiceBrake(0);
     }//GEN-LAST:event_serviceBrakeOffActionPerformed
 
+    private void temperatureTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temperatureTextActionPerformed
+        // TODO add your handling code here:
+        trainModelTest.setTemperature(temperatureText.getText());
+    }//GEN-LAST:event_temperatureTextActionPerformed
+
     public void on(int attribute){
         //1 = ac, 2 = heat, 3 = lights, 4 = left doors, 5 = right doors, 6 = service brakes
         if(attribute == 1){
@@ -802,6 +820,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton serviceBrakeOn;
     private javax.swing.ButtonGroup serviceBrakeRadioButtons;
     private javax.swing.JTextField spsText;
+    private javax.swing.JTextField temperatureText;
     private javax.swing.JRadioButton trainG1;
     private javax.swing.JRadioButton trainG2;
     private javax.swing.ButtonGroup trainIDButtons;

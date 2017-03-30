@@ -57,7 +57,11 @@ public class TrainToTrainControllerImpl implements TrainToTrainController {
         }
     }
     public void setTargetTemperature(int status, int trainID){
-        Train.getTrain(trainID).targetTemp = status;
+        TrainModel train = Train.getTrain(trainID);
+        train.targetTemp = status;
+//        if(targetTemp != currentTemp)
+//            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
+        
     }
     public void setLights(int status, int trainID){
         TrainModel train = Train.getTrain(trainID);
