@@ -19,6 +19,7 @@ public class TrainModelUI extends javax.swing.JFrame {
     public TrainModelUI(TrainModel train) {
         trainModel = train;
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -721,7 +722,7 @@ public class TrainModelUI extends javax.swing.JFrame {
 
     private void setServiceBrakesFailure(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setServiceBrakesFailure
         // TODO add your handling code here:
-        trainModel.setServiceBrake(-1);
+        trainModel.setServiceBrake(-1, false);
     }//GEN-LAST:event_setServiceBrakesFailure
 
     private void setEBrakeLabel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setEBrakeLabel

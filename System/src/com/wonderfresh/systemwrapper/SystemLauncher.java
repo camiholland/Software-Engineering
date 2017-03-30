@@ -7,6 +7,8 @@ package com.wonderfresh.systemwrapper;
 
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
+import com.wonderfresh.trainmodel.TrainModel;
+import com.wonderfresh.trainmodel.Train;
 
 /**
  *
@@ -14,13 +16,17 @@ import com.wonderfresh.traincontroller.model.Trains;
  */
 public class SystemLauncher extends javax.swing.JFrame {
     
-    private Trains trains;
+    private Trains trainControllers;
+    private Train trainModels;
 
     /**
      * Creates new form SystemLauncher
+     * @param trainControllers
+     * @param trainModels
      */
-    public SystemLauncher(Trains trains) {
-        this.trains = trains;
+    public SystemLauncher(Trains trainControllers, Train trainModels) {
+        this.trainControllers = trainControllers;
+        this.trainModels = trainModels;
         
         initComponents();
     }
@@ -179,7 +185,22 @@ public class SystemLauncher extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LaunchModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchModelButtonActionPerformed
-        // TODO add your handling code here:
+        int trainID;
+        
+        try {
+            trainID = Integer.parseInt(TrainIDText.getText());
+        } catch(NumberFormatException ex) {
+            System.out.println("Train id entered incorrectly.");
+            return;
+        }
+        
+        TrainModel train = trainModels.getTrain(trainID);
+        
+        if(train == null) {
+            return;
+        }
+            
+        train.launchUI();
     }//GEN-LAST:event_LaunchModelButtonActionPerformed
 
     private void LaunchControllerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LaunchControllerButtonActionPerformed
@@ -193,7 +214,7 @@ public class SystemLauncher extends javax.swing.JFrame {
             return;
         }
         
-        TrainController train = trains.getTrainController(trainID);
+        TrainController train = trainControllers.getTrainController(trainID);
         
         if(train == null) {
             return;

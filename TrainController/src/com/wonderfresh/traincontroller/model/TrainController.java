@@ -191,8 +191,8 @@ public class TrainController {
     }
     public void setPowerCommand(double power) {
         powerCommand = power;
-
-        //trainModel.setPowerCommand(power, trainID);
+        
+        trainModel.setPowerCommand(power, trainID);
 
         if (brakeEmergency) {
             if (realSpeed < 6.11) {
@@ -275,8 +275,6 @@ public class TrainController {
         }
 
         trainModel.setTargetTemperature(temp,trainID);
-
-        System.out.println("set temp = " + tempSet);
     }
 
     public void setCurrentTemp(int temp) {
@@ -314,6 +312,7 @@ public class TrainController {
     }
     public void setLights(int status) {
         lights = status;
+        trainModel.setLights(status, trainID);
     }
 
     public boolean engageEmergencyBrake() {

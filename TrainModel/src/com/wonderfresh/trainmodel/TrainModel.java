@@ -75,8 +75,8 @@ public class TrainModel {
         ID = trainID;
         
         gui = new TrainModelUI(this);
-        testing = new TestingImpl(this);
-        gui.setVisible(true);
+        //testing = new TestingImpl(this);
+        
         
         
         
@@ -139,6 +139,10 @@ public class TrainModel {
         // TODO code application logic here
         
     }*/
+    
+    public void launchUI() {
+        gui.setVisible(true);
+    }
     
     public int getID(){
         return ID;
@@ -330,8 +334,10 @@ public class TrainModel {
     }
     public void setPowerCmd(double pwrCmd){
         powerCmd = pwrCmd;
+        gui.setPowerCmd(String.format("%.2f",powerCmd/1000));
     }
     public void setAnnouncement(String announcement){
         this.announcement = announcement;
+        gui.setNotification(announcement);
     }
 }

@@ -123,7 +123,7 @@ public class Time extends Thread{
                 ex.printStackTrace();
             }
             
-            System.out.println(getTime());
+            //System.out.println(getTime());
             
             
         }
