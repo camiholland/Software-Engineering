@@ -3,125 +3,141 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.wonderfresh.trainmodel;
+package com.wonderfresh.interfaces;
 
 /**
  *
  * @author Cami
  */
-public class TestingImpl implements Testing {
-    TrainModelTest trainModelTest;
-    public TestingImpl(TrainModel TM){
-        trainModelTest = new TrainModelTest(TM);
-    }
+public class TestingTrainControllerInterface implements TrainControllerInterface {
     
-    //from Track Model
-    /*public Block getNextBlock(Block currentBlock, Block previousBlock){
-        
-    }*/
-    
-    //to train controller
     @Override
-    public void setSpeedAndAuth(int speed, int authority, int trainID) {
+    public int setSpeedAndAuth(int speed, int authority, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED AND AUTHORITY");
         System.out.println("Speed: " + speed);
         System.out.println("Authority: " + authority);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setSpeedLimit(int limit, int trainID) {
+    public int setSpeedLimit(int limit, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED LIMIT");
         System.out.println("Speed Limit: " + limit);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setSpeed(double speed, int trainID) {
+    public int setSpeed(double speed, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED");
         System.out.println("Speed: " + speed);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setTemperature(int temperature, int trainID) {
+    public int setTemperature(int temperature, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET TEMPERATURE");
         System.out.println("Temp: " + temperature);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setRightDoors(int status, int trainID) {
+    public int setRightDoors(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET RIGHT DOORS");
         System.out.println("Status: " + status);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setLeftDoors(int status, int trainID) {
+    public int setLeftDoors(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET LEFT DOORS");
         System.out.println("Status: " + status);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setLights(int status, int trainID) {
+    public int setLights(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET LIGHTS");
         System.out.println("Status: " + status);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setAirConditioning(int status, int trainID) {
+    public int setAirConditioning(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET AC");
         System.out.println("Status: " + status);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void setHeating(int status, int trainID) {
+    public int setHeating(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET HEAT");
         System.out.println("Status: " + status);
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void failPower(int trainID) {
+    public int failPower(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("POWER FAILURE");
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void failBrake(int trainID) {
+    public int failBrake(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("BRAKE FAILURE");
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void emergencyBrake(int trainID) {
+    public int emergencyBrake(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("EMERGENCY BRAKE ACTIVATED");
         System.out.println();
+        
+        return 0;
     }
 
     @Override
-    public void sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
+    public int sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("BEACON INFO");
         System.out.println("Doors: " + doors);
         System.out.println("Distance: " + distance);
         System.out.println("Station: " + station);
         System.out.println();
+        
+        return 0;
     }
 }

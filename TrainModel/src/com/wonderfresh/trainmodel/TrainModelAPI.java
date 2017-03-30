@@ -48,17 +48,6 @@ interface Testing extends TrainModelAPI{
     public void sendBeaconInfo(boolean doors, int distance, String station, int trainID);
     
     //to antenna
-    public void setSpeedAndAuth(double speed, int authority);
-    public void setBeaconInfo(String info);
-    /*
-    //from self
-    public void setTemperature();
-    public void setEBrakeStatus();
-    public void setACFailure();
-    public void setHeatFailure();
-    public void setLightsFailure();
-    public void setLeftDoorsFailure();
-    public void setRighDoorsFailure();
-    public void setBrakesFailure();
-    public void setBeaconFailure();*/
+    //public void setSpeedAndAuth(double speed, int authority);
+    //public void setBeaconInfo(String info);
 }
