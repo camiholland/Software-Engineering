@@ -10,12 +10,16 @@ package com.wonderfresh.interfaces;
  * @author Austin
  */
 public class Interfaces {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    
+    private static TrainModelAPI trainModelAPI = null;
+    
+    public static TrainModelAPI getTrainModelInterface() {
+        
+        if (trainModelAPI == null) {
+            trainModelAPI = new TestingTrainModelAPI();
+        }
+        
+        return trainModelAPI;
     }
     
 }

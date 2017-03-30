@@ -17,7 +17,7 @@ public class Trains {
     public int count;
     
     public Trains() {
-        trains = new ArrayList<TrainController>();
+        trains = new ArrayList<>();
         count = 0;
     }
     

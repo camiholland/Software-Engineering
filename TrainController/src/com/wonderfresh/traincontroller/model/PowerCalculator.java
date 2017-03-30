@@ -5,17 +5,21 @@
  */
 package com.wonderfresh.traincontroller.model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Austin
  */
+
+import com.wonderfresh.commons.Time;
+
 public class PowerCalculator extends Thread{
     
     
     private TrainController train;
+    @SuppressWarnings("FieldMayBeFinal")
+    private Time time;
+    private double prevPowerCommand;
     private double powerCommand;
     private double kp;
     private double ki;
@@ -30,6 +34,7 @@ public class PowerCalculator extends Thread{
     
     public PowerCalculator(TrainController train, double kp, double ki) {
         this.train = train;
+        time = Time.getInstance();
         this.kp = kp;
         this.ki = ki;
         
@@ -37,6 +42,7 @@ public class PowerCalculator extends Thread{
         ek1 = 0;
         uk = -1000;
         uk1 = -1000;
+        prevPowerCommand = 0;
         powerCommand = 0;
         
         double M = 50*1000; //train is 50 metric tons / 1000kg
@@ -77,28 +83,21 @@ public class PowerCalculator extends Thread{
     public void run() {
         proceed = true;
         
-        try {
-            sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(PowerCalculator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        while (proceed) {
+        while (proceed) {  
             
             while (stop) {
                 
-                if (powerCommand != 0) {
+                //commented if for stand alone testing
+                //if (powerCommand != 0) {
                     train.setPowerCommand(0); //ensure train sets power to 0
-                }
+                //}
             
                 try {
-                    sleep(1000);
-                } catch (Exception ex) {
+                    sleep(1000 / time.getSpeed());
+                } catch (InterruptedException ex) {
                     //busy waiting // nothing is required
                 }
             }
-             
-            long timestart = System.currentTimeMillis();
                 
             double vReq, vCur;
 
@@ -148,11 +147,16 @@ public class PowerCalculator extends Thread{
                 powerCommand = 0;
             }
             
-            train.setPowerCommand(powerCommand);
+            //commented if statement for standalone testing
+            //if(prevPowerCommand != powerCommand) {
+                train.setPowerCommand(powerCommand);
+                prevPowerCommand = powerCommand;
+            //}
+            
         
-            //sleep for one second
+            //sleep till one second system time
             try {
-                sleep(1000);
+                sleep(1000 / time.getSpeed());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

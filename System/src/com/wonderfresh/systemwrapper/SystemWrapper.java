@@ -10,10 +10,16 @@ package com.wonderfresh.systemwrapper;
  * @author Austin
  */
 
+import com.wonderfresh.commons.Time;
+
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
+
 import com.wonderfresh.interfaces.TrainControllerInterface;
-import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;      
+import com.wonderfresh.interfaces.TrainModelAPI;
+
+import com.wonderfresh.interfaces.TrainControllerInterfaceImpl; 
+import com.wonderfresh.interfaces.TestingTrainModelAPI;
 
 public class SystemWrapper {
 
@@ -22,13 +28,15 @@ public class SystemWrapper {
      */
     public static void main(String[] args) {
         
+        Time time = Time.getInstance();
+        System.out.println(time.setSpeed(50));
+        
         Trains trains = new Trains();
+
         
-        TrainControllerInterface trainControllerInterface = new TrainControllerInterfaceImpl(trains);
-        
-        trains.addTrainController(new TrainController(1,3));
-        trains.addTrainController(new TrainController(2,2));
-        trains.addTrainController(new TrainController(3,1));
+        trains.addTrainController(new TrainController(1, 3));
+        trains.addTrainController(new TrainController(2, 2));
+        trains.addTrainController(new TrainController(3, 1));
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

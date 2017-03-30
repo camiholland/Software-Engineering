@@ -9,6 +9,7 @@ import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.interfaces.TrainModelAPI;
 import com.wonderfresh.interfaces.TestingTrainModelAPI;
+import com.wonderfresh.commons.Time;
 
 /**
  *
@@ -20,13 +21,14 @@ public class TrainControllerExecutable {
      */
     public static void main(String args[]) {
         
-        TrainModelAPI trainModel = new TestingTrainModelAPI();
+        Time time = Time.getInstance();
+        time.setSpeed(10);
 
         Trains trains = new Trains();
         
-        trains.addTrainController(new TrainController(1,3,trainModel));
-        trains.addTrainController(new TrainController(2,2,trainModel));
-        trains.addTrainController(new TrainController(3,1,trainModel));
+        trains.addTrainController(new TrainController(1,3));
+        trains.addTrainController(new TrainController(2,2));
+        trains.addTrainController(new TrainController(3,1));
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
