@@ -12,6 +12,7 @@ package com.wonderfresh.interfaces;
 public class Interfaces {
     
     private static TrainModelAPI trainModelAPI = null;
+    private static TrainControllerInterface trainControllerInterface = null;
     
     public static TrainModelAPI getTrainModelInterface() {
         
@@ -20,6 +21,15 @@ public class Interfaces {
         }
         
         return trainModelAPI;
+    }
+    
+    public static TrainControllerInterface getTrainControllerInterface() {
+        
+        if (trainControllerInterface == null) {
+            trainControllerInterface = new TestingTrainControllerInterface();
+        }
+        
+        return trainControllerInterface;
     }
     
 }

@@ -15,12 +15,6 @@ import com.wonderfresh.commons.Time;
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 
-import com.wonderfresh.interfaces.TrainControllerInterface;
-import com.wonderfresh.interfaces.TrainModelAPI;
-
-import com.wonderfresh.interfaces.TrainControllerInterfaceImpl; 
-import com.wonderfresh.interfaces.TestingTrainModelAPI;
-
 public class SystemWrapper {
 
     /**
@@ -29,7 +23,7 @@ public class SystemWrapper {
     public static void main(String[] args) {
         
         Time time = Time.getInstance();
-        System.out.println(time.setSpeed(50));
+        System.out.println(time.setSpeed(1));
         
         Trains trains = new Trains();
 
