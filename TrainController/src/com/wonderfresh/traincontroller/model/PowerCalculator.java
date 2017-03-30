@@ -63,6 +63,10 @@ public class PowerCalculator extends Thread{
      */
     public void stopTemp() {
         stop = true;
+        ek = 0;
+        ek1 = 0;
+        uk = -1000;
+        uk1 = -1000;
     }
     
     public void startTemp() {

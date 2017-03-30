@@ -5,6 +5,10 @@
  */
 package com.wonderfresh.interfaces;
 
+import com.wonderfresh.interfaces.TrainModelAPI;
+import com.wonderfresh.trainmodel.Train;
+import com.wonderfresh.trainmodel.TrainModel;
+
 /**
  *
  * @author Cami
