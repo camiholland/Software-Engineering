@@ -185,10 +185,10 @@ public class TrainModel {
             acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed));
             if(acc < 0){
                 acc = S_BRAKE_RATE;
-                setServiceBrake(1);
+                setServiceBrake(1, driverSetBrake);
             }
             else{
-                setServiceBrake(0);
+                setServiceBrake(0, driverSetBrake);
                 if(acc > MAX_ACC)
                     acc = MAX_ACC;
             }
@@ -198,6 +198,11 @@ public class TrainModel {
                 speed = 0;
         }
         testing.setSpeed(speed, ID);
+    }
+    public void setTargetTemp(int temp){
+        targetTemp = temp;
+//        if(targetTemp != currentTemp)
+//            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
     }
     protected void adjustTemp(){
         if(targetTemp < currentTemp){
@@ -243,17 +248,56 @@ public class TrainModel {
             testing.failPower(ID);
         }
     }
+    public void setLeftDoors(int status){
+        leftDoorsStatus = status;
+        if(status > 0){
+            gui.on(4);
+        }
+        else if(status == 0){
+            gui.off(4);
+        }
+        else{
+            gui.fail(4);
+            testing.failPower(ID);
+        }
+    }
     public void failLeftDoors(){
         leftDoorsStatus = -1;
         gui.fail(4);
         testing.setLeftDoors(-1, ID);
         testing.failPower(ID);
     }
+    public void setRightDoors(int status){
+        rightDoorsStatus = status;
+        if(status > 0){
+            gui.on(5);
+        }
+        else if(status == 0){
+            gui.off(5);
+        }
+        else{
+            gui.fail(5);
+            testing.failPower(ID);
+        }
+    }
     public void failRightDoors(){
         rightDoorsStatus = -1;
         gui.fail(5);
         testing.setRightDoors(-1, ID);
         testing.failPower(ID);
+    }
+    public void setLights(int status){
+        lightsStatus = status;
+        if(status > 0){
+            gui.on(3);
+        }
+        else if(status == 0){
+            gui.off(3);
+        }
+        else{
+            gui.fail(3);
+            testing.failPower(ID);
+        }
     }
     public void failLights(){
         lightsStatus = -1;
@@ -266,8 +310,13 @@ public class TrainModel {
         testing.emergencyBrake(ID);
         adjustSpeed();
     }
-    protected void setServiceBrake(int status){
+    public void setEBrake(boolean status){
+        eBrake = status;
+        adjustSpeed();
+    }
+    public void setServiceBrake(int status, boolean driverSet){
         serviceBrakesStatus = status;
+        driverSetBrake = driverSet;
         if(status > 0){
             gui.on(6);
         }
@@ -278,5 +327,11 @@ public class TrainModel {
             gui.fail(6);
             testing.failBrake(ID);
         }
+    }
+    public void setPowerCmd(double pwrCmd){
+        powerCmd = pwrCmd;
+    }
+    public void setAnnouncement(String announcement){
+        this.announcement = announcement;
     }
 }

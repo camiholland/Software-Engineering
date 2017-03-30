@@ -22,69 +22,27 @@ public class TrainModelAPIImpl implements TrainModelAPI {
     
     //communications received by Train Controller
     public void setEBrake(boolean status, int trainID){
-        Train.getTrain(trainID).eBrake = status;
+        Train.getTrain(trainID).setEBrake(status);
     }
     public void setServiceBrake(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.setServiceBrake(1);
-        if(status == 1)
-            train.driverSetBrake = true;
-        else
-            train.driverSetBrake = false;
+        Train.getTrain(trainID).setServiceBrake(1, true);
     }
     public void setLeftDoors(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.leftDoorsStatus = status;
-        if(status > 0){
-            train.gui.on(4);
-        }
-        else if(status == 0){
-            train.gui.off(4);
-        }
-        else{
-            train.gui.fail(4);
-            train.testing.failPower(trainID);
-        }
+        Train.getTrain(trainID).setLeftDoors(status);
     }
     public void setRightDoors(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.rightDoorsStatus = status;
-        if(status > 0){
-            train.gui.on(5);
-        }
-        else if(status == 0){
-            train.gui.off(5);
-        }
-        else{
-            train.gui.fail(5);
-            train.testing.failPower(trainID);
-        }
+        Train.getTrain(trainID).setRightDoors(status);
     }
-    public void setTargetTemperature(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.targetTemp = status;
-//        if(targetTemp != currentTemp)
-//            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
-        
+    public void setTargetTemperature(int temp, int trainID){
+        Train.getTrain(trainID).setTargetTemp(temp);
     }
     public void setLights(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.lightsStatus = status;
-        if(status > 0){
-            train.gui.on(3);
-        }
-        else if(status == 0){
-            train.gui.off(3);
-        }
-        else{
-            train.gui.fail(3);
-            train.testing.failPower(trainID);
-        }
+        Train.getTrain(trainID).setLights(status);
     }
     public void setPowerCommand(double pwrCmd, int trainID){
-        Train.getTrain(trainID).powerCmd = pwrCmd;
+        Train.getTrain(trainID).setPowerCmd(pwrCmd);
     }
     public void setAnnouncement(String announcement, int trainID){
-        Train.getTrain(trainID).announcement = announcement;
+        Train.getTrain(trainID).setAnnouncement(announcement);
     }
 }
