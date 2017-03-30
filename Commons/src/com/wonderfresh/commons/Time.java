@@ -5,6 +5,8 @@
  */
 package com.wonderfresh.commons;
 
+import java.time.LocalTime;
+
 /**
  * A universal singleton time class that runs at normal and 10x speed 
  * 
@@ -18,9 +20,12 @@ public class Time extends Thread{
     //private to defeat other instantiation and remain a singleton
     private Time() {
         speed = 10;
-        hr = 0;
-        min = 0;
-        sec = 0;
+        
+        LocalTime l = LocalTime.now();
+        sec=    l.getSecond();
+        min=    l.getMinute();
+        hr=      l.getHour();
+        
     }
     
     public static Time getInstance() {
@@ -123,4 +128,94 @@ public class Time extends Thread{
             
         }
     }
+    public static Time getTimeNow(){
+        Time n=new Time();
+        LocalTime l = LocalTime.now();
+        n.sec=    l.getSecond();
+        n.min=    l.getMinute();
+        n.hr=      l.getHour();
+        return n;
+    }
+    
+/**
+ *  -NOT DONE_
+ *   put in 2 Times and figure out if a is before b
+ *   if a is before b:return 1
+ *   if a is after b: return -1
+ *   if a=b return 0;
+ *   assumes a and b are within 6 hours of each other   
+ *  
+ */
+    public int getFirst(Time a, Time b){
+        int x;
+        if (a.hr<b.hr){
+            if (a.hr<18 && b.hr>a.hr){
+                return 1;
+            }
+            if(a.hr<18 && b.hr<a.hr){
+               return -1;
+            }
+        }
+       return 0;
+    }
+/**
+ * -DONE-
+ * public String scheduleTime(Time t)
+ * 
+ * takes Time t and outputs Time t to Time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   Time=0
+ * output           :   12:00A-8:30P    
+ */    
+    
+    public String scheduleTime(Time t){
+        Time end=new Time();
+        String ampm,ampm1,m,h;
+ //Special case Time between 12:00 AM and 12:59 AM
+        if (t.hr<1){
+            int tempMin = 0;
+            int tempHour=8;
+            if (t.min>30){
+                tempMin=t.min-30;
+                tempHour++;
+            }
+            if (t.min<30){ tempMin=t.min+30; }
+            return "12:00A-"+tempHour+":"+tempMin+"";
+        }
+  //start      
+        end.hr=t.hr+8;
+        if (end.hr>24){end.hr-=24;}
+        int hour;
+        if(t.hr>12){hour=t.hr-12;}
+            else{hour=t.hr; }
+        if (t.hr>12){ampm="P"; }
+            else{ampm="A";}
+        if(hour<10){h=""+hour;}
+            else{h=""+hour;}
+        if(t.min<10){m="0"+t.min;}
+            else{m=""+t.min;}
+//end Time
+        end.min=t.min+30;
+        if (end.hr>24){
+            end.hr=end.hr-24;
+        }
+        String h1,m1;
+        if (end.min>=60){
+            end.min-=60;
+            end.hr++;
+        }
+        if (end.hr>12){ampm1="P"; }
+            else{ampm1="A";}
+        if(end.hr>12){hour=end.hr-12;}
+            else{hour=end.hr; }
+        if(end.hr>12){hour=end.hr-12;}
+        h1=""+hour;
+        if(end.min<10){m1="0"+end.min;}
+            else{m1=""+end.min;}
+        String tString=""+h+":"+m+""+ampm+"-"+h1+":"+m1+""+ampm1+"";
+        return tString;
+    }
+            
 }
+
+

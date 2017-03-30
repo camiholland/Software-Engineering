@@ -4,7 +4,7 @@ package mbo;
 import java.awt.event.ActionEvent;
 
 
-public class ui extends javax.swing.JFrame {
+public class mboUI extends javax.swing.JFrame {
     //MY VARIABLES
     public String[] closedTrack= new String[100];
     public String time;
@@ -12,9 +12,10 @@ public class ui extends javax.swing.JFrame {
     public int redPass;
     public int greenPass;
     public int getData=0;
+    public String[][] driversSchedule= new String[50][8];
     
     
-    public ui( ) {
+    public mboUI( ) {
         initComponents();
         
     }
@@ -65,17 +66,17 @@ public class ui extends javax.swing.JFrame {
         numberOfDrivers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) { }
         });
-        jLabel5.setText("Enter the number of passengers for the Green Train:");
-         greenText.setText("1000");
+        jLabel5.setText("Enter the number passengers for the Green Train:");
+         greenText.setText("");
          greenText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {}
         });
-         redText.setText("1500");
+         redText.setText("");
         redText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {}
         });
 
-        jLabel6.setText("Enter the number of passengers for the Red Train:");
+        jLabel6.setText("Enter the number passengers for the Red Train:");
         generateButton.setText("Generate");
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -86,8 +87,9 @@ public class ui extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+      //changed 347 to 450                          
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -121,28 +123,30 @@ public class ui extends javax.swing.JFrame {
         jTabbedPane1.addTab("Generate Schedule", jPanel2);
         displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
             new String [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+{driversSchedule[0][0], driversSchedule[0][1], driversSchedule[0][2], driversSchedule[0][3],driversSchedule[0][4], driversSchedule[0][5], driversSchedule[0][6], driversSchedule[0][7] },
+{driversSchedule[1][0], driversSchedule[1][1], driversSchedule[1][2], driversSchedule[1][3],driversSchedule[1][4], driversSchedule[1][5], driversSchedule[1][6], driversSchedule[1][7] },
+{driversSchedule[2][0], driversSchedule[2][1], driversSchedule[2][2], driversSchedule[2][3],driversSchedule[2][4], driversSchedule[2][5], driversSchedule[2][6], driversSchedule[2][7] },
+{driversSchedule[3][0], driversSchedule[3][1], driversSchedule[3][2], driversSchedule[3][3],driversSchedule[3][4], driversSchedule[3][5], driversSchedule[3][6], driversSchedule[3][7] },
+{driversSchedule[4][0], driversSchedule[4][1], driversSchedule[4][2], driversSchedule[4][3],driversSchedule[4][4], driversSchedule[4][5], driversSchedule[4][6], driversSchedule[4][7] },
+{driversSchedule[5][0], driversSchedule[5][1], driversSchedule[5][2], driversSchedule[5][3],driversSchedule[5][4], driversSchedule[5][5], driversSchedule[5][6], driversSchedule[5][7] },
+{driversSchedule[6][0], driversSchedule[6][1], driversSchedule[6][2], driversSchedule[6][3],driversSchedule[6][4], driversSchedule[6][5], driversSchedule[6][6], driversSchedule[6][7] },
+{driversSchedule[7][0], driversSchedule[7][1], driversSchedule[7][2], driversSchedule[7][3],driversSchedule[7][4], driversSchedule[7][5], driversSchedule[7][6], driversSchedule[7][7] },
+{driversSchedule[8][0], driversSchedule[8][1], driversSchedule[8][2], driversSchedule[8][3],driversSchedule[8][4], driversSchedule[8][5], driversSchedule[8][6], driversSchedule[8][7] },
+{driversSchedule[9][0], driversSchedule[9][1], driversSchedule[9][2], driversSchedule[9][3],driversSchedule[9][4], driversSchedule[9][5], driversSchedule[9][6], driversSchedule[9][7] },
+{driversSchedule[10][0], driversSchedule[10][1], driversSchedule[10][2], driversSchedule[10][3],driversSchedule[10][4], driversSchedule[10][5], driversSchedule[10][6], driversSchedule[10][7] },
+{driversSchedule[11][0], driversSchedule[11][1], driversSchedule[11][2], driversSchedule[11][3],driversSchedule[11][4], driversSchedule[11][5], driversSchedule[11][6], driversSchedule[11][7] },
+{driversSchedule[12][0], driversSchedule[12][1], driversSchedule[12][2], driversSchedule[12][3],driversSchedule[12][4], driversSchedule[12][5], driversSchedule[12][6], driversSchedule[12][7] },
+{driversSchedule[13][0], driversSchedule[13][1], driversSchedule[13][2], driversSchedule[13][3],driversSchedule[13][4], driversSchedule[13][5], driversSchedule[13][6], driversSchedule[13][7] },
+{driversSchedule[14][0], driversSchedule[14][1], driversSchedule[14][2], driversSchedule[14][3],driversSchedule[14][4], driversSchedule[14][5], driversSchedule[14][6], driversSchedule[14][7] },
+{driversSchedule[15][0], driversSchedule[15][1], driversSchedule[15][2], driversSchedule[15][3],driversSchedule[15][4], driversSchedule[15][5], driversSchedule[15][6], driversSchedule[15][7] },
+{driversSchedule[16][0], driversSchedule[16][1], driversSchedule[16][2], driversSchedule[16][3],driversSchedule[16][4], driversSchedule[16][5], driversSchedule[16][6], driversSchedule[16][7] },
+{driversSchedule[17][0], driversSchedule[17][1], driversSchedule[17][2], driversSchedule[17][3],driversSchedule[17][4], driversSchedule[17][5], driversSchedule[17][6], driversSchedule[17][7] },
+{driversSchedule[18][0], driversSchedule[18][1], driversSchedule[18][2], driversSchedule[18][3],driversSchedule[18][4], driversSchedule[18][5], driversSchedule[18][6], driversSchedule[18][7] },
+{driversSchedule[19][0], driversSchedule[19][1], driversSchedule[19][2], driversSchedule[19][3],driversSchedule[19][4], driversSchedule[19][5], driversSchedule[19][6], driversSchedule[19][7] },
+{driversSchedule[20][0], driversSchedule[20][1], driversSchedule[20][2], driversSchedule[20][3],driversSchedule[20][4], driversSchedule[20][5], driversSchedule[20][6], driversSchedule[20][7] },
+{driversSchedule[21][0], driversSchedule[21][1], driversSchedule[21][2], driversSchedule[21][3],driversSchedule[21][4], driversSchedule[21][5], driversSchedule[21][6], driversSchedule[21][7] },
+{driversSchedule[22][0], driversSchedule[22][1], driversSchedule[22][2], driversSchedule[22][3],driversSchedule[22][4], driversSchedule[22][5], driversSchedule[22][6], driversSchedule[22][7] },
+
             },
             new String [] {
                 "Worker ID", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
@@ -164,7 +168,9 @@ public class ui extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+ //changed 897 to 1000
+                    
+            .addGap(0, 1000, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE))
         );
@@ -267,7 +273,7 @@ public class ui extends javax.swing.JFrame {
 
         trainDetails1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
+                {"1011", "15:12", "40mph", "300 ft", "60"},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -297,8 +303,8 @@ public class ui extends javax.swing.JFrame {
 
         trainDetails2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
+                {"2011", "45:12", "40mph", "300 ft", "123"},
+                {"2014", "23:12", "35mph", "12 ft", "84"},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -327,7 +333,7 @@ public class ui extends javax.swing.JFrame {
 
         displayClosedTrack.setModel(new javax.swing.table.DefaultTableModel(
             new String [][] {
-                {null},
+                {"Closed Block: 12 | Closed for 4 minutes | Approx 1 min to fix"},
                 {null},
                 {null},
                 {null},
@@ -400,7 +406,7 @@ public class ui extends javax.swing.JFrame {
 
         jLabel2.setText("Total Daily Passengers:");
 
-        passengerCount.setText("               3,456");
+        passengerCount.setText("              0");
         passengerCount.setEditable(false);
         passengerCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -521,13 +527,13 @@ public class ui extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mboUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mboUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mboUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(mboUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -535,7 +541,7 @@ public class ui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ui().setVisible(true);
+                new mboUI().setVisible(true);
             }
         });
     }

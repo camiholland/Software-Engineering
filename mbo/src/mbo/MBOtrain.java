@@ -18,18 +18,14 @@ public class MBOtrain {
     public int minutes;
     
     public MBOtrain (int num, double spd, double auth, int ind,String col, int departHour, int departMin){
+        
         number=num;
         speed=spd;
         authority=auth;
         index=ind;
         color=col;
         bound="out";
-        
-        if (departHour>12){AMPM=1; }
-        else{AMPM=0;}
-        if (departHour==0){ departHour=12;}
-        if (AMPM==0){ departureTime=""+departHour+":"+departMin+" AM";}
-        else{ departureTime=""+departHour+":"+departMin+" PM"; }
+    
         
        
     }
