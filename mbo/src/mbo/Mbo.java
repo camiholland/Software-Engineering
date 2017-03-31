@@ -14,8 +14,6 @@ public class Mbo {
         //max 100 trains per line
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
-        
-        
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int i;
         int passengerCount=0;
@@ -23,8 +21,7 @@ public class Mbo {
         int greenRuns,redRuns;
         int redRunTime,greenRunTime; 
         int passPerCar=300; //assume that all 300 wont ride at once
-        int timeConst=1;
-       boolean test=true;
+        boolean test=true;
         int running=1;
         Time startTime=Time.getTimeNow();
         String timeOutput;
@@ -168,6 +165,7 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
         int distance=0;                         //calculated stopping distance to be returned
         int humanWeight=75;                     //Standardized Human weight in kg
         int numHumansPerTrain=300+1;              //Max people per train + driver
+        
         int totalHumans=numHumansPerTrain*2;    //Double the total potential human weight to calculate brake distance for rush hour
         int totalHumanWeight=totalHumans*humanWeight;
         int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document

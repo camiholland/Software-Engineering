@@ -10,13 +10,11 @@ package mbo;
  * @author angie
  */
 public class mboInterfaceClass implements mboInterface{
-    void setDispatchedTrain(int trainID, double speed, double authority, int locationBlock,double locationInBlock){
-        
-        
-        
-    }
+    
+    
 
     @Override
+    
     public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

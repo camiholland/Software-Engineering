@@ -83,6 +83,9 @@ public class mbotime{
             else{h=""+hour;}
         if(t.min<10){m="0"+t.min;}
             else{m=""+t.min;}
+        
+        
+        
         if(t.sec<10){s="0"+t.sec;}
             else{s=""+t.sec;}
         String tString=" "+h+":"+m+":"+s+" "+ampm+" " ;

@@ -8,8 +8,17 @@ package mbo;
 /**
  *
  * @author angie
- * Shared Class for the Info to 
+ * //change to String Station and String for trainID and time
  */
 public class mboTrainDepartInfo {
+    String station;
+    String trainIDandDepart;
+    
+    public mboTrainDepartInfo getmboTrainDepartInfo(String station, int ID, mbotime departTime){
+        mboTrainDepartInfo info=new mboTrainDepartInfo();
+        
+        
+        return info;
+    }
     
 }

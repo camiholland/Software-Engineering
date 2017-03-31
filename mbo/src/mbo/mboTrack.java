@@ -14,6 +14,7 @@ public class mboTrack {
     double totalTime;
     mboSection[] sections;
     
+    
     public void getTrack(String filename){
         
         
