@@ -66,11 +66,12 @@ public class TrackGraph {
         return this.edges.containsKey(e.hashCode());
     }
     
+    /*
     public BetaEdge removeEdge(BetaEdge e){
         e.getStartingBlock().removeNeighbor(e);
         e.getEndingBlock().removeNeighbor(e);
         return this.edges.remove(e.hashCode());
-    }
+    }*/
     
     public boolean containsBlock(BetaBlock block){
         return this.blocks.get(block.getLabel()) != null;
@@ -86,17 +87,17 @@ public class TrackGraph {
             if(!overwriteExisting){
                 return false;
             }
-            
+            /*
             while(current.getNeighborCount() > 0){
                 this.removeEdge(current.getNeighbor(0));
-            }
+            }*/
         }
         
         blocks.put(block.getLabel(), block);
         
         return true;
     }
-    
+   /*
     public BetaBlock removeBlock(String label){
         BetaBlock v = blocks.remove(label);
         
@@ -105,7 +106,7 @@ public class TrackGraph {
         }
         
         return v;
-    }
+    }*/
     
     public Set<String> BetaBlockKeys(){
         return this.blocks.keySet();

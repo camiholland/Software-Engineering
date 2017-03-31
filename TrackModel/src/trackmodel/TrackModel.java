@@ -35,10 +35,10 @@ public class TrackModel{
     private static int temp = 50;
     
     public TrackModel(){
-        this.RedLine = new TrackGraph();
-        this.GreenLine = new TrackGraph();
-        this.RedCount = 0;
-        this.GreenCount = 0;
+        TrackModel.RedLine = new TrackGraph();
+        TrackModel.GreenLine = new TrackGraph();
+        TrackModel.RedCount = 0;
+        TrackModel.GreenCount = 0;
     }
     
     public static void main(String[] args) throws Exception{
@@ -51,10 +51,6 @@ public class TrackModel{
                 
             }
         });
-    }
-    
-    public String getDataFile(){
-        return dataFile;
     }
     
     public int getRedCount(){
@@ -90,208 +86,213 @@ public class TrackModel{
      */
     public void ExcelToJavaGraph()throws Exception {
         System.out.println("TrackModel is running.");
-        FileInputStream fis = new FileInputStream(new File(dataFile));
-        XSSFWorkbook workbook = new XSSFWorkbook(fis);
-        XSSFSheet spreadsheet;
-        Iterator < Row > rowIterator;
-        Iterator < Cell > cellIterator;
-        
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////RED LINE/////////////////////////RED LINE////////////////////RED LINE//////////////////////RED LINE/////////////////////////RED LINE////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        spreadsheet = workbook.getSheetAt(1);
-        rowIterator = spreadsheet.iterator();
-        row = (XSSFRow) rowIterator.next();
-        cellIterator = row.cellIterator();
-        while(cellIterator.hasNext()){
-            Cell cell = cellIterator.next();
-            String newCol = cell.getStringCellValue();
-            //System.out.print(newCol + " \t");
-        }
-        //System.out.println();
-        
-        
-        //RedCount = 0;
-        while(rowIterator.hasNext()){
+        try (FileInputStream fis = new FileInputStream(new File(dataFile))) {
+            XSSFWorkbook workbook = new XSSFWorkbook(fis);
+            XSSFSheet spreadsheet;
+            Iterator < Row > rowIterator;
+            Iterator < Cell > cellIterator;
             
-            String line = "Red";
-            String Section;
-            double num;
-            double length;
-            double grade;
-            double speed;
-            Object[] Stringobj = new Object[]{};
-            double[] intobj = new double[] {};
-            String Infrastructure = "";
-            String SwitchBlock = "";
-            String ArrowDirection = "";
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////RED LINE/////////////////////////RED LINE////////////////////RED LINE//////////////////////RED LINE/////////////////////////RED LINE////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
+            spreadsheet = workbook.getSheetAt(1);
+            rowIterator = spreadsheet.iterator();
             row = (XSSFRow) rowIterator.next();
-            cellIterator = row.cellIterator();
-            while(cellIterator.hasNext()){          // Checks to see if end of row has been reached
-                Cell cell = cellIterator.next();    // Iterates through the row
-                switch(cell.getCellType()){         // Appends the value in the cell to the correct array of its type
-                    case Cell.CELL_TYPE_NUMERIC:
-                        ArrayList<Double> newDoubleObject = new ArrayList<>(Arrays.asList(ArrayUtils.toObject(intobj)));
-                        newDoubleObject.add(cell.getNumericCellValue());
-                        intobj = ArrayUtils.toPrimitive(newDoubleObject.toArray(new Double[]{}));   // New int array 
-                        //System.out.print(cell.getNumericCellValue()+ " \t\t");
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                        String newString = cell.getStringCellValue();
-                        ArrayList<Object> temp = new ArrayList<>(Arrays.asList(Stringobj));
-                        temp.add(newString);
-                        Stringobj = temp.toArray();                                             // New Object array full of strings
-                        //System.out.print(cell.getStringCellValue() + " \t\t");
-                        break;
-                }
+            //cellIterator = row.cellIterator();
+            /*while(cellIterator.hasNext()){
+                Cell cell = cellIterator.next();
+                String newCol = cell.getStringCellValue();
+                System.out.print(newCol + " \t");
             }
+            System.out.println();*/
             
-            if(intobj.length > 0 || Stringobj.length > 0){
-                int i = 0;
-                int StrArrLen = Stringobj.length;
-                if(Stringobj[i].toString().length()>2){
-                    line = Stringobj[i].toString();
-                    i++;
-                }
-
-                Section = Stringobj[i].toString();
-                i++;
-
-                for(int j = i;j<StrArrLen; j++){
-                    if(Stringobj[j].toString().startsWith("Head") || Stringobj[j].toString().startsWith("Tail")){
-                        ArrowDirection = Stringobj[j].toString();
-                    }else if(Stringobj[j].toString().startsWith("Switch")){
-                        SwitchBlock = Stringobj[j].toString();
-                    }else{
-                        Infrastructure = Stringobj[j].toString();
+            
+            //RedCount = 0;
+            while(rowIterator.hasNext()){
+               
+                // Each row represents a block
+                //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv below are each instantiated value of a block
+                String line = "Red";
+                String Section;
+                double num;
+                double length;
+                double grade;
+                double speed;
+                Object[] Stringobj = new Object[]{};
+                double[] intobj = new double[] {};
+                String Infrastructure = "";
+                String SwitchBlock = "";
+                String ArrowDirection = "";
+                //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                
+                row = (XSSFRow) rowIterator.next();
+                cellIterator = row.cellIterator();
+                while(cellIterator.hasNext()){          // Checks to see if end of row has been reached
+                    Cell cell = cellIterator.next();    // Iterates through the row
+                    switch(cell.getCellType()){         // Appends the value in the cell to the correct array of its type
+                        case Cell.CELL_TYPE_NUMERIC:
+                            ArrayList<Double> newDoubleObject = new ArrayList<>(Arrays.asList(ArrayUtils.toObject(intobj)));    // Converts the cell object to a double?
+                            newDoubleObject.add(cell.getNumericCellValue());
+                            intobj = ArrayUtils.toPrimitive(newDoubleObject.toArray(new Double[]{}));   // New int array
+                            //System.out.print(cell.getNumericCellValue()+ " \t\t");
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            String newString = cell.getStringCellValue();
+                            ArrayList<Object> temp1 = new ArrayList<>(Arrays.asList(Stringobj));
+                            temp1.add(newString);
+                            Stringobj = temp1.toArray();                                             // New Object array full of strings
+                            //System.out.print(cell.getStringCellValue() + " \t\t");
+                            break;
                     }
                 }
                 
-                int c = 2;
-                num = intobj[0];
-                length = intobj[1];
-                grade = intobj[c];
-                c++;
-                try{
-                    speed = intobj[c];
-                }catch(ArrayIndexOutOfBoundsException e){
-                    grade = 0.0;
-                    speed = intobj[2];
+                // This part relies on the track information being put in the exact form in which it was first given
+                if(intobj.length > 0 || Stringobj.length > 0){  // First checks to make sure not a null row
+                    int i = 0;
+                    int StrArrLen = Stringobj.length;
+                    if(Stringobj[i].toString().length()>2){
+                        line = Stringobj[i].toString();
+                        i++;
+                    }
+                    
+                    Section = Stringobj[i].toString();
+                    i++;
+                    
+                    // The infrastructure and switch field aren't always present, so the array must be checked in the reverse order.
+                    for(int j = i;j<StrArrLen; j++){
+                        if(Stringobj[j].toString().startsWith("Head") || Stringobj[j].toString().startsWith("Tail")){
+                            ArrowDirection = Stringobj[j].toString();
+                        }else if(Stringobj[j].toString().startsWith("Switch")){
+                            SwitchBlock = Stringobj[j].toString();
+                        }else{
+                            Infrastructure = Stringobj[j].toString();
+                        }
+                    }
+                    
+                    int c = 2;
+                    num = intobj[0];
+                    length = intobj[1];
+                    grade = intobj[c];
+                    c++;
+                    // Still not sure what i'm doing here, need to revise
+                    try{
+                        speed = intobj[c];
+                    }catch(ArrayIndexOutOfBoundsException e){
+                        grade = 0.0;
+                        speed = intobj[2];
+                    }
+                    
+                    
+                    BetaBlock tempBlock = new BetaBlock(line, Section, num, length, grade, speed, Infrastructure, SwitchBlock, ArrowDirection);
+                    if(!RedLine.addBlock(tempBlock, true)){
+                        System.out.println("Problem adding block "+tempBlock.getLabel()+" to graph");
+                    }
+                    String sentence = tempBlock.toString();
+                    RedCount++;
+                    System.out.println(sentence);
                 }
 
-
-                BetaBlock tempBlock = new BetaBlock(line, Section, num, length, grade, speed, Infrastructure, SwitchBlock, ArrowDirection);
-                if(!RedLine.addBlock(tempBlock, true)){
-                    System.out.println("Problem adding block "+tempBlock.getLabel()+" to graph");
-                }
-                String sentence = tempBlock.toString();
-                RedCount++;
-                System.out.println(sentence);
-            }
+            }   // Loops back up to check for another block
             
-        }
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////GREEN LINE//////////////////////////////GREEN LINE//////////////////////////////GREEN LINE/////////////////////////GREEN LINE///////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        spreadsheet = workbook.getSheetAt(2);
-        rowIterator = spreadsheet.iterator();
-        row = (XSSFRow) rowIterator.next();
-        cellIterator = row.cellIterator();
-        while(cellIterator.hasNext()){
-            Cell cell = cellIterator.next();
-            String newCol = cell.getStringCellValue();
-            //System.out.print(newCol + " \t");
-        }
-        //System.out.println();
-        
-        
-        
-        //GreenCount = 0;
-        while(rowIterator.hasNext()){
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////GREEN LINE//////////////////////////////GREEN LINE//////////////////////////////GREEN LINE/////////////////////////GREEN LINE///////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
-            String line = "Green";
-            String Section;
-            double num;
-            double length;
-            double grade;
-            double speed;
-            Object[] Stringobj = new Object[]{};
-            double[] intobj = new double[] {};
-            String Infrastructure = "";
-            String SwitchBlock = "";
-            String ArrowDirection = "";
-            
+            spreadsheet = workbook.getSheetAt(2);
+            rowIterator = spreadsheet.iterator();
             row = (XSSFRow) rowIterator.next();
             cellIterator = row.cellIterator();
             while(cellIterator.hasNext()){
                 Cell cell = cellIterator.next();
-                switch(cell.getCellType()){
-                    case Cell.CELL_TYPE_NUMERIC:
-                        ArrayList<Double> newDoubleObject = new ArrayList<>(Arrays.asList(ArrayUtils.toObject(intobj)));
-                        newDoubleObject.add(cell.getNumericCellValue());
-                        intobj = ArrayUtils.toPrimitive(newDoubleObject.toArray(new Double[]{}));
-                        //System.out.print(cell.getNumericCellValue()+ " \t\t");
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                        String newString = cell.getStringCellValue();
-                        ArrayList<Object> temp = new ArrayList<>(Arrays.asList(Stringobj));
-                        temp.add(newString);
-                        Stringobj = temp.toArray();
-                        //System.out.print(cell.getStringCellValue() + " \t\t");
-                        break;
-                }
+                String newCol = cell.getStringCellValue();
+                //System.out.print(newCol + " \t");
             }
+            //System.out.println();
             
-            if(intobj.length > 0 || Stringobj.length > 0){
-                int i = 0;
-                int StrArrLen = Stringobj.length;
-                if(Stringobj[i].toString().length()>2){
-                    line = Stringobj[i].toString();
-                    i++;
-                }
-
-                Section = Stringobj[i].toString();
-                i++;
-
-                for(int j = i;j<StrArrLen; j++){
-                    if(Stringobj[j].toString().startsWith("Head") || Stringobj[j].toString().startsWith("Tail")){
-                        ArrowDirection = Stringobj[j].toString();
-                    }else if(Stringobj[j].toString().startsWith("Switch")){
-                        SwitchBlock = Stringobj[j].toString();
-                    }else{
-                        Infrastructure = Stringobj[j].toString();
+            
+            
+            //GreenCount = 0;
+            while(rowIterator.hasNext()){
+                
+                String line = "Green";
+                String Section;
+                double num;
+                double length;
+                double grade;
+                double speed;
+                Object[] Stringobj = new Object[]{};
+                double[] intobj = new double[] {};
+                String Infrastructure = "";
+                String SwitchBlock = "";
+                String ArrowDirection = "";
+                
+                row = (XSSFRow) rowIterator.next();
+                cellIterator = row.cellIterator();
+                while(cellIterator.hasNext()){
+                    Cell cell = cellIterator.next();
+                    switch(cell.getCellType()){
+                        case Cell.CELL_TYPE_NUMERIC:
+                            ArrayList<Double> newDoubleObject = new ArrayList<>(Arrays.asList(ArrayUtils.toObject(intobj)));
+                            newDoubleObject.add(cell.getNumericCellValue());
+                            intobj = ArrayUtils.toPrimitive(newDoubleObject.toArray(new Double[]{}));
+                            //System.out.print(cell.getNumericCellValue()+ " \t\t");
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            String newString = cell.getStringCellValue();
+                            ArrayList<Object> temp2 = new ArrayList<>(Arrays.asList(Stringobj));
+                            temp2.add(newString);
+                            Stringobj = temp2.toArray();
+                            //System.out.print(cell.getStringCellValue() + " \t\t");
+                            break;
                     }
                 }
                 
-                int c = 2;
-                num = intobj[0];
-                length = intobj[1];
-                grade = intobj[c];
-                c++;
-                try{
-                    speed = intobj[c];
-                }catch(ArrayIndexOutOfBoundsException e){
-                    grade = 0.0;
-                    speed = intobj[2];
+                if(intobj.length > 0 || Stringobj.length > 0){
+                    int i = 0;
+                    int StrArrLen = Stringobj.length;
+                    if(Stringobj[i].toString().length()>2){
+                        line = Stringobj[i].toString();
+                        i++;
+                    }
+                    
+                    Section = Stringobj[i].toString();
+                    i++;
+                    
+                    for(int j = i;j<StrArrLen; j++){
+                        if(Stringobj[j].toString().startsWith("Head") || Stringobj[j].toString().startsWith("Tail")){
+                            ArrowDirection = Stringobj[j].toString();
+                        }else if(Stringobj[j].toString().startsWith("Switch")){
+                            SwitchBlock = Stringobj[j].toString();
+                        }else{
+                            Infrastructure = Stringobj[j].toString();
+                        }
+                    }
+                    
+                    int c = 2;
+                    num = intobj[0];
+                    length = intobj[1];
+                    grade = intobj[c];
+                    c++;
+                    try{
+                        speed = intobj[c];
+                    }catch(ArrayIndexOutOfBoundsException e){
+                        grade = 0.0;
+                        speed = intobj[2];
+                    }
+                    
+                    
+                    BetaBlock tempBlock2 = new BetaBlock(line, Section, num, length, grade, speed, Infrastructure, SwitchBlock, ArrowDirection);
+                    if(!GreenLine.addBlock(tempBlock2, true)){
+                        System.out.println("Problem adding block "+ tempBlock2.getLabel()+" to graph.");
+                    }
+                    String sentence = tempBlock2.toString();
+                    GreenCount++;
+                    System.out.println(sentence);
                 }
 
-
-                BetaBlock tempBlock2 = new BetaBlock(line, Section, num, length, grade, speed, Infrastructure, SwitchBlock, ArrowDirection);
-                if(!GreenLine.addBlock(tempBlock2, true)){
-                    System.out.println("Problem adding block "+ tempBlock2.getLabel()+" to graph.");
-                }
-                String sentence = tempBlock2.toString();
-                GreenCount++;
-                System.out.println(sentence);
             }
-            
         }
-        
-        fis.close();
         
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////CONNECT BLOCKS/////////////////////////CONNECT BLOCKS/////////////////////////////////////CONNECT BLOCKS//////////////////////////CONNECT BLOCKS//////////////
@@ -305,8 +306,8 @@ public class TrackModel{
        int innerCountRed; 
        
         while(currentRed <= RedCount){   //Index through blocks to connect with edges            `                              <-----------------------||
-            //System.out.println("currentRed = "+currentRed);                                                                                             //
-            innerCountRed = currentRed;     // Saves the current block count before looking through upcoming section                                //
+            //System.out.println("currentRed = "+currentRed);                                                                                           //
+            innerCountRed = currentRed;     // Saves the current block count before looking through upcoming section                                    //
             String RedString1 = "Red"+currentRed; //Creates block label to call                                                                         //
             BetaBlock RedBlock1 = RedLine.getBlock(RedString1); //Retrieves block by label from graph                                                   //
             //System.out.println("RedBlock1: "+RedBlock1.getLabel());

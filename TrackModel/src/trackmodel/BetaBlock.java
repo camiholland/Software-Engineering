@@ -22,7 +22,9 @@ public class BetaBlock {
     private String SwitchBlock;
     private String ArrowDirection;
     
-    
+    // Fields not yet implemented in the ExcelToJavaGraph() function in TrackModel
+    private boolean Underground;
+    private boolean Crossing;
    
     public BetaBlock(String line, String Section, double num, double length, double grade, double speed, String infra, String sblock, String Arrow){
         this.line = line;
@@ -138,5 +140,29 @@ public class BetaBlock {
         return new ArrayList<>(this.neighborhood);
     }
 
+    
+    
+    
+    //////////////Needs to be set in other function ExceltoJavaGraph();
+    
+    /*
+     * @parameter dark - True if underground, false if not
+     * @return void
+    */
+    public void setUnderground(boolean dark){
+            this.Underground = dark;
+    }
+    
+    public boolean isUnderground(){
+        return this.Underground;
+    }
+    
+    public void setCrossing(boolean itCrosses){
+        this.Crossing = itCrosses;
+    }
+    
+    public boolean isCrossing(){
+        return this.Crossing;
+    }
     
 }
