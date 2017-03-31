@@ -21,6 +21,9 @@ import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;
 import com.wonderfresh.interfaces.TrainModelAPIImpl;
 
 public class SystemWrapper {
+    
+    public static Trains trainControllers;
+    public static Train trainModels;
 
     /**
      * @param args the command line arguments
@@ -32,8 +35,8 @@ public class SystemWrapper {
         
 
         
-        Trains trainControllers = new Trains();
-        Train trainModels = new Train();
+        trainControllers = new Trains();
+        trainModels = new Train();
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
 

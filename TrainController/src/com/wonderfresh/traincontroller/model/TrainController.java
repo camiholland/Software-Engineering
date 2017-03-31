@@ -38,7 +38,7 @@ public class TrainController {
         gainProportional = 30000;
         gainIntegral = 100;
     
-        pc = new PowerCalculator(this, gainProportional, gainIntegral);
+        pc = new PowerCalculators(this, gainProportional, gainIntegral);
         dc = new DistanceCalculator(this);
 
         pc.start();
@@ -47,7 +47,7 @@ public class TrainController {
 
     public TrainModelAPI trainModel;
     public DistanceCalculator dc;
-    public PowerCalculator pc;
+    public PowerCalculators pc;
     public TrainControllerUI trainUI;
     public boolean openUI = false;
 
@@ -71,6 +71,7 @@ public class TrainController {
     public boolean brakeEmergency;
     public double gainProportional;
     public double gainIntegral;
+    public double distance;
   
     public int launchUI() {
         /* Create and display the form */
@@ -132,7 +133,16 @@ public class TrainController {
     public void setSpeedAndAuthority(int speed, int authority){
         setPointSpeed = speed;
         setAuthority = authority;
+        
+        trainUI.setSetPointSpeed(speed);
+        
+        if(auto) {
+            setSetSpeed(speed);
+        }
+        pc.setDistance(authority);
     }
+    
+
 
     public int getSetPointSpeed() { 
         return setPointSpeed; 

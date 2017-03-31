@@ -1155,6 +1155,18 @@ public class TrainControllerUI extends javax.swing.JFrame {
         return 1;
     }
     
+    public int setSetPointSpeed(int speed) {
+        PointSpeedText.setText("" + speed);
+        
+        return 1;
+    }
+    
+    public int setAuthority(double auth) {
+        AuthorityText.setText("" + auth);
+        
+        return 1;
+    }
+    
     public int setPower(double power) {
         PowerText.setText(String.format("%.2f kW",power/1000));
         
