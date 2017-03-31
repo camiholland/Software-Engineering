@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Train {
     
-    public static ArrayList<TrainModel> trainList;
-    public static int count;
+    public ArrayList<TrainModel> trainList;
+    public int count;
     
     public Train(){
         trainList = new ArrayList<>();
@@ -25,12 +25,12 @@ public class Train {
         return count;
     }
     
-    public static void addTrain(TrainModel newTrain){
+    public void addTrain(TrainModel newTrain){
         trainList.add(newTrain);
         count++;
     }
     
-    public static TrainModel getTrain(int trainID){
+    public TrainModel getTrain(int trainID){
         TrainModel trainmodel;
         int checkID;
         

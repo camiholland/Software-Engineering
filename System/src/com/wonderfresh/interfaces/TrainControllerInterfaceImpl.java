@@ -5,7 +5,6 @@
  */
 package com.wonderfresh.interfaces;
 
-import com.wonderfresh.interfaces.TrainControllerInterface;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.traincontroller.model.TrainController;
 
