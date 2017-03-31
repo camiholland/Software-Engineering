@@ -4,20 +4,32 @@
  */
 package mbo;
 import com.wonderfresh.commons.Time;
-import java.io.FileNotFoundException;
 import java.time.LocalTime;
 import javax.swing.JFrame;
 
-public class Mbo {
+public class Mbo extends Thread{
+    int drivers=0;
+    private mboUI gui=null;
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public Mbo(){
+        
+    }
+    public void launchUI(){
+        gui = new mboUI(this); // GUI gui = new GUI() as well
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setVisible(true);
+    }
+    
+    @Override
+    public void run() {
+        
         //max 100 trains per line
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int i;
         int passengerCount=0;
-        int redPassengers,numDrivers,greenPassengers;
+        int redPassengers,drivers = 0,greenPassengers;
         int greenRuns,redRuns;
         int redRunTime,greenRunTime; 
         int passPerCar=300; //assume that all 300 wont ride at once
@@ -26,18 +38,34 @@ public class Mbo {
         Time startTime=Time.getTimeNow();
         String timeOutput;
         Time currentTime=startTime;
+       /*
         mboUI gui = new mboUI(); // GUI gui = new GUI() as well
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setVisible(true);
+        */
         System.out.println("Done");
+        
 //Get User Inputs
-        while(running==1){
-//keep clock running            
-            gui.clock.setText(Time.stringTime(Time.getTimeNow()));    
-            if (gui.getData==1){
-                running=0;
-            } 
-        }
+        
+            while(gui == null) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception ex) {
+                    //do nothing busy work
+                }
+            }
+        
+            while(running==1){
+    //keep clock running    
+               // System.out.println("here");
+                    gui.setClock(Time.stringTime(Time.getTimeNow()));    
+                    if (gui.getData==1){
+                        running=0;
+                    } 
+            }
+            
+            
+            
         System.out.println("Accepted inputs");      
 //get tracks
         String last=null;
@@ -59,21 +87,23 @@ public class Mbo {
         }
         
    //model input
-        numDrivers=gui.drivers;
         redPassengers=gui.redPass;
         greenPassengers=gui.greenPass;
         
     //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
+        int redWait;
         redRuns=(redPassengers/passPerCar);//24+4 for double car on rush hour
         greenRuns=(greenPassengers/passPerCar);
-        int redWait=(minsPerDay/redRuns);
+        
+        if (redRuns>0){
+           redWait=(minsPerDay/redRuns);}
         redWait=redWait-redWait%5;
         int greenWait=(minsPerDay/greenRuns);
         greenWait=greenWait-greenWait%5;
-        if(numDrivers>50){System.out.println("Only 50 Drivers are supported");}
-        if(numDrivers<7){System.out.println("Innadequate number of drivers to run 24 hours a day, 7 days a week");}
-        System.out.println("Number of Drivers:"+numDrivers);
+        if(drivers>50){System.out.println("Only 50 Drivers are supported");}
+        if(drivers<7){System.out.println("Innadequate number of drivers to run 24 hours a day, 7 days a week");}
+        System.out.println("Number of Drivers:"+drivers);
         System.out.println("Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/redRuns)+ "  redWait:"+redWait);    
         System.out.println("Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
         
@@ -81,7 +111,7 @@ public class Mbo {
         
         System.out.println("need a driver every "+timeBetweenAllRuns+" minutes");
         driverSchedule ds=new driverSchedule();
-        ds.getSchedule(numDrivers, shift, timeBetweenAllRuns);
+        ds.getSchedule(drivers, shift, timeBetweenAllRuns);
         
         
        
@@ -153,10 +183,11 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
         running=1;
         while(running==1){
             //update time
-            gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
-            gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
-            gui.passengerCount.setText(" "+(passengerCount));
-            
+            if (gui!=null){
+                gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
+                gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
+                gui.passengerCount.setText(" "+(passengerCount));
+            }
         }
     }
     int getBrakeDistance(int speed){
@@ -203,6 +234,9 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
         
         return time;
     }
-   
+   public void setDrivers(int i){
+       drivers=i;
+       
+   }  
 
 }

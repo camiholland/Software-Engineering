@@ -10,9 +10,7 @@ package my.trackmodel;
  * @author kwc12
  */
 public interface TrackModelInterface {
-    public void setDepartureTime(String station, String time){
-        
-    }
+   
     
     public PublicBlock initBlock(String line){
         

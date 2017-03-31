@@ -56,8 +56,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         OutgoingTrackController = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -80,14 +80,14 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField16 = new javax.swing.JTextField();
         jTextField17 = new javax.swing.JTextField();
         jTextField18 = new javax.swing.JTextField();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        jComboBox4 = new javax.swing.JComboBox<String>();
+        jComboBox5 = new javax.swing.JComboBox<String>();
+        jComboBox6 = new javax.swing.JComboBox<String>();
+        jComboBox7 = new javax.swing.JComboBox<String>();
         jButton2 = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<String>();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -408,9 +408,9 @@ public class NewJFrame extends javax.swing.JFrame {
         OutgoingTrackController.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         OutgoingTrackController.setPreferredSize(new java.awt.Dimension(666, 459));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Red", "Green" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Red", "Green" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID1", "ID2", "ID3" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ID1", "ID2", "ID3" }));
 
         jLabel11.setText("Line:");
 
@@ -492,7 +492,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         OutgoingTrackControllerLayout.setVerticalGroup(
             OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -574,13 +574,13 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTextField18.setText("Block");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Status1", "Status2" }));
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Status1", "Status2" }));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Status1", "Status2" }));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Status1", "Status2" }));
 
         jButton2.setText("Send");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +593,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTextField4.setText("A.2");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A.1", "A.2" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A.1", "A.2" }));
 
         javax.swing.GroupLayout OutgoingCTCLayout = new javax.swing.GroupLayout(OutgoingCTC);
         OutgoingCTC.setLayout(OutgoingCTCLayout);
@@ -640,7 +640,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(OutgoingCTCLayout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         OutgoingCTCLayout.setVerticalGroup(
             OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -651,7 +651,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OutgoingCTCLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 8, Short.MAX_VALUE)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
@@ -719,8 +719,8 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(IncomingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(OutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE)
-                    .addComponent(IncomingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE))
+                    .addComponent(OutgoingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                    .addComponent(IncomingTrackController, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))
                 .addGap(53, 53, 53))
         );
 
