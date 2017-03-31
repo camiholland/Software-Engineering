@@ -78,6 +78,10 @@ public class PowerCalculator extends Thread{
         this.ki = ki;
     }
     
+    public double getPowerCommand() {
+        return powerCommand;
+    }
+    
     /**
      * Calculate power output based on current and requested speeds
      */
@@ -91,11 +95,8 @@ public class PowerCalculator extends Thread{
             
             while (stop) {
                 
-                //commented if for stand alone testing
-                //if (powerCommand != 0) {
-                    train.setPowerCommand(0); //ensure train sets power to 0
-                //}
-            
+                powerCommand = 0;
+                
                 try {
                     sleep(1000 / time.getSpeed());
                 } catch (InterruptedException ex) {
@@ -150,19 +151,12 @@ public class PowerCalculator extends Thread{
             if (vReq < vCur) {
                 powerCommand = 0;
             }
-            
-            //commented if statement for standalone testing
-            //if(prevPowerCommand != powerCommand) {
-                train.setPowerCommand(powerCommand);
-                prevPowerCommand = powerCommand;
-            //}
-            
         
             //sleep till one second system time
             try {
                 sleep(1000 / time.getSpeed());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                //busy waiting // nothing is required
             }
         }         
         
