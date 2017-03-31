@@ -4,11 +4,12 @@
  */
 package mbo;
 import com.wonderfresh.commons.Time;
-import java.time.LocalTime;
 import javax.swing.JFrame;
 
 public class Mbo extends Thread{
+    int ready=0;
     int drivers=0;
+    int redPassengers=0,greenPassengers=0;
     private mboUI gui=null;
     
     public Mbo(){
@@ -29,7 +30,7 @@ public class Mbo extends Thread{
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int i;
         int passengerCount=0;
-        int redPassengers,drivers = 0,greenPassengers;
+        
         int greenRuns,redRuns;
         int redRunTime,greenRunTime; 
         int passPerCar=300; //assume that all 300 wont ride at once
@@ -48,25 +49,20 @@ public class Mbo extends Thread{
 //Get User Inputs
         
             while(gui == null) {
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception ex) {
+                try {Thread.sleep(1000); } 
+                catch (Exception ex) {
                     //do nothing busy work
                 }
             }
-        
             while(running==1){
-    //keep clock running    
-               // System.out.println("here");
-                    gui.setClock(Time.stringTime(Time.getTimeNow()));    
-                    if (gui.getData==1){
+                //keep clock running    
+               System.out.println("here");
+                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));
+                    if (ready==1){
                         running=0;
                     } 
             }
-            
-            
-            
-        System.out.println("Accepted inputs");      
+        System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
 //get tracks
         String last=null;
         mboSection[] greenTrack=new mboSection[100];
@@ -87,12 +83,14 @@ public class Mbo extends Thread{
         }
         
    //model input
+        /*
+        drivers=gui.drivers;
         redPassengers=gui.redPass;
         greenPassengers=gui.greenPass;
-        
+        */
     //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
-        int redWait;
+        int redWait = 0;
         redRuns=(redPassengers/passPerCar);//24+4 for double car on rush hour
         greenRuns=(greenPassengers/passPerCar);
         

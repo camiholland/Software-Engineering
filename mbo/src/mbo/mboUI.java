@@ -21,7 +21,7 @@ public class mboUI extends javax.swing.JFrame {
         
     }
     
-    public void setClock(String time) {
+    public void setClock(String timeString) {
         clock.setText(time);
     }
 
@@ -425,6 +425,7 @@ public class mboUI extends javax.swing.JFrame {
 
             private void generateButtonActionPerformed(ActionEvent evt) {
                 String s=redText.getText();
+                
                 int i=Integer.parseInt(s);
                 redPass=i; 
                 s=greenText.getText();
@@ -436,7 +437,10 @@ public class mboUI extends javax.swing.JFrame {
                     if(drivers>0){
                         if (redPass>0){
                             if (greenPass>0){
-                                getData=1;
+                                mbo.drivers=drivers;
+                                mbo.greenPassengers=greenPass;
+                                mbo.redPassengers=redPass;
+                                mbo.ready=1;
                             }
                         }
                     }
