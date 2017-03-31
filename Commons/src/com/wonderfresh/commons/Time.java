@@ -18,7 +18,7 @@ public class Time extends Thread{
     private static Time instance = null;
     
     //private to defeat other instantiation and remain a singleton
-    private Time() {
+    public Time() {
         speed = 10;
         
         LocalTime l = LocalTime.now();
