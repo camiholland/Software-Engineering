@@ -8,7 +8,7 @@ package mbo;
 /**
  * @author angie
  */
-public interface mboInterface {
+public interface MboInterface {
     mboTrain[] setDispatchedTrain(int trainID, double speed, double authority);
     mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority);
     //change to String Station and String for trainID and time

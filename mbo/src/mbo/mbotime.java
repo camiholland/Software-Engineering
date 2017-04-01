@@ -8,69 +8,8 @@ public class mbotime{
     int min;
     int sec;
     
-    public static mbotime get10x(mbotime beginTime, int TIMECONST){
-        LocalTime l = LocalTime.now();
-        mbotime militaryTime = null;
-        //b for beginning time
-        int bSeconds=   beginTime.sec;
-        int bMinutes=   beginTime.min;
-        int bHours=     beginTime.hr;
-        //get present time
-        int seconds=    l.getSecond();
-        int minutes=    l.getMinute();
-        int hours=      l.getHour();
-        //variable declaration for elapsed variables
-        int eSeconds=   0;
-        int eMinutes=   0;
-        int eHours=     0;
-        //present time - start time = time elapsed
-        //seconds
-        if(seconds<bSeconds){
-            eSeconds=(seconds+60-bSeconds);
-            if(eMinutes>0){
-                eMinutes--;
-            }
-        } 
-        //minutes
-        if(minutes<bMinutes){
-            eMinutes=eMinutes+(minutes+60-bMinutes);
-            eHours--;
-        }
-        else{eMinutes=eMinutes+minutes-bMinutes;} 
-        //hours
-        if(hours<bHours){eHours=eHours+(hours+12)-bHours;}
-        else {eHours=eHours+hours-bHours;}
-        //time elapsed * 10
-        eSeconds=eSeconds*10;
-        eMinutes=eMinutes*10;
-        eHours=eHours*10;
-
-        //add time elapsed to start time
-        seconds=bSeconds+eSeconds;
-        while (seconds>60){
-            seconds=seconds-60;
-            eMinutes=eMinutes+1;
-        }
-        while (minutes>60){
-            minutes=minutes-60;
-            eHours++;
-        }
-        minutes=eMinutes+bMinutes;
-        hours=eHours+bHours;
-        if (hours>12){
-            hours=hours-12;
-        }
-        //return military time
-        militaryTime.hr=eHours;
-        militaryTime.min=eMinutes;
-        militaryTime.sec=eSeconds;
-
-
-        return militaryTime;
-    }
-/**
+/*
  * Given time t, outputs time as "12:01:12 PM"
- * 
  */    
     public static String stringTime(mbotime t){
         String ampm;
@@ -84,9 +23,6 @@ public class mbotime{
             else{h=""+hour;}
         if(t.min<10){m="0"+t.min;}
             else{m=""+t.min;}
-        
-        
-        
         if(t.sec<10){s="0"+t.sec;}
             else{s=""+t.sec;}
         String tString=" "+h+":"+m+":"+s+" "+ampm+" " ;

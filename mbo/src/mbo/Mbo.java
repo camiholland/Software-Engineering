@@ -110,8 +110,8 @@ public class Mbo extends Thread{
         System.out.println("need a driver every "+timeBetweenAllRuns+" minutes");
         driverSchedule ds=new driverSchedule();
         ds.getSchedule(drivers, shift, timeBetweenAllRuns);
-        
-        
+        //DisplayDrivers
+      //  displayDrivers(ds.arr);
        
 //output for workers schedule       
 gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
@@ -236,5 +236,5 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
        drivers=i;
        
    }  
-
+   
 }
