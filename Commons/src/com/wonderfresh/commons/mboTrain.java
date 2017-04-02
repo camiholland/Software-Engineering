@@ -1,4 +1,4 @@
-package mbo;
+package com.wonderfresh.commons;
 
 /**
  *
@@ -9,7 +9,6 @@ public class mboTrain {
     public int number;
     public double speed;
     public double authority;
-    public int index;
     public String color;
     public String departureTime;
     public String bound;
@@ -17,23 +16,18 @@ public class mboTrain {
     public int hour;
     public int minutes;
     
-    public mboTrain (int num, double spd, double auth, int ind,String col, int departHour, int departMin){
+    public mboTrain (int num, double spd, double auth, String col, int departHour, int departMin){
         
         number=num;
         speed=spd;
         authority=auth;
-        index=ind;
         color=col;
         bound="out";
     
-        
-       
     }
     public String getDepartureTime(){
         return this.departureTime;
-    }
-    public int getIndex(){
-        return this.index;
+    
     }
     public int getNumber(){
         return this.number;
