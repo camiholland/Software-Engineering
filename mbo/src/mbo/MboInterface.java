@@ -9,11 +9,11 @@ package mbo;
  * @author angie
  */
 public interface MboInterface {
-    mboTrain[] setDispatchedTrain(int trainID, double speed, double authority);
-    mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority);
-    //change to String Station and String for trainID and time
-    mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime);
-    mboTrain[] getDispatchedTrain(int trainID, double speed, double authority);
-    mboTrain[] getUpdatedSpeedAuthority(int trainID, double speed, double authority);
-    mboTrainDepartInfo[] getTrainDepartInfo(String line);
+    com.wonderfresh.commons.mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,com.wonderfresh.commons.mboTrain[] array);
+    com.wonderfresh.commons.mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, com.wonderfresh.commons.mboTrain[] array);
+    com.wonderfresh.commons.mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,com.wonderfresh.commons.mboTrainDepartInfo[] info);
+    com.wonderfresh.commons.mboTrain[] getDispatchedTrain();
+    com.wonderfresh.commons.mboTrain[] getUpdatedSpeedAuthority();
+    com.wonderfresh.commons.mboTrainDepartInfo[] getTrainDepartInfo();
 }
+

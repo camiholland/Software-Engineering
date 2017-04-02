@@ -9,44 +9,41 @@ package mbo;
  *
  * @author angie
  */
-public class mboInterfaceClass implements mboInterface{
+public class mboInterfaceClass implements MboInterface{
     
+    com.wonderfresh.commons.mboTrain[] array;
+    com.wonderfresh.commons.mboTrainDepartInfo[] info;
     
-
     @Override
+    public com.wonderfresh.commons.mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,com.wonderfresh.commons.mboTrain[] array){
+        array[trainID].speed=speed;
+        array[trainID].authority=authority;
+        return array;
+    }
+    @Override
+    public com.wonderfresh.commons.mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, com.wonderfresh.commons.mboTrain[] array){
+        
+        return array;
+    }
+    @Override
+    public com.wonderfresh.commons.mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,com.wonderfresh.commons.mboTrainDepartInfo[] info){
+        
+        return info;
+    }
+    @Override
+    public com.wonderfresh.commons.mboTrain[] getDispatchedTrain(){
+        
+        return array;
+    }
+    @Override
+    public com.wonderfresh.commons.mboTrain[] getUpdatedSpeedAuthority(){
+        return array;
+    }
+    @Override
+    public com.wonderfresh.commons.mboTrainDepartInfo[] getTrainDepartInfo(){
+        return info;
+    }
     
-    public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] getDispatchedTrain(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrain[] getUpdatedSpeedAuthority(int trainID, double speed, double authority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrainDepartInfo[] setTrainDepartInfo(String station, String trainIDandDepartTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public mboTrainDepartInfo[] getTrainDepartInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public mboTrainDepartInfo[] getTrainDepartInfo(String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
 
