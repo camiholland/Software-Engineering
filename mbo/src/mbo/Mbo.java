@@ -57,7 +57,7 @@ public class Mbo extends Thread{
             }
             while(running==1){
                 //keep clock running    
-               System.out.println("here");
+              // System.out.println("here");
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));
                     if (ready==1){
                         running=0;
@@ -117,6 +117,12 @@ public class Mbo extends Thread{
         setDriverArray(ds);
 //Load Track
         
+//Get Safe breaking distance with max speed off of the blocks &print to Screen
+        double minDist=0;
+        double maxSpeed=40;
+        //get max speed by iterating through the track
+        minDist=getBrakeDistance(maxSpeed);
+        System.out.println("MBO: Min braking distance: "+minDist);
 //Get time around track
         
 //create Train schedule with available drivers
@@ -135,13 +141,29 @@ public class Mbo extends Thread{
                 *get closed track information from CTC --- Save to String temp
                 */
                 String[] closedTracks=new String[100];
+   //---> closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
+                displayClosedTracks(closedTracks);
                 
-                gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
+                /*
+                Get Updated Track chosen for schedule
+                */
+                //iterate track schedule for time to new station
+                
+                /*
+                Get train locations from Communications
+                */
+                
+                /*
+                Update authority with distance to station
+                */
+                
+                
+                
                 gui.passengerCount.setText(" "+(passengerCount));
             }
         }
     }
-    int getBrakeDistance(int speed){
+    int getBrakeDistance(double speed){
         int lengthOfCar=33;                     //Taken from Track Layout and vehicle Data excel document. Rounded up from 32.2 to 33, in meters
         int lengthOf2Cars=lengthOfCar*2;
         int distance=0;                         //calculated stopping distance to be returned
@@ -151,7 +173,7 @@ public class Mbo extends Thread{
         int totalHumans=numHumansPerTrain*2;    //Double the total potential human weight to calculate brake distance for rush hour
         int totalHumanWeight=totalHumans*humanWeight;
         int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document
-        int maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
+        double maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
         int totalWeight=trainWeight+totalHumanWeight;
         System.out.println("\n\nStats for breaking distance:\n\nTotal Weight for calculated breaking distance(in kg): "+totalWeight);
         System.out.println("length of 2 cars to add to breaking distance, since using point mass: "+lengthOf2Cars);
@@ -251,5 +273,12 @@ public class Mbo extends Thread{
             }
         ));
          }
+
+    private void displayClosedTracks(String[] closedTracks) {
+        int i=0;
+        for(i=0;i<100;i++){
+            gui.displayClosedTrack.getModel().setValueAt(closedTracks[i], 0, 0);
+        }
+    }
    
 }
