@@ -10,9 +10,9 @@ package com.wonderfresh.trainmodel;
  * @author Cami
  */
 public class TestingImpl implements Testing {
-    TrainModelTest trainModelTest;
-    public TestingImpl(TrainModel TM){
-        trainModelTest = new TrainModelTest(TM);
+    TrainModelTestTrain trainlist;
+    public TestingImpl(TrainModelTestTrain trainlist){
+        this.trainlist = trainlist;
     }
     
     //from Track Model
