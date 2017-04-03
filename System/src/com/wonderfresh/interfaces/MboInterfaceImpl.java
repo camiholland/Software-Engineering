@@ -17,10 +17,18 @@ public class MboInterfaceImpl implements MboInterface {
  *
  * @author angie
  */
-
+    String[] closedBlocks;
     mboTrain[] array;
     mboTrainDepartInfo[] info;
     
+    
+    void setClosedBlocks(String[] closed){
+        closedBlocks=closed;
+    }
+    @Override
+    public String[] getClosedBlocks(){
+        return closedBlocks;
+    }
     
     @Override
     public mboTrain[] setLocation(int blockNum, int metersIn,int ID){
@@ -61,6 +69,11 @@ public class MboInterfaceImpl implements MboInterface {
     @Override
     public mboTrainDepartInfo[] getTrainDepartInfo(){
         return info;
+    }
+
+    @Override
+    public void setClosedBlocks(int block, String description) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
  

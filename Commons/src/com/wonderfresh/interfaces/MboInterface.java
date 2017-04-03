@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.wonderfresh.interfaces;
 
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.mboTrainDepartInfo;
 
 /**
- *
- * @author angie
+ * @author Angela Hoeltje
+ * 
+ * Interface for all communications from MBO
+ * Implementations of these methods are in System com.wonderfresh.interfaces MboInterfaceImpl
+ * 
  */
 public interface MboInterface {
     mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
