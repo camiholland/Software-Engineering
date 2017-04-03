@@ -113,11 +113,85 @@ public class Mbo extends Thread{
         System.out.println("need a driver every "+timeBetweenAllRuns+" minutes");
         driverSchedule ds=new driverSchedule();
         ds.getSchedule(drivers, shift, timeBetweenAllRuns);
-        //DisplayDrivers
-      //  displayDrivers(ds.arr);
+//DisplayDrivers      
+        setDriverArray(ds);
+//Load Track
+        
+//Get time around track
+        
+//create Train schedule with available drivers
+        
+//outputTrainSchedule
+        //get station
+        //add time for station
+        
        
-//output for workers schedule       
-gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
+        running=1;
+        while(running==1){
+            //update time
+            if (gui!=null){
+                gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
+                /*
+                *get closed track information from CTC --- Save to String temp
+                */
+                String[] closedTracks=new String[100];
+                
+                gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
+                gui.passengerCount.setText(" "+(passengerCount));
+            }
+        }
+    }
+    int getBrakeDistance(int speed){
+        int lengthOfCar=33;                     //Taken from Track Layout and vehicle Data excel document. Rounded up from 32.2 to 33, in meters
+        int lengthOf2Cars=lengthOfCar*2;
+        int distance=0;                         //calculated stopping distance to be returned
+        int humanWeight=75;                     //Standardized Human weight in kg
+        int numHumansPerTrain=300+1;              //Max people per train + driver
+        
+        int totalHumans=numHumansPerTrain*2;    //Double the total potential human weight to calculate brake distance for rush hour
+        int totalHumanWeight=totalHumans*humanWeight;
+        int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document
+        int maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
+        int totalWeight=trainWeight+totalHumanWeight;
+        System.out.println("\n\nStats for breaking distance:\n\nTotal Weight for calculated breaking distance(in kg): "+totalWeight);
+        System.out.println("length of 2 cars to add to breaking distance, since using point mass: "+lengthOf2Cars);
+        System.out.println("Max speed used for calculating distance (taken from track module): "+maxSpeed);
+        System.out.println("Calculate safe breakig distance = "+distance+"\n\n");
+        return distance;
+        
+    }
+    
+    /**
+     * 
+     * 
+     * @param track 0 for red 1 for green
+     * @return 
+     */
+    int getTimeAroundTrack(int track){
+        int time=0;
+        //red
+        if (track==0){
+ /**
+  * Add u,c,b,a,f,g,h,i,j,k,l,m,n,i,
+  */           
+            
+            
+        }
+        else{ //green
+            
+            
+            
+        }
+        
+        return time;
+    }
+   public void setDrivers(int i){
+       drivers=i;
+       
+   }  
+
+    private void setDriverArray(driverSchedule ds) {
+        gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
             new String [][] {
                 
 {ds.arr[0][0], ds.arr[0][1], ds.arr[0][2], ds.arr[0][3],ds.arr[0][4], ds.arr[0][5], ds.arr[0][6], ds.arr[0][7] },
@@ -176,68 +250,6 @@ gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
                 "Worker ID", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
             }
         ));
-       
-       
-       
-       
-       
-        running=1;
-        while(running==1){
-            //update time
-            if (gui!=null){
-                gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
-                gui.displayClosedTrack.getModel().setValueAt(Time.stringTime(Time.getTimeNow()), 0, 0);
-                gui.passengerCount.setText(" "+(passengerCount));
-            }
-        }
-    }
-    int getBrakeDistance(int speed){
-        int lengthOfCar=33;                     //Taken from Track Layout and vehicle Data excel document. Rounded up from 32.2 to 33, in meters
-        int lengthOf2Cars=lengthOfCar*2;
-        int distance=0;                         //calculated stopping distance to be returned
-        int humanWeight=75;                     //Standardized Human weight in kg
-        int numHumansPerTrain=300+1;              //Max people per train + driver
-        
-        int totalHumans=numHumansPerTrain*2;    //Double the total potential human weight to calculate brake distance for rush hour
-        int totalHumanWeight=totalHumans*humanWeight;
-        int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document
-        int maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
-        int totalWeight=trainWeight+totalHumanWeight;
-        System.out.println("\n\nStats for breaking distance:\n\nTotal Weight for calculated breaking distance(in kg): "+totalWeight);
-        System.out.println("length of 2 cars to add to breaking distance, since using point mass: "+lengthOf2Cars);
-        System.out.println("Max speed used for calculating distance (taken from track module): "+maxSpeed);
-        System.out.println("Calculate safe breakig distance = "+distance+"\n\n");
-        return distance;
-        
-    }
-    
-    /**
-     * 
-     * 
-     * @param track 0 for red 1 for green
-     * @return 
-     */
-    int getTimeAroundTrack(int track){
-        int time=0;
-        //red
-        if (track==0){
- /**
-  * Add u,c,b,a,f,g,h,i,j,k,l,m,n,i,
-  */           
-            
-            
-        }
-        else{ //green
-            
-            
-            
-        }
-        
-        return time;
-    }
-   public void setDrivers(int i){
-       drivers=i;
-       
-   }  
+         }
    
 }
