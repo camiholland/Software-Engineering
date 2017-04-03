@@ -13,6 +13,7 @@ public class NewTrain extends javax.swing.JFrame {
 
     int count = 1;
     Train trainlist = new Train();
+    TrainModelTestTrain tclist = new TrainModelTestTrain();
     /**
      * Creates new form NewTrain
      */
@@ -62,8 +63,10 @@ public class NewTrain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        TrainModel tm = new TrainModel(count);
+        TrainModel tm = new TrainModel(count, tclist);
+        TrainModelTest tc = new TrainModelTest(count, trainlist);
         trainlist.addTrain(tm);
+        tclist.addTrain(tc);
         count++;
     }//GEN-LAST:event_jButton1ActionPerformed
 

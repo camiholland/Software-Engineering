@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 public class TrainModel {
     TrainModelUI gui;
     Testing testing;
+    TemperatureCalculator tempCalc;
     
     int ID;
     
@@ -71,11 +72,13 @@ public class TrainModel {
     int authority;
     String announcement;
     
-    public TrainModel(int trainID){
+    public TrainModel(int trainID, TrainModelTestTrain tclist){
         ID = trainID;
         
+        tempCalc = new TemperatureCalculator(this);
         gui = new TrainModelUI(this);
-        //testing = new TestingImpl(this);
+        
+        testing = new TestingImpl(tclist);
         
         
         
@@ -116,8 +119,8 @@ public class TrainModel {
         authority = 0;
         announcement = null;
         
-        
-        currentSecond = (int) ceil(System.nanoTime()/1000000000);
+        launchUI();
+        //currentSecond = (int) ceil(System.nanoTime()/1000000000);
         /*while(true){
             if(System.nanoTime()/1000000000 - currentSecond >= 1){
                 if(currentTemp > targetTemp + 2 || currentTemp < targetTemp - 2){
@@ -205,18 +208,23 @@ public class TrainModel {
     }
     public void setTargetTemp(int temp){
         targetTemp = temp;
+        if(targetTemp != currentTemp){
+            tempCalc.setTemp(currentTemp, targetTemp);
+        }
 //        if(targetTemp != currentTemp)
 //            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
     }
-    protected void adjustTemp(){
-        if(targetTemp < currentTemp){
+    protected void adjustTemp(int currentTemp, int status){
+        this.currentTemp = currentTemp;
+        if(status == 1 && acStatus == 0){
             setAC(1);
-            currentTemp --;
+            setHeat(0);
         }
-        else if(targetTemp > currentTemp){
+        else if(status == -1 && heatStatus == 0){
             setHeat(1);
-            currentTemp++;
+            setAC(0);
         }
+        gui.setTemp(Integer.toString(currentTemp));
         testing.setTemperature(currentTemp, ID);
     }
     

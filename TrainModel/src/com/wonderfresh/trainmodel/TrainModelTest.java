@@ -34,13 +34,12 @@ public class TrainModelTest {
     int serviceBrakeStatus;
     boolean eBrake;
     
-    public TrainModelTest(TrainModel TM){
+    public TrainModelTest(int trainID, Train trainlist){
         gui = new TrainModelTestUI(this);
-        trainToTC = new TrainToTrainControllerImpl(TM);
-        tm = TM;
+        trainToTC = new TrainToTrainControllerImpl(trainlist);
         gui.setVisible(true);
         
-        ID = tm.getID();
+        ID = trainID;
         System.out.println(ID);
         
         acStatus = 0;

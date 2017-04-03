@@ -11,76 +11,42 @@ package com.wonderfresh.trainmodel;
  */
 
 public class TrainToTrainControllerImpl implements TrainToTrainController {
-    TrainModel trainModel;
-    public TrainToTrainControllerImpl(TrainModel TM){
-        trainModel = TM;
+    Train trains;
+    public TrainToTrainControllerImpl(Train trains){
+        this.trains = trains;
     }
     
     //communications received by Train Controller
+    @Override
     public void setEBrake(boolean status, int trainID){
-        Train.getTrain(trainID).eBrake = status;
+        trains.getTrain(trainID).setEBrake(status);
     }
+    @Override
     public void setServiceBrake(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.setServiceBrake(1);
-        if(status == 1)
-            train.driverSetBrake = true;
-        else
-            train.driverSetBrake = false;
+        trains.getTrain(trainID).setServiceBrake(status, true);
     }
+    @Override
     public void setLeftDoors(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.leftDoorsStatus = status;
-        if(status > 0){
-            train.gui.on(4);
-        }
-        else if(status == 0){
-            train.gui.off(4);
-        }
-        else{
-            train.gui.fail(4);
-            train.testing.failPower(trainID);
-        }
+        trains.getTrain(trainID).setLeftDoors(status);
     }
+    @Override
     public void setRightDoors(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.rightDoorsStatus = status;
-        if(status > 0){
-            train.gui.on(5);
-        }
-        else if(status == 0){
-            train.gui.off(5);
-        }
-        else{
-            train.gui.fail(5);
-            train.testing.failPower(trainID);
-        }
+        trains.getTrain(trainID).setRightDoors(status);
     }
-    public void setTargetTemperature(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.targetTemp = status;
-//        if(targetTemp != currentTemp)
-//            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
-        
+    @Override
+    public void setTargetTemperature(int temp, int trainID){
+        trains.getTrain(trainID).setTargetTemp(temp);
     }
+    @Override
     public void setLights(int status, int trainID){
-        TrainModel train = Train.getTrain(trainID);
-        train.lightsStatus = status;
-        if(status > 0){
-            train.gui.on(3);
-        }
-        else if(status == 0){
-            train.gui.off(3);
-        }
-        else{
-            train.gui.fail(3);
-            train.testing.failPower(trainID);
-        }
+        trains.getTrain(trainID).setLights(status);
     }
+    @Override
     public void setPowerCommand(double pwrCmd, int trainID){
-        Train.getTrain(trainID).powerCmd = pwrCmd;
+        trains.getTrain(trainID).setPowerCmd(pwrCmd);
     }
+    @Override
     public void setAnnouncement(String announcement, int trainID){
-        Train.getTrain(trainID).announcement = announcement;
+        trains.getTrain(trainID).setAnnouncement(announcement);
     }
 }

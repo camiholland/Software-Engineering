@@ -752,6 +752,9 @@ public class TrainModelUI extends javax.swing.JFrame {
         trainModel.failLights();
     }//GEN-LAST:event_setLightsFailure
     
+    public void setTemp(String temp){
+        tempBox.setText(temp);
+    }
     public void setSpeed(String speedString){
         speedBox.setText(speedString);
     }
