@@ -9,6 +9,7 @@ import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.TrainModel;
 import com.wonderfresh.trainmodel.Train;
+import com.wonderfresh.mbo.Mbo;
 
 /**
  *
@@ -18,15 +19,16 @@ public class SystemLauncher extends javax.swing.JFrame {
     
     private Trains trainControllers;
     private Train trainModels;
-
+    private Mbo mbo;
     /**
      * Creates new form SystemLauncher
      * @param trainControllers
      * @param trainModels
      */
-    public SystemLauncher(Trains trainControllers, Train trainModels) {
+    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo) {
         this.trainControllers = trainControllers;
         this.trainModels = trainModels;
+        this.mbo=mbo;
         
         initComponents();
     }
@@ -241,7 +243,7 @@ public class SystemLauncher extends javax.swing.JFrame {
     }//GEN-LAST:event_TrackModelButtonActionPerformed
 
     private void MBOButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MBOButtonActionPerformed
-        // TODO add your handling code here:
+        mbo.launchUI();
     }//GEN-LAST:event_MBOButtonActionPerformed
 
 

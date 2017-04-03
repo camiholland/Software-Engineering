@@ -11,6 +11,13 @@ package trackmodel;
  * @author kwc12
  */
 public class PublicBlock {
+    /*
+    
+    
+    */
+    double length;
+    double maxSpeed;
+    
     private String Line;
     private String Section;
     //private

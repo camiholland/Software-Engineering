@@ -19,12 +19,14 @@ import com.wonderfresh.trainmodel.TrainModel;
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;
 import com.wonderfresh.interfaces.TrainModelAPIImpl;
+import com.wonderfresh.mbo.Mbo;
 
 public class SystemWrapper {
     
+    
     public static Trains trainControllers;
     public static Train trainModels;
-
+    public static Mbo mbo;
     /**
      * @param args the command line arguments
      */
@@ -37,16 +39,20 @@ public class SystemWrapper {
         
         trainControllers = new Trains();
         trainModels = new Train();
+        mbo = new Mbo();
+        mbo.start();
+        
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
-
+       
+        
         trainModels.addTrain(new TrainModel(1));
         trainControllers.addTrainController(new TrainController(1, 3));
         
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                (new SystemLauncher(trainControllers, trainModels)).setVisible(true);
+                (new SystemLauncher(trainControllers, trainModels,mbo)).setVisible(true);
             }
         });
     }
