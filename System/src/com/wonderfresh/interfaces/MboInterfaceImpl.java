@@ -1,8 +1,9 @@
 /*
- * 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.wonderfresh.interfaces;
-
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.mboTrainDepartInfo;
 
@@ -10,7 +11,13 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  *
  * @author angie
  */
-public class TestMbo implements MboInterface {
+public class MboInterfaceImpl implements MboInterface {
+
+/**
+ *
+ * @author angie
+ */
+
     mboTrain[] array;
     mboTrainDepartInfo[] info;
     
@@ -58,4 +65,5 @@ public class TestMbo implements MboInterface {
 
  
 }
+
 
