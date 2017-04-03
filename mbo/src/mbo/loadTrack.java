@@ -26,7 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 /**
  *
- * @author angie
+ * @author ---Kevin Carr-editted for mbo by Angela Hoeltje
  */
 
 public class loadTrack {

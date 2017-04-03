@@ -7,6 +7,7 @@ import com.wonderfresh.commons.Time;
 import javax.swing.JFrame;
 
 public class Mbo extends Thread{
+    private static mboTrackModel newTrack;
     int ready=0;
     int drivers=0;
     int redPassengers=0,greenPassengers=0;
@@ -64,23 +65,25 @@ public class Mbo extends Thread{
             }
         System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
 //get tracks
-        String last=null;
-        mboSection[] greenTrack=new mboSection[100];
-        for (i=0;i<100;i++){
-            mboSection s=new mboSection();
-            //s.getSections('g',last);
-            greenTrack[i]=s;
-            last=s.ID;
-        }
         
-        last=null;        
-        mboSection[] redTrack=new mboSection[100];
-        for (i=0;i<100;i++){
-            mboSection s=new mboSection();
-            //s.getSections('r',last);
-            redTrack[i]=s;
-            last=s.ID;
-        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
    //model input
         /*
