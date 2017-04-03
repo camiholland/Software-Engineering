@@ -6,6 +6,8 @@ package com.wonderfresh.commons;
  */
 public class mboTrain {
     
+    public int block;
+    public int metersInBlock;
     public int number;
     public double speed;
     public double authority;

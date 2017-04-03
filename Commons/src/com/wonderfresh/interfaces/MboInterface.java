@@ -15,6 +15,8 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
 public interface MboInterface {
     mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
     mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
+    mboTrain[] setLocation(int blockNum, int metersIn,int ID);
+    mboTrain[] getLocation(mboTrain[] array);
     mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info);
     mboTrain[] getDispatchedTrain();
     mboTrain[] getUpdatedSpeedAuthority();

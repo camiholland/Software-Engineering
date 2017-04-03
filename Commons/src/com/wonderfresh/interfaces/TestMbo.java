@@ -14,6 +14,18 @@ public class TestMbo implements MboInterface {
     mboTrain[] array;
     mboTrainDepartInfo[] info;
     
+    
+    @Override
+    public mboTrain[] setLocation(int blockNum, int metersIn,int ID){
+        array[ID].block=blockNum;
+        array[ID].metersInBlock=metersIn;
+        return array;
+    }
+    public mboTrain[] getLocation(mboTrain[] array){
+        return array;
+    }
+    
+    
     @Override
     public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array){
         array[trainID].speed=speed;
@@ -42,6 +54,16 @@ public class TestMbo implements MboInterface {
     @Override
     public mboTrainDepartInfo[] getTrainDepartInfo(){
         return info;
+    }
+
+    @Override
+    public mboTrain[] setLocation(int block, int metersInBlock) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public mboTrain[] getLocation(int trainID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

@@ -13,11 +13,11 @@ public class Interfaces {
     
     private static TrainModelAPI trainModelAPI = null;
     private static TrainControllerInterface trainControllerInterface = null;
-    
+    private static MboInterface mboInterface = null;
     /*
     private static TrackModelInterface trainModelInterface = null;
     private static TrackControllerInterface trackControllerInterface = null;
-    private static MBOInterface mboInterface = null;
+    
     private static CTCInterface ctcInterface = null;
     private static CommunicationsInterface communicationsInterface = null;
     */
@@ -47,6 +47,9 @@ public class Interfaces {
         }
         
         return trainControllerInterface;
+    }
+     public static void setMBOInterface(MboInterface api) {
+        mboInterface = api;
     }
     
     /*
