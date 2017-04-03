@@ -7,7 +7,7 @@ import com.wonderfresh.commons.Time;
 import javax.swing.JFrame;
 
 public class Mbo extends Thread{
-    private static mboTrackModel newTrack;
+    
     int ready=0;
     int drivers=0;
     int redPassengers=0,greenPassengers=0;
