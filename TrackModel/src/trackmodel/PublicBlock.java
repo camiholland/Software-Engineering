@@ -25,7 +25,7 @@ public class PublicBlock extends Block{
     }
     
     public boolean setOccupied(boolean present){
-        return ;
+        return true;
     }
     
     public boolean hasBeacon(){

@@ -36,6 +36,13 @@ public class TrackGraph {
         }
     }
     
+    public Block init(){
+        for(String key : blocks.keySet()){
+            return blocks.get(key);
+        }
+        return null;
+    }
+    
     public boolean addEdge(Block one, Block two){
         return addEdge(one,two, true);
     }
