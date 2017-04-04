@@ -21,9 +21,7 @@ public class mboUI extends javax.swing.JFrame {
         
     }
     
-    public void setClock(String timeString) {
-        clock.setText(time);
-    }
+    public void setClock(String timeString) { clock.setText(time); }
 
     public void setClosedTrack(int i, String s){
         closedTrack[i]=s;

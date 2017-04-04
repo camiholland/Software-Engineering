@@ -31,14 +31,14 @@ public class Mbo extends Thread{
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int i;
         int passengerCount=0;
-        
+        String station =null;
         int greenRuns,redRuns;
         int redRunTime,greenRunTime; 
         int passPerCar=300; //assume that all 300 wont ride at once
         boolean test=true;
         int running=1;
         Time startTime=Time.getTimeNow();
-        String timeOutput;
+        String timeOutput,lastStation="nothing";
         Time currentTime=startTime;
        /*
         mboUI gui = new mboUI(); // GUI gui = new GUI() as well
@@ -146,7 +146,17 @@ public class Mbo extends Thread{
                 
                 /*
                 Get Updated Track chosen for schedule
+                (String)myCombobox.getSelectedItem()
                 */
+                
+                
+                station=(String) gui.jComboBox1.getSelectedItem();
+                if (lastStation.equalsIgnoreCase(station)!=true){
+                    System.out.println("MBO: User chose:"+station);
+                    lastStation=station;
+                }
+                
+                
                 //iterate track schedule for time to new station
                 
                 /*
@@ -336,7 +346,6 @@ public class Mbo extends Thread{
 {ts.arr[48][0], ts.arr[48][1], ts.arr[48][2], ts.arr[48][3],ts.arr[48][4], ts.arr[48][5], ts.arr[48][6], ts.arr[48][7] },
 {ts.arr[49][0], ts.arr[49][1], ts.arr[49][2], ts.arr[49][3],ts.arr[49][4], ts.arr[49][5], ts.arr[49][6], ts.arr[49][7] },
 
-                
                 
             },
             new String [] {

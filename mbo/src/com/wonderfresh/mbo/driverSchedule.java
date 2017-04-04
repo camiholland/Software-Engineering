@@ -44,7 +44,7 @@ public class driverSchedule {
             for(j=0;j<7;j++){
                 s= start.scheduleTime(start);
                // System.out.println("s: "+s+"   J: "+j+"    shiftsPerDay:  "+shiftsPerDay);
-                timearr[j][i]=start;
+                timearr[i][j]=start;
                 covered[j][i]=s;
             }
             mbotime next=new mbotime();
