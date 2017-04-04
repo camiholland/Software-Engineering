@@ -338,7 +338,7 @@ public class mboUI extends javax.swing.JFrame {
 
         displayClosedTrack.setModel(new javax.swing.table.DefaultTableModel(
             new String [][] {
-                {"Closed Block: 12 | Closed for 4 minutes | Approx 1 min to fix"},
+                {null},
                 {null},
                 {null},
                 {null},

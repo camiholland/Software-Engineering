@@ -184,8 +184,6 @@ public class Mbo extends Thread{
     }
     
     /**
-     * 
-     * 
      * @param track 0 for red 1 for green
      * @return 
      */
@@ -280,5 +278,80 @@ public class Mbo extends Thread{
             gui.displayClosedTrack.getModel().setValueAt(closedTracks[i], 0, 0);
         }
     }
-   
+    private void DisplayTrainSchedule(trainSchedule ts){
+    
+        
+           gui.trainScheduleDisplay.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                
+           
+{ts.arr[0][0], ts.arr[0][1], ts.arr[0][2], ts.arr[0][3],ts.arr[0][4], ts.arr[0][5], ts.arr[0][6], ts.arr[0][7] },
+{ts.arr[1][0], ts.arr[1][1], ts.arr[1][2], ts.arr[1][3],ts.arr[1][4], ts.arr[1][5], ts.arr[1][6], ts.arr[1][7] },
+{ts.arr[2][0], ts.arr[2][1], ts.arr[2][2], ts.arr[2][3],ts.arr[2][4], ts.arr[2][5], ts.arr[2][6], ts.arr[2][7] },
+{ts.arr[3][0], ts.arr[3][1], ts.arr[3][2], ts.arr[3][3],ts.arr[3][4], ts.arr[3][5], ts.arr[3][6], ts.arr[3][7] },
+{ts.arr[4][0], ts.arr[4][1], ts.arr[4][2], ts.arr[4][3],ts.arr[4][4], ts.arr[4][5], ts.arr[4][6], ts.arr[4][7] },
+{ts.arr[5][0], ts.arr[5][1], ts.arr[5][2], ts.arr[5][3],ts.arr[5][4], ts.arr[5][5], ts.arr[5][6], ts.arr[5][7] },
+{ts.arr[6][0], ts.arr[6][1], ts.arr[6][2], ts.arr[6][3],ts.arr[6][4], ts.arr[6][5], ts.arr[6][6], ts.arr[6][7] },
+{ts.arr[7][0], ts.arr[7][1], ts.arr[7][2], ts.arr[7][3],ts.arr[7][4], ts.arr[7][5], ts.arr[7][6], ts.arr[7][7] },
+{ts.arr[8][0], ts.arr[8][1], ts.arr[8][2], ts.arr[8][3],ts.arr[8][4], ts.arr[8][5], ts.arr[8][6], ts.arr[8][7] },
+{ts.arr[9][0], ts.arr[9][1], ts.arr[9][2], ts.arr[9][3],ts.arr[9][4], ts.arr[9][5], ts.arr[9][6], ts.arr[9][7] },
+{ts.arr[10][0], ts.arr[10][1], ts.arr[10][2], ts.arr[10][3],ts.arr[10][4], ts.arr[10][5], ts.arr[10][6], ts.arr[10][7] },
+{ts.arr[11][0], ts.arr[11][1], ts.arr[11][2], ts.arr[11][3],ts.arr[11][4], ts.arr[11][5], ts.arr[11][6], ts.arr[11][7] },
+{ts.arr[12][0], ts.arr[12][1], ts.arr[12][2], ts.arr[12][3],ts.arr[12][4], ts.arr[12][5], ts.arr[12][6], ts.arr[12][7] },
+{ts.arr[13][0], ts.arr[13][1], ts.arr[13][2], ts.arr[13][3],ts.arr[13][4], ts.arr[13][5], ts.arr[13][6], ts.arr[13][7] },
+{ts.arr[14][0], ts.arr[14][1], ts.arr[14][2], ts.arr[14][3],ts.arr[14][4], ts.arr[14][5], ts.arr[14][6], ts.arr[14][7] },
+{ts.arr[15][0], ts.arr[15][1], ts.arr[15][2], ts.arr[15][3],ts.arr[15][4], ts.arr[15][5], ts.arr[15][6], ts.arr[15][7] },
+{ts.arr[16][0], ts.arr[16][1], ts.arr[16][2], ts.arr[16][3],ts.arr[16][4], ts.arr[16][5], ts.arr[16][6], ts.arr[16][7] },
+{ts.arr[17][0], ts.arr[17][1], ts.arr[17][2], ts.arr[17][3],ts.arr[17][4], ts.arr[17][5], ts.arr[17][6], ts.arr[17][7] },
+{ts.arr[18][0], ts.arr[18][1], ts.arr[18][2], ts.arr[18][3],ts.arr[18][4], ts.arr[18][5], ts.arr[18][6], ts.arr[18][7] },
+{ts.arr[19][0], ts.arr[19][1], ts.arr[19][2], ts.arr[19][3],ts.arr[19][4], ts.arr[19][5], ts.arr[19][6], ts.arr[19][7] },
+{ts.arr[20][0], ts.arr[20][1], ts.arr[20][2], ts.arr[20][3],ts.arr[20][4], ts.arr[20][5], ts.arr[20][6], ts.arr[20][7] },
+{ts.arr[21][0], ts.arr[21][1], ts.arr[21][2], ts.arr[21][3],ts.arr[21][4], ts.arr[21][5], ts.arr[21][6], ts.arr[21][7] },
+{ts.arr[22][0], ts.arr[22][1], ts.arr[22][2], ts.arr[22][3],ts.arr[22][4], ts.arr[22][5], ts.arr[22][6], ts.arr[22][7] },
+{ts.arr[23][0], ts.arr[23][1], ts.arr[23][2], ts.arr[23][3],ts.arr[23][4], ts.arr[23][5], ts.arr[23][6], ts.arr[23][7] },
+{ts.arr[24][0], ts.arr[24][1], ts.arr[24][2], ts.arr[24][3],ts.arr[24][4], ts.arr[24][5], ts.arr[24][6], ts.arr[24][7] },
+{ts.arr[25][0], ts.arr[25][1], ts.arr[25][2], ts.arr[25][3],ts.arr[25][4], ts.arr[25][5], ts.arr[25][6], ts.arr[25][7] },
+{ts.arr[26][0], ts.arr[26][1], ts.arr[26][2], ts.arr[26][3],ts.arr[26][4], ts.arr[26][5], ts.arr[26][6], ts.arr[26][7] },
+{ts.arr[27][0], ts.arr[27][1], ts.arr[27][2], ts.arr[27][3],ts.arr[27][4], ts.arr[27][5], ts.arr[27][6], ts.arr[27][7] },
+{ts.arr[28][0], ts.arr[28][1], ts.arr[28][2], ts.arr[28][3],ts.arr[28][4], ts.arr[28][5], ts.arr[28][6], ts.arr[28][7] },
+{ts.arr[29][0], ts.arr[29][1], ts.arr[29][2], ts.arr[29][3],ts.arr[29][4], ts.arr[29][5], ts.arr[29][6], ts.arr[29][7] },
+{ts.arr[30][0], ts.arr[30][1], ts.arr[30][2], ts.arr[30][3],ts.arr[30][4], ts.arr[30][5], ts.arr[30][6], ts.arr[30][7] },
+{ts.arr[31][0], ts.arr[31][1], ts.arr[31][2], ts.arr[31][3],ts.arr[31][4], ts.arr[31][5], ts.arr[31][6], ts.arr[31][7] },
+{ts.arr[32][0], ts.arr[32][1], ts.arr[32][2], ts.arr[32][3],ts.arr[32][4], ts.arr[32][5], ts.arr[32][6], ts.arr[32][7] },
+{ts.arr[33][0], ts.arr[33][1], ts.arr[33][2], ts.arr[33][3],ts.arr[33][4], ts.arr[33][5], ts.arr[33][6], ts.arr[33][7] },
+{ts.arr[34][0], ts.arr[34][1], ts.arr[34][2], ts.arr[34][3],ts.arr[34][4], ts.arr[34][5], ts.arr[34][6], ts.arr[34][7] },
+{ts.arr[35][0], ts.arr[35][1], ts.arr[35][2], ts.arr[35][3],ts.arr[35][4], ts.arr[35][5], ts.arr[35][6], ts.arr[35][7] },
+{ts.arr[36][0], ts.arr[36][1], ts.arr[36][2], ts.arr[36][3],ts.arr[36][4], ts.arr[36][5], ts.arr[36][6], ts.arr[36][7] },
+{ts.arr[37][0], ts.arr[37][1], ts.arr[37][2], ts.arr[37][3],ts.arr[37][4], ts.arr[37][5], ts.arr[37][6], ts.arr[37][7] },
+{ts.arr[38][0], ts.arr[38][1], ts.arr[38][2], ts.arr[38][3],ts.arr[38][4], ts.arr[38][5], ts.arr[38][6], ts.arr[38][7] },
+{ts.arr[39][0], ts.arr[39][1], ts.arr[39][2], ts.arr[39][3],ts.arr[39][4], ts.arr[39][5], ts.arr[39][6], ts.arr[39][7] },
+{ts.arr[40][0], ts.arr[40][1], ts.arr[40][2], ts.arr[40][3],ts.arr[40][4], ts.arr[40][5], ts.arr[40][6], ts.arr[40][7] },
+{ts.arr[41][0], ts.arr[41][1], ts.arr[41][2], ts.arr[41][3],ts.arr[41][4], ts.arr[41][5], ts.arr[41][6], ts.arr[41][7] },
+{ts.arr[42][0], ts.arr[42][1], ts.arr[42][2], ts.arr[42][3],ts.arr[42][4], ts.arr[42][5], ts.arr[42][6], ts.arr[42][7] },
+{ts.arr[43][0], ts.arr[43][1], ts.arr[43][2], ts.arr[43][3],ts.arr[43][4], ts.arr[43][5], ts.arr[43][6], ts.arr[43][7] },
+{ts.arr[44][0], ts.arr[44][1], ts.arr[44][2], ts.arr[44][3],ts.arr[44][4], ts.arr[44][5], ts.arr[44][6], ts.arr[44][7] },
+{ts.arr[45][0], ts.arr[45][1], ts.arr[45][2], ts.arr[45][3],ts.arr[45][4], ts.arr[45][5], ts.arr[45][6], ts.arr[45][7] },
+{ts.arr[46][0], ts.arr[46][1], ts.arr[46][2], ts.arr[46][3],ts.arr[46][4], ts.arr[46][5], ts.arr[46][6], ts.arr[46][7] },
+{ts.arr[47][0], ts.arr[47][1], ts.arr[47][2], ts.arr[47][3],ts.arr[47][4], ts.arr[47][5], ts.arr[47][6], ts.arr[47][7] },
+{ts.arr[48][0], ts.arr[48][1], ts.arr[48][2], ts.arr[48][3],ts.arr[48][4], ts.arr[48][5], ts.arr[48][6], ts.arr[48][7] },
+{ts.arr[49][0], ts.arr[49][1], ts.arr[49][2], ts.arr[49][3],ts.arr[49][4], ts.arr[49][5], ts.arr[49][6], ts.arr[49][7] },
+
+                
+                
+            },
+            new String [] {
+                "Train ID", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+            
+        
+      }
 }

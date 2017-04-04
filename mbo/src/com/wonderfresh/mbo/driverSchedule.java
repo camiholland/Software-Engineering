@@ -19,6 +19,7 @@ public class driverSchedule {
     mbotime[][] friday=new mbotime[7][2];
     mbotime[][] saturday=new mbotime[7][2];
     mbotime[][] sunday=new mbotime[7][2];
+    mbotime[][] timearr=new mbotime[50][8];
     String[][] arr=new String[50][8];
     
     public driverSchedule getSchedule(int drivers, boolean shift[][],int timeBetween){
@@ -43,6 +44,7 @@ public class driverSchedule {
             for(j=0;j<7;j++){
                 s= start.scheduleTime(start);
                // System.out.println("s: "+s+"   J: "+j+"    shiftsPerDay:  "+shiftsPerDay);
+                timearr[j][i]=start;
                 covered[j][i]=s;
             }
             mbotime next=new mbotime();
