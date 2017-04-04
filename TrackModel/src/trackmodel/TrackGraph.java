@@ -12,29 +12,35 @@ import java.util.*;
  * @author kwc12
  */
 public class TrackGraph {
-    private HashMap<String, BetaBlock> blocks;
-    private HashMap<Integer, BetaEdge> edges;
+    private HashMap<String, Block> blocks;
+    private HashMap<Integer, Edge> edges;
+    private HashMap<Integer, Switch> switches;
+    private HashMap<Integer, Section> sections;
     
     
     public TrackGraph(){
         this.blocks = new HashMap<>();
         this.edges = new HashMap<>();
+        this.switches = new HashMap<>();
+        this.sections = new HashMap<>();
     }
     
-    public TrackGraph(ArrayList<BetaBlock> blocks){
+    public TrackGraph(ArrayList<Block> blocks){
         this.blocks = new HashMap<>();
         this.edges = new HashMap<>();
+        this.switches = new HashMap<>();
+        this.sections = new HashMap<>();
         
-        for(BetaBlock v: blocks){
+        for(Block v: blocks){
             this.blocks.put(v.getLabel(), v);
         }
     }
     
-    public boolean addEdge(BetaBlock one, BetaBlock two){
-        return addEdge(one,two, "closed");
+    public boolean addEdge(Block one, Block two){
+        return addEdge(one,two, true);
     }
     
-    public boolean addEdge(BetaBlock from, BetaBlock to, String OoC){
+    public boolean addEdge(Block from, Block to, boolean OoC){
         if(from.equals(to)){
             System.out.println("They are equal to in hash.");
             return false;
@@ -42,7 +48,7 @@ public class TrackGraph {
         
         //ensures the Edge is not in the Graph
         
-        BetaEdge e = new BetaEdge(from,to,OoC);
+        Edge e = new Edge(from,to,OoC);
         
         if(edges.containsKey(e.hashCode())){
             System.out.println("edges already contains key.");
@@ -54,11 +60,11 @@ public class TrackGraph {
         
         edges.put(e.hashCode(), e);
         from.addNeighbor(e);
-        to.addNeighbor(e);
+        //to.addNeighbor(e);
         return true;
     }
     
-    public boolean containsEdge(BetaEdge e){
+    public boolean containsEdge(Edge e){
         if(e.getStartingBlock() == null || e.getEndingBlock() == null){
             return false;
         }
@@ -66,53 +72,76 @@ public class TrackGraph {
         return this.edges.containsKey(e.hashCode());
     }
     
-    /*
-    public BetaEdge removeEdge(BetaEdge e){
-        e.getStartingBlock().removeNeighbor(e);
-        e.getEndingBlock().removeNeighbor(e);
-        return this.edges.remove(e.hashCode());
-    }*/
-    
-    public boolean containsBlock(BetaBlock block){
-        return this.blocks.get(block.getLabel()) != null;
+    public boolean containsBlock(Block block){
+        return this.blocks.get(block.getLabel().hashCode()) != null;
     }
     
-    public BetaBlock getBlock(String label){
-        return blocks.get(label);
+    public Block getBlock(String line, int BlockNum){
+        return blocks.get((line+BlockNum).hashCode());
     }
     
-    public boolean addBlock(BetaBlock block, boolean overwriteExisting){
-        BetaBlock current = this.blocks.get(block.getLabel());
+    public boolean addBlock(Block block, boolean overwriteExisting){
+        Block current = this.blocks.get(block.getLabel());
         if(current != null){
             if(!overwriteExisting){
                 return false;
+            }else{
+                blocks.put(block.getLabel(), block);
+        
+                return true;
             }
-            /*
-            while(current.getNeighborCount() > 0){
-                this.removeEdge(current.getNeighbor(0));
-            }*/
+        }else{
+            return false;
         }
-        
-        blocks.put(block.getLabel(), block);
-        
-        return true;
+            
     }
-   /*
-    public BetaBlock removeBlock(String label){
-        BetaBlock v = blocks.remove(label);
-        
-        while(v.getNeighborCount() > 0){
-            this.removeEdge(v.getNeighbor(0));
+    
+    public boolean addSwitch(Block MasterBlock, Block PrimaryBlock, Block SecondaryBlock){
+        Switch realTemp = new Switch(MasterBlock, PrimaryBlock, SecondaryBlock);
+        if(this.switches.containsKey(realTemp.hashCode())){
+            return false;
+        }else{
+            switches.put(realTemp.hashCode(), realTemp);
+            return true;
         }
         
-        return v;
-    }*/
+    }
     
-    public Set<String> BetaBlockKeys(){
+    public Switch getSwitch(Block firstBlock, Block secondBlock){
+        for(Integer key : switches.keySet()){
+            Switch TestSwitch = switches.get(key);
+            if(TestSwitch.contains(firstBlock) && TestSwitch.contains(secondBlock)){
+                return TestSwitch;
+            }
+        }
+        return null;
+    }
+    
+    public boolean addToSection(Block newBlock){
+        String section_Name = newBlock.getSection();
+        Section newSection = new Section(section_Name);
+        // If the sections hashmap doesn't contain this section, add it.
+        if(!sections.containsKey(newSection.hashCode())){
+            newSection.addBlockToSection(newBlock);
+            sections.put(newSection.hashCode(), newSection);
+            return true;
+        }// If the sections hashmap does contain the section, add the block to that section
+        else {
+            Section section_to_add_to = sections.get(newSection.hashCode());
+            return section_to_add_to.addBlockToSection(newBlock);
+        }
+        
+    }
+    
+    public Section getSection(String requestedSection){
+        return sections.get(requestedSection.hashCode());
+    }
+      
+    public Set<String> BlockKeys(){
         return this.blocks.keySet();
     }
     
-    public Set<BetaEdge> getEdges(){
+    public Set<Edge> getEdges(){
         return new HashSet<>(this.edges.values());
     }
 }

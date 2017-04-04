@@ -10,15 +10,46 @@ package trackmodel;
  *
  * @author kwc12
  */
-public class PublicBlock {
-    /*
+public class PublicBlock extends Block{
     
+    private boolean BeaconPresent;
+    private String Signal; // For beacon
+    private PublicBlock nextBlock;
+    private PublicBlock prevBlock; 
     
-    */
-    double length;
-    double maxSpeed;
+    PublicBlock(){
+        super();
+        // After calling super() and initiatiating a block, I think that 
+        // the init() function needs to be called to send the PublicBlock 
+        // to the first block of the line.
+    }
     
-    private String Line;
-    private String Section;
-    //private
+    public boolean setOccupied(boolean present){
+        return ;
+    }
+    
+    public boolean hasBeacon(){
+        return false;
+    }
+    
+    public String getBeaconSignal(){
+        return "this is a beacon signal";
+    }
+    
+    public String getNextBlock(){
+        PublicBlock aRandomblock;
+        //return aRandomBlock;
+        return "will return a public block";
+    }
+    
+    public int getNumPeopleAtStation(){
+        return 0;
+    }
+    
+    public boolean takePeopleAtStation(int NumPeopleToTake){
+        if(isStation()){
+            
+        }
+        return true;
+    }
 }
