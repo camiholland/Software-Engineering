@@ -6,6 +6,9 @@
 
 package trackmodel;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author Kevin Carr
@@ -35,22 +38,54 @@ public class Switch {
     }
     
     /**
-     * This function can change the Switches state with a boolean value
-     * @param setting should be set to true to put in default state. 
-     *                False will result in a non-default state
-     * @return true if the state was switched, false if no state switch
+     * Use this method to set the switch to link the two blocks and disconnect the other 
+     * blocks currently connected.
+     * @param block_one First block to connect
+     * @param block_two Second block to connect
      */
-    public boolean SetSwitchTo(boolean setting){
-        if(Default == setting){
-            return false;
-        }else if(Default && !setting){
-            Default = false;
-            return true;
-        }else if(!Default && setting){
-            Default = true;
-            return true;
+    public void SetSwitchTo(Block block_one, Block block_two){
+        
+        if(block_one.equals(MasterBlock) && block_two.equals(PrimaryBlock)){
+            setEdgeStatus(MasterBlock, PrimaryBlock, SecondaryBlock);
+        }else if(block_one.equals(MasterBlock) && block_two.equals(SecondaryBlock)){
+            setEdgeStatus(MasterBlock, SecondaryBlock, PrimaryBlock);
+        }else if(block_one.equals(PrimaryBlock) && block_two.equals(MasterBlock)){
+            setEdgeStatus(PrimaryBlock, MasterBlock, SecondaryBlock);
+        }else if(block_one.equals(PrimaryBlock) && block_two.equals(SecondaryBlock)){
+            setEdgeStatus(PrimaryBlock, SecondaryBlock, MasterBlock);
+        }else if(block_one.equals(SecondaryBlock) && block_two.equals(MasterBlock)){
+            setEdgeStatus(SecondaryBlock, MasterBlock, PrimaryBlock);
         }else{
-            return true;
+            setEdgeStatus(SecondaryBlock, PrimaryBlock, MasterBlock);
+        }
+    }
+    
+    private void setEdgeStatus(Block ConnectOne, Block Connect2, Block Disconnect){
+        
+        Edge tempEdge;
+        ArrayList<Edge> tempList_BlockOne = ConnectOne.getNeighbors();
+        ArrayList<Edge> tempList_BlockTwo = Connect2.getNeighbors();
+        Iterator<Edge> edgeIterator1 = tempList_BlockOne.iterator();
+        Iterator<Edge> edgeIterator2 = tempList_BlockTwo.iterator();
+        
+        
+        while(edgeIterator1.hasNext()){
+            tempEdge = edgeIterator1.next();
+            if(tempEdge.getEndingBlock().equals(Connect2)){
+                tempEdge.setOpenOrClosed(true);
+            }
+            if(tempEdge.getEndingBlock().equals(Disconnect)){
+                tempEdge.setOpenOrClosed(false);
+            }
+        }
+        while(edgeIterator2.hasNext()){
+            tempEdge = edgeIterator2.next();
+            if(tempEdge.getEndingBlock().equals(ConnectOne)){
+                tempEdge.setOpenOrClosed(true);
+            }
+            if(tempEdge.getEndingBlock().equals(Disconnect)){
+                tempEdge.setOpenOrClosed(false);
+            }
         }
     }
         

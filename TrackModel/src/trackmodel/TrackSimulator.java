@@ -136,7 +136,7 @@ public class TrackSimulator {
         if(tempSwitch==null){
             return false;
         }else{
-            tempSwitch.SetSwitchTo(defaultSetting);
+            tempSwitch.SetSwitchTo(testBlock1, testBlock2, defaultSetting);
             return true;
         }
     }
