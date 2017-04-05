@@ -102,15 +102,15 @@ public class Mbo extends Thread{
         redWait=redWait-redWait%5;
         int greenWait=(minsPerDay/greenRuns);
         greenWait=greenWait-greenWait%5;
-        if(drivers>50){System.out.println("Only 50 Drivers are supported");}
-        if(drivers<7){System.out.println("Innadequate number of drivers to run 24 hours a day, 7 days a week");}
-        System.out.println("Number of Drivers:"+drivers);
-        System.out.println("Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/redRuns)+ "  redWait:"+redWait);    
-        System.out.println("Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
+        if(drivers>50){System.out.println("MBO: Only 50 Drivers are supported");}
+        if(drivers<7){System.out.println("MBO: Innadequate number of drivers to run 24 hours a day, 7 days a week");}
+        System.out.println("MBO: Number of Drivers:"+drivers);
+        System.out.println("MBO: Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/redRuns)+ "  redWait:"+redWait);    
+        System.out.println("MBO: Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
         
         int timeBetweenAllRuns=(((redWait+greenWait)/2)-((redWait+greenWait)/2)%5);
         
-        System.out.println("need a driver every "+timeBetweenAllRuns+" minutes");
+        System.out.println("MBO: need a driver every "+timeBetweenAllRuns+" minutes");
         driverSchedule ds=new driverSchedule();
         ds.getSchedule(drivers, shift, timeBetweenAllRuns);
 //DisplayDrivers      
