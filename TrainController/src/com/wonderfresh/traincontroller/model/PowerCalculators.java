@@ -19,8 +19,6 @@ public class PowerCalculators extends Thread{
     private PowerCalculator pc1;
     private PowerCalculator pc2;
     private Time time;
-    private double authority;
-    private double distance;
     private boolean station;
     private boolean proceed;
     private boolean stop;
@@ -33,8 +31,6 @@ public class PowerCalculators extends Thread{
         pc1 = new PowerCalculator(train, kp, ki);
         pc2 = new PowerCalculator(train, kp, ki);
         time = Time.getInstance();
-        distance = 0;
-        authority = 0;
         proceed = true;
         stop = false;
         
@@ -47,15 +43,6 @@ public class PowerCalculators extends Thread{
         pc0.setGainValues(kp,ki);
         pc1.setGainValues(kp,ki);
         pc2.setGainValues(kp,ki);
-    }
-    
-    public void setDistance(double distance) {
-        this.distance = distance;
-        station = true;
-    }
-    
-    public void setAuthority(double authority) {
-        this.authority = authority;
     }
     
     public void stopTemp() {
@@ -106,24 +93,6 @@ public class PowerCalculators extends Thread{
             }
             
             speed = train.getRealSpeed();
-            
-            distance -= speed;
-            authority -= speed;
-            
-            if (distance > 0  && station) {
-                if (distance < (speed / 5.36)) {
-                    train.setSetSpeed(0);
-                    station = false;
-                }     
-            }
-            
-            if (authority > 0) {
-                if (authority < (speed / 5.36)) {
-                    train.setSetSpeed(0);
-                }
-            }
-            
-            
             
             //commented for testing
             //if (prevPowerCommand != powerCommand) {
