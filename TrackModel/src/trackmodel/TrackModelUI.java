@@ -6,16 +6,9 @@
 
 package trackmodel;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import javax.swing.JFileChooser;
-import trackmodel.TrackModel;
-import trackmodel.TrackGraph;
-import trackmodel.Block;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import trackmodel.TrackSimulator;
+
 /**
  *
  * @author kwc12

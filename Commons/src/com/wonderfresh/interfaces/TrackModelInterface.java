@@ -1,4 +1,4 @@
-package trackmodel;
+package com.wonderfresh.interfaces;
 
 public interface TrackModelInterface{
         
