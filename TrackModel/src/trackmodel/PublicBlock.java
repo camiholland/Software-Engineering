@@ -23,11 +23,7 @@ public class PublicBlock extends Block{
         // the init() function needs to be called to send the PublicBlock 
         // to the first block of the line.
     }
-    
-    public boolean setOccupied(boolean present){
-        return true;
-    }
-    
+ 
     public boolean hasBeacon(){
         return false;
     }
@@ -37,7 +33,8 @@ public class PublicBlock extends Block{
     }
     
     public String getNextBlock(){
-        PublicBlock aRandomblock;
+        PublicBlock aNewBlock;
+        prevBlock = this;
         //return aRandomBlock;
         return "will return a public block";
     }

@@ -236,6 +236,15 @@ public class Block {
     }
     
     /**
+     * Any time a train gets a new block, this function should be called with true.
+     * Any time a train leaves a block, this function should be called with false.
+     * @param status True if block is now occupied, false if now unoccupied.
+     */
+    public void setOccupied(boolean status){
+        this.Occupied = status;
+    }
+    
+    /**
      * 
      * @return 
      */

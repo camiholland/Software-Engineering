@@ -866,7 +866,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setLeftDoors(train.getDoorsLeft());
         } else {
-            train.setDoorsLeft(1);
+            train.setDoorsLeft(1,true);
         }
     }//GEN-LAST:event_LeftDoorOpenActionPerformed
 
@@ -874,7 +874,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setLeftDoors(train.getDoorsLeft());
         } else {
-            train.setDoorsLeft(0);
+            train.setDoorsLeft(0,true);
         }
     }//GEN-LAST:event_LeftDoorClosedActionPerformed
 
@@ -882,7 +882,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setRightDoors(train.getDoorsRight());
         } else {
-            train.setDoorsRight(1);
+            train.setDoorsRight(1,true);
         }
     }//GEN-LAST:event_RightDoorOpenActionPerformed
 
@@ -890,7 +890,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setRightDoors(train.getDoorsRight());
         } else {
-            train.setDoorsRight(0);
+            train.setDoorsRight(0,true);
         }
     }//GEN-LAST:event_RightDoorClosedActionPerformed
 
@@ -910,7 +910,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setLights(train.getLights());
         } else {
-            train.setLights(0);
+            train.setLights(0,true);
         }        
     }//GEN-LAST:event_LightsOffActionPerformed
 
@@ -918,7 +918,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
         if (train.getAuto()) {
             setLights(train.getLights());
         } else {
-            train.setLights(1);
+            train.setLights(1,true);
         }
     }//GEN-LAST:event_LightsOnActionPerformed
 
@@ -982,14 +982,14 @@ public class TrainControllerUI extends javax.swing.JFrame {
         
         String notes = NoteText.getText();
 
-        if (train.engageEmergencyBrake()) {
-            StopButton.setText("Disengage Brake");
-            
-            NoteText.setText(notes + "\nEmergency Brake Engaged");
-        } else {
+        if (!train.engageEmergencyBrake(true)) {
             StopButton.setText("Emergency Brake");
             
             NoteText.setText(notes + "\nEmergency Brake Disengaged");
+        } else {
+            StopButton.setText("Disengage Brake");
+            
+            NoteText.setText(notes + "\nEmergency Brake Engaged");
         }
         
     }//GEN-LAST:event_StopButtonActionPerformed
@@ -1187,6 +1187,12 @@ public class TrainControllerUI extends javax.swing.JFrame {
         NoteText.setText(notes + "\nEmergency Brake Engaged");
         
         return 1;
+    }
+    
+    public void notification(String note) {
+        String notes = NoteText.getText();
+        
+        NoteText.setText(notes + "\n" + note);
     }
 
     
