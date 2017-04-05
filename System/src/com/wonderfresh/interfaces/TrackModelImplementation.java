@@ -5,9 +5,9 @@
  */
 
 package com.wonderfresh.interfaces;
-import trackmodel.TrackModel;
-import trackmodel.TrackSimulator;
-import trackmodel.PublicBlock;
+import com.wonderfresh.commons.TrackModel;
+import com.wonderfresh.commons.TrackSimulator;
+import com.wonderfresh.commons.PublicBlock;
 
 /**
  *
