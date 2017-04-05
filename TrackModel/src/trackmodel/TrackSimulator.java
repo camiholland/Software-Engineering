@@ -39,6 +39,7 @@ public class TrackSimulator {
     }
     
     public static String setNewTrack(String newFile){
+        MainTrack = new TrackModel();
         try{
             
             try{
