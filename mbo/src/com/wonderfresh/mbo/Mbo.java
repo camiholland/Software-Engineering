@@ -5,6 +5,7 @@
 package com.wonderfresh.mbo;
 import com.wonderfresh.commons.Time;
 import javax.swing.JFrame;
+import com.wonderfresh.interfaces.
 
 public class Mbo extends Thread{
     
