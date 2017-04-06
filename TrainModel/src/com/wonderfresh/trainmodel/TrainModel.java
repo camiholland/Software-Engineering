@@ -29,17 +29,17 @@ public class TrainModel {
     
     int currentSecond;
     
-    final int MAX_POWER = 120000; //watts
+    final int MAX_POWER = 480000; //watts
     final double CAR_MASS_TON = 40.9; //tonnes (metric ton = 1000kg = 2204.62lbs)
     final int PASS_WEIGHT = 75; //kg                                            //... or 70???
     final int CAR_MASS = 40900; //kg
-    final double FRICTION = 1;                                                  //<-- that ain't right!
+    final double FRICTION = .06;                                                  //<-- that ain't right!
     final int T = 1;
     final double MAX_ACC = .5; //m/s2
     final double S_BRAKE_RATE = -1.2; //m/s2
     final double E_BRAKE_RATE = -2.73; //m/s2
     final int DEFAULT_TEMP = 75;
-    final double G_FTS2 = 32.174;
+    final double G = 9.8; //m/s2
     
     int numCars;
     int numPass;
@@ -181,16 +181,19 @@ public class TrainModel {
         //netForceDownhillAccel = totalMass * acc + totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
         if(eBrake){
             acc = E_BRAKE_RATE;
-            speedCalc.setSpeed(acc, speed, 0);
+            speedCalc.setSpeed(acc, speed, powerCmd/(totalMass*sps));
         }
         else if(driverSetBrake){
             acc = S_BRAKE_RATE;
-            speedCalc.setSpeed(acc, speed, 0);
+            speedCalc.setSpeed(acc, speed, powerCmd/(totalMass*sps));
         }
         else if(powerCmd <= MAX_POWER){
             //a = P/mv
             //acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed)); //? I don't think this is right. plus obvi haven't taken into acct friction, grade, etc.
-            acc = powerCmd/(totalMass*speed) - G_FTS2*sin(grade) - FRICTION*G_FTS2*cos(grade);  //reaches infinity...
+            acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
+            if(Double.isNaN(acc)){
+                acc = 0;
+            }
             if(acc < 0){
                 acc = S_BRAKE_RATE;
                 setServiceBrake(1, driverSetBrake);
@@ -200,7 +203,7 @@ public class TrainModel {
                 if(acc > MAX_ACC)
                     acc = MAX_ACC;
             }
-            speedCalc.setSpeed(acc, speed, sps);
+            speedCalc.setSpeed(acc, speed, powerCmd/(totalMass*sps));
             setServiceBrake(0, driverSetBrake);
         }
     }
@@ -210,11 +213,17 @@ public class TrainModel {
         testing.setSpeed(speed, ID);
     }
     protected double updateAcc(double speed){
-        acc = powerCmd/(totalMass*speed) - G_FTS2*sin(grade) - FRICTION*G_FTS2*cos(grade);  //reaches infinity...
-        if(acc > MAX_ACC)
+        acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
+        System.out.println("Acceleration = " + acc);
+        if(eBrake)
+            acc = E_BRAKE_RATE;
+        else if(acc > MAX_ACC)
             acc = MAX_ACC;
         else if(acc < 0)
             acc = S_BRAKE_RATE;
+        if(Double.isNaN(acc)){
+                acc = 0;
+            }
         return acc;
     }
     public void setTargetTemp(int temp) throws InterruptedException{
@@ -363,7 +372,7 @@ public class TrainModel {
         }
     }
     public void setPowerCmd(double pwrCmd){
-        powerCmd = pwrCmd;
+        powerCmd = pwrCmd*4;
         gui.setPowerCmd(String.format("%.2f",powerCmd/1000));
         adjustSpeed();
     }

@@ -22,7 +22,7 @@ public class SpeedCalculator implements Runnable {
     //boolean waiting;
     
     double speed;
-    double sps;
+    double targetAcc;
     double acc;
     
     public SpeedCalculator(TrainModel TM){
@@ -32,10 +32,10 @@ public class SpeedCalculator implements Runnable {
         //waiting = true;
     }
     
-    public void setSpeed(double acc, double currentSpeed, double sps) {
+    public void setSpeed(double acc, double currentSpeed, double targetAcc) {
         this.acc = acc;
+        this.targetAcc = targetAcc;
         this.speed = currentSpeed;
-        this.sps = sps;
         if(!started){
             System.out.println("Thread started");
             started = true;
@@ -48,48 +48,27 @@ public class SpeedCalculator implements Runnable {
         System.out.println("running SpeedCalc");
         while(true){
             System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
-            if((int)speed != (int)sps){
-                currentTime = (int) ceil(System.nanoTime()/1000000000);
-                while((int)speed > (int)sps && acc < 0){
-                    if(System.nanoTime()/1000000000 >= currentTime+1){
-                        //System.out.println("speed > sps");
-                        //System.out.println("SPS: " + sps + "  Speed: " + speed);
-                        //v = v0 + at, where t = 1
-                        speed += acc;
-                        System.out.println("acc = " + acc);
-                        if(speed < 0){
-                            speed = 0;
-                        }
-                        tm.updateSpeed(speed);
-                        currentTime++;
-                        try {
-                            Thread.sleep(800);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+            currentTime = (int) ceil(System.nanoTime()/1000000000);
+            while(acc != targetAcc){
+                if(System.nanoTime()/1000000000 >= currentTime+1){
+                    //System.out.println("speed > sps");
+                    //System.out.println("SPS: " + sps + "  Speed: " + speed);
+                    //v = v0 + at, where t = 1
+                    speed += acc;
+                    System.out.println("acc = " + acc);
+                    if(speed < 0){
+                        speed = 0;
                     }
-                    
-                }
-                while((int)speed < (int)sps && acc > 0){
-                    if(System.nanoTime()/1000000000 >= currentTime + 1){
-                        //System.out.println("speed < sps");
-                        //System.out.println("SPS: " + sps + "  Speed: " + speed);
-                        speed += acc;
-                        System.out.println("acc = " + acc);
-                        if(speed < 0)
-                            speed = 0;
-                        acc = tm.updateAcc(speed);
-                        tm.updateSpeed(speed);
-                        
-                        currentTime++;
-                        try {
-                            Thread.sleep(800);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                    acc = tm.updateAcc(speed);
+                    tm.updateSpeed(speed);
+                    currentTime++;
+                    try {
+                        Thread.sleep(800);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
                 }
+
                 tm.updateSpeed(speed);
                 //waiting = true;
             }
