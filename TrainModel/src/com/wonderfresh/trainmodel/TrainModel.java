@@ -385,8 +385,9 @@ public class TrainModel {
         }
     }
     public void setPowerCmd(double pwrCmd){
-        powerCmd = pwrCmd*4;
+        powerCmd = pwrCmd;
         gui.setPowerCmd(String.format("%.2f",powerCmd/1000));
+        powerCmd *= 4;
         adjustSpeed();
     }
     public void setAnnouncement(String announcement){
