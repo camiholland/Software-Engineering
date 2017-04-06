@@ -1,3 +1,0 @@
-com.wonderfresh.trainmodel.TrainToTrainController
-com.wonderfresh.trainmodel.TrainModelAPI
-com.wonderfresh.trainmodel.Testing

@@ -48,10 +48,6 @@ public class TrainModel {
     double speed;
     double totalMass;
     double acc;
-    double netForceUphillDecel;
-    double netForceUphillAccel;
-    double netForceDownhillDecel;
-    double netForceDownhillAccel;
     double error;
     double previousError;
     double grade;
@@ -59,6 +55,7 @@ public class TrainModel {
     double speedLimit;
     double powerCmd;
     double previousPowerCmd;
+    double distance;
     
     int acStatus;
     int heatStatus;
@@ -94,10 +91,6 @@ public class TrainModel {
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
         acc = 0;
-        netForceUphillDecel = 0;
-        netForceUphillAccel = 0;
-        netForceDownhillDecel = 0;
-        netForceDownhillAccel = 0;
         error = 0;
         previousError = 0;
         grade = 0;
@@ -105,6 +98,7 @@ public class TrainModel {
         speedLimit = 0;
         powerCmd = 0;
         previousPowerCmd = 0;
+        distance = 0;
         
         acStatus = 0;
         heatStatus = 0;
@@ -225,6 +219,9 @@ public class TrainModel {
                 acc = 0;
             }
         return acc;
+    }
+    protected void updateDistance(double acc){
+        distance += acc;
     }
     public void setTargetTemp(int temp) throws InterruptedException{
         targetTemp = temp;
