@@ -957,6 +957,11 @@ public class TrainControllerUI extends javax.swing.JFrame {
     private void SetSpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetSpeedButtonActionPerformed
         int speed;
         
+        if(train.getAuto()) {
+            SetSpeedText.setText("" + train.getSetSpeed());
+            return;
+        }
+        
         try {
             speed = Integer.parseInt(SetSpeedText.getText());
         } catch (Exception ex) {

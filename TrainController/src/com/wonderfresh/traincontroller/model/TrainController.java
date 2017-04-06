@@ -21,8 +21,8 @@ public class TrainController {
         this.trainModel = Interfaces.getTrainModelInterface();
         trainUI = new TrainControllerUI(this, trainModel);
         auto = true;
-        setPointSpeed = 0;
-        setAuthority = 0;
+        setPointSpeed = 10;
+        setAuthority = 0.3;
         setSpeed = 0;
         realSpeed = 0;
         speedLimit = 25;
@@ -57,7 +57,7 @@ public class TrainController {
     public int routeID;
     public boolean auto;
     public int setPointSpeed;
-    public int setAuthority;
+    public double setAuthority;
     public int setSpeed;
     public double realSpeed;
     public int speedLimit;
@@ -140,7 +140,7 @@ public class TrainController {
         }
     }
 
-    public void setSpeedAndAuthority(int speed, int authority){
+    public void setSpeedAndAuthority(int speed, double authority){
         setPointSpeed = speed;
         setAuthority = authority;
         
@@ -157,7 +157,7 @@ public class TrainController {
     public int getSetPointSpeed() { 
         return setPointSpeed; 
     }
-    public int getAuthority() {
+    public double getAuthority() {
         return setAuthority;
     }
     public void setAuthority(int authority) {
@@ -172,6 +172,10 @@ public class TrainController {
     public void setSetSpeed(int speed) {
 
         setSpeed = speed;
+        
+        if (brakeEmergency) {
+            setSpeed = 0;
+        }
 
         if (setSpeed == 0) {
           pc.stopTemp();
@@ -180,7 +184,7 @@ public class TrainController {
         }
 
         if(trainUI != null) {
-            trainUI.setSetSpeed(speed);
+            trainUI.setSetSpeed(setSpeed);
         }
     }
 
@@ -217,7 +221,7 @@ public class TrainController {
     public void setPowerCommand(double power) {
         powerCommand = power;
         
-        setAuthority -= realSpeed;
+        setAuthority -= (realSpeed * 0.000277778);
 
         
         
@@ -228,7 +232,7 @@ public class TrainController {
             trainUI.setAuthority(setAuthority);
         }
         
-        double stoppingDistance = (realSpeed) * (realSpeed) / 2.4;
+        double stoppingDistance = ((realSpeed * 0.44704) * (realSpeed * 0.44704) / 2.4) * 0.000621371;
         
         if(stoppingDistance >= setAuthority && setSpeed != 0) {
             setSetSpeed(0);
@@ -236,7 +240,7 @@ public class TrainController {
         }
         
         if(approachingStation) {
-            distanceToStation -= realSpeed;
+            distanceToStation -= (realSpeed * 0.000277778);
             
             if (stoppingDistance >= distanceToStation) {
                 setSetSpeed(0);
@@ -264,11 +268,9 @@ public class TrainController {
             setSetSpeed(setPointSpeed);
         }
         
-        if(approachingStation)
-        
         trainModel.setPowerCommand(powerCommand, trainID);
 
-        if (brakeEmergency) {
+        /*if (brakeEmergency) {
             if (realSpeed < 6.11) {
                 setRealSpeed(0);
             } else {
@@ -284,7 +286,7 @@ public class TrainController {
             setRealSpeed(realSpeed+2);
         } else if (realSpeed > setSpeed) {
             setRealSpeed(realSpeed - 1);
-        }
+        }*/
 
         if(trainUI != null) {
             trainUI.setPower(power);
@@ -414,6 +416,7 @@ public class TrainController {
 
         if(brakeEmergency){
             pc.stopTemp();
+            setSetSpeed(0);
         } else {
             pc.startTemp();
         }

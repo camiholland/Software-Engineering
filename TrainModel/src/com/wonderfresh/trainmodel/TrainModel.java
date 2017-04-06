@@ -11,6 +11,9 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import javax.swing.JFrame;
 
+import com.wonderfresh.interfaces.TrainControllerInterface;
+import com.wonderfresh.interfaces.Interfaces;
+
 
 /**
  *
@@ -18,7 +21,7 @@ import javax.swing.JFrame;
  */
 public class TrainModel {
     TrainModelUI gui;
-    Testing testing;
+    TrainControllerInterface testing;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
     
@@ -74,16 +77,14 @@ public class TrainModel {
     int authority;
     String announcement;
     
-    public TrainModel(int trainID, TrainModelTestTrain tclist){
+    public TrainModel(int trainID){
         ID = trainID;
         
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
         
-        testing = new TestingImpl(tclist);
-        
-        
+        testing = Interfaces.getTrainControllerInterface();
         
         
         numCars = 1;

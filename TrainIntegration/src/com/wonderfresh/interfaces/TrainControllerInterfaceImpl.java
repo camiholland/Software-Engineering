@@ -1,8 +1,7 @@
-package com.wonderfresh.traincontroller;
+package com.wonderfresh.interfaces;
 
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.traincontroller.model.TrainController;
-import com.wonderfresh.interfaces.TrainControllerInterface;
 
 /**
  *
@@ -50,6 +49,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
 
     @Override
     public int setSpeed(double speed, int trainID) {
+        
         TrainController train = trains.getTrainController(trainID);
         
         if (train == null) {
@@ -153,7 +153,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
         } 
         
         train.failure("power");
-        train.engageEmergencyBrake(false);
+        train.engageEmergencyBrake(true);
         return 0;
     }
 
@@ -166,7 +166,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
         } 
         
         train.failure("brake");
-        train.engageEmergencyBrake(false);
+        train.engageEmergencyBrake(true);
         return 0;
     }
 

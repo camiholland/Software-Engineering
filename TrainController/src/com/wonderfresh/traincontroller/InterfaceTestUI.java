@@ -304,7 +304,7 @@ public class InterfaceTestUI extends javax.swing.JPanel {
 
     private void SpeedAndAuthButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedAndAuthButtonActionPerformed
         int speed = Integer.parseInt(SpeedText.getText());
-        int auth = Integer.parseInt(AuthText.getText());
+        double auth = Double.parseDouble(AuthText.getText());
         
         trains.setSpeedAndAuth(speed, auth, 1);
     }//GEN-LAST:event_SpeedAndAuthButtonActionPerformed

@@ -108,8 +108,8 @@ public class PowerCalculator extends Thread{
 
             if (uk == -1000 || uk1 == -1000) {
                 uk1 = uk;
-                vReq = 1.60934 * (double)train.getSetSpeed();
-                vCur = 1.60934 * train.getRealSpeed();
+                vReq = 0.44704 * (double)train.getSetSpeed();
+                vCur = 0.44704 * train.getRealSpeed();
                 if (uk == 0) {
                     uk = (T/2)*(ek + ek1);
                 } else {
@@ -125,8 +125,8 @@ public class PowerCalculator extends Thread{
             } else {
                 //calculate ek
                 ek1 = ek; //update old value
-                vReq = 1.60934 * train.getSetSpeed();
-                vCur = 1.60934 * train.getRealSpeed();
+                vReq = 0.44704 * train.getSetSpeed();
+                vCur = 0.44704 * train.getRealSpeed();
                 ek = vReq - vCur;
 
                 //calculate uk
