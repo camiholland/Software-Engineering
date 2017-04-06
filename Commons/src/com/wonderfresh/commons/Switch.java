@@ -19,20 +19,44 @@ public class Switch {
     private Block SecondaryBlock;
     private boolean Default = true;
     
+    /**
+     * A Constructor when the user only knows one block of the switch. Shouldn't
+     * be the secondary Block though. Can check this by making sure one block of
+     * the same switch is adjacent to it in the excel sheet.
+     * @param staticBlock Could also be a PrimaryBlock
+     */
     public Switch(Block staticBlock){
         this(staticBlock, null, null);
     }
     
+    /**
+     * A Constructor for use when all blocks in a switch are known before 
+     * instantiation.
+     * @param staticBlock this and first block are interchangeable
+     * @param first this and staticBlock are interchangeable
+     * @param second can be determined because should not be consecutive block
+     *               number like staticBlock and first are.
+     */
     public Switch(Block staticBlock, Block first, Block second){
         MasterBlock = staticBlock;
         PrimaryBlock = first;
         SecondaryBlock = second;
     }
     
+    /**
+     * The Primary Block is interchangeable with the 
+     * MasterBlock or StaticBlock.
+     * @param first Primary or Master Block
+     */
     public void addPrimary(Block first){
         PrimaryBlock = first;
     }
     
+    /**
+     * The Secondary Block is not adjacent to another block of the same switch
+     * in the excel file.
+     * @param second Secondary Block
+     */
     public void addSecondary(Block second){
         SecondaryBlock = second;
     }
@@ -60,6 +84,12 @@ public class Switch {
         }
     }
     
+    /**
+     * A private method, sets all the edges of the switch to proper states.
+     * @param ConnectOne First block to connect
+     * @param Connect2 Second block to connect
+     * @param Disconnect Block to disconnect
+     */
     private void setEdgeStatus(Block ConnectOne, Block Connect2, Block Disconnect){
         
         Edge tempEdge;
@@ -88,11 +118,13 @@ public class Switch {
             }
         }
     }
-        
-    public boolean isDefault(){
-        return Default;
-    }
     
+    /**
+     * This method can check to see if a specific block is contained within a
+     * specified switch.
+     * @param TestBlock Block to check
+     * @return true if block is in switch, false otherwise
+     */
     public boolean contains(Block TestBlock){
         if(TestBlock.equals(MasterBlock)){
             return true;
