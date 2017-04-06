@@ -128,7 +128,7 @@
         <Component class="javax.swing.JLabel" name="TrainMap">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/trackmodel/Track_Layout.png"/>
+              <Image iconType="3" name="/com/wonderfresh/trackmodel/Track_Layout.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">

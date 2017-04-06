@@ -77,8 +77,9 @@ public class Mbo extends Thread{
 //get tracks
         
         TrackModel tm=new TrackModel();
-        
-       
+        mboSection[] greenSections=new mboSection[30];//Will never have more than 30 sections
+        mboSection[] redSections=new mboSection[30];//Will never have more than 30 sections
+        char[] redSectionsVaiables={'A','B'};
         
         
         
@@ -161,9 +162,8 @@ public class Mbo extends Thread{
                 /*
                 Get Updated Track chosen for schedule
                 (String)myCombobox.getSelectedItem()
+                onlyprints if station is changed
                 */
-                
-                
                 station=(String) gui.jComboBox1.getSelectedItem();
                 if (lastStation.equalsIgnoreCase(station)!=true){
                     System.out.println("MBO: User chose:"+station);

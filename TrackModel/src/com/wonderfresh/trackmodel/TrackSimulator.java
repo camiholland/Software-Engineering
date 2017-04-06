@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package trackmodel;
+package com.wonderfresh.trackmodel;
 //import java.util.ArrayList;
 //import com.wonderfresh.trackmodelUI.TrackModelUI;
 
@@ -17,12 +17,21 @@ public class TrackSimulator {
     private static int lastTemp = 0;
     private static int Authority;
     private static int Speed;
+    private TrackModelUI gui=null;
     
-    public static void Run(){
-        MainTrack = new TrackModel();
+    
+    public TrackSimulator(){
+        
     }
     
-    public static void main(String[] args) throws Exception{
+    public void launchUI(){
+        gui = new TrackModelUI(this); // GUI gui = new GUI() as well
+       // gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setVisible(true);
+    }
+   
+    
+    public static void run() throws Exception{
         //dataFile = "Track Layout & Vehicle Data vF1.xlsx";
         // GUI EVENTS
         java.awt.EventQueue.invokeLater(new Runnable(){

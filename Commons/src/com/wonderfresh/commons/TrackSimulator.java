@@ -12,7 +12,7 @@ package com.wonderfresh.commons;
  *
  * @author kwc12
  */
-public class TrackSimulator {
+public class TrackSimulator extends Thread{
     private static TrackModel MainTrack;
     private static int lastTemp = 0;
     private static int Authority;

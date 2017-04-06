@@ -11,13 +11,14 @@ package com.wonderfresh.systemwrapper;
  */
 
 import com.wonderfresh.commons.Time;
+//import com.wonderfresh.commons.TrackSimulator;
 //Modules
 
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.trainmodel.TrainModel;
-//import.com.wonderfresh.TrackModel.trackmodel;
+import com.wonderfresh.trackmodel.TrackSimulator;
 import com.wonderfresh.mbo.Mbo;
 //Interfaces
 import com.wonderfresh.interfaces.Interfaces;
@@ -32,7 +33,7 @@ public class SystemWrapper {
     public static Trains trainControllers;
     public static Train trainModels;
     public static Mbo mbo;
-    //public static TrackModel trackModel;
+    public static TrackSimulator trackSimulator;
     
     
     /**
@@ -49,11 +50,12 @@ public class SystemWrapper {
         trainModels = new Train();
         mbo = new Mbo();
         mbo.start();
-        //trackModel.start();
+        trackSimulator= new TrackSimulator();
+        //trackSimulator.start();
         
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
-       
+        
         
         //trainModels.addTrain(new TrainModel(1));
         trainControllers.addTrainController(new TrainController(1, 3));
@@ -61,7 +63,7 @@ public class SystemWrapper {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                (new SystemLauncher(trainControllers, trainModels,mbo)).setVisible(true);
+                (new SystemLauncher(trainControllers, trainModels,mbo,trackSimulator)).setVisible(true);
             }
         });
     }

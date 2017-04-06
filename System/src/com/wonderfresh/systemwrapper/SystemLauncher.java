@@ -10,6 +10,7 @@ import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.TrainModel;
 import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.mbo.Mbo;
+import com.wonderfresh.trackmodel.TrackSimulator;
 
 /**
  *
@@ -20,16 +21,17 @@ public class SystemLauncher extends javax.swing.JFrame {
     private Trains trainControllers;
     private Train trainModels;
     private Mbo mbo;
+    private TrackSimulator trackSimulator;
     /**
      * Creates new form SystemLauncher
      * @param trainControllers
      * @param trainModels
      */
-    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo) {
+    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo,TrackSimulator trackSimulator) {
         this.trainControllers = trainControllers;
         this.trainModels = trainModels;
         this.mbo=mbo;
-        
+        this.trackSimulator=trackSimulator;
         initComponents();
     }
 
@@ -239,7 +241,7 @@ public class SystemLauncher extends javax.swing.JFrame {
     }//GEN-LAST:event_TrackControllerButtonActionPerformed
 
     private void TrackModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrackModelButtonActionPerformed
-        // TODO add your handling code here:
+        trackSimulator.launchUI();
     }//GEN-LAST:event_TrackModelButtonActionPerformed
 
     private void MBOButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MBOButtonActionPerformed

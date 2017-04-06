@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package trackmodel;
+package com.wonderfresh.trackmodel;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -16,9 +16,29 @@ import javax.swing.JFileChooser;
 public class TrackModelUI extends javax.swing.JFrame {
     private int lastTemp;
     private TrackModel newTrack;
+    private TrackSimulator trackSimulator;
     /**
      * Creates new form TrackModelUI
+     * 
+     * 
+     * 
+    public mboUI( Mbo mbo) {
+        this.mbo=mbo;
+        initComponents();
+        
+    }
+     * 
+     * 
      */
+    
+    public TrackModelUI( TrackSimulator ts) {
+        this.trackSimulator=ts;
+        newTrack = TrackSimulator.getTrack();
+        initComponents();
+        
+    }
+    
+    
     public TrackModelUI(){
         
         newTrack = TrackSimulator.getTrack();
@@ -165,7 +185,7 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jLabel3.setText("TrackModelUI");
 
-        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trackmodel/Track_Layout.png"))); // NOI18N
+        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trackmodel/Track_Layout.png"))); // NOI18N
         TrainMap.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
         jScrollPane1.setViewportView(TrainMap);
 

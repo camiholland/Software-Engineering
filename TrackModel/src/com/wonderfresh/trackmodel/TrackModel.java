@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package trackmodel;
+package com.wonderfresh.trackmodel;
 //import com.sun.rowset.internal.Row;
 import java.io.File;
 import java.io.FileInputStream;
