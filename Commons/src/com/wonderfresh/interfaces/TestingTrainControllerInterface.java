@@ -12,7 +12,7 @@ package com.wonderfresh.interfaces;
 public class TestingTrainControllerInterface implements TrainControllerInterface {
     
     @Override
-    public int setSpeedAndAuth(int speed, int authority, int trainID) {
+    public int setSpeedAndAuth(int speed, double authority, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED AND AUTHORITY");
         System.out.println("Speed: " + speed);

@@ -10,7 +10,7 @@ package com.wonderfresh.interfaces;
  * @author Austin
  */
 public interface TrainControllerInterface {
-    public int setSpeedAndAuth(int speed, int authority, int trainID);
+    public int setSpeedAndAuth(int speed, double authority, int trainID);
     
     public int setSpeedLimit(int limit, int trainID);
     
