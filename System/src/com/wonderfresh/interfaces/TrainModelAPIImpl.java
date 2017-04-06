@@ -7,6 +7,8 @@ package com.wonderfresh.interfaces;
 
 
 import com.wonderfresh.trainmodel.Train;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,7 +40,11 @@ public class TrainModelAPIImpl implements TrainModelAPI {
     }
     @Override
     public void setTargetTemperature(int temp, int trainID){
-        trains.getTrain(trainID).setTargetTemp(temp);
+        try {
+            trains.getTrain(trainID).setTargetTemp(temp);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TrainModelAPIImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @Override
     public void setLights(int status, int trainID){

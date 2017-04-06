@@ -16,7 +16,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
     }
     
     @Override
-    public int setSpeedAndAuth(int speed, int authority, int trainID) {
+    public int setSpeedAndAuth(int speed, double authority, int trainID) {
         TrainController train = trains.getTrainController(trainID);
         
         if (train == null) {

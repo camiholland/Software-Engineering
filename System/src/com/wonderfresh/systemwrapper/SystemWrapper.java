@@ -42,7 +42,7 @@ public class SystemWrapper {
     public static void main(String[] args) {
         
         Time time = Time.getInstance();
-        System.out.println(time.setSpeed(1));
+        System.out.println(time.setSpeed(2));
         
 
         
@@ -57,7 +57,7 @@ public class SystemWrapper {
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
         
         
-        //trainModels.addTrain(new TrainModel(1));
+        trainModels.addTrain(new TrainModel(1));
         trainControllers.addTrainController(new TrainController(1, 3));
         
         
