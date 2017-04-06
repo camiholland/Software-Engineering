@@ -11,15 +11,20 @@ package com.wonderfresh.systemwrapper;
  */
 
 import com.wonderfresh.commons.Time;
+//Modules
 
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.trainmodel.TrainModel;
+//import.com.wonderfresh.TrackModel.trackmodel;
+import com.wonderfresh.mbo.Mbo;
+//Interfaces
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;
 import com.wonderfresh.interfaces.TrainModelAPIImpl;
-import com.wonderfresh.mbo.Mbo;
+import com.wonderfresh.interfaces.TrackModelInterface;
+
 
 public class SystemWrapper {
     
@@ -27,6 +32,9 @@ public class SystemWrapper {
     public static Trains trainControllers;
     public static Train trainModels;
     public static Mbo mbo;
+    //public static TrackModel trackModel;
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -41,6 +49,7 @@ public class SystemWrapper {
         trainModels = new Train();
         mbo = new Mbo();
         mbo.start();
+        //trackModel.start();
         
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
