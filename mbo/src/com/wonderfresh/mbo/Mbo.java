@@ -12,6 +12,7 @@ import com.wonderfresh.commons.TrackModel;
 import javax.swing.JFrame;
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrackModelInterface;
+import com.wonderfresh.commons.TrackModelImplementation;
 
 public class Mbo extends Thread{
     
@@ -77,15 +78,8 @@ public class Mbo extends Thread{
 //get tracks
         
         TrackModel tm=new TrackModel();
-       // tm=com.wonderfresh.interfaces.
-       // mboSection[] greenSections=new mboSection[30];//Will never have more than 30 sections
-        //mboSection[] redSections=new mboSection[30];//Will never have more than 30 sections
-        for (i=0;i<30;i++){
-            
-        }
         
-        
-        
+       
         
         
         

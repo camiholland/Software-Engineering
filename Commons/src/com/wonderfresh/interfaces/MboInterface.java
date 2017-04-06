@@ -21,4 +21,5 @@ public interface MboInterface {
     mboTrain[] getDispatchedTrain();
     mboTrain[] getUpdatedSpeedAuthority();
     mboTrainDepartInfo[] getTrainDepartInfo();
+    
 }
