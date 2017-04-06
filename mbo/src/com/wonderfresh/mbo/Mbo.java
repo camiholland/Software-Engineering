@@ -26,7 +26,7 @@ public class Mbo extends Thread{
     }
     public void launchUI(){
         gui = new mboUI(this); // GUI gui = new GUI() as well
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gui.setVisible(true);
     }
     
@@ -77,9 +77,12 @@ public class Mbo extends Thread{
 //get tracks
         
         TrackModel tm=new TrackModel();
-        mboSection[] greenSections=new mboSection[30];//Will never have more than 30 sections
-        mboSection[] redSections=new mboSection[30];//Will never have more than 30 sections
-        char[] redSectionsVaiables={'A','B'};
+       // tm=com.wonderfresh.interfaces.
+       // mboSection[] greenSections=new mboSection[30];//Will never have more than 30 sections
+        //mboSection[] redSections=new mboSection[30];//Will never have more than 30 sections
+        for (i=0;i<30;i++){
+            
+        }
         
         
         

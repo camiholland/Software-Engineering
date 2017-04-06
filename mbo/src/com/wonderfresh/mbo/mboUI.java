@@ -18,7 +18,7 @@ public class mboUI extends javax.swing.JFrame {
     public mboUI( Mbo mbo) {
         this.mbo=mbo;
         initComponents();
-        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     public void setClock(String timeString) { clock.setText(time); }
@@ -64,7 +64,7 @@ public class mboUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         passengerCount = new javax.swing.JTextField();
         mboLabel = new javax.swing.JLabel();
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jLabel4.setText("Enter number of Drivers for the week :");
         numberOfDrivers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) { }

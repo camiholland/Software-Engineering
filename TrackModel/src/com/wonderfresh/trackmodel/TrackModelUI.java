@@ -37,6 +37,7 @@ public class TrackModelUI extends javax.swing.JFrame {
         this.trackSimulator=ts;
         newTrack = TrackSimulator.getTrack();
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
     }
     
