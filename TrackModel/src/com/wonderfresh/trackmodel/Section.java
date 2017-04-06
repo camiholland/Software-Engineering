@@ -37,33 +37,35 @@ public class Section {
     * @return true if successfully added, false if section already contains the block.
     */
    public boolean addBlockToSection(Block newBlock){
-       if(!Included_Blocks.contains(newBlock)){
-           if(Included_Blocks.isEmpty()){
-               this.Section_Name = newBlock.getSection();
-           }
-           Included_Blocks.add(newBlock);
-           if(Low_Block!=null){
-                if(newBlock.getBlockNum()<=Low_Block.getBlockNum()){
-                    Low_Block = newBlock;
-                    Low_BlockNum_ArrowDirection = Low_Block.getArrowDirection();
-                }
-           }else{
-               Low_Block = newBlock;
-               Low_BlockNum_ArrowDirection = Low_Block.getArrowDirection();
-           }
-           if(High_Block!=null){
-               if(newBlock.getBlockNum()>=High_Block.getBlockNum()){
-                   High_Block = newBlock;
-                   High_BlockNum_ArrowDirection = High_Block.getArrowDirection();
-               }
-           }else{
-               High_Block = newBlock;
-               High_BlockNum_ArrowDirection = High_Block.getArrowDirection();
-           }
-           return true;
-       }else{
+       if(Included_Blocks==null){
+           Included_Blocks = new ArrayList<>();
+           this.Section_Name = newBlock.getSection();
+       }else if(Included_Blocks.contains(newBlock)){
            return false;
        }
+        Included_Blocks.add(newBlock);
+       
+        if(Low_Block!=null){
+             if(newBlock.getBlockNum()<=Low_Block.getBlockNum()){
+                 Low_Block = newBlock;
+                 Low_BlockNum_ArrowDirection = Low_Block.getArrowDirection();
+             }
+        }else{
+            Low_Block = newBlock;
+            Low_BlockNum_ArrowDirection = Low_Block.getArrowDirection();
+        }
+        if(High_Block!=null){
+            if(newBlock.getBlockNum()>=High_Block.getBlockNum()){
+                High_Block = newBlock;
+                High_BlockNum_ArrowDirection = High_Block.getArrowDirection();
+            }
+        }else{
+            High_Block = newBlock;
+            High_BlockNum_ArrowDirection = High_Block.getArrowDirection();
+        }
+        return true;
+        
+       
    }
    
    /**

@@ -16,13 +16,15 @@ public class TrackGraph {
     private HashMap<Integer, Edge> edges;
     private HashMap<Integer, Switch> switches;
     private HashMap<Integer, Section> sections;
+    private String TrackName;
     
     
-    public TrackGraph(){
+    public TrackGraph(String Name){
         this.blocks = new HashMap<>();
         this.edges = new HashMap<>();
         this.switches = new HashMap<>();
         this.sections = new HashMap<>();
+        this.TrackName = Name;
     }
     
     public TrackGraph(ArrayList<Block> blocks){
@@ -84,10 +86,11 @@ public class TrackGraph {
     }
     
     public Block getBlock(String line, int BlockNum){
-        return blocks.get((line+BlockNum).hashCode());
+        return blocks.get((line+BlockNum));
     }
     
     public boolean addBlock(Block block, boolean overwriteExisting){
+        
         Block current = this.blocks.get(block.getLabel());
         if(current != null){
             if(!overwriteExisting){
@@ -98,7 +101,8 @@ public class TrackGraph {
                 return true;
             }
         }else{
-            return false;
+            blocks.put(block.getLabel(), block);
+            return true;
         }
             
     }
@@ -138,6 +142,11 @@ public class TrackGraph {
             return section_to_add_to.addBlockToSection(newBlock);
         }
         
+    }
+    
+    @Override
+    public String toString(){
+        return this.TrackName;
     }
     
     public Section getSection(String requestedSection){
