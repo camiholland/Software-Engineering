@@ -24,6 +24,7 @@ interface TrainToTrainController extends TrainModelAPI{
     public void setPowerCommand(double pwrCmd, int trainID);
     public void setAnnouncement(String announcement, int trainID);
 
+    public void setSPS(int sps, int trainID);
 }
 
 interface Testing extends TrainModelAPI{

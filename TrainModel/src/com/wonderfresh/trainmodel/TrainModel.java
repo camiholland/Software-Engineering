@@ -20,6 +20,7 @@ public class TrainModel {
     TrainModelUI gui;
     Testing testing;
     TemperatureCalculator tempCalc;
+    SpeedCalculator speedCalc;
     
     int ID;
     
@@ -35,6 +36,7 @@ public class TrainModel {
     final double S_BRAKE_RATE = -1.2; //m/s2
     final double E_BRAKE_RATE = -2.73; //m/s2
     final int DEFAULT_TEMP = 75;
+    final double G_FTS2 = 32.174;
     
     int numCars;
     int numPass;
@@ -76,6 +78,7 @@ public class TrainModel {
         ID = trainID;
         
         tempCalc = new TemperatureCalculator(this);
+        speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
         
         testing = new TestingImpl(tclist);
@@ -177,19 +180,16 @@ public class TrainModel {
         //netForceDownhillAccel = totalMass * acc + totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
         if(eBrake){
             acc = E_BRAKE_RATE;
-            speed += acc*1;
-            if(speed < 0)
-                speed = 0;
+            speedCalc.setSpeed(acc, speed, 0);
         }
         else if(driverSetBrake){
             acc = S_BRAKE_RATE;
-            speed += acc*1;
-            if(speed < 0)
-                speed = 0;
+            speedCalc.setSpeed(acc, speed, 0);
         }
         else if(powerCmd <= MAX_POWER){
             //a = P/mv
-            acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed));
+            //acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed)); //? I don't think this is right. plus obvi haven't taken into acct friction, grade, etc.
+            acc = powerCmd/(totalMass*speed) - G_FTS2*sin(grade) - FRICTION*G_FTS2*cos(grade);  //reaches infinity...
             if(acc < 0){
                 acc = S_BRAKE_RATE;
                 setServiceBrake(1, driverSetBrake);
@@ -199,14 +199,24 @@ public class TrainModel {
                 if(acc > MAX_ACC)
                     acc = MAX_ACC;
             }
-            //v = v0 + at, where t = 1
-            speed += acc*1;
-            if(speed < 0)
-                speed = 0;
+            speedCalc.setSpeed(acc, speed, sps);
+            setServiceBrake(0, driverSetBrake);
         }
+    }
+    protected void updateSpeed(double speed){
+        this.speed = speed;
+        gui.setSpeed(Double.toString(speed));
         testing.setSpeed(speed, ID);
     }
-    public void setTargetTemp(int temp){
+    protected double updateAcc(double speed){
+        acc = powerCmd/(totalMass*speed) - G_FTS2*sin(grade) - FRICTION*G_FTS2*cos(grade);  //reaches infinity...
+        if(acc > MAX_ACC)
+            acc = MAX_ACC;
+        else if(acc < 0)
+            acc = S_BRAKE_RATE;
+        return acc;
+    }
+    public void setTargetTemp(int temp) throws InterruptedException{
         targetTemp = temp;
         if(targetTemp != currentTemp){
             tempCalc.setTemp(currentTemp, targetTemp);
@@ -214,7 +224,7 @@ public class TrainModel {
 //        if(targetTemp != currentTemp)
 //            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
     }
-    protected void adjustTemp(int currentTemp, int status){
+    protected void updateTemp(int currentTemp, int status){
         this.currentTemp = currentTemp;
         if(status == 1 && acStatus == 0){
             setAC(1);
@@ -223,6 +233,10 @@ public class TrainModel {
         else if(status == -1 && heatStatus == 0){
             setHeat(1);
             setAC(0);
+        }
+        else if(status == 0){
+            setAC(0);
+            setHeat(0);
         }
         gui.setTemp(Integer.toString(currentTemp));
         testing.setTemperature(currentTemp, ID);
@@ -328,7 +342,14 @@ public class TrainModel {
     }
     public void setServiceBrake(int status, boolean driverSet){
         serviceBrakesStatus = status;
-        driverSetBrake = driverSet;
+        if(status == 1)
+            driverSetBrake = driverSet;
+        else
+            driverSetBrake = false;
+        
+        if(driverSet)
+            adjustSpeed();
+        
         if(status > 0){
             gui.on(6);
         }
@@ -343,9 +364,15 @@ public class TrainModel {
     public void setPowerCmd(double pwrCmd){
         powerCmd = pwrCmd;
         gui.setPowerCmd(String.format("%.2f",powerCmd/1000));
+        adjustSpeed();
     }
     public void setAnnouncement(String announcement){
         this.announcement = announcement;
         gui.setNotification(announcement);
+    }
+    
+    public void setSPS(int sps){
+        this.sps = sps;
+        gui.setSPS(Integer.toString(sps));
     }
 }

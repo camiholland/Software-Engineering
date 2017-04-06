@@ -179,4 +179,10 @@ public class TrainModelTest {
         int temp = Integer.parseInt(tempString);
         trainToTC.setTargetTemperature(temp, ID);
     }
+    
+    //not from train controller
+    protected void setSPS(String speedString){
+        sps = Integer.parseInt(speedString);
+        trainToTC.setSPS(sps, ID);
+    }
 }

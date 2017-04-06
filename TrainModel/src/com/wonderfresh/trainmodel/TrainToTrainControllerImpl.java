@@ -5,6 +5,9 @@
  */
 package com.wonderfresh.trainmodel;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Cami
@@ -35,7 +38,11 @@ public class TrainToTrainControllerImpl implements TrainToTrainController {
     }
     @Override
     public void setTargetTemperature(int temp, int trainID){
-        trains.getTrain(trainID).setTargetTemp(temp);
+        try {
+            trains.getTrain(trainID).setTargetTemp(temp);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TrainToTrainControllerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @Override
     public void setLights(int status, int trainID){
@@ -48,5 +55,11 @@ public class TrainToTrainControllerImpl implements TrainToTrainController {
     @Override
     public void setAnnouncement(String announcement, int trainID){
         trains.getTrain(trainID).setAnnouncement(announcement);
+    }
+    
+    //not from trian controller
+    @Override
+    public void setSPS(int sps, int trainID){
+        trains.getTrain(trainID).setSPS(sps);
     }
 }

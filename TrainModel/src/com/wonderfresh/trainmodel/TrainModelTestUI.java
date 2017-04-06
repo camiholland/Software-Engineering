@@ -538,7 +538,7 @@ public class TrainModelTestUI extends javax.swing.JFrame {
 
     private void spsTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spsTextActionPerformed
         // TODO add your handling code here:
-        //trainModelTest.setSPS(spsText.getText());
+        trainModelTest.setSPS(spsText.getText());
     }//GEN-LAST:event_spsTextActionPerformed
 
     private void authorityTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorityTextActionPerformed
