@@ -5,6 +5,8 @@
  */
 package com.wonderfresh.trainmodel;
 
+import com.wonderfresh.commons.PublicBlock;
+import com.wonderfresh.commons.TrackSimulator;
 import static java.lang.Math.abs;
 import static java.lang.Math.ceil;
 import static java.lang.Math.cos;
@@ -24,6 +26,8 @@ public class TrainModel {
     TrainControllerInterface testing;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
+    PublicBlock block;
+    PublicBlock nextBlock;
     
     int ID;
     
@@ -48,14 +52,15 @@ public class TrainModel {
     double speed;
     double totalMass;
     double acc;
-    double error;
+    //double error;
     double previousError;
     double grade;
     double sps;
     double speedLimit;
     double powerCmd;
-    double previousPowerCmd;
+    //double previousPowerCmd;
     double distance;
+    double blockLengthTotal;
     
     int acStatus;
     int heatStatus;
@@ -80,6 +85,8 @@ public class TrainModel {
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
+        block = TrackSimulator.initBlock("Red");
+        //nextBlock = block.getNextBlock();
         
         testing = Interfaces.getTrainControllerInterface();
         
@@ -91,14 +98,15 @@ public class TrainModel {
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
         acc = 0;
-        error = 0;
+        //error = 0;
         previousError = 0;
-        grade = 0;
+        grade = block.getBlockGrade();
         sps = 0;
-        speedLimit = 0;
+        speedLimit = block.getSpeedLimit();
         powerCmd = 0;
-        previousPowerCmd = 0;
+        //previousPowerCmd = 0;
         distance = 0;
+        blockLengthTotal = block.getBlockLength();
         
         acStatus = 0;
         heatStatus = 0;
@@ -117,7 +125,7 @@ public class TrainModel {
         authority = 0;
         announcement = null;
         
-        launchUI();
+        //launchUI();
         //currentSecond = (int) ceil(System.nanoTime()/1000000000);
         /*while(true){
             if(System.nanoTime()/1000000000 - currentSecond >= 1){
@@ -221,7 +229,15 @@ public class TrainModel {
         return acc;
     }
     protected void updateDistance(double acc){
-        distance += acc;
+        //d = vi*t + 1/2*a*t^2 where t = 1
+        distance += speed + acc/2;
+        if(distance >= blockLengthTotal){
+            //block = nextBlock;
+            grade = block.getBlockGrade();
+            speedLimit = block.getSpeedLimit();
+            blockLengthTotal += block.getBlockLength();
+            //nextBlock = block.getNextBlock();
+        }
     }
     public void setTargetTemp(int temp) throws InterruptedException{
         targetTemp = temp;
