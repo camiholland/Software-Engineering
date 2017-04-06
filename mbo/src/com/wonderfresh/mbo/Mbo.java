@@ -3,6 +3,7 @@
  * Angela Hoeltje - amh227@pitt.edu
  */
 package com.wonderfresh.mbo;
+
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.commons.Block;
 import com.wonderfresh.commons.PublicBlock;
@@ -13,6 +14,7 @@ import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrackModelInterface;
 
 public class Mbo extends Thread{
+    
     
     int ready=0;
     int drivers=0;
@@ -34,6 +36,8 @@ public class Mbo extends Thread{
         //max 100 trains per line
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
+        String[] redSta=new String[20];
+        String[] greenSta=new String[20];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int i;
         int passengerCount=0;

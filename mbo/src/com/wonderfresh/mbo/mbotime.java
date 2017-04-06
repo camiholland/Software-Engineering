@@ -1,6 +1,6 @@
 package com.wonderfresh.mbo;
 
-import java.time.LocalTime;
+
 
 
 public class mbotime{
@@ -59,14 +59,7 @@ public class mbotime{
        // System.out.println("Start:"+t.toString()+"    inc:"+inc+"   end:"+end.toString() );
         return end;
     }
-    public static mbotime getTimeNow(){
-        mbotime n=new mbotime();
-        LocalTime l = LocalTime.now();
-        n.sec=    l.getSecond();
-        n.min=    l.getMinute();
-        n.hr=      l.getHour();
-        return n;
-    }
+
     
 /**
  *  -NOT DONE_

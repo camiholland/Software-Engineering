@@ -29,6 +29,7 @@ public class driverSchedule {
         String s=null;
         int shifts=drivers*5; //total shifts to schedule
         int shiftsPerDay=shifts/7+1; //shifts per day
+        int i=0, j=0;
         int timeBetweenShifts=(24*60)/shiftsPerDay; //time between people scheduled
         timeBetweenShifts-=timeBetweenShifts%5;
         mbotime start = new mbotime();
@@ -36,10 +37,7 @@ public class driverSchedule {
                 start.min=0;
                 start.sec=0;
         String[][] covered=new String[7][shiftsPerDay];
-        int i=0;
-        int j=0;
-        
-        //fill array with shifts that need to be covered
+//fill array with shifts that need to be covered
         for(i=0;i<shiftsPerDay;i++){
             for(j=0;j<7;j++){
                 s= start.scheduleTime(start);
