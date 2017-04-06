@@ -22,7 +22,7 @@ public class TrainController {
         trainUI = new TrainControllerUI(this, trainModel);
         auto = true;
         setPointSpeed = 10;
-        setAuthority = 0.3;
+        setAuthority = 10;
         setSpeed = 0;
         realSpeed = 0;
         speedLimit = 25;
