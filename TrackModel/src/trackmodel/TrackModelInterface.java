@@ -28,20 +28,11 @@ public interface TrackModelInterface{
         public boolean setAuthority(int Distance);
         
         /**
-         * For Communications, use this method to get the most recent authority
-         * that has been sent out.
-         * @return the value of the authority
-         */
-        public int getAuthority();
-        
-        /**
          * This method will send the set point speed to the communications module.
          * @param speed at which the train should travel for the given authority
          * @return true if the speed sent successfully, false otherwise
          */
         public boolean setSetPointSpeed(int speed);
-        
-        public int getSetPointSpeed();
         
         public boolean setCrossing(String line, int BlockNum, boolean open);
         

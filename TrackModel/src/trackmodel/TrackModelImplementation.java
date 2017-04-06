@@ -40,16 +40,7 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @return true if successfully sent, false if not
          */
     public boolean setAuthority(int Distance){
-        return TrackSimulator.setNextAuthority(Distance);
-    }
-    
-    /**
-         * For Communications, use this method to get the most recent authority
-         * that has been sent out.
-         * @return the value of the authority
-         */
-    public int getAuthority(){
-        return TrackSimulator.getNextAuthority();
+        return TrackSimulator.setAuthority(Distance);
     }
     
     /**
@@ -58,11 +49,7 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @return true if the speed sent successfully, false otherwise
          */
     public boolean setSetPointSpeed(int speed){
-        return TrackSimulator.setNextSetPointSpeed(speed);
-    }
-    
-    public int getSetPointSpeed(){
-        return TrackSimulator.getNextSetPointSpeed();
+        return TrackSimulator.setSetPointSpeed(speed);
     }
     
     public boolean setCrossing(String line, int BlockNum, boolean open){

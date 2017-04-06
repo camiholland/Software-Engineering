@@ -39,6 +39,7 @@ public class TrackSimulator {
     }
     
     public static String setNewTrack(String newFile){
+        MainTrack = new TrackModel();
         try{
             
             try{
@@ -66,22 +67,15 @@ public class TrackSimulator {
         return b;
     }
     
-    public static boolean setNextAuthority(int Distance){
+    public static boolean setAuthority(int Distance){
         Authority = Distance;
         return true;
     }
+
     
-    public static int getNextAuthority(){
-        return Authority;
-    }
-    
-    public static boolean setNextSetPointSpeed(int speed){
+    public static boolean setSetPointSpeed(int speed){
         Speed = speed;
         return true;
-    }
-    
-    public static int getNextSetPointSpeed(){
-        return Speed;
     }
     
     public static boolean setCrossing(String line, int BlockNum, boolean open){
@@ -122,7 +116,15 @@ public class TrackSimulator {
         return chosen_Block.isOccupied();
     }
     
-    public boolean setSwitch(String line, int BlockNum1, int BlockNum2, boolean defaultSetting){
+    /**
+     * The Wayside controller is expected to have a detailed understanding of the track 
+     * when calling these functions.
+     * @param line for choosing the track the switch resides on
+     * @param BlockNum1 should be a block at a switch the Wayside Controller wishes to connect
+     * @param BlockNum2 should be a block at the same switch as the the first Block.
+     * @return true if successful, false if not a switch that includes both blocks
+     */
+    public boolean setSwitch(String line, int BlockNum1, int BlockNum2){
         TrackGraph tempTrack;
         if(line.equals("Red")){
             tempTrack = MainTrack.getRedLine();
@@ -135,7 +137,7 @@ public class TrackSimulator {
         if(tempSwitch==null){
             return false;
         }else{
-            tempSwitch.SetSwitchTo(defaultSetting);
+            tempSwitch.SetSwitchTo(testBlock1, testBlock2);
             return true;
         }
     }
