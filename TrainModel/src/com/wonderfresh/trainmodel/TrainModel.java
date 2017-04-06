@@ -211,7 +211,7 @@ public class TrainModel {
     }
     protected void updateSpeed(double speed){
         this.speed = speed;
-        gui.setSpeed(Double.toString(speed));
+        gui.setSpeed(Double.toString(speed*3600/1602)); //m/s / 1602 m/mi * 3600 s/h
         testing.setSpeed(speed, ID);
     }
     protected double updateAcc(double speed){
@@ -365,22 +365,22 @@ public class TrainModel {
     }
     public void setServiceBrake(int status, boolean driverSet){
         serviceBrakesStatus = status;
-        if(status == 1)
-            driverSetBrake = driverSet;
-        else
-            driverSetBrake = false;
-        
-        if(driverSet)
-            adjustSpeed();
         
         if(status > 0){
+            driverSetBrake = driverSet;
             gui.on(6);
+            if(driverSet)
+                adjustSpeed();
         }
         else if(status == 0){
+            driverSetBrake = false;
             gui.off(6);
         }
         else{
+            driverSetBrake = false;
             gui.fail(6);
+            eBrake = true;
+            adjustSpeed();
             testing.failBrake(ID);
         }
     }
@@ -397,6 +397,6 @@ public class TrainModel {
     
     public void setSPS(int sps){
         this.sps = sps;
-        gui.setSPS(Integer.toString(sps));
+        gui.setSPS(Integer.toString(sps*3600/1602)); //m/s / 1602 m/mi * 3600 s/h
     }
 }
