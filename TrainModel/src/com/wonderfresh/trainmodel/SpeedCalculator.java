@@ -59,6 +59,7 @@ public class SpeedCalculator implements Runnable {
                     if(speed < 0){
                         speed = 0;
                     }
+                    tm.updateDistance(acc);
                     acc = tm.updateAcc(speed);
                     tm.updateSpeed(speed);
                     currentTime++;
