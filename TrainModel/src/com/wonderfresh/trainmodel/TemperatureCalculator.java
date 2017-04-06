@@ -35,7 +35,7 @@ public class TemperatureCalculator implements Runnable {
         this.currentTemp = currentTemp;
         this.targetTemp = targetTemp;
         if(!started){
-            System.out.println("Thread started");
+            //System.out.println("Thread started");
             started = true;
             thr.start();
         }
@@ -43,9 +43,9 @@ public class TemperatureCalculator implements Runnable {
     
     @Override
     public void run(){
-        System.out.println("running TempCalc");
+        //System.out.println("running TempCalc");
         while(true){
-            System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
+            //System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
             if(currentTemp != targetTemp){
                 //System.out.println("RESUMED");
                 currentTime = (int) ceil(System.nanoTime()/1000000000);

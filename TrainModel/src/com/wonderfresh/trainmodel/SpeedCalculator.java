@@ -45,9 +45,9 @@ public class SpeedCalculator implements Runnable {
     
     @Override
     public void run(){
-        System.out.println("running SpeedCalc");
+        //System.out.println("running SpeedCalc");
         while(true){
-            System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
+            //System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
             currentTime = (int) ceil(System.nanoTime()/1000000000);
             while(acc != targetAcc){
                 if(System.nanoTime()/1000000000 >= currentTime+1){
@@ -55,7 +55,7 @@ public class SpeedCalculator implements Runnable {
                     //System.out.println("SPS: " + sps + "  Speed: " + speed);
                     //v = v0 + at, where t = 1
                     speed += acc;
-                    System.out.println("acc = " + acc);
+                    //System.out.println("acc = " + acc);
                     if(speed < 0){
                         speed = 0;
                     }

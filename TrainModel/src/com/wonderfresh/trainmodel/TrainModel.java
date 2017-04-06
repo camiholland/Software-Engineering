@@ -214,7 +214,7 @@ public class TrainModel {
     }
     protected double updateAcc(double speed){
         acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
-        System.out.println("Acceleration = " + acc);
+        //System.out.println("Acceleration = " + acc);
         if(eBrake)
             acc = E_BRAKE_RATE;
         else if(acc > MAX_ACC)
