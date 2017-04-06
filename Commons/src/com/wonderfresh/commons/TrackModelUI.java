@@ -165,7 +165,7 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jLabel3.setText("TrackModelUI");
 
-        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/trackmodel/Track_Layout.png"))); // NOI18N
+        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/commons/Track_Layout.png"))); // NOI18N
         TrainMap.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
         jScrollPane1.setViewportView(TrainMap);
 
