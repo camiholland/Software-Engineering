@@ -16,12 +16,14 @@ import javax.swing.JFileChooser;
 public class TrackModelUI extends javax.swing.JFrame {
     private int lastTemp;
     private TrackModel newTrack;
+    private TrackSimulator theSimulation;
     /**
      * Creates new form TrackModelUI
      */
     public TrackModelUI(){
         
-        newTrack = TrackSimulator.getTrack();
+        theSimulation = TrackSimulator.getInstance();
+        newTrack = theSimulation.getTrack();
         initComponents();
         
 //        Timer timer = new Timer();

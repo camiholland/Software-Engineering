@@ -18,10 +18,18 @@ public class TrackSimulator {
     private static int Authority;
     private static int Speed;
     private TrackModelUI gui=null;
+    private static TrackSimulator instance = null;
     
-    
-    public TrackSimulator(){
+    private TrackSimulator(){
         
+    }
+    
+    public static TrackSimulator getInstance(){
+        if(instance==null){
+            instance = new TrackSimulator();
+            instance.setNewTrack("Track Layout & Vehicle Data vF1.xlsx");
+        }
+        return instance;
     }
     
     public void launchUI(){
@@ -31,18 +39,18 @@ public class TrackSimulator {
     }
    
     
-    public static void run() throws Exception{
-        //dataFile = "Track Layout & Vehicle Data vF1.xlsx";
-        // GUI EVENTS
-        java.awt.EventQueue.invokeLater(new Runnable(){
-            @Override
-            public void run(){
-                new TrackModelUI().setVisible(true);
-                
-            }
-        });
-    }
-    
+//    public static void run() throws Exception{
+//        //dataFile = "Track Layout & Vehicle Data vF1.xlsx";
+//        // GUI EVENTS
+//        java.awt.EventQueue.invokeLater(new Runnable(){
+//            @Override
+//            public void run(){
+//                new TrackModelUI().setVisible(true);
+//                
+//            }
+//        });
+//    }
+//    
     public static TrackModel getTrack(){
         return MainTrack;
     }
@@ -64,6 +72,11 @@ public class TrackSimulator {
         return "";
     }
     
+    /**
+     * Will set up the first block on a line for a new train
+     * @param line the name of the line the train should be instantiated on
+     * @return the first block of the track
+     */
     public static PublicBlock initBlock(String line){
         TrackGraph tempTrack;
         if(line.equals("Red")){

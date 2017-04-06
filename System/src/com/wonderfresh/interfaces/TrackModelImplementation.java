@@ -14,7 +14,13 @@ import com.wonderfresh.commons.PublicBlock;
  * @author kwc12
  */
 public class TrackModelImplementation implements TrackModelInterface{
-
+    private TrackSimulator theSimulation;
+    
+    public TrackModelImplementation(){
+        theSimulation.getInstance();
+    }
+    
+    
     /**
          * The Track Model is organized in several layers.
          * TrackModel has two TrackLines, Each TrackLine has
@@ -23,7 +29,7 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @return an implementation of the chosen track model
          */
     public TrackModel getTrackModel(){
-        return TrackSimulator.getTrack();
+        return theSimulation.getTrack();
     }
     
     /**

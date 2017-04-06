@@ -27,11 +27,11 @@ public class SystemLauncher extends javax.swing.JFrame {
      * @param trainControllers
      * @param trainModels
      */
-    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo,TrackSimulator trackSimulator) {
+    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo) {
         this.trainControllers = trainControllers;
         this.trainModels = trainModels;
         this.mbo=mbo;
-        this.trackSimulator=trackSimulator;
+        this.trackSimulator = TrackSimulator.getInstance();
         initComponents();
     }
 
