@@ -8,11 +8,14 @@ import com.wonderfresh.commons.Time;
 import com.wonderfresh.commons.Block;
 import com.wonderfresh.commons.PublicBlock;
 import com.wonderfresh.commons.Section;
+import com.wonderfresh.commons.TrackGraph;
 import com.wonderfresh.commons.TrackModel;
+import com.wonderfresh.commons.TrackSimulator;
+import com.wonderfresh.commons.TrackModelImplementation;
 import javax.swing.JFrame;
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrackModelInterface;
-import com.wonderfresh.commons.TrackModelImplementation;
+
 
 public class Mbo extends Thread{
     
@@ -77,9 +80,12 @@ public class Mbo extends Thread{
         System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
 //get tracks
         
-        TrackModel tm=new TrackModel();
-        
-       
+        TrackSimulator ts=TrackSimulator.getInstance();
+        TrackModel tm=ts.getTrack();
+        TrackGraph redLine=tm.getRedLine();
+        TrackGraph greenLine=tm.getGreenLine();
+        Section A=greenLine.getSection("B");
+        System.out.println("Section a "+A.getSectionName());
         
         
         

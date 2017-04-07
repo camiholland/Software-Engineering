@@ -45,12 +45,12 @@ public class SystemWrapper {
         System.out.println(time.setSpeed(2));
         
 
-        
+        trackSimulator = TrackSimulator.getInstance();
         trainControllers = new Trains();
         trainModels = new Train();
         mbo = new Mbo();
         mbo.start();
-        trackSimulator = TrackSimulator.getInstance();
+        
         //trackSimulator.start();
         
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
