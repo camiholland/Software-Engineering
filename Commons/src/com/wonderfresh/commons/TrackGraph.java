@@ -86,7 +86,7 @@ public class TrackGraph {
     }
     
     public Block getBlock(String line, int BlockNum){
-        return blocks.get((line+BlockNum));
+        return blocks.get((line+BlockNum).hashCode());
     }
     
     public boolean addBlock(Block block, boolean overwriteExisting){
