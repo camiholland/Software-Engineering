@@ -129,6 +129,9 @@ public class TrackGraph {
     }
     
     public boolean addToSection(Block newBlock){
+        if(newBlock==null){
+            return false;
+        }
         String section_Name = newBlock.getSection();
         Section newSection = new Section(section_Name);
         // If the sections hashmap doesn't contain this section, add it.

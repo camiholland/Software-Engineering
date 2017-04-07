@@ -37,8 +37,8 @@ public class TrackModel{
     private static int temp = 50;
     
     public TrackModel(){
-        RedLine = new TrackGraph();
-        GreenLine = new TrackGraph();
+        RedLine = new TrackGraph("Red");
+        GreenLine = new TrackGraph("Green");
         TrackModel.RedCount = 0;
         TrackModel.GreenCount = 0;
     }
