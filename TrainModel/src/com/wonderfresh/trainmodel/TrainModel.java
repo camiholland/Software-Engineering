@@ -85,8 +85,10 @@ public class TrainModel {
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
-        //block = TrackSimulator.initBlock("Red");
-        //nextBlock = block.getNextBlock();
+        /*block = TrackSimulator.initBlock("Red");
+        System.out.println(block.getLabel());
+        nextBlock = block.getNextBlock();
+        System.out.println(nextBlock.getLabel());*/
         
         testing = Interfaces.getTrainControllerInterface();
         
@@ -219,13 +221,21 @@ public class TrainModel {
         //System.out.println("Acceleration = " + acc);
         if(eBrake)
             acc = E_BRAKE_RATE;
-        else if(acc > MAX_ACC)
-            acc = MAX_ACC;
-        else if(acc < 0)
+        else if(driverSetBrake){
             acc = S_BRAKE_RATE;
-        if(Double.isNaN(acc)){
-                acc = 0;
-            }
+        }
+        else if(acc > 0){
+            setServiceBrake(0, false);
+            if(acc > MAX_ACC)
+                acc = MAX_ACC;
+        }
+        else if(acc < 0){
+            acc = S_BRAKE_RATE;
+            setServiceBrake(1, false);
+        }
+        else if(Double.isNaN(acc)){
+            acc = 0;
+        }
         return acc;
     }
     protected void updateDistance(double acc){
@@ -236,7 +246,7 @@ public class TrainModel {
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
             blockLengthTotal += block.getBlockLength();
-            //nextBlock = block.getNextBlock();
+            nextBlock = block.getNextBlock();
         }*/
     }
     public void setTargetTemp(int temp) throws InterruptedException{
@@ -361,6 +371,7 @@ public class TrainModel {
     }
     public void setEBrake(boolean status){
         eBrake = status;
+        gui.setEBrake(eBrake);
         adjustSpeed();
     }
     public void setServiceBrake(int status, boolean driverSet){

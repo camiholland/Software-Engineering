@@ -791,6 +791,16 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setNotification(String note){
         notificationsBox.append("\n" + note);
     }
+    public void setEBrake(boolean status){
+        if(status){
+            eBrakeOnLabel.setForeground(Color.green);
+            eBrakeOffLabel.setForeground(new java.awt.Color(120, 120, 120));
+        }
+        else{
+            eBrakeOnLabel.setForeground(new java.awt.Color(120, 120, 120));
+            eBrakeOffLabel.setForeground(Color.black);
+        }
+    }
     public void on(int attribute){
         //1 = ac, 2 = heat, 3 = lights, 4 = left doors, 5 = right doors, 6 = service brakes
         if(attribute == 1){
