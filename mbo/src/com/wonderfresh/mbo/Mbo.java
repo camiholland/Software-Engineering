@@ -81,11 +81,14 @@ public class Mbo extends Thread{
 //get tracks
         
         TrackSimulator ts=TrackSimulator.getInstance();
+        System.out.println("GET temp "+ts.getTemp());
         TrackModel tm=ts.getTrack();
+        System.out.println("TrackModel: ");
         TrackGraph redLine=tm.getRedLine();
+        System.out.println("redline"+redLine.getBlock("Red",60));
         TrackGraph greenLine=tm.getGreenLine();
         Section A=greenLine.getSection("B");
-        System.out.println("Section a "+A.getSectionName());
+        System.out.println("Section a "+A.getArrowDirection());
         
         
         
