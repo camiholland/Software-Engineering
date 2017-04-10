@@ -40,6 +40,7 @@ public class TrackGraph {
     
     public Block init(){
         for(String key : blocks.keySet()){
+            System.out.println("TrackGraph: init method");
             return blocks.get(key);
         }
         return null;
@@ -60,10 +61,10 @@ public class TrackGraph {
         Edge e = new Edge(from,to,OoC);
         
         if(edges.containsKey(e.hashCode())){
-            System.out.println("edges already contains key.");
+            //System.out.println("edges already contains key.");
             return false;
         }else if(from.containsNeighbor(e) || to.containsNeighbor(e)){
-            System.out.println("One or the other contains Neighbor e");
+            //System.out.println("One or the other contains Neighbor e");
             return false;
         }
         
@@ -82,11 +83,11 @@ public class TrackGraph {
     }
     
     public boolean containsBlock(Block block){
-        return this.blocks.get(block.getLabel().hashCode()) != null;
+        return this.blocks.get(block.getLabel()) != null;
     }
     
     public Block getBlock(String line, int BlockNum){
-        return blocks.get((line+BlockNum).hashCode());
+        return blocks.get((line+BlockNum));
     }
     
     public boolean addBlock(Block block, boolean overwriteExisting){

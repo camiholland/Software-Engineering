@@ -160,8 +160,10 @@ public class TrackSimulator {
         TrackGraph tempTrack;
         if(line.equals("Red")){
             tempTrack = MainTrack.getRedLine();
-        }else{
+        }else if(line.equals("Green")){
             tempTrack = MainTrack.getGreenLine();
+        }else{
+            return false;
         }
         Block testBlock1 = tempTrack.getBlock(line, BlockNum1);
         Block testBlock2 = tempTrack.getBlock(line, BlockNum2);
