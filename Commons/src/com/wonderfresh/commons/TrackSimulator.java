@@ -8,6 +8,10 @@ package com.wonderfresh.commons;
 //import java.util.ArrayList;
 //import com.wonderfresh.trackmodelUI.TrackModelUI;
 
+import java.util.Iterator;
+import java.util.Set;
+
+
 /**
  *
  * @author kwc12
@@ -28,6 +32,12 @@ public class TrackSimulator {
         if(instance==null){
             instance = new TrackSimulator();
             instance.setNewTrack("Track Layout & Vehicle Data vF1.xlsx");
+            Set<String> keys = instance.getTrack().getRedLine().BlockKeys();
+            Iterator<String> keysiterator = keys.iterator();
+            while(keysiterator.hasNext()){
+                keysiterator.next();
+                System.out.println("Key : "+keysiterator.toString());
+            }
         }
         return instance;
     }
