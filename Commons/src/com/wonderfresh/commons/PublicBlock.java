@@ -6,6 +6,9 @@
 
 package com.wonderfresh.commons;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author kwc12
@@ -14,7 +17,6 @@ public class PublicBlock extends Block{
     
     private boolean BeaconPresent;
     private String Signal; // For beacon
-    private PublicBlock nextBlock;
     private PublicBlock prevBlock; 
     
     PublicBlock(){
@@ -32,11 +34,50 @@ public class PublicBlock extends Block{
         return "this is a beacon signal";
     }
     
-    public String getNextBlock(){
-        PublicBlock aNewBlock;
-        prevBlock = this;
-        //return aRandomBlock;
-        return "will return a public block";
+    /**
+     * The train model can use this function to move to the next block and see
+     * its attributes.
+     * @return The next Public Block on the line.
+     */
+    public PublicBlock getNextBlock(){
+        // First if the block is the first block, if prevBlock is null then move to the next block.
+        // If current block is switch, next block in switch.
+        // If current block isn't switch or first block, take the difference in block num for direction and find the next block
+        
+        PublicBlock newBlock;
+        Block tempBlock = null;
+        Edge tempEdge;
+        
+        if(this.prevBlock==null){
+            ArrayList<Edge> neighbors = this.getNeighbors();
+            Iterator<Edge> neighborIterator = neighbors.iterator();
+            if(neighborIterator.hasNext()){
+                tempEdge = neighborIterator.next();
+                tempBlock = tempEdge.getEndingBlock();
+            }
+            newBlock = (PublicBlock)tempBlock;
+            newBlock.prevBlock = this;
+            return newBlock;
+            
+        }else{
+                    
+            ArrayList<Edge> neighbors = this.getNeighbors();
+            Iterator<Edge> neighborIterator = neighbors.iterator();
+            while(neighborIterator.hasNext()){
+                tempEdge = neighborIterator.next();
+                if(tempEdge.getStatus()){
+                    tempBlock = tempEdge.getEndingBlock();
+                    if((tempBlock.getBlockNum()-this.prevBlock.getBlockNum())!=0){
+                        break;
+                    }
+                }
+            }
+            newBlock = (PublicBlock)tempBlock;
+            newBlock.prevBlock = this;
+            
+            return newBlock;
+            
+        }
     }
     
     public int getNumPeopleAtStation(){
