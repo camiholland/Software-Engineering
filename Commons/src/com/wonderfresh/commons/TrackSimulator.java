@@ -33,7 +33,7 @@ public class TrackSimulator {
             instance = new TrackSimulator();
             instance.setNewTrack("Track Layout & Vehicle Data vF1.xlsx");
             TrackModel tempTrack = instance.getTrack();
-            TrackGraph redGraph = tempTrack.getGreenLine();
+            TrackGraph redGraph = tempTrack.getRedLine();
             
             Block firstBlock = redGraph.init();
             System.out.println(firstBlock.getLabel()+" "+firstBlock.getBlockLength()+" "+firstBlock.getBlockGrade()+" "+firstBlock.getArrowDirection()+" "+firstBlock.getSwitchBlock());

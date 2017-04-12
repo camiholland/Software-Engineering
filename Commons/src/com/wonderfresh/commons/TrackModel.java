@@ -564,7 +564,7 @@ public class TrackModel{
             int Max_Switch_Num = 0;
             int Min_Switch_Num = 100;
             
-            // While loop finds highest numbered switch
+            // While loop finds highest and lowest numbered switch
             while(current_BlockNum_Count <= LoopLimit){
                 Block1 = TrackLine_Instance.getBlock(Track_Color_String, current_BlockNum_Count);
                 int SwitchNum = Block1.getSwitchBlock();
@@ -578,7 +578,7 @@ public class TrackModel{
             }
             
             // A for loop for iterating through the blocks as many times as there are switches
-            for(int i=Min_Switch_Num; i<Max_Switch_Num; i++){
+            for(int i=Min_Switch_Num; i<=Max_Switch_Num; i++){
                 
                 current_BlockNum_Count = 1;
                 
