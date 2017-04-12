@@ -39,11 +39,29 @@ public class TrackGraph {
     }
     
     public Block init(){
+        int yardSwitch = 0;
         for(String key : blocks.keySet()){
-            System.out.println("TrackGraph: init method");
-            return blocks.get(key);
+            if(blocks.get(key).isSwitchFromYard()){
+                yardSwitch = blocks.get(key).getSwitchBlock();
+                break;
+            }
         }
-        return null;
+        Block[] switch_Blocks = new Block[3];
+        int BlockCount = 0;
+        for(String key : blocks.keySet()){
+            if(blocks.get(key).getSwitchBlock()==yardSwitch){
+                switch_Blocks[BlockCount] = blocks.get(key);
+                BlockCount++;
+            }
+        }
+        
+        if(switch_Blocks[0].getSpeedLimit()<switch_Blocks[1].getSpeedLimit() && switch_Blocks[0].getSpeedLimit() < switch_Blocks[2].getSpeedLimit()){
+            return switch_Blocks[0];
+        }else if(switch_Blocks[1].getSpeedLimit()<switch_Blocks[0].getSpeedLimit() && switch_Blocks[1].getSpeedLimit() < switch_Blocks[2].getSpeedLimit()){
+            return switch_Blocks[1];
+        }else{
+            return switch_Blocks[2];
+        }
     }
     
     public boolean addEdge(Block one, Block two){
@@ -61,7 +79,7 @@ public class TrackGraph {
         Edge e = new Edge(from,to,OoC);
         
         if(edges.containsKey(e.hashCode())){
-            //System.out.println("edges already contains key.");
+            //System.out.println("edge already contains key.");
             return false;
         }else if(from.containsNeighbor(e) || to.containsNeighbor(e)){
             //System.out.println("One or the other contains Neighbor e");
@@ -129,22 +147,23 @@ public class TrackGraph {
         return null;
     }
     
-    public boolean addToSection(Block newBlock){
+    public void addToSection(Block newBlock){
         if(newBlock==null){
-            return false;
+            return;
         }
         String section_Name = newBlock.getSection();
+  
+        for(Section value : sections.values()){
+            if(value.getSectionName().equals(section_Name)){
+                value.addBlockToSection(newBlock);
+                return;
+            }
+        }       
+        
         Section newSection = new Section(section_Name);
-        // If the sections hashmap doesn't contain this section, add it.
-        if(!sections.containsKey(newSection.hashCode())){
-            newSection.addBlockToSection(newBlock);
-            sections.put(newSection.hashCode(), newSection);
-            return true;
-        }// If the sections hashmap does contain the section, add the block to that section
-        else {
-            Section section_to_add_to = sections.get(newSection.hashCode());
-            return section_to_add_to.addBlockToSection(newBlock);
-        }
+        newSection.addBlockToSection(newBlock);
+        sections.put(newSection.hashCode(), newSection);
+        
         
     }
     

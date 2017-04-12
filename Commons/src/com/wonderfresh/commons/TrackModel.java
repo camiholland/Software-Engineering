@@ -94,6 +94,7 @@ public class TrackModel{
      * @throws java.lang.Exception
      */
     public void ExcelToJavaGraph()throws Exception {
+        
         //Inside try statement, stream is opened from the chosen data file.
         try (FileInputStream fis = new FileInputStream(new File(dataFile))) {
             // A workbook reference is created from the chosen Excel file.
@@ -115,7 +116,7 @@ public class TrackModel{
             row = (XSSFRow) rowIterator.next();
             
             while(rowIterator.hasNext()){
-               
+                //System.out.println("Bunch o' prints");
                 // Each row represents a block
                 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv below are each instantiated value of a block
                 String line = "Red";
@@ -194,9 +195,7 @@ public class TrackModel{
                         System.out.println("Problem adding block "+tempBlock.getLabel()+" to graph");
                     }
                     RedLine.addToSection(tempBlock);
-                    //String sentence = tempBlock.toString();
                     RedCount++;
-                    //System.out.println(sentence);
                 }
 
             }   // Loops back up to check for another block
@@ -287,9 +286,7 @@ public class TrackModel{
                         System.out.println("Problem adding block "+ tempBlock2.getLabel()+" to graph.");
                     }
                     GreenLine.addToSection(tempBlock2);
-                    //String sentence = tempBlock2.toString();
                     GreenCount++;
-                    //System.out.println(sentence);
                 }
 
             }
@@ -301,74 +298,74 @@ public class TrackModel{
         //////////CONNECT BLOCKS/////////////////////////CONNECT BLOCKS/////////////////////////////////////CONNECT BLOCKS//////////////////////////CONNECT BLOCKS//////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        /** 
+        /**
          * Graphs have been filled with all of the vertices (Blocks) that they will need for now.
          * Next is connecting the blocks with edges.
          */
-       for(int line_no = 0; line_no<2; line_no++){
-           
-           /**
-            * Will be a reference to get a block
-            */
-           int current_BlockNum_Count = 1;
-           /**
-            * Will be used to reference a lookahead block
-            */
-           int secondary_BlockNum_Count;
-           /**
-            * Reference to the TrackLine in use
-            */
-           TrackGraph TrackLine_Instance; 
-           /**
-            * A string describing the color of the TrackLine
-            */
-           String Track_Color_String;
-           /**
-            * This variable will be used to describe the limit the loop should go up to
-            */
-           int LoopLimit;
-           
-           if(line_no==0){
-               
-               TrackLine_Instance = RedLine;
-               Track_Color_String = "Red";
-               LoopLimit = RedCount;
-               
-           }else{
-               
-               TrackLine_Instance = GreenLine;
-               Track_Color_String = "Green";
-               LoopLimit = GreenCount;
-               
-           }
-           // Go through the blocks in order to connect the edges. 
+        for(int line_no = 0; line_no<2; line_no++){
+            //System.out.println("Connecting Line No. : "+line_no);
+            /**
+             * Will be a reference to get a block
+             */
+            int current_BlockNum_Count = 1;
+            /**
+             * Will be used to reference a lookahead block
+             */
+            int secondary_BlockNum_Count;
+            /**
+             * Reference to the TrackLine in use
+             */
+            TrackGraph TrackLine_Instance;
+            /**
+             * A string describing the color of the TrackLine
+             */
+            String Track_Color_String;
+            /**
+             * This variable will be used to describe the limit the loop should go up to
+             */
+            int LoopLimit;
+            
+            if(line_no==0){
+                
+                TrackLine_Instance = RedLine;
+                Track_Color_String = "Red";
+                LoopLimit = RedCount;
+                
+            }else{
+                
+                TrackLine_Instance = GreenLine;
+                Track_Color_String = "Green";
+                LoopLimit = GreenCount;
+                
+            }
+            // Go through the blocks in order to connect the edges.
             while(current_BlockNum_Count <= LoopLimit){                 //            `                              <-----------------------||
-                System.out.println(current_BlockNum_Count); 
+                //System.out.println(current_BlockNum_Count);
                 /**
                  * Saves the current block count before looking through the upcoming section
                  */
-                secondary_BlockNum_Count = current_BlockNum_Count;                                                                                          
+                secondary_BlockNum_Count = current_BlockNum_Count;
                 /**
                  * Retrieves the first block using the label created above and referencing the hash table
                  */
-                Block Block1 = TrackLine_Instance.getBlock(Track_Color_String, current_BlockNum_Count);                                                        
-                                                                                                                                                                         
+                Block Block1 = TrackLine_Instance.getBlock(Track_Color_String, current_BlockNum_Count);
+                
                 /**
                  * Lookahead block initialized.
                  */
                 Block Secondary_Block;                                                                                                                                       //
-                                                                                                                                                                         //
+                //
                 if(Block1.getArrowDirection().startsWith("Head")){                                                                                                //
                     
                     
                     
                     secondary_BlockNum_Count++;                                                                                                                              //
-                    if(!Block1.getArrowDirection().equals("Head/Head") && !Block1.getArrowDirection().equals("Head/Tail")){                                                                                                                                                                                                                                                
+                    if(!Block1.getArrowDirection().equals("Head/Head") && !Block1.getArrowDirection().equals("Head/Tail")){
                         /**
                          * Creates a lookahead block
                          */
-                        Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String,secondary_BlockNum_Count);                                                                                             
-
+                        Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String,secondary_BlockNum_Count);
+                        
                         if(Secondary_Block!=null){
                             while(Secondary_Block.getArrowDirection().equals("")){
                                 TrackLine_Instance.addEdge(Secondary_Block, Block1);
@@ -376,7 +373,7 @@ public class TrackModel{
                                 Block1 = Secondary_Block;
                                 // Increments the lookahead block count
                                 secondary_BlockNum_Count++;
-
+                                
                                 // Moves up the loohahead block to the next unseen block
                                 Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
                             }
@@ -385,35 +382,35 @@ public class TrackModel{
                             // Even in the case in which the section was only one block long, if the arrow direction began 
                             // with head, it would still lead in this direction.
                             // In the event that the block that the edge leads from is a switch, we will insert those seperately.
-
+                            
                             TrackLine_Instance.addEdge(Secondary_Block, Block1);
-
+                            
                             if(Secondary_Block.getSwitchBlock()<0){
                                 // In the case that the section is one block long, the above statement will make a connection to the next section
                                 //if(!Secondary_Block.getArrowDirection().equals("Head/Head") && !Secondary_Block.getArrowDirection().equals("Head/Tail")){
-                                    // One more move forware with the blocks to connect to the next section
-                                    Block1 = Secondary_Block;
-                                    secondary_BlockNum_Count++;
-                                    Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
-                                    if(Secondary_Block!=null){
-                                        TrackLine_Instance.addEdge(Secondary_Block, Block1);
-                                    }
+                                // One more move forware with the blocks to connect to the next section
+                                Block1 = Secondary_Block;
+                                secondary_BlockNum_Count++;
+                                Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
+                                if(Secondary_Block!=null){
+                                    TrackLine_Instance.addEdge(Secondary_Block, Block1);
+                                }
                                 //}
                             }else{
                                 secondary_BlockNum_Count++;
                             }
-                        } 
+                        }
                     }
-                                                                                                                                                                       //
+                    //
                 }else if(Block1.getArrowDirection().startsWith("Tail")){
                     
                     secondary_BlockNum_Count++;                                                                                                                              //
-                    if(!Block1.getArrowDirection().equals("Tail/Head")){                                                                                                                                                                                                                                                
+                    if(!Block1.getArrowDirection().equals("Tail/Head")){
                         /**
                          * Creates a lookahead block
                          */
-                        Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String,secondary_BlockNum_Count);                                                                                             
-
+                        Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String,secondary_BlockNum_Count);
+                        
                         if(Secondary_Block!=null){
                             while(Secondary_Block.getArrowDirection().equals("")){
                                 TrackLine_Instance.addEdge(Block1, Secondary_Block);
@@ -421,71 +418,65 @@ public class TrackModel{
                                 Block1 = Secondary_Block;
                                 // Increments the lookahead block count
                                 secondary_BlockNum_Count++;
-
+                                
                                 // Moves up the loohahead block to the next unseen block
                                 Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
                             }
 
                             // The next block can be assumed to still be in order due to no other arrow heads being called.
-                            // Even in the case in which the section was only one block long, if the arrow direction began 
+                            // Even in the case in which the section was only one block long, if the arrow direction began
                             // with head, it would still lead in this direction.
                             // In the event that the block that the edge leads from is a switch, we will insert those seperately.
-
+                            
                             TrackLine_Instance.addEdge(Block1, Secondary_Block);
-
+                            
                             if(Secondary_Block.getSwitchBlock()<0){
                                 // In the case that the section is one block long, the above statement will make a connection to the next section
                                 //if(!Secondary_Block.getArrowDirection().equals("Head/Head") && !Secondary_Block.getArrowDirection().equals("Head/Tail")){
-                                    // One more move forware with the blocks to connect to the next section
-                                    Block1 = Secondary_Block;
-                                    secondary_BlockNum_Count++;
-                                    Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
-                                    if(Secondary_Block!=null){
-                                        TrackLine_Instance.addEdge(Block1, Secondary_Block);
-                                    }
+                                // One more move forware with the blocks to connect to the next section
+                                Block1 = Secondary_Block;
+                                secondary_BlockNum_Count++;
+                                Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
+                                if(Secondary_Block!=null){
+                                    TrackLine_Instance.addEdge(Block1, Secondary_Block);
+                                }
                                 //}
                             }else{
                                 secondary_BlockNum_Count++;
                             }
-                        } 
+                        }
                     }
-                }    
-                
-                //System.out.println("Block1 : "+Block1.getBlockNum());
-                //System.out.println("Secondary : "+Secondary_Block.getBlockNum());
+                }
                 current_BlockNum_Count = secondary_BlockNum_Count;                                                                                                           //
             }
             
-            //System.out.println("Made it past first iteration");
-            
             current_BlockNum_Count = LoopLimit;
             
-            String BlockString1;
+            
             Block Block1;
             
             while(current_BlockNum_Count > 0){                                  //                                                                  <------------------------||
-                System.out.println(current_BlockNum_Count);                                                                                                                                                         
                 /**
                  * Saves the current block count before looking through the upcoming section
                  */
-                secondary_BlockNum_Count = current_BlockNum_Count;                                                                                           
+                secondary_BlockNum_Count = current_BlockNum_Count;
                 /**
                  * Retrieves the first block using the label created above and referencing the hash table
                  */
-                Block1 = TrackLine_Instance.getBlock(Track_Color_String, current_BlockNum_Count);                                                        
-                                                                                                                                                                         
+                Block1 = TrackLine_Instance.getBlock(Track_Color_String, current_BlockNum_Count);
+                
                 /**
                  * Lookahead block initialized.
                  */
                 Block Secondary_Block;                                                                                                                                       //
-                                                                                                                                                                         //
+                //
                 if(Block1.getArrowDirection().endsWith("Head")){                                                                                                //
-                                                                                                                                                                         //
-                    secondary_BlockNum_Count--;                                                                                                                              //                                                                                              
+                    //
+                    secondary_BlockNum_Count--;                                                                                                                              //
                     /**
                      * Creates a lookahead block
                      */
-                    Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);                                                                                             
+                    Secondary_Block = TrackLine_Instance.getBlock(Track_Color_String, secondary_BlockNum_Count);
                     
                     if(Secondary_Block!=null){
                         while(Secondary_Block.getArrowDirection().equals("")){
@@ -501,13 +492,13 @@ public class TrackModel{
                     
                     if(Secondary_Block!=null){
                         // The next block can be assumed to still be in order due to no other arrow heads being called.
-                        // Even in the case in which the section was only one block long, if the arrow direction began 
+                        // Even in the case in which the section was only one block long, if the arrow direction began
                         // with head, it would still lead in this direction.
                         // In the event that the block that the edge leads from is a switch, we will insert those seperately.
                         if(Block1.getSwitchBlock()<0){
                             TrackLine_Instance.addEdge(Secondary_Block, Block1);
                         }
-
+                        
                         if(Block1.getSwitchBlock()<0){
                             // In the case that the section is one block long, the above statement will make a connection to the next section
                             if(!Block1.getArrowDirection().equals("Head/Head") && !Block1.getArrowDirection().equals("Tail/Head")){
@@ -520,8 +511,8 @@ public class TrackModel{
                                 }
                             }
                         }
-                    }    
-                                                                                                                                                                       //
+                    }
+                    //
                 }else if(Block1.getArrowDirection().endsWith("Tail")){
                     
                     secondary_BlockNum_Count--;
@@ -541,13 +532,13 @@ public class TrackModel{
                     
                     if(Secondary_Block!=null){
                         // The next block can be assumed to still be in order due to no other arrow heads being called.
-                        // Even in the case in which the section was only one block long, if the arrow direction began 
+                        // Even in the case in which the section was only one block long, if the arrow direction began
                         // with tail, it would still lead in the forward direction.
                         // In the event that the block that the edge leads from is a switch, we will insert those seperately.
                         if(Block1.getSwitchBlock()<0){
                             TrackLine_Instance.addEdge(Block1, Secondary_Block);
                         }
-
+                        
                         if(Block1.getSwitchBlock()<0){
                             // In the case that the section is one block long, the above statement will make a connection to the next section
                             if(!Block1.getArrowDirection().equals("Head/Tail")){
@@ -561,12 +552,10 @@ public class TrackModel{
                             }
                         }
                     }
-                }    
-                current_BlockNum_Count = secondary_BlockNum_Count;  
-                //System.out.println("Block1 : "+Block1.getBlockNum());
-            
+                }
+                current_BlockNum_Count = secondary_BlockNum_Count;
+                
             }
-            //System.out.println("Problem likely in switches");
             ///////////////////////////////////////////////////////////////////////////////
             // Add all connections at switches./////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////////
@@ -587,12 +576,12 @@ public class TrackModel{
                 }
                 current_BlockNum_Count++;
             }
-            //System.out.println("Max switches : "+Max_Switch_Num);
-            // A for loop for iterating through the blocks as many times as there are switches            
-            for(int i=Min_Switch_Num; i<Max_Switch_Num; i++){
-                //System.out.println("Switch : "+i);
-                current_BlockNum_Count = 1;
             
+            // A for loop for iterating through the blocks as many times as there are switches
+            for(int i=Min_Switch_Num; i<Max_Switch_Num; i++){
+                
+                current_BlockNum_Count = 1;
+                
                 Block[] blocks_to_be_sorted = new Block[3];
                 int s_index = 0;
                 //Checks for all switch numbers that match the iteration number
@@ -604,20 +593,18 @@ public class TrackModel{
                     }
                     current_BlockNum_Count++;
                 }
-                
+
                 int difference1 = Math.abs(blocks_to_be_sorted[0].getBlockNum()-blocks_to_be_sorted[1].getBlockNum());
                 int difference2 = 0;
-                //System.out.println("Difference1 : "+difference1);
+               
                 try{
                     difference2 = Math.abs(blocks_to_be_sorted[0].getBlockNum()-blocks_to_be_sorted[2].getBlockNum());
                 }catch(NullPointerException e){
                     System.out.println("NullPointerException");
                 }
-                //System.out.println("Difference2 : "+difference2);
-                int difference3 = Math.abs(blocks_to_be_sorted[1].getBlockNum()-blocks_to_be_sorted[2].getBlockNum());
-                //System.out.println("Difference3 : "+difference3);
                 
-                //System.out.println("Green line stops here adhakd");
+                int difference3 = Math.abs(blocks_to_be_sorted[1].getBlockNum()-blocks_to_be_sorted[2].getBlockNum());
+                
                 
                 Block defaultOne;
                 Block defaultTwo;
@@ -640,9 +627,9 @@ public class TrackModel{
                     defaultOne = blocks_to_be_sorted[1];
                     defaultTwo = blocks_to_be_sorted[2];
                 }
-                //System.out.println("Green Blocks stops here");
+                
                 // Finish adding edges that belong to switch block
-        
+                
                 TrackLine_Instance.addEdge(defaultOne, defaultTwo, false);
                 TrackLine_Instance.addEdge(defaultTwo, defaultOne, false);
                 TrackLine_Instance.addEdge(defaultOne, secondaryBlock, false);
@@ -652,6 +639,7 @@ public class TrackModel{
             }
             
         }
+
     }
     
 }

@@ -32,12 +32,18 @@ public class TrackSimulator {
         if(instance==null){
             instance = new TrackSimulator();
             instance.setNewTrack("Track Layout & Vehicle Data vF1.xlsx");
-            Set<String> keys = instance.getTrack().getRedLine().BlockKeys();
-            Iterator<String> keysiterator = keys.iterator();
-            while(keysiterator.hasNext()){
-                keysiterator.next();
-                System.out.println("Key : "+keysiterator.toString());
-            }
+            TrackModel tempTrack = instance.getTrack();
+            TrackGraph redGraph = tempTrack.getGreenLine();
+            
+            Block firstBlock = redGraph.init();
+            System.out.println(firstBlock.getLabel()+" "+firstBlock.getBlockLength()+" "+firstBlock.getBlockGrade()+" "+firstBlock.getArrowDirection()+" "+firstBlock.getSwitchBlock());
+            Block prevBlock = null;
+            Block nextBlock = firstBlock.getNextBlock(prevBlock);
+            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
+            prevBlock = firstBlock;
+            nextBlock = nextBlock.getNextBlock(prevBlock);
+            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
+
         }
         return instance;
     }
@@ -65,20 +71,18 @@ public class TrackSimulator {
         return MainTrack;
     }
     
-    public static String setNewTrack(String newFile){
+    public String setNewTrack(String newFile){
         MainTrack = new TrackModel();
-        try{
             
             try{
                 MainTrack.setDataFile(newFile);
                 MainTrack.ExcelToJavaGraph();
+                System.out.println("Just Ran ExcelToJavaGraph");
             }catch(Exception e){
+                System.out.println("Failure!!");
                 return "(Excel to Graph did not run properly.";
             }
-            
-        }catch(Exception e){
-            return "File isn't formatted correctly.";
-        }
+       
         return "";
     }
     
@@ -87,16 +91,16 @@ public class TrackSimulator {
      * @param line the name of the line the train should be instantiated on
      * @return the first block of the track
      */
-    public static PublicBlock initBlock(String line){
+    public static Block initBlock(String line){
         TrackGraph tempTrack;
         if(line.equals("Red")){
             tempTrack = MainTrack.getRedLine();
-        }else{
+        }else if(line.equals("Green")){
             tempTrack = MainTrack.getGreenLine();
+        }else{
+            return null;
         }
-        Block a = tempTrack.init();
-        PublicBlock b = (PublicBlock)a;
-        return b;
+        return tempTrack.init();
     }
     
     public static boolean setAuthority(int Distance){

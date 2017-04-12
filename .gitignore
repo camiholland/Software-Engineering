@@ -12,3 +12,7 @@
 /TrainModel/dist/
 /mbo/dist/
 /System/dist/
+/TrackModel/build/
+/TrainController/build/
+/TrainModel/build/
+/mbo/build/

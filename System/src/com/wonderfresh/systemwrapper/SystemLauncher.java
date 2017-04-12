@@ -10,7 +10,7 @@ import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.TrainModel;
 import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.mbo.Mbo;
-import com.wonderfresh.trackmodel.TrackSimulator;
+import com.wonderfresh.commons.TrackSimulator;
 
 /**
  *

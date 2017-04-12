@@ -6,6 +6,7 @@
 
 package com.wonderfresh.commons;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
@@ -16,14 +17,34 @@ import javax.swing.JFileChooser;
 public class TrackModelUI extends javax.swing.JFrame {
     private int lastTemp;
     private TrackModel newTrack;
-    private TrackSimulator theSimulation;
+    private TrackSimulator trackSimulator;
+    private ArrayList<TrackGraph> tempGraphList;
     /**
      * Creates new form TrackModelUI
-     */
-    public TrackModelUI(){
+     * 
+     * 
+     * 
+    public mboUI( Mbo mbo) {
+        this.mbo=mbo;
+        initComponents();
         
-        theSimulation = TrackSimulator.getInstance();
-        newTrack = theSimulation.getTrack();
+    }
+     * 
+     * 
+     */
+    
+//    public TrackModelUI( TrackSimulator ts) {
+//        this.trackSimulator=ts;
+//        newTrack = TrackSimulator.getTrack();
+//        initComponents();
+//        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+//        
+//    }
+    
+    
+    public TrackModelUI(){
+        trackSimulator = TrackSimulator.getInstance();
+        newTrack = trackSimulator.getTrack();
         initComponents();
         
 //        Timer timer = new Timer();
@@ -124,6 +145,7 @@ public class TrackModelUI extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        ArrayList<TrackGraph> tempGraphList;
         Line = new javax.swing.JComboBox();
         jSeparator2 = new javax.swing.JSeparator();
         jTextField2 = new javax.swing.JTextField();
@@ -167,7 +189,7 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jLabel3.setText("TrackModelUI");
 
-        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/commons/Track_Layout.png"))); // NOI18N
+        TrainMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trackmodel/Track_Layout.png"))); // NOI18N
         TrainMap.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
         jScrollPane1.setViewportView(TrainMap);
 
@@ -961,9 +983,13 @@ public class TrackModelUI extends javax.swing.JFrame {
         int returnVal = chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
-        NotificationField.setText(filename);
-        String warning = TrackSimulator.setNewTrack(filename);
-        NotificationField.setText(warning);
+        jTextArea2.setText(filename);
+        String warning = trackSimulator.setNewTrack(filename);
+        jTextArea2.setText(warning);
+        if(newTrack!=null){
+            Line.addItem(newTrack.getRedLine());
+            Line.addItem(newTrack.getGreenLine());
+        }
         
         
     }//GEN-LAST:event_OpenActionPerformed

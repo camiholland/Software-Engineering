@@ -29,6 +29,7 @@ public class Section {
     */
    public Section(String name){
        this.Section_Name = name;
+       this.Included_Blocks = new ArrayList<>();
    }
    
    /**
@@ -36,11 +37,15 @@ public class Section {
     * @param newBlock Block that you wish to add to the section.
     * @return true if successfully added, false if section already contains the block.
     */
-   public boolean addBlockToSection(Block newBlock){
-       if(!Included_Blocks.contains(newBlock)){
-           if(Included_Blocks.isEmpty()){
-               this.Section_Name = newBlock.getSection();
-           }
+   public void addBlockToSection(Block newBlock){
+       boolean goAhead = true;
+       
+       if(!Included_Blocks.isEmpty()){
+            if(Included_Blocks.contains(newBlock)){
+                goAhead = false;
+            }
+       }
+       if(goAhead){
            Included_Blocks.add(newBlock);
            if(Low_Block!=null){
                 if(newBlock.getBlockNum()<=Low_Block.getBlockNum()){
@@ -60,9 +65,6 @@ public class Section {
                High_Block = newBlock;
                High_BlockNum_ArrowDirection = High_Block.getArrowDirection();
            }
-           return true;
-       }else{
-           return false;
        }
    }
    

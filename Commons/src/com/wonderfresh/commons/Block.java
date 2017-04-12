@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //import static org.apache.commons.lang3.StringUtils.split;
-import java.lang.Math;
+import java.util.Iterator;
 
 /**
  *
@@ -17,40 +17,23 @@ import java.lang.Math;
  */
 public class Block {
     private ArrayList<Edge> neighborhood;
-    private String line;
-    private String Section;
-    private int BlockNum;
-    private double BlockLength;
-    private double BlockGrade;
-    private int SpeedLimit;
-    private int SwitchBlock;
-    private boolean StaticBlock;
-    private String ArrowDirection;
-    private boolean Underground;
-    private boolean Crossing;
+    final private String line;
+    final private String Section;
+    final private int BlockNum;
+    final private double BlockLength;
+    final private double BlockGrade;
+    final private int SpeedLimit;
+    final private int SwitchBlock;
+    final private boolean SwitchToYard;
+    final private boolean SwitchFromYard;
+    final private String ArrowDirection;
+    final private boolean Underground;
+    final private boolean Crossing;
     private boolean CrossingOpenToCars;
     private boolean Station_status;
-    private String Station;
+    final private String Station;
     private int PeopleAtStation;
     private boolean Occupied;
-    
-    public Block(){
-        this.line = "Name of Line";
-        this.Section = "Letter of Section";
-        this.BlockNum = 0;
-        this.BlockLength = 0.0;
-        this.BlockGrade = 0.0;
-        this.SpeedLimit = 0;
-        this.SwitchBlock = 0;
-        this.ArrowDirection = "No Current Arrow Direction";
-        this.neighborhood = new ArrayList<>();
-        this.Station_status = false;
-        this.Station = "Not A Station";
-        this.Crossing = false;
-        this.Underground = false;
-        this.PeopleAtStation = 0;
-        this.Occupied = false;
-    }
    
    /**
      *
@@ -74,11 +57,7 @@ public class Block {
         this.SpeedLimit = (int)speed;
        
         // Adding the components of the infrastructure
-        if(infra.contains("UNDERGROUND")){
-            this.Underground = true;
-        }else{
-            this.Underground = false;
-        }
+        this.Underground = infra.contains("UNDERGROUND");
         
         if(!switch_block.equals("")){
             // Regular Expression of any number
@@ -106,17 +85,11 @@ public class Block {
         }
         
         // If the infrastructure category in the Excel file has SWITCH in it, this means it is the static switch.
-        if(infra.contains("SWITCH")){
-            this.StaticBlock = true;
-        }else{
-            this.StaticBlock = false;
-        }
+        this.SwitchToYard = infra.contains("SWITCH") && infra.contains("TO") && infra.contains("YARD");
         
-        if(infra.contains("RAILWAY CROSSING")){
-            this.Crossing = true;
-        }else{
-            this.Crossing = false;
-        }
+        this.SwitchFromYard = infra.contains("SWITCH") && infra.contains("FROM") && infra.contains("YARD");
+        
+        this.Crossing = infra.contains("RAILWAY CROSSING");
         
         if(infra.contains("STATION")){
             
@@ -153,7 +126,7 @@ public class Block {
             }
         
             this.Station = station;
-            this.PeopleAtStation = (int)Math.random()*301;
+            this.PeopleAtStation = (int) (Math.random() * 301);
             
         }else {
             this.Station = "Not A Station";
@@ -220,11 +193,19 @@ public class Block {
     }
     
     /**
-     * Saves a boolean value, true if block is a static switch, false otherwise.
+     * Saves a boolean value, true if block is a switch to the yard, false otherwise.
      * @return true for switch, false otherwise
      */
-    public boolean isStaticBlock(){
-        return this.StaticBlock;
+    public boolean isSwitchToYard(){
+        return this.SwitchToYard;
+    }
+    
+    /**
+     * Saves a boolean value, true if block is a switch from the yard, false otherwise.
+     * @return true for switch, false otherwise
+     */
+    public boolean isSwitchFromYard(){
+        return this.SwitchFromYard;
     }
     
     /**
@@ -315,5 +296,76 @@ public class Block {
     
     public boolean isStation(){
         return this.Station_status;
+    }
+    
+    // Public Block stuff//////////////
+    
+    public boolean hasBeacon(){
+        return false;
+    }
+    
+    public String getBeaconSignal(){
+        return "this is a beacon signal";
+    }
+    
+    /**
+     * The train model can use this function to move to the next block and see
+     * its attributes. The implementer of this method is responsible for holding 
+     * a block that holds the previous block that the train was on. This will be passed
+     * into this method every time it is called. Previous Block should be instantiated with null.
+     * @param prevBlock the block that preceded this current block
+     * @return The next Public Block on the line.
+     */
+    public Block getNextBlock(Block prevBlock){
+        // First if the block is the first block, if prevBlock is null then move to the next block.
+        // If current block is switch, next block in switch.
+        // If current block isn't switch or first block, take the difference in block num for direction and find the next block
+        
+        Block newBlock;
+        Block tempBlock = null;
+        Edge tempEdge;
+        
+        if(prevBlock==null){
+            ArrayList<Edge> neighbors = this.getNeighbors();
+            Iterator<Edge> neighborIterator = neighbors.iterator();
+            if(neighbors.isEmpty()){
+                System.out.println("The array list is empty.");
+            }
+            if(neighborIterator.hasNext()){
+                tempEdge = neighborIterator.next();
+                tempBlock = tempEdge.getEndingBlock();
+            }
+            newBlock = tempBlock;
+            return newBlock;
+            
+        }else{
+                    
+            ArrayList<Edge> neighbors = this.getNeighbors();
+            Iterator<Edge> neighborIterator = neighbors.iterator();
+            while(neighborIterator.hasNext()){
+                tempEdge = neighborIterator.next();
+                if(tempEdge.getStatus()){
+                    tempBlock = tempEdge.getEndingBlock();
+                    if((tempBlock.getBlockNum()-prevBlock.getBlockNum())!=0){
+                        break;
+                    }
+                }
+            }
+            newBlock = tempBlock;
+            
+            return newBlock;
+            
+        }
+    }
+    
+    public int getNumPeopleAtStation(){
+        return PeopleAtStation;
+    }
+    
+    public boolean takePeopleAtStation(int NumPeopleToTake){
+        if(isStation()){
+            
+        }
+        return true;
     }
 }
