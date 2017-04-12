@@ -7,7 +7,7 @@
 package com.wonderfresh.interfaces;
 import com.wonderfresh.commons.TrackModel;
 import com.wonderfresh.commons.TrackSimulator;
-import com.wonderfresh.commons.PublicBlock;
+import com.wonderfresh.commons.Block;
 
 /**
  *
@@ -38,7 +38,7 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @param line referring to the line which the train wants to go on.
          * @return The first block of the given line the user chose.
          */
-    public PublicBlock initBlock(String line){
+    public Block initBlock(String line){
         return TrackSimulator.initBlock(line);
     }
     
