@@ -46,6 +46,10 @@ public class TrackModelUI extends javax.swing.JFrame {
         trackSimulator = TrackSimulator.getInstance();
         newTrack = trackSimulator.getTrack();
         initComponents();
+        if(newTrack!=null){
+            Line.addItem(newTrack.getRedLine());
+            Line.addItem(newTrack.getGreenLine());
+        }
         
 //        Timer timer = new Timer();
 //        TimerTask tasknew;
@@ -69,6 +73,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -164,8 +169,8 @@ public class TrackModelUI extends javax.swing.JFrame {
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        Section = new javax.swing.JComboBox();
+        Block_ComboBox = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -680,14 +685,19 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jButton1.setText("Update");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Section" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        Section.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Section" }));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedItem}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, Line, eLProperty, Section);
+        bindingGroup.addBinding(jComboBoxBinding);
+
+        Section.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                SectionActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Block" }));
+        Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Block" }));
 
         jLabel8.setText("Block Length: ");
 
@@ -764,9 +774,9 @@ public class TrackModelUI extends javax.swing.JFrame {
                                         .addComponent(jLabel9)
                                         .addComponent(jLabel13))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Section, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(Block_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(10, 10, 10)
                         .addComponent(jCheckBox3)
                         .addGap(18, 18, 18)
@@ -779,8 +789,8 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Line, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Section, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Block_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -975,6 +985,8 @@ public class TrackModelUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1032,9 +1044,9 @@ public class TrackModelUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void SectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SectionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_SectionActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         // TODO add your handling code here:
@@ -1050,6 +1062,7 @@ public class TrackModelUI extends javax.swing.JFrame {
 
     private void LineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineActionPerformed
         // TODO add your handling code here:
+        //ArrayList<Section> sections = Line.getSelectedItem().getSection();
     }//GEN-LAST:event_LineActionPerformed
 
     /**
@@ -1094,6 +1107,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextField Auto_Heater_Text_Field;
     private javax.swing.JLabel Auto_Temp_Label;
     private javax.swing.JTextPane Auto_Temp_Text_Field;
+    private javax.swing.JComboBox Block_ComboBox;
     private javax.swing.JLabel BrokenRailLabel;
     private javax.swing.JTextField ChangeArrow;
     private javax.swing.JTextField ChangeBlockLen;
@@ -1132,6 +1146,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel PowerFailureLabel;
     private javax.swing.JTextField ReconfigureEditor;
     private javax.swing.JLabel ReconfigureTrackLabel;
+    private javax.swing.JComboBox Section;
     private javax.swing.JButton SubmitChangeButton;
     private javax.swing.JButton SubmitInfoToTrackButton;
     private javax.swing.JButton SubmitInfoToTrainButton;
@@ -1152,8 +1167,6 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1197,5 +1210,6 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 } 
