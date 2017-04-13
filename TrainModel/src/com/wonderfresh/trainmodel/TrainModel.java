@@ -132,8 +132,9 @@ public class TrainModel {
         announcement = null;
         
         gui.setSpeedLimit(Integer.toString(speedLimit));
-        //set max passenger capacity, num crew on board, num pass on board
-        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass));
+        //set max passenger capacity, num crew on board, num pass on board, train ID
+        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(ID));
+        gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
     }
     
