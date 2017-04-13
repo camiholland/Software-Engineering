@@ -26,6 +26,7 @@ public class TrainModel {
     TrainControllerInterface testing;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
+    TrackSimulator trackSim;
     PublicBlock block;
     PublicBlock nextBlock;
     
@@ -85,7 +86,8 @@ public class TrainModel {
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
-        /*block = TrackSimulator.initBlock("Red");
+        /*trackSim = TrackSimulator.getInstance();
+        block = trackSim.initBlock("Red");
         System.out.println(block.getLabel());
         nextBlock = block.getNextBlock();
         System.out.println(nextBlock.getLabel());*/
