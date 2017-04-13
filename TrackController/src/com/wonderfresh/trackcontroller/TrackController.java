@@ -10,13 +10,24 @@ package com.wonderfresh.trackcontroller;
  * @author obkeel
  */
 public class TrackController {
-
+    PLCRunner1 plc1;
     /**
      * @param args the command line arguments
      */
+    public TrackController(){
+        plc1 = new PLCRunner1();
+    }
+    
+    public void start(){
+        plc1.start();
+    }
+    
+    public void stop(){
+        plc1.interrupt();
+    }
+    
     public static void main(String[] args) {
         System.out.println("Start");
-        new TrackControllerUI().setVisible(true);
     }
     
 }
