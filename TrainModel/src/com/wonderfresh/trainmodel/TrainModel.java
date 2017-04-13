@@ -5,7 +5,7 @@
  */
 package com.wonderfresh.trainmodel;
 
-import com.wonderfresh.commons.PublicBlock;
+import com.wonderfresh.commons.Block;
 import com.wonderfresh.commons.TrackSimulator;
 import static java.lang.Math.abs;
 import static java.lang.Math.ceil;
@@ -26,8 +26,8 @@ public class TrainModel {
     TrainControllerInterface testing;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
-    PublicBlock block;
-    PublicBlock nextBlock;
+    Block block;
+    Block nextBlock;
     
     int ID;
     

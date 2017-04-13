@@ -6,7 +6,6 @@ package com.wonderfresh.mbo;
 
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.commons.Block;
-import com.wonderfresh.commons.PublicBlock;
 import com.wonderfresh.commons.Section;
 import com.wonderfresh.commons.TrackGraph;
 import com.wonderfresh.commons.TrackModel;
@@ -18,8 +17,6 @@ import com.wonderfresh.interfaces.TrackModelInterface;
 
 
 public class Mbo extends Thread{
-    
-    
     int ready=0;
     int drivers=0;
     int redPassengers=0,greenPassengers=0;
