@@ -84,11 +84,9 @@ public class TrainModelUI extends javax.swing.JFrame {
         emergencyPanel = new javax.swing.JPanel();
         eBrakeButton = new javax.swing.JButton();
         routePanel = new javax.swing.JLayeredPane();
-        redLineLabel = new javax.swing.JLabel();
         numPassengersLabel = new javax.swing.JLabel();
         numCrewLabel = new javax.swing.JLabel();
         numPassengersDisemLabel = new javax.swing.JLabel();
-        routeImage = new javax.swing.JLabel();
         maxPassengerCapacityLabel = new javax.swing.JLabel();
         tempLabel = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -101,7 +99,34 @@ public class TrainModelUI extends javax.swing.JFrame {
         numDisembarkingBox = new javax.swing.JTextArea();
         jScrollPane9 = new javax.swing.JScrollPane();
         maxPassCapacityBox = new javax.swing.JTextArea();
-        yellow1 = new javax.swing.JLabel();
+        redLinePanel = new javax.swing.JPanel();
+        redLineRouteImage = new javax.swing.JLabel();
+        redLineLabel = new javax.swing.JLabel();
+        greenLinePanel = new javax.swing.JPanel();
+        greenLineRouteImage = new javax.swing.JLabel();
+        redLineLightPanel = new javax.swing.JPanel();
+        yellowSwissvale = new javax.swing.JLabel();
+        yellowFirst = new javax.swing.JLabel();
+        yellowSouthHills = new javax.swing.JLabel();
+        yellowHerron = new javax.swing.JLabel();
+        yellowPennStation = new javax.swing.JLabel();
+        yellowSteelPlaza = new javax.swing.JLabel();
+        yellowStationSquare = new javax.swing.JLabel();
+        yellowShadyside = new javax.swing.JLabel();
+        greenLineLightPanel = new javax.swing.JPanel();
+        yellowEdgebrook = new javax.swing.JLabel();
+        yellowDormont = new javax.swing.JLabel();
+        yellowMtLebanon = new javax.swing.JLabel();
+        yellowPioneer = new javax.swing.JLabel();
+        yellowWhited = new javax.swing.JLabel();
+        yellowCastleShannon = new javax.swing.JLabel();
+        yellowPoplar = new javax.swing.JLabel();
+        yellowGlenbury = new javax.swing.JLabel();
+        yellowInglewood = new javax.swing.JLabel();
+        yellowOverbrook = new javax.swing.JLabel();
+        yellowStation = new javax.swing.JLabel();
+        yellowCentral = new javax.swing.JLabel();
+        yellowSouthBank = new javax.swing.JLabel();
         failurePanel = new javax.swing.JPanel();
         failACButton = new javax.swing.JButton();
         failHeatButton = new javax.swing.JButton();
@@ -478,19 +503,11 @@ public class TrainModelUI extends javax.swing.JFrame {
         routePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         routePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        redLineLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        redLineLabel.setForeground(new java.awt.Color(255, 0, 0));
-        redLineLabel.setText("Red Line");
-
         numPassengersLabel.setText("Passengers on Board: ");
 
         numCrewLabel.setText("Crew on Board: ");
 
         numPassengersDisemLabel.setText("Passengers Disembarking: ");
-
-        routeImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trainmodel/routeImage/ECE1186redLine.png"))); // NOI18N
-        routeImage.setMaximumSize(new java.awt.Dimension(665, 137));
-        routeImage.setMinimumSize(new java.awt.Dimension(665, 137));
 
         maxPassengerCapacityLabel.setText("Max Passenger Capacity: ");
 
@@ -536,11 +553,269 @@ public class TrainModelUI extends javax.swing.JFrame {
         maxPassCapacityBox.setRows(5);
         jScrollPane9.setViewportView(maxPassCapacityBox);
 
-        yellow1.setBackground(new java.awt.Color(255, 255, 0));
-        yellow1.setForeground(new java.awt.Color(255, 255, 0));
-        yellow1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trainmodel/routeImage/Yellow_dot.svg.png"))); // NOI18N
-        yellow1.setText("jLabel1");
-        yellow1.setOpaque(true);
+        redLinePanel.setMaximumSize(new java.awt.Dimension(665, 137));
+        redLinePanel.setMinimumSize(new java.awt.Dimension(665, 137));
+        redLinePanel.setOpaque(false);
+
+        redLineRouteImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trainmodel/routeImage/ECE1186redLine.png"))); // NOI18N
+        redLineRouteImage.setMaximumSize(new java.awt.Dimension(665, 137));
+        redLineRouteImage.setMinimumSize(new java.awt.Dimension(665, 137));
+
+        redLineLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        redLineLabel.setForeground(new java.awt.Color(255, 0, 0));
+        redLineLabel.setText("Red Line");
+
+        javax.swing.GroupLayout redLinePanelLayout = new javax.swing.GroupLayout(redLinePanel);
+        redLinePanel.setLayout(redLinePanelLayout);
+        redLinePanelLayout.setHorizontalGroup(
+            redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(redLinePanelLayout.createSequentialGroup()
+                .addComponent(redLineRouteImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLinePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(redLineLabel)
+                    .addContainerGap(587, Short.MAX_VALUE)))
+        );
+        redLinePanelLayout.setVerticalGroup(
+            redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, redLinePanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(redLineRouteImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLinePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(redLineLabel)
+                    .addContainerGap(134, Short.MAX_VALUE)))
+        );
+
+        greenLinePanel.setMaximumSize(new java.awt.Dimension(665, 137));
+        greenLinePanel.setMinimumSize(new java.awt.Dimension(665, 137));
+        greenLinePanel.setOpaque(false);
+
+        greenLineRouteImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/wonderfresh/trainmodel/routeImage/ECE1186greenLine.png"))); // NOI18N
+
+        javax.swing.GroupLayout greenLinePanelLayout = new javax.swing.GroupLayout(greenLinePanel);
+        greenLinePanel.setLayout(greenLinePanelLayout);
+        greenLinePanelLayout.setHorizontalGroup(
+            greenLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(greenLinePanelLayout.createSequentialGroup()
+                .addComponent(greenLineRouteImage)
+                .addGap(0, 152, Short.MAX_VALUE))
+        );
+        greenLinePanelLayout.setVerticalGroup(
+            greenLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, greenLinePanelLayout.createSequentialGroup()
+                .addGap(0, 52, Short.MAX_VALUE)
+                .addComponent(greenLineRouteImage))
+        );
+
+        redLineLightPanel.setOpaque(false);
+
+        yellowSwissvale.setBackground(new java.awt.Color(255, 255, 0));
+        yellowSwissvale.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowFirst.setBackground(new java.awt.Color(255, 255, 0));
+        yellowFirst.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowSouthHills.setBackground(new java.awt.Color(255, 255, 0));
+        yellowSouthHills.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowHerron.setBackground(new java.awt.Color(255, 255, 0));
+        yellowHerron.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowPennStation.setBackground(new java.awt.Color(255, 255, 0));
+        yellowPennStation.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowSteelPlaza.setBackground(new java.awt.Color(255, 255, 0));
+        yellowSteelPlaza.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowStationSquare.setBackground(new java.awt.Color(255, 255, 0));
+        yellowStationSquare.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowShadyside.setBackground(new java.awt.Color(255, 255, 0));
+        yellowShadyside.setForeground(new java.awt.Color(255, 255, 0));
+
+        javax.swing.GroupLayout redLineLightPanelLayout = new javax.swing.GroupLayout(redLineLightPanel);
+        redLineLightPanel.setLayout(redLineLightPanelLayout);
+        redLineLightPanelLayout.setHorizontalGroup(
+            redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addComponent(yellowSwissvale, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addComponent(yellowFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(yellowSouthHills, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(94, 94, 94)
+                    .addComponent(yellowHerron, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(398, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(211, 211, 211)
+                    .addComponent(yellowPennStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(281, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(270, 270, 270)
+                    .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(222, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(386, 386, 386)
+                    .addComponent(yellowStationSquare, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(106, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(36, 36, 36)
+                    .addComponent(yellowShadyside, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(456, Short.MAX_VALUE)))
+        );
+        redLineLightPanelLayout.setVerticalGroup(
+            redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, redLineLightPanelLayout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(yellowFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowSouthHills, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowSwissvale, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(yellowHerron, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(yellowPennStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(yellowStationSquare, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
+            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(redLineLightPanelLayout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addComponent(yellowShadyside, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(38, Short.MAX_VALUE)))
+        );
+
+        greenLineLightPanel.setOpaque(false);
+
+        yellowEdgebrook.setBackground(new java.awt.Color(255, 255, 0));
+        yellowEdgebrook.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowDormont.setBackground(new java.awt.Color(255, 255, 0));
+        yellowDormont.setForeground(new java.awt.Color(255, 255, 0));
+        yellowDormont.setText("jLabel7");
+
+        yellowMtLebanon.setBackground(new java.awt.Color(255, 255, 0));
+        yellowMtLebanon.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowPioneer.setBackground(new java.awt.Color(255, 255, 0));
+        yellowPioneer.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowWhited.setBackground(new java.awt.Color(255, 255, 0));
+        yellowWhited.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowCastleShannon.setBackground(new java.awt.Color(255, 255, 0));
+        yellowCastleShannon.setForeground(new java.awt.Color(255, 255, 0));
+        yellowCastleShannon.setMaximumSize(new java.awt.Dimension(1038, 1000));
+        yellowCastleShannon.setMinimumSize(new java.awt.Dimension(1038, 1000));
+
+        yellowPoplar.setBackground(new java.awt.Color(255, 255, 0));
+        yellowPoplar.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowGlenbury.setBackground(new java.awt.Color(255, 255, 0));
+        yellowGlenbury.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowInglewood.setBackground(new java.awt.Color(255, 255, 0));
+        yellowInglewood.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowOverbrook.setBackground(new java.awt.Color(255, 255, 0));
+        yellowOverbrook.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowStation.setBackground(new java.awt.Color(255, 255, 0));
+        yellowStation.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowCentral.setBackground(new java.awt.Color(255, 255, 0));
+        yellowCentral.setForeground(new java.awt.Color(255, 255, 0));
+
+        yellowSouthBank.setBackground(new java.awt.Color(255, 255, 0));
+        yellowSouthBank.setForeground(new java.awt.Color(255, 255, 0));
+
+        javax.swing.GroupLayout greenLineLightPanelLayout = new javax.swing.GroupLayout(greenLineLightPanel);
+        greenLineLightPanel.setLayout(greenLineLightPanelLayout);
+        greenLineLightPanelLayout.setHorizontalGroup(
+            greenLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, greenLineLightPanelLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(yellowPioneer, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(yellowPoplar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
+            .addGroup(greenLineLightPanelLayout.createSequentialGroup()
+                .addGroup(greenLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(greenLineLightPanelLayout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(yellowSouthBank, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(greenLineLightPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(yellowEdgebrook, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(yellowStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(yellowWhited, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(yellowCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(yellowInglewood, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(yellowOverbrook, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(yellowGlenbury, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(yellowDormont, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(yellowMtLebanon, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(yellowCastleShannon, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        greenLineLightPanelLayout.setVerticalGroup(
+            greenLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, greenLineLightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(yellowSouthBank, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(greenLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(yellowCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowWhited, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowEdgebrook, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowInglewood, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowOverbrook, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowGlenbury, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowDormont, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowMtLebanon, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowCastleShannon, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(greenLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(yellowPoplar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yellowPioneer, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
+        );
 
         javax.swing.GroupLayout routePanelLayout = new javax.swing.GroupLayout(routePanel);
         routePanel.setLayout(routePanelLayout);
@@ -550,75 +825,97 @@ public class TrainModelUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(routePanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(routeImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, routePanelLayout.createSequentialGroup()
+                                .addComponent(numPassengersLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(routePanelLayout.createSequentialGroup()
+                                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(routePanelLayout.createSequentialGroup()
+                                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(routePanelLayout.createSequentialGroup()
+                                                .addComponent(numCrewLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(routePanelLayout.createSequentialGroup()
+                                                .addComponent(tempLabel)
+                                                .addGap(42, 42, 42)
+                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(27, 27, 27)
+                                        .addComponent(numPassengersDisemLabel))
+                                    .addComponent(maxPassengerCapacityLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(routePanelLayout.createSequentialGroup()
-                        .addComponent(redLineLabel)
-                        .addGap(58, 58, 58)
-                        .addComponent(yellow1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, routePanelLayout.createSequentialGroup()
-                            .addComponent(numPassengersLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(maxPassengerCapacityLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, routePanelLayout.createSequentialGroup()
-                            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, routePanelLayout.createSequentialGroup()
-                                    .addComponent(tempLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, routePanelLayout.createSequentialGroup()
-                                    .addComponent(numCrewLabel)
-                                    .addGap(33, 33, 33)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(27, 27, 27)
-                            .addComponent(numPassengersDisemLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(routePanelLayout.createSequentialGroup()
+                                .addComponent(redLinePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(greenLineLightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
+            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(routePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(greenLinePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(routePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(redLineLightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(27, Short.MAX_VALUE)))
         );
         routePanelLayout.setVerticalGroup(
             routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(routePanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, routePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(redLineLabel)
-                    .addComponent(yellow1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(routePanelLayout.createSequentialGroup()
-                        .addComponent(routeImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tempLabel))
+                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(routePanelLayout.createSequentialGroup()
+                                .addComponent(redLinePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tempLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, routePanelLayout.createSequentialGroup()
+                                .addGap(0, 56, Short.MAX_VALUE)
+                                .addComponent(greenLineLightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(numPassengersDisemLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(numCrewLabel))
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(routePanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(maxPassengerCapacityLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, routePanelLayout.createSequentialGroup()
-                        .addComponent(numCrewLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numPassengersLabel))
-                    .addGroup(routePanelLayout.createSequentialGroup()
-                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(numPassengersDisemLabel)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(maxPassengerCapacityLabel)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(numPassengersLabel)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(routePanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(greenLinePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(95, Short.MAX_VALUE)))
+            .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(routePanelLayout.createSequentialGroup()
+                    .addGap(63, 63, 63)
+                    .addComponent(redLineLightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(107, Short.MAX_VALUE)))
         );
-        routePanel.setLayer(redLineLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(numPassengersLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(numCrewLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(numPassengersDisemLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        routePanel.setLayer(routeImage, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(maxPassengerCapacityLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(tempLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -626,7 +923,10 @@ public class TrainModelUI extends javax.swing.JFrame {
         routePanel.setLayer(jScrollPane7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(jScrollPane8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         routePanel.setLayer(jScrollPane9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        routePanel.setLayer(yellow1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        routePanel.setLayer(redLinePanel, javax.swing.JLayeredPane.PALETTE_LAYER);
+        routePanel.setLayer(greenLinePanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        routePanel.setLayer(redLineLightPanel, javax.swing.JLayeredPane.MODAL_LAYER);
+        routePanel.setLayer(greenLineLightPanel, javax.swing.JLayeredPane.POPUP_LAYER);
 
         failACButton.setText("Fail A/C");
         failACButton.addActionListener(new java.awt.event.ActionListener() {
@@ -695,7 +995,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                 .addComponent(failRDoorsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(failBrakesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -708,7 +1008,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                     .addComponent(attributePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(routePanel, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(routePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(speedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -719,20 +1019,22 @@ public class TrainModelUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(failurePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(speedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(emergencyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(routePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(notificationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                    .addComponent(trainIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(attributePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(failurePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(trainIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(attributePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(speedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(emergencyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(routePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(notificationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -799,6 +1101,13 @@ public class TrainModelUI extends javax.swing.JFrame {
         else{
             eBrakeOnLabel.setForeground(new java.awt.Color(120, 120, 120));
             eBrakeOffLabel.setForeground(Color.black);
+        }
+    }
+    public void setLine(boolean line){
+        //if line == true, green line; else, red line
+        if(line){
+            //routePanel.setLayer(greenLineLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+            routePanel.setLayer(redLineLabel, -1);
         }
     }
     public void on(int attribute){
@@ -953,6 +1262,9 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JButton failLightsButton;
     private javax.swing.JButton failRDoorsButton;
     private javax.swing.JPanel failurePanel;
+    private javax.swing.JPanel greenLineLightPanel;
+    private javax.swing.JPanel greenLinePanel;
+    private javax.swing.JLabel greenLineRouteImage;
     private javax.swing.JLabel heatLabel;
     private javax.swing.JLabel heatOffLabel;
     private javax.swing.JLabel heatOnLabel;
@@ -992,8 +1304,10 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel powerCmdLabel;
     private javax.swing.JLabel powerFailureLabel;
     private javax.swing.JLabel redLineLabel;
+    private javax.swing.JPanel redLineLightPanel;
+    private javax.swing.JPanel redLinePanel;
+    private javax.swing.JLabel redLineRouteImage;
     private javax.swing.JLabel rightDoorsOpenLabel;
-    private javax.swing.JLabel routeImage;
     private javax.swing.JLayeredPane routePanel;
     private javax.swing.JLabel serviceBrakeLabel;
     private javax.swing.JLabel serviceBrakesOffLabel;
@@ -1008,6 +1322,26 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel tempLabel;
     private javax.swing.JLabel trainIDLabel;
     private javax.swing.JPanel trainIDPanel;
-    private javax.swing.JLabel yellow1;
+    private javax.swing.JLabel yellowCastleShannon;
+    private javax.swing.JLabel yellowCentral;
+    private javax.swing.JLabel yellowDormont;
+    private javax.swing.JLabel yellowEdgebrook;
+    private javax.swing.JLabel yellowFirst;
+    private javax.swing.JLabel yellowGlenbury;
+    private javax.swing.JLabel yellowHerron;
+    private javax.swing.JLabel yellowInglewood;
+    private javax.swing.JLabel yellowMtLebanon;
+    private javax.swing.JLabel yellowOverbrook;
+    private javax.swing.JLabel yellowPennStation;
+    private javax.swing.JLabel yellowPioneer;
+    private javax.swing.JLabel yellowPoplar;
+    private javax.swing.JLabel yellowShadyside;
+    private javax.swing.JLabel yellowSouthBank;
+    private javax.swing.JLabel yellowSouthHills;
+    private javax.swing.JLabel yellowStation;
+    private javax.swing.JLabel yellowStationSquare;
+    private javax.swing.JLabel yellowSteelPlaza;
+    private javax.swing.JLabel yellowSwissvale;
+    private javax.swing.JLabel yellowWhited;
     // End of variables declaration//GEN-END:variables
 }
