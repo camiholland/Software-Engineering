@@ -78,21 +78,22 @@ public class Mbo extends Thread{
 //get tracks
         
         TrackSimulator ts=TrackSimulator.getInstance();
-        System.out.println("GET temp "+ts.getTemp());
+        //System.out.println("GET temp "+ts.getTemp());
         TrackModel tm=ts.getTrack();
-        System.out.println("TrackModel: ");
+        //System.out.println("TrackModel: ");
         TrackGraph redLine=tm.getRedLine();
-        System.out.println("redline"+redLine.getBlock("Red",60));
+        //System.out.println("redline"+redLine.getBlock("Red",60));
         TrackGraph greenLine=tm.getGreenLine();
-        Section A=greenLine.getSection("B");
-        System.out.println("Section a "+A.getArrowDirection());
+        //System.out.println("Section a "+A.getArrowDirection());
+        
+        
+        //Upload red track - Set Order:  u,c,b,a,f,g,h,i,j,k,l,m,n,i,
+         
         
         
         
         
-        
-        
-        
+      
         
         
         

@@ -25,7 +25,7 @@ import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;
 import com.wonderfresh.interfaces.TrainModelAPIImpl;
 import com.wonderfresh.interfaces.TrackModelInterface;
-import com.wonderfresh.trackcontroller.TrackController;
+//import com.wonderfresh.trackcontroller.TrackController;
 
 
 public class SystemWrapper {
@@ -35,7 +35,7 @@ public class SystemWrapper {
     public static Train trainModels;
     public static Mbo mbo;
     public static TrackSimulator trackSimulator;
-    public static TrackController trackController;
+    //public static TrackController trackController;
     
     
     /**
@@ -52,7 +52,7 @@ public class SystemWrapper {
         trainModels = new Train();
         mbo = new Mbo();
         mbo.start();
-        trackController = new TrackController();
+       // trackController = new TrackController();
         //trackSimulator.start();
         
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
@@ -61,7 +61,7 @@ public class SystemWrapper {
         
         trainModels.addTrain(new TrainModel(1));
         trainControllers.addTrainController(new TrainController(1, 3));
-        trackController.start();
+       // trackController.start();
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
