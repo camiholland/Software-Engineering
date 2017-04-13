@@ -61,7 +61,7 @@ public class SystemWrapper {
         
         trainModels.addTrain(new TrainModel(1));
         trainControllers.addTrainController(new TrainController(1, 3));
-        
+        trackController.start();
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
