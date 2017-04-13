@@ -26,14 +26,11 @@ public class TrainModel {
     TrainControllerInterface testing;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
-<<<<<<< HEAD
+
     Block block;
     Block nextBlock;
-=======
     TrackSimulator trackSim;
-    PublicBlock block;
-    PublicBlock nextBlock;
->>>>>>> 4ab4de72b199836d84f073d1b055cede0edcda4f
+
     
     int ID;
     
@@ -61,8 +58,8 @@ public class TrainModel {
     //double error;
     double previousError;
     double grade;
-    double sps;
-    double speedLimit;
+    int sps;
+    int speedLimit;
     double powerCmd;
     //double previousPowerCmd;
     double distance;
@@ -91,11 +88,11 @@ public class TrainModel {
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
-        /*trackSim = TrackSimulator.getInstance();
-        block = trackSim.initBlock("Red");
-        System.out.println(block.getLabel());
-        nextBlock = block.getNextBlock();
-        System.out.println(nextBlock.getLabel());*/
+        //trackSim = TrackSimulator.getInstance();
+        block = TrackSimulator.initBlock("Red");
+        //System.out.println(block.getLabel());
+        nextBlock = block.getNextBlock(null);
+        //System.out.println(nextBlock.getLabel());
         
         testing = Interfaces.getTrainControllerInterface();
         
@@ -109,13 +106,13 @@ public class TrainModel {
         acc = 0;
         //error = 0;
         previousError = 0;
-        grade = 0; //block.getBlockGrade();
+        grade = block.getBlockGrade();
         sps = 0;
-        speedLimit = 0; //block.getSpeedLimit();
+        speedLimit = block.getSpeedLimit();
         powerCmd = 0;
         //previousPowerCmd = 0;
         distance = 0;
-        blockLengthTotal = 0; //block.getBlockLength();
+        blockLengthTotal = block.getBlockLength();
         
         acStatus = 0;
         heatStatus = 0;
@@ -134,20 +131,10 @@ public class TrainModel {
         authority = 0;
         announcement = null;
         
-        //launchUI();
-        //currentSecond = (int) ceil(System.nanoTime()/1000000000);
-        /*while(true){
-            if(System.nanoTime()/1000000000 - currentSecond >= 1){
-                if(currentTemp > targetTemp + 2 || currentTemp < targetTemp - 2){
-                    adjustTemp();
-                }
-
-                if(eBrake || serviceBrakesStatus == 1 || sps != speed){
-                    adjustSpeed();
-                }
-            }
-            currentSecond++;
-        }*/
+        gui.setSpeedLimit(Integer.toString(speedLimit));
+        //set max passenger capacity, num crew on board, num pass on board
+        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass));
+        testing.setSpeedLimit(speedLimit, ID);
     }
     
     /**
