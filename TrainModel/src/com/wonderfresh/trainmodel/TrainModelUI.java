@@ -33,7 +33,7 @@ public class TrainModelUI extends javax.swing.JFrame {
 
         trainIDPanel = new javax.swing.JPanel();
         trainIDLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        trainIDbox = new javax.swing.JTextArea();
         speedPanel = new javax.swing.JPanel();
         spsLabel = new javax.swing.JLabel();
         speedLimitLabel = new javax.swing.JLabel();
@@ -141,29 +141,31 @@ public class TrainModelUI extends javax.swing.JFrame {
 
         trainIDLabel.setText("Train ID");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        trainIDbox.setColumns(20);
+        trainIDbox.setRows(5);
 
         javax.swing.GroupLayout trainIDPanelLayout = new javax.swing.GroupLayout(trainIDPanel);
         trainIDPanel.setLayout(trainIDPanelLayout);
         trainIDPanelLayout.setHorizontalGroup(
             trainIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trainIDPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
                 .addGroup(trainIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trainIDLabel)
                     .addGroup(trainIDPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)
+                        .addComponent(trainIDLabel))
+                    .addGroup(trainIDPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(trainIDbox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
         trainIDPanelLayout.setVerticalGroup(
             trainIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(trainIDPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(trainIDLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(trainIDbox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         speedPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Speed", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP));
@@ -356,7 +358,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                         .addComponent(rightDoorsOpenLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(doorsClosedLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3))
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1093,10 +1095,11 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setPowerCmd(String powerCmd){
         powerCmdBox.setText(powerCmd);
     }
-    public void setInitials(String capacity, String numCrew, String numPass){
+    public void setInitials(String capacity, String numCrew, String numPass, String trainID){
         maxPassCapacityBox.setText(capacity);
         numCrewBox.setText(numCrew);
         numPassBox.setText(numPass);
+        trainIDbox.setText(trainID);
     }
     public void setNotification(String note){
         notificationsBox.append("\n" + note);
@@ -1276,7 +1279,6 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel heatLabel;
     private javax.swing.JLabel heatOffLabel;
     private javax.swing.JLabel heatOnLabel;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1330,6 +1332,7 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel tempLabel;
     private javax.swing.JLabel trainIDLabel;
     private javax.swing.JPanel trainIDPanel;
+    private javax.swing.JTextArea trainIDbox;
     private javax.swing.JLabel yellowCastleShannon;
     private javax.swing.JLabel yellowCentral;
     private javax.swing.JLabel yellowDormont;

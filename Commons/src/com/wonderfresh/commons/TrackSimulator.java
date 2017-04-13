@@ -160,7 +160,7 @@ public class TrackSimulator {
      * @param BlockNum2 should be a block at the same switch as the the first Block.
      * @return true if successful, false if not a switch that includes both blocks
      */
-    public boolean setSwitch(String line, int BlockNum1, int BlockNum2){
+    public static boolean setSwitch(String line, int BlockNum1, int BlockNum2){
         TrackGraph tempTrack;
         if(line.equals("Red")){
             tempTrack = MainTrack.getRedLine();

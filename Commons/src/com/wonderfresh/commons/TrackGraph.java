@@ -175,6 +175,12 @@ public class TrackGraph {
     public Section getSection(String requestedSection){
         return sections.get(requestedSection.hashCode());
     }
+    
+    public ArrayList<Section> getSections(){
+        String[] sectionNames = new String[sections.size()];
+        // Go through all sections and create string of their names for UI
+        return null;
+    }
       
     public Set<String> BlockKeys(){
         return this.blocks.keySet();
