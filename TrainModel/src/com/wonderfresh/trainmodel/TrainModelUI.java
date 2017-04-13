@@ -1081,6 +1081,9 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setTemp(String temp){
         tempBox.setText(temp);
     }
+    public void setSpeedLimit(String limit){
+        speedLimitBox.setText(limit);
+    }
     public void setSpeed(String speedString){
         speedBox.setText(speedString);
     }
@@ -1089,6 +1092,11 @@ public class TrainModelUI extends javax.swing.JFrame {
     }
     public void setPowerCmd(String powerCmd){
         powerCmdBox.setText(powerCmd);
+    }
+    public void setInitials(String capacity, String numCrew, String numPass){
+        maxPassCapacityBox.setText(capacity);
+        numCrewBox.setText(numCrew);
+        numPassBox.setText(numPass);
     }
     public void setNotification(String note){
         notificationsBox.append("\n" + note);
