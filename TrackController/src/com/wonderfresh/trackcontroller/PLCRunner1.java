@@ -33,9 +33,9 @@ public class PLCRunner1 extends Thread {
         TrackSimulator.setSwitch("Green", 77, 76);
         this.printNQM = 2;
         System.out.println("76 to 77");
-        TrackSimulator.setSwitch("Green", 28, 50);
+        TrackSimulator.setSwitch("Green", 28, 150);
         this.printDEFAZ = 2;
-        System.out.println("62 to 152");
+        System.out.println("28 to 150");
         TrackSimulator.setCrossing("Green", 19, false);
         this.printCrossing = 1;
         System.out.println("Crossing 19 off");
