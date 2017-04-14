@@ -34,6 +34,7 @@ public class Block {
     final private String Station;
     private int PeopleAtStation;
     private boolean Occupied;
+     public boolean closed;
    
    /**
      *
@@ -367,5 +368,11 @@ public class Block {
             
         }
         return true;
+    }
+   public boolean closeBlock(){
+        return this.closed=true;
+    }
+    public boolean openBlock(){
+        return this.closed=false;
     }
 }
