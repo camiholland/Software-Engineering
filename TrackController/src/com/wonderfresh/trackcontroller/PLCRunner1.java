@@ -120,5 +120,6 @@ public class PLCRunner1 extends Thread {
                 }
             }
         }
+        System.out.println("PLC1 ended");
     }
 }
