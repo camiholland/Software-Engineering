@@ -74,10 +74,13 @@ public class Mbo extends Thread{
                         running=0;
                     } 
             }
+        //verify correct inputs    
         System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
-/*********************************************************************************************************
- ***********************************UPLOADING TRACK*******************************************************
- *****************************************************************************************/ 
+
+/******************************************************************************************
+ **********************  UPLOADING TRACK FROM TRAACKMODEL  ********************************
+ ******************************************************************************************/ 
+
         TrackSimulator ts=TrackSimulator.getInstance();
         //System.out.println("GET temp "+ts.getTemp());
         TrackModel tm=ts.getTrack();
@@ -102,15 +105,7 @@ public class Mbo extends Thread{
         
         
         
-        
-        
-        
-   //model input
-        /*
-        drivers=gui.drivers;
-        redPassengers=gui.redPass;
-        greenPassengers=gui.greenPass;
-        */
+ 
     //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
         int redWait = 0;

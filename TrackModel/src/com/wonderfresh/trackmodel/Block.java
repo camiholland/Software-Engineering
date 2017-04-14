@@ -33,6 +33,7 @@ public class Block {
     private String Station;
     private int PeopleAtStation;
     private boolean Occupied;
+    public boolean closed;
     
     public Block(){
         this.line = "Name of Line";
@@ -316,4 +317,11 @@ public class Block {
     public boolean isStation(){
         return this.Station_status;
     }
+    public boolean closeBlock(){
+        return this.closed=true;
+    }
+    public boolean openBlock(){
+        return this.closed=false;
+    }
+    
 }
