@@ -5,8 +5,8 @@
  */
 package com.wonderfresh.trackcontroller;
 
-import com.wonderfresh.trackmodel.Block;
-import com.wonderfresh.trackmodel.TrackSimulator;
+import com.wonderfresh.commons.Block;
+import com.wonderfresh.commons.TrackSimulator;
 
 /**
  *
@@ -15,10 +15,10 @@ import com.wonderfresh.trackmodel.TrackSimulator;
 public class CTCDataAccess {
     public static Block getBlock(String line, int block){
         if(line.equals("Red")){
-            return TrackSimulator.getTrack().getRedLine().getBlock(line, block);
+            return TrackSimulator.getInstance().getTrack().getRedLine().getBlock(line, block);
         }
         else if(line.equals("Green")){
-            return TrackSimulator.getTrack().getGreenLine().getBlock(line, block);
+            return TrackSimulator.getInstance().getTrack().getGreenLine().getBlock(line, block);
         }
         return null;
     }
@@ -45,5 +45,10 @@ public class CTCDataAccess {
     
     public static boolean setBlockOpen(boolean open){
         return false;
+    }
+    
+    public static boolean setSwitch(String line, int block1, int block2){
+        TrackSimulator.setSwitch(line, block1, block2);
+        return true;
     }
 }

@@ -5,7 +5,7 @@
  */
 package com.wonderfresh.trackcontroller;
 
-import com.wonderfresh.trackmodel.TrackSimulator;
+import com.wonderfresh.commons.TrackSimulator;
 
 /**
  *
@@ -13,48 +13,88 @@ import com.wonderfresh.trackmodel.TrackSimulator;
  */
 public class PLCRunner1 extends Thread {
     
+    int printNQM;
+    int printYYJ;
+    int printDEFAZ;
+    
     public PLCRunner1(){
-        
+        printNQM = -1;
+        printYYJ = -1;
+        printDEFAZ = -1;
     }
     
     @Override
     public void run(){
+        TrackSimulator.setSwitch("Green", 62, 152);
+        printYYJ = 0;
+        System.out.println("62 to 152");
+        TrackSimulator.setSwitch("Green", 77, 76);
+        printNQM = 2;
+        System.out.println("76 to 77");
+        TrackSimulator.setSwitch("Green", 28, 50);
+        printDEFAZ = 2;
+        System.out.println("62 to 152");
         
         while(!Thread.interrupted()){
             if(TrackSimulator.isSectionOccupied("Green", "N")) {
                 TrackSimulator.setSwitch("Green", 85, 86);
                 TrackSimulator.setSwitch("Green", 77, 101);
-                System.out.println("N occupied");
+                if(printNQM != 0){
+                    printNQM = 0;
+                    System.out.println("85 to 86, 77 to 101");
+                }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "Q")) {
                 TrackSimulator.setSwitch("Green", 85, 100);
-                System.out.println("Q occupied");
+                if(printNQM != 1){
+                    printNQM = 1;
+                    System.out.println("85 to 100");
+                }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "M")) {
                 TrackSimulator.setSwitch("Green", 77, 76);
-                System.out.println("M occupied");
+                if(printNQM != 2){
+                    printNQM = 2;
+                    System.out.println("77 to 76");
+                }
             }
             if(TrackSimulator.isSectionOccupied("Green", "YY")) {
                 TrackSimulator.setSwitch("Green", 62, 152);
-                System.out.println("YY occupied");
+                if(printYYJ != 0){
+                    printYYJ = 0;
+                    System.out.println("62 to 152");
+                }
             }
-            else {
+            else if(TrackSimulator.isBlockOccupied("Green", 58) || TrackSimulator.isBlockOccupied("Green", 59) || 
+                    TrackSimulator.isBlockOccupied("Green", 60) || TrackSimulator.isBlockOccupied("Green", 61)){
                 TrackSimulator.setSwitch("Green", 62, 61);
-                System.out.println("J occupied");
+                if(printYYJ != 1){
+                    printYYJ = 1;
+                    System.out.println("61 to 62");
+                }
             }
             if(TrackSimulator.isSectionOccupied("Green","F") || TrackSimulator.isSectionOccupied("Green","D") || 
                     TrackSimulator.isSectionOccupied("Green","E")) {
                 TrackSimulator.setSwitch("Green", 28, 29);
                 TrackSimulator.setSwitch("Green", 12, 13);
-                System.out.println("F, D, E occupied");
+                if(printDEFAZ != 0){
+                    printDEFAZ = 0;
+                    System.out.println("28 to 29, 12 to 13");
+                }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "A")){
                 TrackSimulator.setSwitch("Green", 1, 13);
-                System.out.println("A occupied");
+                if(printDEFAZ != 1){
+                    printDEFAZ = 1;
+                    System.out.println("1 to 13");
+                }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "Z")){
-                TrackSimulator.setSwitch("Green", 62, 61);
-                System.out.println("Z occupied");
+                TrackSimulator.setSwitch("Green", 28, 150);
+                if(printDEFAZ != 2){
+                    printDEFAZ = 2;
+                    System.out.println("28 to 150");
+                }
             }
         }
     }
