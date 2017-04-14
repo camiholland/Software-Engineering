@@ -6,6 +6,7 @@
 package com.wonderfresh.trainmodel;
 
 import static java.lang.Math.ceil;
+import com.wonderfresh.commons.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 public class SpeedCalculator implements Runnable {
     int currentTime;
     TrainModel tm;
+    Time time;
     
     Thread thr;
     boolean started;
@@ -29,6 +31,7 @@ public class SpeedCalculator implements Runnable {
         tm = TM;
         thr = new Thread(this);
         started = false;
+        time = time.getInstance();
         //waiting = true;
     }
     
@@ -48,9 +51,9 @@ public class SpeedCalculator implements Runnable {
         //System.out.println("running SpeedCalc");
         while(true){
             //System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
-            currentTime = (int) ceil(System.nanoTime()/1000000000);
+            //currentTime = (int) ceil(System.nanoTime()/1000000000);
             while(acc != targetAcc){
-                if(System.nanoTime()/1000000000 >= currentTime+1){
+                //if(System.nanoTime()/1000000000 >= currentTime+1){
                     //System.out.println("speed > sps");
                     //System.out.println("SPS: " + sps + "  Speed: " + speed);
                     //v = v0 + at, where t = 1
@@ -64,11 +67,11 @@ public class SpeedCalculator implements Runnable {
                     tm.updateSpeed(speed);
                     currentTime++;
                     try {
-                        Thread.sleep(800);
+                        Thread.sleep(1000 / time.getSpeed());
                     } catch (InterruptedException ex) {
                         Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                //}
 
                 tm.updateSpeed(speed);
                 //waiting = true;
