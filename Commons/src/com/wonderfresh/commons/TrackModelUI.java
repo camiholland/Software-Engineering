@@ -7,6 +7,7 @@
 package com.wonderfresh.commons;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
@@ -47,8 +48,8 @@ public class TrackModelUI extends javax.swing.JFrame {
         newTrack = trackSimulator.getTrack();
         initComponents();
         if(newTrack!=null){
-            Line.addItem(newTrack.getRedLine());
-            Line.addItem(newTrack.getGreenLine());
+            Line.addItem(newTrack.getRedLine().toString());
+            Line.addItem(newTrack.getGreenLine().toString());
         }
         
 //        Timer timer = new Timer();
@@ -73,7 +74,6 @@ public class TrackModelUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -686,11 +686,6 @@ public class TrackModelUI extends javax.swing.JFrame {
         jButton1.setText("Update");
 
         Section.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Section" }));
-
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedItem}");
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, Line, eLProperty, Section);
-        bindingGroup.addBinding(jComboBoxBinding);
-
         Section.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SectionActionPerformed(evt);
@@ -698,6 +693,11 @@ public class TrackModelUI extends javax.swing.JFrame {
         });
 
         Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Block" }));
+        Block_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Block_ComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Block Length: ");
 
@@ -985,8 +985,6 @@ public class TrackModelUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1046,6 +1044,22 @@ public class TrackModelUI extends javax.swing.JFrame {
 
     private void SectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SectionActionPerformed
         // TODO add your handling code here:
+        
+        ArrayList<Section> sections = null;
+        
+//        if(Block_ComboBox.getSelectedItem()){
+//            sections = newTrack.getRedLine().getSections();
+//            Iterator<Section> SectionSifter = sections.iterator();
+//            while(SectionSifter.hasNext()){
+//                Section.addItem(SectionSifter.next().getSectionName());
+//            }
+//        }else if(Block_ComboBox.getSelectedItem().equals("Green")){
+//            sections = newTrack.getGreenLine().getSections();
+//            Iterator<Section> SectionSifter =  sections.iterator();
+//            while(SectionSifter.hasNext()){
+//                Section.addItem(SectionSifter.next().getSectionName());
+//            }
+//        }
     }//GEN-LAST:event_SectionActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
@@ -1062,8 +1076,31 @@ public class TrackModelUI extends javax.swing.JFrame {
 
     private void LineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineActionPerformed
         // TODO add your handling code here:
-        //ArrayList<Section> sections = Line.getSelectedItem().getSection();
+        Section.removeAllItems();
+        ArrayList<Section> sections = null;
+        
+        if(Section.getSelectedItem().equals("Red")){
+            sections = newTrack.getRedLine().getSections();
+            Iterator<Section> SectionSifter = sections.iterator();
+            while(SectionSifter.hasNext()){
+                Section.addItem(SectionSifter.next());
+            }
+        }else if(Section.getSelectedItem().equals("Green")){
+            sections = newTrack.getGreenLine().getSections();
+            Iterator<Section> SectionSifter =  sections.iterator();
+            while(SectionSifter.hasNext()){
+                Section.addItem(SectionSifter.next());
+            }
+        }else{
+            Section.addItem("Section");
+        }
+       
     }//GEN-LAST:event_LineActionPerformed
+
+    private void Block_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Block_ComboBoxActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_Block_ComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1210,6 +1247,5 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 } 
