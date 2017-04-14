@@ -75,8 +75,9 @@ public class Mbo extends Thread{
                     } 
             }
         System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
-//get tracks
-        
+/*********************************************************************************************************
+ ***********************************UPLOADING TRACK*******************************************************
+ *****************************************************************************************/ 
         TrackSimulator ts=TrackSimulator.getInstance();
         //System.out.println("GET temp "+ts.getTemp());
         TrackModel tm=ts.getTrack();
