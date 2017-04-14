@@ -43,7 +43,7 @@ public class CTCDataAccess {
         return false;
     }
     
-    public static boolean setBlockOpen(boolean open){
+    public static boolean setBlockOpen(String line, int block, boolean open){
         return false;
     }
     

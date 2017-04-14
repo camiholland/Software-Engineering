@@ -39,6 +39,8 @@ public class PLCRunner1 extends Thread {
         TrackSimulator.setCrossing("Green", 19, false);
         this.printCrossing = 1;
         System.out.println("Crossing 19 off");
+        TrackSimulator.setSwitch("Green", 151, 57);
+        System.out.println("57 to 151");
         
         while(!Thread.interrupted()){
             if(TrackSimulator.isSectionOccupied("Green", "N")) {
