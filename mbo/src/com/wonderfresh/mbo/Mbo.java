@@ -14,6 +14,8 @@ import com.wonderfresh.commons.TrackModelImplementation;
 import javax.swing.JFrame;
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.TrackModelInterface;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Mbo extends Thread{
@@ -90,19 +92,28 @@ public class Mbo extends Thread{
         TrackGraph greenLine=tm.getGreenLine();
         //System.out.println("Section a "+A.getArrowDirection());
         
-        
-        //Upload red track - Set Order:  u,c,b,a,f,g,h,i,j,k,l,m,n,i,
+/*********************** CALCULATE TIME AROUND TRACK FOR RED *******************************/
          
+        int loop=0;
+        while(loop==0){
         
-        
-        
-        
-      
-        
-        
-        
-        
-        
+            try {
+                //Check for intigration on closed block with CTC
+                Section e=redLine.getSection("E");
+                Block b4=greenLine.getBlock("Green", 4);
+                boolean cl=b4.closed;
+                if (cl){
+                    System.out.println("Block is open");
+                }
+                else{
+                    System.out.println("Block is closed");
+                    loop=1;
+                }
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         
  
