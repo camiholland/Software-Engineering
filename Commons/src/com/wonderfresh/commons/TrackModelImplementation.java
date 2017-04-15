@@ -45,7 +45,8 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @return true if successfully sent, false if not
          */
     public boolean setAuthority(int Distance){
-        return TrackSimulator.setAuthority(Distance);
+        //return TrackSimulator.setAuthority(Distance);
+        return true;
     }
     
     /**

@@ -96,7 +96,7 @@ public class TrackSimulator {
         return tempTrack.init();
     }
     
-    public static boolean setAuthority(int Distance){
+    public static boolean setAuthority(String line, int block, int Distance){
         Authority = Distance;
         return true;
     }
@@ -162,12 +162,15 @@ public class TrackSimulator {
      */
     public static boolean setSwitch(String line, int BlockNum1, int BlockNum2){
         TrackGraph tempTrack;
-        if(line.equals("Red")){
-            tempTrack = MainTrack.getRedLine();
-        }else if(line.equals("Green")){
-            tempTrack = MainTrack.getGreenLine();
-        }else{
-            return false;
+        switch (line) {
+            case "Red":
+                tempTrack = MainTrack.getRedLine();
+                break;
+            case "Green":
+                tempTrack = MainTrack.getGreenLine();
+                break;
+            default:
+                return false;
         }
         Block testBlock1 = tempTrack.getBlock(line, BlockNum1);
         Block testBlock2 = tempTrack.getBlock(line, BlockNum2);

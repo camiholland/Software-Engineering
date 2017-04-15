@@ -39,6 +39,7 @@ public class Block {
     private boolean PowerFailure;
     private Beacon beaconSig;
     private int setPointSpeed;
+    public boolean closed;
    
    /**
      * For TrackModel Only. Used upon adding new track.
@@ -61,6 +62,7 @@ public class Block {
         this.BlockGrade = grade;
         this.SpeedLimit = (int)speed;
         this.setPointSpeed = SpeedLimit;
+        this.closed = false;
        
         // Adding the components of the infrastructure
         this.Underground = infra.contains("UNDERGROUND");
@@ -237,6 +239,7 @@ public class Block {
      */
     public void setOccupied(boolean status){
         this.Occupied = status;
+        System.out.println(line + this.BlockNum);
     }
     
     /**
