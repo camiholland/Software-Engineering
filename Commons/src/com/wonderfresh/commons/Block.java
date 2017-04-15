@@ -39,6 +39,7 @@ public class Block {
     private boolean PowerFailure;
     private Beacon beaconSig;
     private int setPointSpeed;
+    private double Authority = -1;
     public boolean closed;
    
    /**
@@ -194,11 +195,31 @@ public class Block {
     }
     
     public int getSetPointSpeed(){
-        return this.setPointSpeed;
+        int SpeedToReturn = this.setPointSpeed;
+        this.setPointSpeed = this.SpeedLimit;
+        return SpeedToReturn;
     }
     
     public void setSetPointSpeed(int newSetSpeed){
         this.setPointSpeed = newSetSpeed;
+    }
+    
+    /**
+     * Set a new authority for the next train to come through this block
+     * @param newDist the distance the train can travel.
+     */
+    public void setAuthority(double newDist){
+        this.Authority = newDist;
+    }
+    
+    /**
+     * Get the authority or distance the train is allowed to travel.
+     * @return If no authority to give, -1 is returned, otherwise authority is returned
+     */
+    public double getAuthority(){
+        double returnAuthority = this.Authority;
+        this.Authority = -1;
+        return returnAuthority;
     }
     /**
      * Some blocks are members of a switch. Switches have unique numbers.
