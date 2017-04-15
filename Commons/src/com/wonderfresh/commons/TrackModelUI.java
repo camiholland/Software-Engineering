@@ -1124,11 +1124,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private void LineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineActionPerformed
         // TODO add your handling code here:
             
-        int SectionItemCount = Section.getItemCount();
-        System.out.println(SectionItemCount);
-        for(int k=1; k<SectionItemCount; k++){
-            Section.remove(Section.getComponent(k));
-        }
+        
         
         if(Line.getSelectedItem().equals("Red")){
             ArrayList<Section> sections = newTrack.getRedLine().getSections();

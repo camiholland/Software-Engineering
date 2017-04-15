@@ -20,7 +20,6 @@ public class TrackSimulator {
     private static TrackModel MainTrack;
     private static int lastTemp = 0;
     private static int Authority;
-    private static int Speed;
     private TrackModelUI gui=null;
     private static TrackSimulator instance = null;
     
@@ -103,9 +102,16 @@ public class TrackSimulator {
     }
 
     
-    public static boolean setSetPointSpeed(int speed){
-        Speed = speed;
-        return true;
+    public static boolean setSetPointSpeed(String line, int block, int speed){
+        if(line.equals("Red")){
+            instance.getTrack().getRedLine().getBlock("Red", block).setSetPointSpeed(speed);
+            return true;
+        }else if(line.equals("Green")){
+            instance.getTrack().getGreenLine().getBlock("Green", block).setSetPointSpeed(speed);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public static boolean setCrossing(String line, int BlockNum, boolean open){

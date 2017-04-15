@@ -38,6 +38,7 @@ public class Block {
     private boolean CircuitFailure;
     private boolean PowerFailure;
     private Beacon beaconSig;
+    private int setPointSpeed;
    
    /**
      * For TrackModel Only. Used upon adding new track.
@@ -59,6 +60,7 @@ public class Block {
         this.BlockLength = length;
         this.BlockGrade = grade;
         this.SpeedLimit = (int)speed;
+        this.setPointSpeed = SpeedLimit;
        
         // Adding the components of the infrastructure
         this.Underground = infra.contains("UNDERGROUND");
@@ -189,6 +191,13 @@ public class Block {
         return this.SpeedLimit;
     }
     
+    public int getSetPointSpeed(){
+        return this.setPointSpeed;
+    }
+    
+    public void setSetPointSpeed(int newSetSpeed){
+        this.setPointSpeed = newSetSpeed;
+    }
     /**
      * Some blocks are members of a switch. Switches have unique numbers.
      * @return either the number of the switch or -1 if no switch.
