@@ -13,31 +13,38 @@ import com.wonderfresh.commons.TrackSimulator;
  */
 public class PLCRunner1 extends Thread {
     
-    int printNQM;
-    int printYYJ;
-    int printDEFAZ;
-    int printCrossing;
+    String[] sections;
+    int[] blocks;
     
     public PLCRunner1(){
-        this.printNQM = -1;
-        this.printYYJ = -1;
-        this.printDEFAZ = -1;
-        this.printCrossing = -1;
+        
     }
     
     @Override
     public void run(){
+        
+        int printNQM;
+        int printYYJ;
+        int printDEFAZ;
+        int printCrossing;
+        
+        sections = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "YY", "ZZ"};
+        blocks = new int[152];
+        for(int i = 0; i < 152; i++){
+            blocks[i] = i + 1;
+        }
+        
         TrackSimulator.setSwitch("Green", 62, 152);
-        this.printYYJ = 0;
+        printYYJ = 0;
         System.out.println("62 to 152");
         TrackSimulator.setSwitch("Green", 77, 76);
-        this.printNQM = 2;
+        printNQM = 2;
         System.out.println("76 to 77");
         TrackSimulator.setSwitch("Green", 28, 150);
-        this.printDEFAZ = 2;
+        printDEFAZ = 2;
         System.out.println("28 to 150");
         TrackSimulator.setCrossing("Green", 19, false);
-        this.printCrossing = 1;
+        printCrossing = 1;
         System.out.println("Crossing 19 off");
         TrackSimulator.setSwitch("Green", 151, 57);
         System.out.println("57 to 151");
@@ -46,37 +53,37 @@ public class PLCRunner1 extends Thread {
             if(TrackSimulator.isSectionOccupied("Green", "N")) {
                 TrackSimulator.setSwitch("Green", 85, 86);
                 TrackSimulator.setSwitch("Green", 77, 101);
-                if(this.printNQM != 0){
-                    this.printNQM = 0;
+                if(printNQM != 0){
+                    printNQM = 0;
                     System.out.println("85 to 86, 77 to 101");
                 }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "Q")) {
                 TrackSimulator.setSwitch("Green", 85, 100);
-                if(this.printNQM != 1){
-                    this.printNQM = 1;
+                if(printNQM != 1){
+                    printNQM = 1;
                     System.out.println("85 to 100");
                 }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "M")) {
                 TrackSimulator.setSwitch("Green", 77, 76);
-                if(this.printNQM != 2){
-                    this.printNQM = 2;
+                if(printNQM != 2){
+                    printNQM = 2;
                     System.out.println("77 to 76");
                 }
             }
             if(TrackSimulator.isSectionOccupied("Green", "YY")) {
                 TrackSimulator.setSwitch("Green", 62, 152);
-                if(this.printYYJ != 0){
-                    this.printYYJ = 0;
+                if(printYYJ != 0){
+                    printYYJ = 0;
                     System.out.println("62 to 152");
                 }
             }
             else if(TrackSimulator.isBlockOccupied("Green", 58) || TrackSimulator.isBlockOccupied("Green", 59) || 
                     TrackSimulator.isBlockOccupied("Green", 60) || TrackSimulator.isBlockOccupied("Green", 61)){
                 TrackSimulator.setSwitch("Green", 62, 61);
-                if(this.printYYJ != 1){
-                    this.printYYJ = 1;
+                if(printYYJ != 1){
+                    printYYJ = 1;
                     System.out.println("61 to 62");
                 }
             }
@@ -84,22 +91,22 @@ public class PLCRunner1 extends Thread {
                     TrackSimulator.isSectionOccupied("Green","E")) {
                 TrackSimulator.setSwitch("Green", 28, 29);
                 TrackSimulator.setSwitch("Green", 12, 13);
-                if(this.printDEFAZ != 0){
-                    this.printDEFAZ = 0;
+                if(printDEFAZ != 0){
+                    printDEFAZ = 0;
                     System.out.println("28 to 29, 12 to 13");
                 }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "A")){
                 TrackSimulator.setSwitch("Green", 1, 13);
-                if(this.printDEFAZ != 1){
-                    this.printDEFAZ = 1;
+                if(printDEFAZ != 1){
+                    printDEFAZ = 1;
                     System.out.println("1 to 13");
                 }
             }
             else if(TrackSimulator.isSectionOccupied("Green", "Z")){
                 TrackSimulator.setSwitch("Green", 28, 150);
-                if(this.printDEFAZ != 2){
-                    this.printDEFAZ = 2;
+                if(printDEFAZ != 2){
+                    printDEFAZ = 2;
                     System.out.println("28 to 150");
                 }
             }
@@ -107,19 +114,27 @@ public class PLCRunner1 extends Thread {
             if(TrackSimulator.isBlockOccupied("Green", 18) || TrackSimulator.isBlockOccupied("Green", 19) || 
                     TrackSimulator.isBlockOccupied("Green", 20)){
                 TrackSimulator.setCrossing("Green", 19, true);
-                if(this.printCrossing != 0){
-                    this.printCrossing = 0;
+                if(printCrossing != 0){
+                    printCrossing = 0;
                     System.out.println("Crossing 19 on");
                 }
             }
             else{
                 TrackSimulator.setCrossing("Green", 19, false);
-                if(this.printCrossing != 1){
-                    this.printCrossing = 1;
+                if(printCrossing != 1){
+                    printCrossing = 1;
                     System.out.println("Crossing 19 off");
                 }
             }
         }
         System.out.println("PLC1 ended");
+    }
+    
+    public int[] getBlocks(){
+        return blocks;
+    }
+    
+    public String[] getSections(){
+        return sections;
     }
 }

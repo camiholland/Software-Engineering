@@ -5,6 +5,7 @@
  */
 package com.wonderfresh.systemwrapper;
 
+import com.wonderfresh.commons.Time;
 import com.wonderfresh.traincontroller.model.TrainController;
 import com.wonderfresh.traincontroller.model.Trains;
 import com.wonderfresh.trainmodel.TrainModel;
@@ -22,6 +23,7 @@ public class SystemLauncher extends javax.swing.JFrame {
     private Train trainModels;
     private Mbo mbo;
     private TrackSimulator trackSimulator;
+    private Time time;
     /**
      * Creates new form SystemLauncher
      * @param trainControllers
@@ -33,6 +35,7 @@ public class SystemLauncher extends javax.swing.JFrame {
         this.mbo=mbo;
         this.trackSimulator = TrackSimulator.getInstance();
         initComponents();
+        time = Time.getInstance();
     }
 
     /**
@@ -54,6 +57,8 @@ public class SystemLauncher extends javax.swing.JFrame {
         TrackControllerButton = new javax.swing.JButton();
         TrackModelButton = new javax.swing.JButton();
         MBOButton = new javax.swing.JButton();
+        SpeedButton = new javax.swing.JButton();
+        SpeedText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,10 +129,25 @@ public class SystemLauncher extends javax.swing.JFrame {
             }
         });
 
+        SpeedButton.setText("Set Clock");
+        SpeedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SpeedButtonActionPerformed(evt);
+            }
+        });
+
+        SpeedText.setText("1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TrainIDLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,23 +161,21 @@ public class SystemLauncher extends javax.swing.JFrame {
                                 .addComponent(TrackControllerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(TrackModelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(TrainIDLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(14, 14, 14))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(92, 92, 92)
-                                    .addComponent(MBOButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(MBOButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(LaunchModelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(LaunchModelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(LaunchControllerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SpeedButton)
+                                    .addComponent(LaunchControllerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -174,15 +192,19 @@ public class SystemLauncher extends javax.swing.JFrame {
                     .addComponent(TrackModelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(MBOButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TrainIDText, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TrainIDLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LaunchModelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LaunchControllerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpeedButton)
+                    .addComponent(SpeedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -248,6 +270,23 @@ public class SystemLauncher extends javax.swing.JFrame {
         mbo.launchUI();
     }//GEN-LAST:event_MBOButtonActionPerformed
 
+    private void SpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedButtonActionPerformed
+        int speed = 0;
+        
+        try {
+            speed = Integer.parseInt(SpeedText.getText());
+        } catch(Exception ex) {
+            System.out.println("error parsing int");
+            return;
+        }
+        
+        if (speed < 0 || speed > 100) {
+            System.out.println("out of bounds time speed");
+        }
+        
+        time.setSpeed(speed);
+    }//GEN-LAST:event_SpeedButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CTCButton;
@@ -255,6 +294,8 @@ public class SystemLauncher extends javax.swing.JFrame {
     private javax.swing.JButton LaunchControllerButton;
     private javax.swing.JButton LaunchModelButton;
     private javax.swing.JButton MBOButton;
+    private javax.swing.JButton SpeedButton;
+    private javax.swing.JTextField SpeedText;
     private javax.swing.JLabel Title;
     private javax.swing.JButton TrackControllerButton;
     private javax.swing.JButton TrackModelButton;
