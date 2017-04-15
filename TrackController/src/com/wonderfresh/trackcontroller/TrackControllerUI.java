@@ -14,7 +14,7 @@ public class TrackControllerUI extends javax.swing.JFrame {
     /**
      * Creates new form TrackControllerPickerUI
      */
-    public TrackControllerUI() {
+    public TrackControllerUI(PLCRunner1 plc) {
         initComponents();
     }
 
@@ -46,9 +46,6 @@ public class TrackControllerUI extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         SpeedText3 = new javax.swing.JTextField();
         SpeedText4 = new javax.swing.JTextField();
-        TrackControllerPane1 = new javax.swing.JPanel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
         TrackControllerPane2 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -180,33 +177,6 @@ public class TrackControllerUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TrackControllerPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Track Controller", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Track Controller 1", "Track Controller 2", "Track Controller 3", "Track Controller 4" }));
-
-        jButton4.setText("Open New Window");
-
-        javax.swing.GroupLayout TrackControllerPane1Layout = new javax.swing.GroupLayout(TrackControllerPane1);
-        TrackControllerPane1.setLayout(TrackControllerPane1Layout);
-        TrackControllerPane1Layout.setHorizontalGroup(
-            TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrackControllerPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        TrackControllerPane1Layout.setVerticalGroup(
-            TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrackControllerPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(TrackControllerPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         TrackControllerPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Upload PLC Program", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
 
         jTextField1.setText("C:/Users/obkeel/Documents/PLC.txt");
@@ -268,29 +238,23 @@ public class TrackControllerUI extends javax.swing.JFrame {
 
         TrackControllerPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notifications", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 16)));
 
+        javax.swing.GroupLayout TrackControllerPane4Layout = new javax.swing.GroupLayout(TrackControllerPane4);
+        TrackControllerPane4.setLayout(TrackControllerPane4Layout);
+        TrackControllerPane4Layout.setHorizontalGroup(
+            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        TrackControllerPane4Layout.setVerticalGroup(
+            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 412, Short.MAX_VALUE)
+        );
+
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "- Track Closures", "- Communication with Communications Controller", "- Change in Track Model Values", "- Light and switch activations" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
-
-        javax.swing.GroupLayout TrackControllerPane4Layout = new javax.swing.GroupLayout(TrackControllerPane4);
-        TrackControllerPane4.setLayout(TrackControllerPane4Layout);
-        TrackControllerPane4Layout.setHorizontalGroup(
-            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrackControllerPane4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        TrackControllerPane4Layout.setVerticalGroup(
-            TrackControllerPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrackControllerPane4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,9 +264,10 @@ public class TrackControllerUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(TrackControllerPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TrackControllerPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TrackControllerPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TrackControllerPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TrackControllerPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -311,17 +276,19 @@ public class TrackControllerUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TrackControllerPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TrackControllerPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrackControllerPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrackControllerPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TrackControllerPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TrackControllerPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(TrackControllerPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TrackControllerPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TrackControllerPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -357,7 +324,7 @@ public class TrackControllerUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrackControllerUI().setVisible(true);
+                new TrackControllerUI(new PLCRunner1()).setVisible(true);
             }
         });
     }
@@ -379,7 +346,6 @@ public class TrackControllerUI extends javax.swing.JFrame {
     private javax.swing.JTextField SpeedText3;
     private javax.swing.JTextField SpeedText4;
     private javax.swing.JPanel TrackControllerPane;
-    private javax.swing.JPanel TrackControllerPane1;
     private javax.swing.JPanel TrackControllerPane2;
     private javax.swing.JPanel TrackControllerPane3;
     private javax.swing.JPanel TrackControllerPane4;
@@ -387,10 +353,8 @@ public class TrackControllerUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;

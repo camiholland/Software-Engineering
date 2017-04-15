@@ -28,6 +28,8 @@ public class TrackController {
     
     public static void main(String[] args) {
         System.out.println("Start");
+        TrackControllerUI tcui = new TrackControllerUI(new PLCRunner1());
+        tcui.setVisible(true);
     }
     
 }
