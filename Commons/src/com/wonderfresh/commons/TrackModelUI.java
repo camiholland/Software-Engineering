@@ -177,6 +177,17 @@ public class TrackModelUI extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        Update_Status = new javax.swing.JLabel();
+        Update_Block_Grade = new javax.swing.JLabel();
+        Update_Block_Length = new javax.swing.JLabel();
+        Update_Crossing = new javax.swing.JLabel();
+        Update_Heater = new javax.swing.JLabel();
+        Update_Occupied = new javax.swing.JLabel();
+        Update_SwitchBlock = new javax.swing.JLabel();
+        Update_Station = new javax.swing.JLabel();
+        Update_Speed_Limit = new javax.swing.JLabel();
+        Update_Underground = new javax.swing.JLabel();
+        Update_Arrow_Direction = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -762,11 +773,20 @@ public class TrackModelUI extends javax.swing.JFrame {
                                             .addComponent(jCheckBox1)
                                             .addGap(10, 10, 10)
                                             .addComponent(jCheckBox2))
-                                        .addComponent(jLabel10)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel18)
-                                        .addComponent(jLabel12)))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(Update_Heater)
+                                                .addComponent(Update_Crossing)
+                                                .addComponent(Update_Block_Length)
+                                                .addComponent(Update_Block_Grade)
+                                                .addComponent(Update_Status))
+                                            .addGap(91, 91, 91)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)))))
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addGap(17, 17, 17)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -777,10 +797,21 @@ public class TrackModelUI extends javax.swing.JFrame {
                                     .addComponent(Section, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(Block_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(10, 10, 10)
-                        .addComponent(jCheckBox3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jCheckBox3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Update_SwitchBlock)
+                                    .addComponent(Update_Occupied)
+                                    .addComponent(Update_Station)
+                                    .addComponent(Update_Speed_Limit)
+                                    .addComponent(Update_Underground)
+                                    .addComponent(Update_Arrow_Direction))))))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -801,25 +832,37 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(Update_Status)
+                    .addComponent(Update_Occupied))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(Update_Block_Grade)
+                    .addComponent(Update_SwitchBlock))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(Update_Block_Length)
+                    .addComponent(Update_Station))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(Update_Crossing)
+                    .addComponent(Update_Speed_Limit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel18))
+                    .addComponent(jLabel18)
+                    .addComponent(Update_Heater)
+                    .addComponent(Update_Underground))
                 .addGap(4, 4, 4)
-                .addComponent(jLabel19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(Update_Arrow_Direction))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1045,21 +1088,25 @@ public class TrackModelUI extends javax.swing.JFrame {
     private void SectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SectionActionPerformed
         // TODO add your handling code here:
         
-        ArrayList<Section> sections = null;
-        
-//        if(Block_ComboBox.getSelectedItem()){
-//            sections = newTrack.getRedLine().getSections();
-//            Iterator<Section> SectionSifter = sections.iterator();
-//            while(SectionSifter.hasNext()){
-//                Section.addItem(SectionSifter.next().getSectionName());
-//            }
-//        }else if(Block_ComboBox.getSelectedItem().equals("Green")){
-//            sections = newTrack.getGreenLine().getSections();
-//            Iterator<Section> SectionSifter =  sections.iterator();
-//            while(SectionSifter.hasNext()){
-//                Section.addItem(SectionSifter.next().getSectionName());
-//            }
-//        }
+        if(Section.getSelectedItem().equals("Section")){
+            Block_ComboBox.removeAllItems();
+            Block_ComboBox.addItem("Block");
+        }else{
+            if(Line.getSelectedItem().equals("Red")){
+                ArrayList<Block> blocks = newTrack.getRedLine().getSection((String)Section.getSelectedItem()).getBlockList();
+                Iterator<Block> BlockSifter = blocks.iterator();
+                while(BlockSifter.hasNext()){
+                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
+                }
+            }else{
+                ArrayList<Block> blocks = newTrack.getGreenLine().getSection((String)Section.getSelectedItem()).getBlockList();
+                Iterator<Block> BlockSifter = blocks.iterator();
+                while(BlockSifter.hasNext()){
+                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
+                }
+            }
+            
+        }
     }//GEN-LAST:event_SectionActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
@@ -1076,30 +1123,62 @@ public class TrackModelUI extends javax.swing.JFrame {
 
     private void LineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LineActionPerformed
         // TODO add your handling code here:
-        Section.removeAllItems();
-        ArrayList<Section> sections = null;
+            
+        int SectionItemCount = Section.getItemCount();
+        System.out.println(SectionItemCount);
+        for(int k=1; k<SectionItemCount; k++){
+            Section.remove(Section.getComponent(k));
+        }
         
-        if(Section.getSelectedItem().equals("Red")){
-            sections = newTrack.getRedLine().getSections();
+        if(Line.getSelectedItem().equals("Red")){
+            ArrayList<Section> sections = newTrack.getRedLine().getSections();
             Iterator<Section> SectionSifter = sections.iterator();
             while(SectionSifter.hasNext()){
-                Section.addItem(SectionSifter.next());
+                Section.addItem(SectionSifter.next().getSectionName());
             }
-        }else if(Section.getSelectedItem().equals("Green")){
-            sections = newTrack.getGreenLine().getSections();
+        }else if(Line.getSelectedItem().equals("Green")){
+            ArrayList<Section> sections = newTrack.getGreenLine().getSections();
             Iterator<Section> SectionSifter =  sections.iterator();
             while(SectionSifter.hasNext()){
-                Section.addItem(SectionSifter.next());
+                Section.addItem(SectionSifter.next().getSectionName());
             }
-        }else{
-            Section.addItem("Section");
         }
        
     }//GEN-LAST:event_LineActionPerformed
 
     private void Block_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Block_ComboBoxActionPerformed
         // TODO add your handling code here:
-        
+        Block tempBlock;
+        if(!Block_ComboBox.getSelectedItem().equals("Block")){
+            if(Line.getSelectedItem().equals("Red")){
+                //int numSelect = Integer.parseInt((String)Block_ComboBox.getSelectedItem());
+                tempBlock = newTrack.getRedLine().getBlock("Red",(int)Block_ComboBox.getSelectedItem());
+            }else{
+                //int numSelect = Integer.parseInt((String)Block_ComboBox.getSelectedItem());
+                tempBlock = newTrack.getGreenLine().getBlock("Green", (int)Block_ComboBox.getSelectedItem());
+            }
+            
+            //Update_Status.add(this)
+            Update_Block_Grade.setText(Double.toString(tempBlock.getBlockGrade()));
+            Update_Block_Length.setText(Double.toString(tempBlock.getBlockLength()));
+            if(tempBlock.isCrossing()){
+                Update_Crossing.setText("True");
+            }else{
+                Update_Crossing.setText("False");
+            }
+            if(tempBlock.isUnderground()){
+                Update_Underground.setText("True");
+            }else{
+                Update_Underground.setText("False");
+            }
+            Update_Speed_Limit.setText(Integer.toString(tempBlock.getSpeedLimit()));
+            if(tempBlock.isStation()){
+                Update_Station.setText(tempBlock.getStation());
+            }else{
+                Update_Station.setText("None");
+            }
+            
+        }
     }//GEN-LAST:event_Block_ComboBoxActionPerformed
 
     /**
@@ -1195,6 +1274,17 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel TrainMap;
     private javax.swing.JLabel TrainsOnTrackLabel;
     private javax.swing.JTextField TrainsOntrackField;
+    private javax.swing.JLabel Update_Arrow_Direction;
+    private javax.swing.JLabel Update_Block_Grade;
+    private javax.swing.JLabel Update_Block_Length;
+    private javax.swing.JLabel Update_Crossing;
+    private javax.swing.JLabel Update_Heater;
+    private javax.swing.JLabel Update_Occupied;
+    private javax.swing.JLabel Update_Speed_Limit;
+    private javax.swing.JLabel Update_Station;
+    private javax.swing.JLabel Update_Status;
+    private javax.swing.JLabel Update_SwitchBlock;
+    private javax.swing.JLabel Update_Underground;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;

@@ -37,13 +37,7 @@ public class TrackSimulator {
             
             Block firstBlock = redGraph.init();
             System.out.println(firstBlock.getLabel()+" "+firstBlock.getBlockLength()+" "+firstBlock.getBlockGrade()+" "+firstBlock.getArrowDirection()+" "+firstBlock.getSwitchBlock());
-            Block prevBlock = null;
-            Block nextBlock = firstBlock.getNextBlock(prevBlock);
-            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
-            prevBlock = firstBlock;
-            nextBlock = nextBlock.getNextBlock(prevBlock);
-            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
-
+            
         }
         return instance;
     }
