@@ -34,10 +34,16 @@ public class Block {
     final private String Station;
     private int PeopleAtStation;
     private boolean Occupied;
-     public boolean closed;
+    private boolean BrokenTrack;
+    private boolean CircuitFailure;
+    private boolean PowerFailure;
+    private Beacon beaconSig;
+    private int setPointSpeed;
+    private double Authority = -1;
+    public boolean closed;
    
    /**
-     *
+     * For TrackModel Only. Used upon adding new track.
      * @param line contains the name of the train line that the block resides in, ( Red or Green )
      * @param Section contains the letter of the track section that the block resides in.
      * @param num contains the the number of the block 
@@ -56,6 +62,8 @@ public class Block {
         this.BlockLength = length;
         this.BlockGrade = grade;
         this.SpeedLimit = (int)speed;
+        this.setPointSpeed = SpeedLimit;
+        this.closed = false;
        
         // Adding the components of the infrastructure
         this.Underground = infra.contains("UNDERGROUND");
@@ -94,6 +102,7 @@ public class Block {
         
         if(infra.contains("STATION")){
             
+            this.Station_status = true;
             String[] s_array = infra.split("\\s+");
             String station = "";
             int a = s_array.length;
@@ -131,10 +140,15 @@ public class Block {
             
         }else {
             this.Station = "Not A Station";
+            this.PeopleAtStation = 0;
+            this.Station_status = false;
         }
         
         this.ArrowDirection = Arrow;
         this.neighborhood = new ArrayList<>();
+        this.PowerFailure = false;
+        this.CircuitFailure = false;
+        this.BrokenTrack = false;
     }
     
     /**
@@ -185,6 +199,33 @@ public class Block {
         return this.SpeedLimit;
     }
     
+    public int getSetPointSpeed(){
+        int SpeedToReturn = this.setPointSpeed;
+        this.setPointSpeed = this.SpeedLimit;
+        return SpeedToReturn;
+    }
+    
+    public void setSetPointSpeed(int newSetSpeed){
+        this.setPointSpeed = newSetSpeed;
+    }
+    
+    /**
+     * Set a new authority for the next train to come through this block
+     * @param newDist the distance the train can travel.
+     */
+    public void setAuthority(double newDist){
+        this.Authority = newDist;
+    }
+    
+    /**
+     * Get the authority or distance the train is allowed to travel.
+     * @return If no authority to give, -1 is returned, otherwise authority is returned
+     */
+    public double getAuthority(){
+        double returnAuthority = this.Authority;
+        this.Authority = -1;
+        return returnAuthority;
+    }
     /**
      * Some blocks are members of a switch. Switches have unique numbers.
      * @return either the number of the switch or -1 if no switch.
@@ -224,16 +265,21 @@ public class Block {
      */
     public void setOccupied(boolean status){
         this.Occupied = status;
+        System.out.println(line + this.BlockNum);
     }
     
     /**
-     * 
-     * @return 
+     * Get the arrow direction associated with this block
+     * @return a string representing the arrow direction
      */
     public String getArrowDirection(){
         return this.ArrowDirection;
     }
     
+    /**
+     * For TrainModel only. Used to add a neighbor to the block.
+     * @param edge leading from this block to a neighbor
+     */
     public void addNeighbor(Edge edge){
         if(this.neighborhood.contains(edge)){
             return;
@@ -241,18 +287,38 @@ public class Block {
         this.neighborhood.add(edge);
     }
     
+    /**
+     * Check to see if this block already contains an edge
+     * @param other Edge to check for
+     * @return true if this block already uses this edge, false otherwise
+     */
     public boolean containsNeighbor(Edge other){
         return this.neighborhood.contains(other);
     }
     
+    /**
+     * This method can be used to iterate through the neighbors after using
+     * getNeighborCount to find the size.
+     * @param index of the neighbor you want to get
+     * @return an Edge that leads from this block to the neighbor
+     */
     public Edge getNeighbor(int index){
         return this.neighborhood.get(index);
     }
     
+    /**
+     * Find out how many blocks this block leads to
+     * @return number of potential blocks to travel to
+     */
     public int getNeighborCount(){
         return this.neighborhood.size();
     }
     
+    /**
+     * Returns a label to the block in the form of 'ColorNum'
+     * Same string that is used as the keys in the blocks HashMap
+     * @return a string of the label
+     */
     public String getLabel(){
         return this.line + this.BlockNum;
     }
@@ -279,34 +345,64 @@ public class Block {
         return this.getLabel().equals(v.getLabel());
     }
     
+    /**
+     * Get an arrayList of the the edges that lead to this block's neighbors
+     * @return an ArrayList of edges
+     */
     public ArrayList<Edge> getNeighbors(){
-        return new ArrayList<>(this.neighborhood);
+        return this.neighborhood;
     }
     
+    /**
+     * Check if the block is underground
+     * @return true if underground, false otherwise
+     */
     public boolean isUnderground(){
         return this.Underground;
     }
     
+    /**
+     * Check if the block is a crossing
+     * @return true if crossing, false otherwise.
+     */
     public boolean isCrossing(){
         return this.Crossing;
     }
+    
     
     public void openCrossingToCars(boolean setting){
         this.CrossingOpenToCars = setting;
     }
     
+    /**
+     * Checks if block contains a station.
+     * @return true if block has a station, false otherwise
+     */
     public boolean isStation(){
         return this.Station_status;
     }
     
-    // Public Block stuff//////////////
+    public String getStation(){
+        return this.Station;
+    }
     
+    /**
+     * Checks if block contains a beacon.
+     * @return true if beacon exists, false otherwise
+     */
     public boolean hasBeacon(){
         return false;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getBeaconSignal(){
-        return "this is a beacon signal";
+        if(this.hasBeacon()){
+            return this.beaconSig.getSignal();
+        }
+        return "not a beacon";
     }
     
     /**
@@ -334,13 +430,26 @@ public class Block {
             }
             if(neighborIterator.hasNext()){
                 tempEdge = neighborIterator.next();
+                if(!tempEdge.getStatus()){
+                    System.out.println("The track ahead is closed.");
+                    return null;
+                }
                 tempBlock = tempEdge.getEndingBlock();
             }
             newBlock = tempBlock;
             return newBlock;
             
         }else{
-                    
+            if(prevBlock.SwitchToYard){
+                if(this.getLine().equals("Red")){
+                    Block aBlock = TrackSimulator.getInstance().getTrack().getRedLine().getSwitch(prevBlock, this).getSecondary();
+                    if((aBlock.getBlockNum()-this.getBlockNum())==0){
+                        System.out.println("Made it back to the Yard");
+                        return null;
+                    }
+            }
+            }
+            
             ArrayList<Edge> neighbors = this.getNeighbors();
             Iterator<Edge> neighborIterator = neighbors.iterator();
             while(neighborIterator.hasNext()){
@@ -359,20 +468,90 @@ public class Block {
         }
     }
     
+    /**
+     * Should be called to simulate a broken track in this block.
+     * @param broken true if simulating broken, false if not broken
+     */
+    public void BrokenTrackFailure(boolean broken){
+        this.BrokenTrack = broken;
+    }
+    
+    /**
+     * Find out if block has a broken track.
+     * @return true if broken, false if not
+     */
+    public boolean hasBrokenTrackFailure(){
+        return this.BrokenTrack;
+    }
+    
+    /**
+     * Should be called to simulate a track circuit failure in this block.
+     * @param broken true if simulating track circuit failure, false if no failure
+     */
+    public void TrackCircuitFailure(boolean broken){
+        this.CircuitFailure = broken;
+    }
+    
+    /**
+     * Find out if this block has a track circuit failure.
+     * @return true if failure, false if not.
+     */
+    public boolean hasTrackCircuitFailure(){
+        return this.CircuitFailure;
+    }
+    
+    /**
+     * Should be called to simulate a power failure in this block.
+     * @param broken true if simulating power failure, false if no failure
+     */
+    public void PowerFailure(boolean broken){
+        this.PowerFailure = broken;
+    }
+    
+    /**
+     * Find out if there is a power failure at this block.
+     * @return true if power failure, false if not.
+     */
+    public boolean hasPowerFailure(){
+        return this.PowerFailure;
+    }
+    
+    /**
+     * Will check if there are any failures with the block
+     * @return true if the block has failures, false if no failures
+     */
+    public boolean isBroken(){
+        return BrokenTrack && CircuitFailure && PowerFailure;
+    }
+    
+    /**
+     * Get the number of people waiting at the station.
+     * @return number of people at the station.
+     */
     public int getNumPeopleAtStation(){
         return PeopleAtStation;
     }
     
-    public boolean takePeopleAtStation(int NumPeopleToTake){
-        if(isStation()){
+    /**
+     * Train can request a certain number of people to take from the station.
+     * @param NumPeopleToTake number of people to take
+     * @return 0 if no people or not a station. Otherwise returns the number of people
+     * from the requested number of people to take that can be taken. For example, if
+     * 20 people are requested, but only 10 are at the station, only 10 will be returned.
+     */
+    public int takePeopleAtStation(int NumPeopleToTake){
+        if(this.isStation()){
+            if((PeopleAtStation-NumPeopleToTake)<0){
+                NumPeopleToTake = PeopleAtStation;
+                
+                PeopleAtStation = (int) (Math.random() * 301);
+                return NumPeopleToTake;
+            }else{
+                PeopleAtStation -= NumPeopleToTake;
+                return NumPeopleToTake;
+            }
             
         }
-        return true;
-    }
-   public boolean closeBlock(){
-        return this.closed=true;
-    }
-    public boolean openBlock(){
-        return this.closed=false;
+        return 0;
     }
 }

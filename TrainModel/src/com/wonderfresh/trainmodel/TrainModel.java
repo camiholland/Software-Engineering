@@ -27,6 +27,7 @@ public class TrainModel {
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
 
+    Block prevBlock;
     Block block;
     Block nextBlock;
     TrackSimulator trackSim;
@@ -89,9 +90,11 @@ public class TrainModel {
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
         //trackSim = TrackSimulator.getInstance();
-        block = TrackSimulator.initBlock("Red");
-        //System.out.println(block.getLabel());
+        prevBlock = null;
+        block = TrackSimulator.initBlock("Green");
+        block.setOccupied(true);
         nextBlock = block.getNextBlock(null);
+        //System.out.println(block.getLabel());
         //System.out.println(nextBlock.getLabel());
         
         testing = Interfaces.getTrainControllerInterface();
@@ -233,16 +236,24 @@ public class TrainModel {
         }
         return acc;
     }
+    
+    
+    
     protected void updateDistance(double acc){
         //d = vi*t + 1/2*a*t^2 where t = 1
         distance += speed + acc/2;
-        /*if(distance >= blockLengthTotal){
+        if(distance >= blockLengthTotal){
+            prevBlock = block;
+            prevBlock.setOccupied(false);
             block = nextBlock;
+            block.setOccupied(true);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
             blockLengthTotal += block.getBlockLength();
-            nextBlock = block.getNextBlock();
-        }*/
+            nextBlock = block.getNextBlock(prevBlock);
+            System.out.println("moved to next block" + block.getBlockNum());
+        }
+        
     }
     public void setTargetTemp(int temp) throws InterruptedException{
         targetTemp = temp;

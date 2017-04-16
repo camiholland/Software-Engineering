@@ -16,3 +16,4 @@
 /TrainController/build/
 /TrainModel/build/
 /mbo/build/
+**/*.class

@@ -1037,15 +1037,27 @@
                                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="1" attributes="0">
                                                   <Group type="102" attributes="0">
-                                                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="BrokenRail_CheckBox" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                      <Component id="jCheckBox2" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="TrackCircuitFail_CheckBox" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="Update_Heater" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="Update_Crossing" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="Update_Block_Length" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="Update_Block_Grade" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="Update_Status" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
@@ -1062,10 +1074,25 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Component id="PowerFailure_CheckBox" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="Update_SwitchBlock" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Update_Occupied" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Update_Station" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Update_Speed_Limit" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Update_Underground" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Update_Arrow_Direction" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace pref="92" max="32767" attributes="0"/>
@@ -1084,38 +1111,51 @@
                           <EmptySpace pref="31" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="BrokenRail_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="TrackCircuitFail_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="PowerFailure_CheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Status" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Occupied" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Block_Grade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_SwitchBlock" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Block_Length" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Station" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Crossing" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Speed_Limit" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Heater" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Underground" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Update_Arrow_Direction" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1223,28 +1263,31 @@
                     <Property name="text" type="java.lang.String" value="Failures:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                <Component class="javax.swing.JCheckBox" name="BrokenRail_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Broken Rail"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox2">
+                <Component class="javax.swing.JCheckBox" name="TrackCircuitFail_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Track Circuit Fail"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox3">
+                <Component class="javax.swing.JCheckBox" name="PowerFailure_CheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Power Fail"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PowerFailure_CheckBoxActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Update"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="Section">
                   <Properties>
@@ -1299,6 +1342,28 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Arrow Direction:"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Status">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Block_Grade">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Block_Length">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Crossing">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Heater">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Occupied">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_SwitchBlock">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Station">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Speed_Limit">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Underground">
+                </Component>
+                <Component class="javax.swing.JLabel" name="Update_Arrow_Direction">
                 </Component>
               </SubComponents>
             </Container>

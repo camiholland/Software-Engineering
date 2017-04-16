@@ -154,4 +154,7 @@ public class Switch {
                 e.SecondaryBlock.equals(this.SecondaryBlock);
     }
     
+    public Block getSecondary(){
+        return this.SecondaryBlock;
+    }
 }

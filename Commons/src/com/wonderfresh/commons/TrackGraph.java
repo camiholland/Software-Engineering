@@ -177,9 +177,11 @@ public class TrackGraph {
     }
     
     public ArrayList<Section> getSections(){
-        String[] sectionNames = new String[sections.size()];
-        // Go through all sections and create string of their names for UI
-        return null;
+        ArrayList<Section> sectionList = new ArrayList<>();
+        for(Section value : sections.values()){
+            sectionList.add(value);
+        }
+        return sectionList;
     }
       
     public Set<String> BlockKeys(){

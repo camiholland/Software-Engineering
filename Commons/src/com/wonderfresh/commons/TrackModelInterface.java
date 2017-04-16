@@ -29,10 +29,12 @@ public interface TrackModelInterface{
         
         /**
          * This method will send the set point speed to the communications module.
+         * @param line track line that speed should be set on
+         * @param block track block that speed should be set on
          * @param speed at which the train should travel for the given authority
          * @return true if the speed sent successfully, false otherwise
          */
-        public boolean setSetPointSpeed(int speed);
+        public boolean setSetPointSpeed(String line, int block, int speed);
         
         public boolean setCrossing(String line, int BlockNum, boolean open);
         

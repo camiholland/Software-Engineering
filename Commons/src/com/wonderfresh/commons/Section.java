@@ -41,9 +41,16 @@ public class Section {
        boolean goAhead = true;
        
        if(!Included_Blocks.isEmpty()){
-            if(Included_Blocks.contains(newBlock)){
-                goAhead = false;
-            }
+           Iterator<Block> SectionSifter = Included_Blocks.iterator();
+           while(SectionSifter.hasNext()){
+               Block tempB = SectionSifter.next();
+               if((tempB.getBlockNum()-newBlock.getBlockNum())==0){
+                   goAhead = false;
+               }
+           }
+//            if(Included_Blocks.contains(newBlock)){
+//                goAhead = false;
+//            }
        }
        if(goAhead){
            Included_Blocks.add(newBlock);

@@ -27,14 +27,14 @@ public interface TrackModelInterface{
          * @param Distance length of track train is allowed to cover
          * @return true if successfully sent, false if not
          */
-        public boolean setAuthority(int Distance);
+        public boolean setAuthority(String line, int block, int Distance);
         
         /**
          * This method will send the set point speed to the communications module.
          * @param speed at which the train should travel for the given authority
          * @return true if the speed sent successfully, false otherwise
          */
-        public boolean setSetPointSpeed(int speed);
+        public boolean setSetPointSpeed(String line, int block, int speed);
         
         public boolean setCrossing(String line, int BlockNum, boolean open);
         

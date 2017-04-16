@@ -642,4 +642,20 @@ public class TrackModel{
 
     }
     
-}
+//    private void setBeacons(){
+////        for(int i = 0; i<2; i++){
+////            TrackGraph currentLine;
+////            if(i==0){
+////                currentLine = TrackSimulator.getInstance().getRedLine();
+////            }else{
+////                currentLine = TrackSimulator.getInstance().getGreenLine();
+////            }
+//            
+//            // Three direcitons max to check
+//            // Directions to check depend upon arrow directions
+//            // Should set beacons 160 m away from station or tunnel entrance.
+//            
+//        }
+    }
+    
+

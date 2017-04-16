@@ -20,7 +20,6 @@ public class TrackSimulator {
     private static TrackModel MainTrack;
     private static int lastTemp = 0;
     private static int Authority;
-    private static int Speed;
     private TrackModelUI gui=null;
     private static TrackSimulator instance = null;
     
@@ -37,13 +36,7 @@ public class TrackSimulator {
             
             Block firstBlock = redGraph.init();
             System.out.println(firstBlock.getLabel()+" "+firstBlock.getBlockLength()+" "+firstBlock.getBlockGrade()+" "+firstBlock.getArrowDirection()+" "+firstBlock.getSwitchBlock());
-            Block prevBlock = null;
-            Block nextBlock = firstBlock.getNextBlock(prevBlock);
-            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
-            prevBlock = firstBlock;
-            nextBlock = nextBlock.getNextBlock(prevBlock);
-            System.out.println(nextBlock.getLabel()+" "+nextBlock.getBlockLength()+" "+nextBlock.getBlockGrade()+" "+nextBlock.getArrowDirection()+" "+nextBlock.getSwitchBlock());
-
+            
         }
         return instance;
     }
@@ -103,15 +96,22 @@ public class TrackSimulator {
         return tempTrack.init();
     }
     
-    public static boolean setAuthority(int Distance){
+    public static boolean setAuthority(String line, int block, int Distance){
         Authority = Distance;
         return true;
     }
 
     
-    public static boolean setSetPointSpeed(int speed){
-        Speed = speed;
-        return true;
+    public static boolean setSetPointSpeed(String line, int block, int speed){
+        if(line.equals("Red")){
+            instance.getTrack().getRedLine().getBlock("Red", block).setSetPointSpeed(speed);
+            return true;
+        }else if(line.equals("Green")){
+            instance.getTrack().getGreenLine().getBlock("Green", block).setSetPointSpeed(speed);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public static boolean setCrossing(String line, int BlockNum, boolean open){
@@ -138,7 +138,11 @@ public class TrackSimulator {
             tempTrack = MainTrack.getGreenLine();
         }
         Section chosen_Section = tempTrack.getSection(Section);
-        return chosen_Section.isOccupied();
+        try{
+            return chosen_Section.isOccupied();
+        }catch(NullPointerException e){
+            return false;
+        }
     }
     
     public static boolean isBlockOccupied(String line, int blockNum){
@@ -162,12 +166,15 @@ public class TrackSimulator {
      */
     public static boolean setSwitch(String line, int BlockNum1, int BlockNum2){
         TrackGraph tempTrack;
-        if(line.equals("Red")){
-            tempTrack = MainTrack.getRedLine();
-        }else if(line.equals("Green")){
-            tempTrack = MainTrack.getGreenLine();
-        }else{
-            return false;
+        switch (line) {
+            case "Red":
+                tempTrack = MainTrack.getRedLine();
+                break;
+            case "Green":
+                tempTrack = MainTrack.getGreenLine();
+                break;
+            default:
+                return false;
         }
         Block testBlock1 = tempTrack.getBlock(line, BlockNum1);
         Block testBlock2 = tempTrack.getBlock(line, BlockNum2);
