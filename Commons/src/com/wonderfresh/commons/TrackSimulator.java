@@ -138,7 +138,11 @@ public class TrackSimulator {
             tempTrack = MainTrack.getGreenLine();
         }
         Section chosen_Section = tempTrack.getSection(Section);
-        return chosen_Section.isOccupied();
+        try{
+            return chosen_Section.isOccupied();
+        }catch(NullPointerException e){
+            return false;
+        }
     }
     
     public static boolean isBlockOccupied(String line, int blockNum){

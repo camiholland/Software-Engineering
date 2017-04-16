@@ -1094,21 +1094,35 @@ public class TrackModelUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         if(Section.getSelectedItem().equals("Section")){
-            Block_ComboBox.removeAllItems();
-            Block_ComboBox.addItem("Block");
+            String[] BlockBoxModel = new String[1];
+            BlockBoxModel[0] = "Block";
+            Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
         }else{
             if(Line.getSelectedItem().equals("Red")){
                 ArrayList<Block> blocks = newTrack.getRedLine().getSection((String)Section.getSelectedItem()).getBlockList();
-                Iterator<Block> BlockSifter = blocks.iterator();
-                while(BlockSifter.hasNext()){
-                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
+                int blockArraySize = blocks.size();
+                System.out.println("Red size "+blockArraySize);
+                String[] BlockBoxModel = new String[blockArraySize+1];
+                BlockBoxModel[0] = "Block";
+                for(int i=0; i<blockArraySize; i++){
+                    System.out.println(i);
+                    BlockBoxModel[i+1] = Integer.toString(blocks.get(i).getBlockNum());
                 }
+                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
+//                Iterator<Block> BlockSifter = blocks.iterator();
+//                while(BlockSifter.hasNext()){
+//                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
+//                }
             }else{
                 ArrayList<Block> blocks = newTrack.getGreenLine().getSection((String)Section.getSelectedItem()).getBlockList();
-                Iterator<Block> BlockSifter = blocks.iterator();
-                while(BlockSifter.hasNext()){
-                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
+                int blockArraySize = blocks.size();
+                System.out.println("Green size"+blockArraySize);
+                String[] BlockBoxModel = new String[blockArraySize+1];
+                BlockBoxModel[0] = "Block";
+                for(int i=0; i<blockArraySize; i++){
+                    BlockBoxModel[i+1] = Integer.toString(blocks.get(i).getBlockNum());
                 }
+                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
             }
             
         }
@@ -1133,17 +1147,28 @@ public class TrackModelUI extends javax.swing.JFrame {
         
         if(Line.getSelectedItem().equals("Red")){
             ArrayList<Section> sections = newTrack.getRedLine().getSections();
-            Iterator<Section> SectionSifter = sections.iterator();
-            while(SectionSifter.hasNext()){
-                Section.addItem(SectionSifter.next().getSectionName());
+            int section_size = sections.size();
+            String[] SectionModel = new String[section_size+1];
+            SectionModel[0] = "Section";
+            for(int i=0; i<section_size; i++){
+                SectionModel[i+1] = sections.get(i).getSectionName();
             }
+            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
         }else if(Line.getSelectedItem().equals("Green")){
             ArrayList<Section> sections = newTrack.getGreenLine().getSections();
-            Iterator<Section> SectionSifter =  sections.iterator();
-            while(SectionSifter.hasNext()){
-                Section.addItem(SectionSifter.next().getSectionName());
+            int section_size = sections.size();
+            String[] SectionModel = new String[section_size+1];
+            SectionModel[0] = "Section";
+            for(int i=0; i<section_size; i++){
+                SectionModel[i+1] = sections.get(i).getSectionName();
             }
+            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
+        }else{
+            String[] SectionModel = new String[1];
+            SectionModel[0] = "Section";
+            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
         }
+        
        
     }//GEN-LAST:event_LineActionPerformed
 
@@ -1153,10 +1178,10 @@ public class TrackModelUI extends javax.swing.JFrame {
         if(!Block_ComboBox.getSelectedItem().equals("Block")){
             if(Line.getSelectedItem().equals("Red")){
                 //int numSelect = Integer.parseInt((String)Block_ComboBox.getSelectedItem());
-                tempBlock = newTrack.getRedLine().getBlock("Red",(int)Block_ComboBox.getSelectedItem());
+                tempBlock = newTrack.getRedLine().getBlock("Red", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
             }else{
                 //int numSelect = Integer.parseInt((String)Block_ComboBox.getSelectedItem());
-                tempBlock = newTrack.getGreenLine().getBlock("Green", (int)Block_ComboBox.getSelectedItem());
+                tempBlock = newTrack.getGreenLine().getBlock("Green", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
             }
             
             //Update_Status.add(this)
