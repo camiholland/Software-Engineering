@@ -165,9 +165,9 @@ public class TrackModelUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        BrokenRail_CheckBox = new javax.swing.JCheckBox();
+        TrackCircuitFail_CheckBox = new javax.swing.JCheckBox();
+        PowerFailure_CheckBox = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         Section = new javax.swing.JComboBox();
         Block_ComboBox = new javax.swing.JComboBox();
@@ -683,18 +683,23 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jLabel6.setText("Failures:");
 
-        jCheckBox1.setText("Broken Rail");
+        BrokenRail_CheckBox.setText("Broken Rail");
 
-        jCheckBox2.setText("Track Circuit Fail");
+        TrackCircuitFail_CheckBox.setText("Track Circuit Fail");
 
-        jCheckBox3.setText("Power Fail");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        PowerFailure_CheckBox.setText("Power Fail");
+        PowerFailure_CheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                PowerFailure_CheckBoxActionPerformed(evt);
             }
         });
 
         jButton1.setText("Update");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         Section.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Section" }));
         Section.addActionListener(new java.awt.event.ActionListener() {
@@ -770,9 +775,9 @@ public class TrackModelUI extends javax.swing.JFrame {
                                     .addGap(24, 24, 24)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addComponent(jCheckBox1)
+                                            .addComponent(BrokenRail_CheckBox)
                                             .addGap(10, 10, 10)
-                                            .addComponent(jCheckBox2))
+                                            .addComponent(TrackCircuitFail_CheckBox))
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(Update_Heater)
@@ -800,7 +805,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jCheckBox3)
+                                .addComponent(PowerFailure_CheckBox)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1))
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -825,9 +830,9 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3)
+                    .addComponent(BrokenRail_CheckBox)
+                    .addComponent(TrackCircuitFail_CheckBox)
+                    .addComponent(PowerFailure_CheckBox)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1109,9 +1114,9 @@ public class TrackModelUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SectionActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void PowerFailure_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PowerFailure_CheckBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }//GEN-LAST:event_PowerFailure_CheckBoxActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -1155,8 +1160,11 @@ public class TrackModelUI extends javax.swing.JFrame {
             }
             
             //Update_Status.add(this)
-            Update_Block_Grade.setText(Double.toString(tempBlock.getBlockGrade()));
-            Update_Block_Length.setText(Double.toString(tempBlock.getBlockLength()));
+            Update_Block_Grade.setText(Double.toString(tempBlock.getBlockGrade())+"%");
+            double len = tempBlock.getBlockLength();
+            len = len*3.28084;
+            String lenText = String.format("%.2f ft", len);
+            Update_Block_Length.setText(lenText);
             if(tempBlock.isCrossing()){
                 Update_Crossing.setText("True");
             }else{
@@ -1167,15 +1175,95 @@ public class TrackModelUI extends javax.swing.JFrame {
             }else{
                 Update_Underground.setText("False");
             }
-            Update_Speed_Limit.setText(Integer.toString(tempBlock.getSpeedLimit()));
+            int current_speedLimit = tempBlock.getSpeedLimit();
+            double speedMPH = current_speedLimit*0.621371;
+            String speedText = String.format("%.2f mph", speedMPH);
+            Update_Speed_Limit.setText(speedText);
             if(tempBlock.isStation()){
                 Update_Station.setText(tempBlock.getStation());
             }else{
                 Update_Station.setText("None");
             }
+            if(tempBlock.isOccupied()){
+                Update_Occupied.setText("True");
+            }else{
+                Update_Occupied.setText("False");
+            }
+            if(tempBlock.getSwitchBlock()>-1){
+                Update_SwitchBlock.setText(Integer.toString(tempBlock.getSwitchBlock()));
+            }else{
+                Update_SwitchBlock.setText("No Switch");
+            }
+            if(tempBlock.closed){
+                Update_Status.setText("Closed");
+            }else{
+                Update_Status.setText("Open");
+            }
+            String arrowString;
+            if(tempBlock.getLine().equals("Red")){
+                Section tempSection = newTrack.getRedLine().getSection(tempBlock.getSection());
+                arrowString = tempSection.getArrowDirection();
+            }else{
+                Section tempSection = newTrack.getGreenLine().getSection(tempBlock.getSection());
+                arrowString = tempSection.getArrowDirection();
+            }
+            if(arrowString.startsWith("Head")&&arrowString.endsWith("Head")){
+                Update_Arrow_Direction.setText("Head <-> Head");
+            }else if(arrowString.startsWith("Head")&&arrowString.endsWith("Tail")){
+                Update_Arrow_Direction.setText("Head <- Tail");
+            }else{
+                Update_Arrow_Direction.setText("Tail -> Head");
+            }
+            if(tempBlock.isStation()&&(lastTemp<=32)){
+                Update_Heater.setText("On");
+            }else{
+                Update_Heater.setText("Off");
+            }
+            if(tempBlock.hasBrokenTrackFailure() && !BrokenRail_CheckBox.isSelected()){
+                BrokenRail_CheckBox.doClick();
+            }else if(!tempBlock.hasBrokenTrackFailure() && BrokenRail_CheckBox.isSelected()){
+                BrokenRail_CheckBox.doClick();
+            }
+            if(tempBlock.hasTrackCircuitFailure() && !TrackCircuitFail_CheckBox.isSelected()){
+                TrackCircuitFail_CheckBox.doClick();
+            }else if(!tempBlock.hasTrackCircuitFailure() && TrackCircuitFail_CheckBox.isSelected()){
+                TrackCircuitFail_CheckBox.doClick();
+            }
+            if(tempBlock.hasPowerFailure() && !PowerFailure_CheckBox.isSelected()){
+                PowerFailure_CheckBox.doClick();
+            }else if(!tempBlock.hasPowerFailure() && PowerFailure_CheckBox.isSelected()){
+                PowerFailure_CheckBox.doClick();
+            }
             
         }
     }//GEN-LAST:event_Block_ComboBoxActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Block temp;
+        if(Line.getSelectedItem().equals("Red")){
+            temp = newTrack.getRedLine().getBlock("Red", (int)Block_ComboBox.getSelectedItem());
+        }else if(Line.getSelectedItem().equals("Green")){
+            temp = newTrack.getRedLine().getBlock("Green", (int)Block_ComboBox.getSelectedItem());
+        }else{
+            return;
+        }
+        if(BrokenRail_CheckBox.isSelected()){
+            temp.BrokenTrackFailure(true);
+        }else{
+            temp.BrokenTrackFailure(false);
+        }
+        if(TrackCircuitFail_CheckBox.isSelected()){
+            temp.TrackCircuitFailure(true);
+        }else{
+            temp.TrackCircuitFailure(false);
+        }
+        if(PowerFailure_CheckBox.isSelected()){
+            temp.PowerFailure(true);
+        }else{
+            temp.PowerFailure(false);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1221,6 +1309,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextPane Auto_Temp_Text_Field;
     private javax.swing.JComboBox Block_ComboBox;
     private javax.swing.JLabel BrokenRailLabel;
+    private javax.swing.JCheckBox BrokenRail_CheckBox;
     private javax.swing.JTextField ChangeArrow;
     private javax.swing.JTextField ChangeBlockLen;
     private javax.swing.JTextField ChangeBlockNum;
@@ -1256,6 +1345,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextArea NotificationField;
     private javax.swing.JMenuItem Open;
     private javax.swing.JLabel PowerFailureLabel;
+    private javax.swing.JCheckBox PowerFailure_CheckBox;
     private javax.swing.JTextField ReconfigureEditor;
     private javax.swing.JLabel ReconfigureTrackLabel;
     private javax.swing.JComboBox Section;
@@ -1265,6 +1355,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JToggleButton ToggleBrokenRail;
     private javax.swing.JToggleButton TogglePowerFailure;
     private javax.swing.JToggleButton ToggleTrackCircuitFailure;
+    private javax.swing.JCheckBox TrackCircuitFail_CheckBox;
     private javax.swing.JLabel TrackCircuitFailureLabel;
     private javax.swing.JLabel TrackControllerLabel;
     private javax.swing.JLabel TrainMap;
@@ -1287,9 +1378,6 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

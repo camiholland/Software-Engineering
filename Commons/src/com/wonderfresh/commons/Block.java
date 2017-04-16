@@ -102,6 +102,7 @@ public class Block {
         
         if(infra.contains("STATION")){
             
+            this.Station_status = true;
             String[] s_array = infra.split("\\s+");
             String station = "";
             int a = s_array.length;
@@ -140,10 +141,14 @@ public class Block {
         }else {
             this.Station = "Not A Station";
             this.PeopleAtStation = 0;
+            this.Station_status = false;
         }
         
         this.ArrowDirection = Arrow;
         this.neighborhood = new ArrayList<>();
+        this.PowerFailure = false;
+        this.CircuitFailure = false;
+        this.BrokenTrack = false;
     }
     
     /**
@@ -472,6 +477,14 @@ public class Block {
     }
     
     /**
+     * Find out if block has a broken track.
+     * @return true if broken, false if not
+     */
+    public boolean hasBrokenTrackFailure(){
+        return this.BrokenTrack;
+    }
+    
+    /**
      * Should be called to simulate a track circuit failure in this block.
      * @param broken true if simulating track circuit failure, false if no failure
      */
@@ -480,11 +493,27 @@ public class Block {
     }
     
     /**
+     * Find out if this block has a track circuit failure.
+     * @return true if failure, false if not.
+     */
+    public boolean hasTrackCircuitFailure(){
+        return this.CircuitFailure;
+    }
+    
+    /**
      * Should be called to simulate a power failure in this block.
      * @param broken true if simulating power failure, false if no failure
      */
     public void PowerFailure(boolean broken){
         this.PowerFailure = broken;
+    }
+    
+    /**
+     * Find out if there is a power failure at this block.
+     * @return true if power failure, false if not.
+     */
+    public boolean hasPowerFailure(){
+        return this.PowerFailure;
     }
     
     /**
