@@ -11,8 +11,10 @@ package com.wonderfresh.commons;
  * //change to String Station and String for trainID and time
  */
 public class mboTrainDepartInfo {
+    //
     String station;
-    String trainIDandDepart;
+    String trainIDandDepart; // Train 1 : Departing 1:19 pm
+    
     mboTrainDepartInfo info[];
     
     public mboTrainDepartInfo[] setmboTrainDepartInfo(String station, int ID, String departTime){
