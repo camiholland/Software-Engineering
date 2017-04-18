@@ -43,8 +43,8 @@ public class TrackSimulator {
     
     public void launchUI(){
         gui = new TrackModelUI(); // GUI gui = new GUI() as well
-       // gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setVisible(true);
+//       // gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.runTheTrack();
     }
    
     
