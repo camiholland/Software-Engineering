@@ -24,9 +24,7 @@ public class mboTrainDepartInfo {
         return info;
     }
     public mboTrainDepartInfo[] getmboTrainDepartInfo(String station){
-        mboTrainDepartInfo info[]=new mboTrainDepartInfo[100];
-        
-        
+        mboTrainDepartInfo info[]=new mboTrainDepartInfo[10];
         return info;
     }
 }

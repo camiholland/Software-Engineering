@@ -14,6 +14,7 @@ import com.wonderfresh.commons.TrackSimulator;
 import com.wonderfresh.commons.TrackModelImplementation;
 import javax.swing.JFrame;
 import com.wonderfresh.interfaces.Interfaces;
+import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.interfaces.TrackModelInterface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -186,13 +187,9 @@ public class Mbo extends Thread{
                 /*
                 Get train locations from 
                 
-                for(i=0;i<100;i++){
-                    if (train[i]!=null){
-                        train[i].block=
-                    }
-                    
-                }
+                
                 */
+                //train=com.wonderfresh.interfaces.MboInterface.getLocation(train);
                 /*
                 Update authority with distance to station
                 */

@@ -23,7 +23,7 @@ public class MboInterfaceImpl implements MboInterface {
     
     
     void setClosedBlocks(String[] closed){
-        closedBlocks=closed;
+        this.closedBlocks=closed;
     }
     @Override
     public String[] getClosedBlocks(){
@@ -35,14 +35,14 @@ public class MboInterfaceImpl implements MboInterface {
     
     @Override
     public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array){
-        array[trainID].speed=speed;
-        array[trainID].authority=authority;
-        return array;
+        this.array[trainID].speed=speed;
+        this.array[trainID].authority=authority;
+        return this.array;
     }
     @Override
     public mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array){
         
-        return array;
+        return this.array;
     }
     @Override
     public mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info){
@@ -52,11 +52,11 @@ public class MboInterfaceImpl implements MboInterface {
     @Override
     public mboTrain[] getDispatchedTrain(){
         
-        return array;
+        return this.array;
     }
     @Override
     public mboTrain[] getUpdatedSpeedAuthority(){
-        return array;
+        return this.array;
     }
     @Override
     public mboTrainDepartInfo[] getTrainDepartInfo(){
@@ -69,11 +69,12 @@ public class MboInterfaceImpl implements MboInterface {
     }
     public void setLocation(int ID,int blockNum, double metersIn, boolean line){
         if (line==true){
-          array[ID].color="green";
+          this.array[ID].color="green";
           }
-        else{array[ID].color="red";}
-         array[ID].block=blockNum;
-         array[ID].metersInBlock=metersIn;
+        else{
+            this.array[ID].color="red";}
+         this.array[ID].block=blockNum;
+         this.array[ID].metersInBlock=metersIn;
          return ;
      }
     @Override

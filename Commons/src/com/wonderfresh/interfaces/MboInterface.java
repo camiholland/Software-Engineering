@@ -1,6 +1,5 @@
 package com.wonderfresh.interfaces;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.mboTrainDepartInfo;
 
@@ -19,9 +18,10 @@ public interface MboInterface {
     mboTrain[] setLocation(int ID, int blockNum, int metersIn, boolean line);
     mboTrain[] getLocation(mboTrain[] array);
     mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info);
+    mboTrainDepartInfo[] getTrainDepartInfo();
     mboTrain[] getDispatchedTrain();
     mboTrain[] getUpdatedSpeedAuthority();
-    mboTrainDepartInfo[] getTrainDepartInfo();
+    
     
     
 }
