@@ -21,6 +21,17 @@ public class MboInterfaceImpl implements MboInterface {
     mboTrain[] array;
     mboTrainDepartInfo[] info;
     
+    public MboInterfaceImpl(){
+       
+    }
+    public mboTrain[] initializeTrainArray(){
+        this.array = new mboTrain[100];
+        int i;
+        for (i=0;i<100;i++){
+            this.array[i].id=0;//0 in id for unused train
+        }
+        return this.array;
+    }
     
     void setClosedBlocks(String[] closed){
         this.closedBlocks=closed;
@@ -67,7 +78,10 @@ public class MboInterfaceImpl implements MboInterface {
     public void setClosedBlocks(int block, String description) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void setLocation(int ID,int blockNum, double metersIn, boolean line){
+
+
+    @Override
+    public void setLocation(int ID, int blockNum, int metersIn, boolean line) {
         if (line==true){
           this.array[ID].color="green";
           }
@@ -76,20 +90,11 @@ public class MboInterfaceImpl implements MboInterface {
          this.array[ID].block=blockNum;
          this.array[ID].metersInBlock=metersIn;
          return ;
-     }
-    public com.wonderfresh.commons.mboTrain[] getLocation(mboTrain[] array){
-        
-        return this.array;
-    }
-
-    @Override
-    public void setLocation(int ID, int blockNum, int metersIn, boolean line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public mboTrain[] getLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           return this.array;
     }
 
 
