@@ -53,6 +53,9 @@ public class SystemWrapper {
         trackSimulator = TrackSimulator.getInstance();
         trainControllers = new Trains();
         trainModels = new Train();
+        
+        Interfaces.setMBOInterface(new MboInterfaceImpl());
+        
         mbo = new Mbo();
         mbo.start();
         trackController = new TrackController();
@@ -60,7 +63,7 @@ public class SystemWrapper {
          
        
         
-        Interfaces.setMBOInterface(new MboInterfaceImpl());
+        
         //mboInterface.initializeTrainArray();
         
         //MboInterface mboInterface=Interfaces.getMboInterface();
