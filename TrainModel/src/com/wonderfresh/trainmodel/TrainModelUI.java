@@ -1172,7 +1172,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                     yellowCastleShannon.setVisible(setVisible);
             }
             else{
-                if(station == 2)
+                /*if(station == 2)
                     approachingStation.blink(yellowPioneer);
                 else if(station == 9)
                     approachingStation.blink(yellowEdgebrook);
@@ -1197,7 +1197,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                 else if(station == 88)
                     approachingStation.blink(yellowPoplar);
                 else if(station == 96)
-                    approachingStation.blink(yellowCastleShannon);
+                    approachingStation.blink(yellowCastleShannon);*/
             }
         }
         else{
@@ -1220,7 +1220,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                     yellowSouthHills.setVisible(setVisible);
             }
             else{
-                if(station == 7)
+                /*if(station == 7)
                     approachingStation.blink(yellowShadyside);
                 else if(station == 16)
                     approachingStation.blink(yellowHerron);
@@ -1235,7 +1235,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                 else if(station == 48)
                     approachingStation.blink(yellowStationSquare);
                 else if(station == 60)
-                    approachingStation.blink(yellowSouthHills);
+                    approachingStation.blink(yellowSouthHills);*/
             }
         }
     }
