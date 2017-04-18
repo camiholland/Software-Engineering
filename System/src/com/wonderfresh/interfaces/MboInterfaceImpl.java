@@ -30,7 +30,7 @@ public class MboInterfaceImpl implements MboInterface {
         for (i=0;i<100;i++){
             mboTrain a = new mboTrain();
             mytrains[i]=a;
-            System.out.println("i="+i);
+            //System.out.println("i="+i);
             mytrains[i].metersInBlock=-1;
             mytrains[i].block=-1;
             mytrains[i].id=0;//0 in id for unused train

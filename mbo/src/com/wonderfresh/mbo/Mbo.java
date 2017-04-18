@@ -167,7 +167,7 @@ public class Mbo extends Thread{
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
        //running variable declarations
         String[] closedTracks=new String[100];
-        mboTrain[] train=new mboTrain[100];
+        mboTrain[] allTrains=new mboTrain[100];
         //MboInterface mbointerface=Interfaces.getMboInterface();
         running=1;
         while(running==1){
@@ -195,9 +195,9 @@ public class Mbo extends Thread{
                 
                 
                 */
-                train=mboInterface.getLocation();
-                double temp=train[1].metersInBlock;
-                int temp2=train[1].block;
+                allTrains=mboInterface.getLocation();
+                double temp=allTrains[1].metersInBlock;
+                int temp2=allTrains[1].block;
                 System.out.println("Train 1 in block"+temp2+"  meters in: "+temp);
                 /*
                 Update authority with distance to station

@@ -263,6 +263,7 @@ public class TrainModel {
             speedLimit = block.getSpeedLimit();
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
+            System.out.println(nextBlock.toString());
             if(nextBlock.isStation()){
                 gui.setStation(line, nextBlock.getBlockNum(), false, true);
             }
