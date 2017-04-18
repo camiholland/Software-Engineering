@@ -38,6 +38,10 @@ public class TrackGraph {
         }
     }
     
+    /**
+     * This function provides the user with the first block of the respective track line
+     * @return a Block
+     */
     public Block init(){
         int yardSwitch = 0;
         for(String key : blocks.keySet()){
@@ -64,10 +68,25 @@ public class TrackGraph {
         }
     }
     
+    /**
+     * For TrackModel only. Will add an edge to the graph from Block 'one' to
+     * Block 'two'. Will set to open automatically.
+     * @param one block to extend edge from
+     * @param two block to extend edge to
+     * @return true if successfully added to graph, false otherwise
+     */
     public boolean addEdge(Block one, Block two){
         return addEdge(one,two, true);
     }
     
+    /**
+     * For TrackModel only. Will add an edge to the graph from Block 'from' to
+     * Block 'to'. Can set to open or closed with the parameter OoC.
+     * @param from the Block to extend the edge from 
+     * @param to the Block to extend the edge to
+     * @param OoC true if edge is open, false if closed.
+     * @return true if successfully added, false otherwise
+     */
     public boolean addEdge(Block from, Block to, boolean OoC){
         if(from.equals(to)){
             System.out.println("They are equal to in hash.");
@@ -92,6 +111,11 @@ public class TrackGraph {
         return true;
     }
     
+    /**
+     * Checks to see if an edge is contained within the graph
+     * @param e the edge to search for
+     * @return true if the edge exists, false if it doesn't
+     */
     public boolean containsEdge(Edge e){
         if(e.getStartingBlock() == null || e.getEndingBlock() == null){
             return false;
@@ -100,14 +124,39 @@ public class TrackGraph {
         return this.edges.containsKey(e.hashCode());
     }
     
+    /**
+     * Checks to see if a block is contained within the graph
+     * @param block to search the graph for
+     * @return true if it exists, false if not
+     */
     public boolean containsBlock(Block block){
         return this.blocks.get(block.getLabel()) != null;
     }
     
+    /**
+     * Get a specific block from the specified graph
+     * @param line a redundant argument, but should indicate the line to look in
+     * @param BlockNum the number of the block to search
+     * @return a Block if found, null if it doesn't exist
+     */
     public Block getBlock(String line, int BlockNum){
         return blocks.get((line+BlockNum));
     }
     
+    /**
+     * Find out the number of blocks that make up the graph.
+     * @return an integer of the number of blocks
+     */
+    public int getNumBlocks(){
+        return blocks.size();
+    }
+    
+    /**
+     * For TrackModel use only. Adds a block to the graph.
+     * @param block to add to graph
+     * @param overwriteExisting true to overwrite a block with an equivalent label, false to not overwrite if an equivalent block exists
+     * @return true if successfully added, false otherwise
+     */
     public boolean addBlock(Block block, boolean overwriteExisting){
         
         Block current = this.blocks.get(block.getLabel());
@@ -126,6 +175,13 @@ public class TrackGraph {
             
     }
     
+    /**
+     * For TrackModel use only. Add a switch to the track graph.
+     * @param MasterBlock 
+     * @param PrimaryBlock
+     * @param SecondaryBlock
+     * @return 
+     */
     public boolean addSwitch(Block MasterBlock, Block PrimaryBlock, Block SecondaryBlock){
         Switch realTemp = new Switch(MasterBlock, PrimaryBlock, SecondaryBlock);
         if(this.switches.containsKey(realTemp.hashCode())){
@@ -182,6 +238,18 @@ public class TrackGraph {
             sectionList.add(value);
         }
         return sectionList;
+    }
+    
+    /**
+     * Get all the blocks in the graph in form of arrayList
+     * @return ArrayList of Block type
+     */
+    public ArrayList<Block> getBlocks(){
+        ArrayList<Block> blockList = new ArrayList<>();
+        for(Block value : blocks.values()){
+            blockList.add(value);
+        }
+        return blockList;
     }
       
     public Set<String> BlockKeys(){

@@ -13,7 +13,19 @@ class Beacon {
     private String station;
     private double distance;
     
+    public Beacon(String station){
+        this.station = station;
+    }
+    
     public String getSignal(){
         return station+distance;
+    }
+    
+    public void setStation(String station){
+        this.station = station;
+    }
+    
+    private void setDistance(double len){
+        this.distance = len;
     }
 }

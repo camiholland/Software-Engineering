@@ -1267,9 +1267,9 @@ public class TrackModelUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         Block temp;
         if(Line.getSelectedItem().equals("Red")){
-            temp = newTrack.getRedLine().getBlock("Red", (int)Block_ComboBox.getSelectedItem());
+            temp = newTrack.getRedLine().getBlock("Red", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
         }else if(Line.getSelectedItem().equals("Green")){
-            temp = newTrack.getRedLine().getBlock("Green", (int)Block_ComboBox.getSelectedItem());
+            temp = newTrack.getRedLine().getBlock("Green", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
         }else{
             return;
         }

@@ -395,6 +395,18 @@ public class Block {
     }
     
     /**
+     * Get the beacon associated with the block
+     * @return 
+     */
+    public Beacon getBeacon(){
+        return this.beaconSig;
+    }
+    
+    public void setBeacon(Beacon b){
+        this.beaconSig = b;
+    }
+    
+    /**
      * 
      * @return 
      */
