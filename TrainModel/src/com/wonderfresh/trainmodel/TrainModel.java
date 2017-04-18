@@ -257,7 +257,7 @@ public class TrainModel {
             distanceWithinBlock = distance - blockLengthTotal;
             prevBlock = block;
             prevBlock.setOccupied(false);
-            block = nextBlock;
+            block = block.getNextBlock(block);
             block.setOccupied(true);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
