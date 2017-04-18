@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
 package com.wonderfresh.mbo;
 
 import com.wonderfresh.commons.mboTrain;
-
+*/
 /**
  *
  * @author angie
  */
+/*
 public class mboInterfaceClass implements MboInterface{
     
     com.wonderfresh.commons.mboTrain[] array;
@@ -62,3 +64,4 @@ public class mboInterfaceClass implements MboInterface{
 
 }
 
+*/

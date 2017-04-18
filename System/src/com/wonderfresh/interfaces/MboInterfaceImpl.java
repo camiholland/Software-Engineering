@@ -30,15 +30,7 @@ public class MboInterfaceImpl implements MboInterface {
         return closedBlocks;
     }
     
-    @Override
-    public mboTrain[] setLocation(int blockNum, int metersIn,int ID){
-        array[ID].block=blockNum;
-        array[ID].metersInBlock=metersIn;
-        return array;
-    }
-    public mboTrain[] getLocation(mboTrain[] array){
-        return array;
-    }
+  
     
     
     @Override
@@ -75,7 +67,25 @@ public class MboInterfaceImpl implements MboInterface {
     public void setClosedBlocks(int block, String description) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public void setLocation(int ID,int blockNum, double metersIn, boolean line){
+        if (line==true){
+          array[ID].color="green";
+          }
+        else{array[ID].color="red";}
+         array[ID].block=blockNum;
+         array[ID].metersInBlock=metersIn;
+         return ;
+     }
+    @Override
+    public com.wonderfresh.commons.mboTrain[] getLocation(mboTrain[] array){
+        
+        return array;
+    }
 
+    @Override
+    public mboTrain[] setLocation(int ID, int blockNum, int metersIn, boolean line) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
  
 }
 
