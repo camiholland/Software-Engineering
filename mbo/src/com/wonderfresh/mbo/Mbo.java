@@ -17,6 +17,7 @@ import com.wonderfresh.commons.TrackModelImplementation;
 import javax.swing.JFrame;
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.MboInterface;
+//import com.wonderfresh.commons.MboInterfaceImpl;
 import com.wonderfresh.interfaces.TrackModelInterface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -166,7 +167,7 @@ public class Mbo extends Thread{
        //running variable declarations
         String[] closedTracks=new String[100];
         mboTrain[] train=new mboTrain[100];
-        
+        MboInterface inter=Interfaces.getMboInterface();
         running=1;
         while(running==1){
             //update time
@@ -175,7 +176,7 @@ public class Mbo extends Thread{
                 /*
                 *get closed track information from CTC --- Save to String temp
                 */
-                //closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
+               // closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
                 displayClosedTracks(closedTracks);
                 
 /****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
@@ -193,7 +194,7 @@ public class Mbo extends Thread{
                 
                 
                 */
-               // train.MboInterface.getLocation();
+                train=inter.getLocation();
                 /*
                 Update authority with distance to station
                 */
