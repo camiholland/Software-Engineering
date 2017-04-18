@@ -7,8 +7,9 @@
 package com.wonderfresh.commons;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.Iterator;
 import javax.swing.JFileChooser;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -16,7 +17,7 @@ import javax.swing.JFileChooser;
  */
 public class TrackModelUI extends javax.swing.JFrame {
     private int lastTemp;
-    private TrackModel newTrack;
+    private static TrackModel newTrack;
     private TrackSimulator trackSimulator;
     private ArrayList<TrackGraph> tempGraphList;
     /**
@@ -624,7 +625,6 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Green47\nRed92\nRed10\nGreen11");
         jScrollPane12.setViewportView(jTextArea1);
 
         jLabel2.setText("Occupied Blocks");
@@ -1043,10 +1043,7 @@ public class TrackModelUI extends javax.swing.JFrame {
         jTextArea2.setText(filename);
         String warning = trackSimulator.setNewTrack(filename);
         jTextArea2.setText(warning);
-        if(newTrack!=null){
-            Line.addItem(newTrack.getRedLine());
-            Line.addItem(newTrack.getGreenLine());
-        }
+        
         
         
     }//GEN-LAST:event_OpenActionPerformed
@@ -1268,7 +1265,7 @@ public class TrackModelUI extends javax.swing.JFrame {
         if(Line.getSelectedItem().equals("Red")){
             temp = newTrack.getRedLine().getBlock("Red", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
         }else if(Line.getSelectedItem().equals("Green")){
-            temp = newTrack.getRedLine().getBlock("Green", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
+            temp = newTrack.getGreenLine().getBlock("Green", Integer.parseInt((String)Block_ComboBox.getSelectedItem()));
         }else{
             return;
         }
@@ -1320,6 +1317,35 @@ public class TrackModelUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TrackModelUI().setVisible(true);
+//                while(true){
+////                    try{
+////                        TimeUnit.SECONDS.sleep(1);
+////                    }catch(InterruptedException e){
+////                        System.out.println("exit trackUI");
+////                    }
+//                    ArrayList<Block> OccupiedBlocksRed = newTrack.getRedLine().getOccupiedBlocks();
+//                    ArrayList<Block> OccupiedBlocksGreen = newTrack.getGreenLine().getOccupiedBlocks();
+//                    int RedSizeO = OccupiedBlocksRed.size();
+//                    int GreenSizeO = OccupiedBlocksGreen.size();
+//                    String[] OccupiedString = new String[RedSizeO+GreenSizeO];
+//                    String OccupiedText = "";
+//                    for(int i=0; i<RedSizeO; i++){
+//                        OccupiedString[i] = OccupiedBlocksRed.get(i).getLabel();
+//                    }
+//                    for(int j=0; j<GreenSizeO; j++){
+//                        OccupiedString[RedSizeO+j] = OccupiedBlocksGreen.get(j).getLabel();
+//                    }
+//                    int rows = 0;
+//                    for(int k=0; k<OccupiedString.length; k++){
+//                        if(rows<5){
+//                            OccupiedText.concat(OccupiedString[k]+"\t");
+//                        }else{
+//                            rows = 0;
+//                            OccupiedText.concat(OccupiedString[k]+"\n");
+//                        }
+//                    }
+//                    jTextArea1.setText(OccupiedText);
+//                }
             }
         });
     }
@@ -1439,7 +1465,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private static javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

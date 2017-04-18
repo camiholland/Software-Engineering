@@ -12,13 +12,19 @@ package com.wonderfresh.commons;
 class Beacon {
     private String station;
     private double distance;
+    private int side;
     
     public Beacon(String station){
         this.station = station;
     }
     
-    public String getSignal(){
-        return station+distance;
+    public String[] getSignal(){
+        String[] newArray = new String[3];
+        newArray[0] = this.station;
+        newArray[1] = Double.toString(this.distance);
+        newArray[2] = Integer.toString(this.side);
+        
+        return newArray;
     }
     
     public void setStation(String station){
@@ -27,5 +33,9 @@ class Beacon {
     
     private void setDistance(double len){
         this.distance = len;
+    }
+    
+    private void setSide(int n){
+        this.side = n;
     }
 }

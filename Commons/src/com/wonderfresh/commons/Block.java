@@ -407,14 +407,17 @@ public class Block {
     }
     
     /**
-     * 
-     * @return 
+     * Get the station or tunnel that is approaching, the distance and the side of track it is on
+     * @return String array String[0] = station, String[1] = distance (double), String[2] = side of track, -1 left, 0 tunnel, 1 right
      */
-    public String getBeaconSignal(){
+    public String[] getBeaconSignal(){
         if(this.hasBeacon()){
             return this.beaconSig.getSignal();
         }
-        return "not a beacon";
+        String[] returnString = new String[2];
+        returnString[0] = "Warning: No Beacon";
+        returnString[1] = "0.0";
+        return returnString;
     }
     
     /**
