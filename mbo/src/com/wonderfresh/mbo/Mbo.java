@@ -4,6 +4,8 @@
  */
 package com.wonderfresh.mbo;
 
+
+import com.wonderfresh.interfaces.TrainModelAPI;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.commons.Block;
@@ -60,6 +62,8 @@ public class Mbo extends Thread{
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setVisible(true);
         */
+       
+        
         System.out.println("Done");
         
 //Get User Inputs
@@ -189,7 +193,7 @@ public class Mbo extends Thread{
                 
                 
                 */
-                //train=com.wonderfresh.interfaces.MboInterface.getLocation(train);
+               // train.MboInterface.getLocation();
                 /*
                 Update authority with distance to station
                 */

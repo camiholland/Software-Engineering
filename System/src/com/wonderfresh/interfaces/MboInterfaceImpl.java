@@ -78,9 +78,8 @@ public class MboInterfaceImpl implements MboInterface {
          return ;
      }
     @Override
-    public com.wonderfresh.commons.mboTrain[] getLocation(mboTrain[] array){
-        
-        return array;
+    public com.wonderfresh.commons.mboTrain[] getLocation(){
+        return this.array;
     }
 
     @Override
