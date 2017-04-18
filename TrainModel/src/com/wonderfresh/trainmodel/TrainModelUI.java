@@ -1183,7 +1183,8 @@ public class TrainModelUI extends javax.swing.JFrame {
                     yellowSwissvale.setVisible(true);
                 else if(station == 25)
                     yellowPennStation.setVisible(true);
-                else if(station == )
+                else if(station == 35)
+                    yellowSteelPlaza.setVisible(true);
             }
             else{
                 

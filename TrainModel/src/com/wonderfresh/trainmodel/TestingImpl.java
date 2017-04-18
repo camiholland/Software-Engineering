@@ -21,7 +21,6 @@ public class TestingImpl implements Testing {
     }*/
     
     //to train controller
-    @Override
     public void setSpeedAndAuth(int speed, int authority, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED AND AUTHORITY");
@@ -30,7 +29,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setSpeedLimit(int limit, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED LIMIT");
@@ -38,7 +36,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setSpeed(double speed, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET SPEED");
@@ -46,7 +43,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setTemperature(int temperature, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET TEMPERATURE");
@@ -54,7 +50,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setRightDoors(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET RIGHT DOORS");
@@ -62,7 +57,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setLeftDoors(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET LEFT DOORS");
@@ -70,7 +64,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setLights(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET LIGHTS");
@@ -78,7 +71,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setAirConditioning(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET AC");
@@ -86,7 +78,6 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void setHeating(int status, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("SET HEAT");
@@ -94,28 +85,24 @@ public class TestingImpl implements Testing {
         System.out.println();
     }
 
-    @Override
     public void failPower(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("POWER FAILURE");
         System.out.println();
     }
 
-    @Override
     public void failBrake(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("BRAKE FAILURE");
         System.out.println();
     }
 
-    @Override
     public void emergencyBrake(int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("EMERGENCY BRAKE ACTIVATED");
         System.out.println();
     }
 
-    @Override
     public void sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("BEACON INFO");
