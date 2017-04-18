@@ -77,15 +77,22 @@ public class MboInterfaceImpl implements MboInterface {
          this.array[ID].metersInBlock=metersIn;
          return ;
      }
-    @Override
-    public com.wonderfresh.commons.mboTrain[] getLocation(){
+    public com.wonderfresh.commons.mboTrain[] getLocation(mboTrain[] array){
+        
         return this.array;
     }
 
     @Override
-    public mboTrain[] setLocation(int ID, int blockNum, int metersIn, boolean line) {
+    public void setLocation(int ID, int blockNum, int metersIn, boolean line) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public mboTrain[] getLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
  
 }
 

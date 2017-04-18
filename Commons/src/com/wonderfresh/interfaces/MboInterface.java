@@ -15,7 +15,7 @@ public interface MboInterface {
     String[] getClosedBlocks();
     mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
     mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
-    mboTrain[] setLocation(int ID, int blockNum, int metersIn, boolean line);
+    void setLocation(int ID, int blockNum, int metersIn, boolean line);
     mboTrain[] getLocation();
     mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info);
     mboTrainDepartInfo[] getTrainDepartInfo();
