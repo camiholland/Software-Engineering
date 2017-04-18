@@ -251,6 +251,16 @@ public class TrackGraph {
         }
         return blockList;
     }
+    
+    public ArrayList<Block> getOccupiedBlocks(){
+        ArrayList<Block> blockList = new ArrayList<>();
+        for(Block value : blocks.values()){
+            if(value.isOccupied()){
+                blockList.add(value);
+            }
+        }
+        return blockList;
+    }
       
     public Set<String> BlockKeys(){
         return this.blocks.keySet();
