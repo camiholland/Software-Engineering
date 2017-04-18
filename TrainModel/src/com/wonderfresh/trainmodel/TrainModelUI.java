@@ -13,11 +13,13 @@ import java.awt.Color;
  */
 public class TrainModelUI extends javax.swing.JFrame {
     static TrainModel trainModel;
+    ApproachingStation approachingStation;
     /**
      * Creates new form frame
      */
     public TrainModelUI(TrainModel train) {
         trainModel = train;
+        approachingStation = new ApproachingStation(this);
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -1138,61 +1140,107 @@ public class TrainModelUI extends javax.swing.JFrame {
             greenLineLabel.setVisible(false);
         }
     }
-    public void setStation(boolean line, int station, boolean atStation){
+    public void setStation(boolean line, int station, boolean atStation, boolean setVisible){
         //if line, green line; else, red line
         if(line){
             if(atStation){
                 if(station == 2)
-                    yellowPioneer.setVisible(true);
+                    yellowPioneer.setVisible(setVisible);
                 else if(station == 9)
-                    yellowEdgebrook.setVisible(true);
+                    yellowEdgebrook.setVisible(setVisible);
                 else if(station == 16)
-                    yellowStation.setVisible(true);
+                    yellowStation.setVisible(setVisible);
                 else if(station == 22)
-                    yellowWhited.setVisible(true);
+                    yellowWhited.setVisible(setVisible);
                 else if(station == 31)
-                    yellowSouthBank.setVisible(true);
+                    yellowSouthBank.setVisible(setVisible);
                 else if(station == 39 || station == 141)
-                    yellowCentral.setVisible(true);
+                    yellowCentral.setVisible(setVisible);
                 else if(station == 48 || station == 132)
-                    yellowInglewood.setVisible(true);
+                    yellowInglewood.setVisible(setVisible);
                 else if(station == 57 || station == 123)
-                    yellowOverbrook.setVisible(true);
+                    yellowOverbrook.setVisible(setVisible);
                 else if(station == 65 || station == 114)
-                    yellowGlenbury.setVisible(true);
+                    yellowGlenbury.setVisible(setVisible);
                 else if(station == 73 || station == 105)
-                    yellowDormont.setVisible(true);
+                    yellowDormont.setVisible(setVisible);
                 else if(station == 77)
-                    yellowMtLebanon.setVisible(true);
+                    yellowMtLebanon.setVisible(setVisible);
                 else if(station == 88)
-                    yellowPoplar.setVisible(true);
+                    yellowPoplar.setVisible(setVisible);
                 else if(station == 96)
-                    yellowCastleShannon.setVisible(true);
+                    yellowCastleShannon.setVisible(setVisible);
             }
             else{
-                
+                if(station == 2)
+                    approachingStation.blink(yellowPioneer);
+                else if(station == 9)
+                    approachingStation.blink(yellowEdgebrook);
+                else if(station == 16)
+                    approachingStation.blink(yellowStation);
+                else if(station == 22)
+                    approachingStation.blink(yellowWhited);
+                else if(station == 31)
+                    approachingStation.blink(yellowSouthBank);
+                else if(station == 39 || station == 141)
+                    approachingStation.blink(yellowCentral);
+                else if(station == 48 || station == 132)
+                    approachingStation.blink(yellowInglewood);
+                else if(station == 57 || station == 123)
+                    approachingStation.blink(yellowOverbrook);
+                else if(station == 65 || station == 114)
+                    approachingStation.blink(yellowGlenbury);
+                else if(station == 73 || station == 105)
+                    approachingStation.blink(yellowDormont);
+                else if(station == 77)
+                    approachingStation.blink(yellowMtLebanon);
+                else if(station == 88)
+                    approachingStation.blink(yellowPoplar);
+                else if(station == 96)
+                    approachingStation.blink(yellowCastleShannon);
             }
         }
         else{
             if(atStation){
                 if(station == 7)
-                    yellowShadyside.setVisible(true);
+                    yellowShadyside.setVisible(setVisible);
                 else if(station == 16)
-                    yellowHerron.setVisible(true);
+                    yellowHerron.setVisible(setVisible);
                 else if(station == 21)
-                    yellowSwissvale.setVisible(true);
+                    yellowSwissvale.setVisible(setVisible);
                 else if(station == 25)
-                    yellowPennStation.setVisible(true);
+                    yellowPennStation.setVisible(setVisible);
                 else if(station == 35)
-                    yellowSteelPlaza.setVisible(true);
+                    yellowSteelPlaza.setVisible(setVisible);
+                else if(station == 45)
+                    yellowFirst.setVisible(setVisible);
+                else if(station == 48)
+                    yellowStationSquare.setVisible(setVisible);
+                else if(station == 60)
+                    yellowSouthHills.setVisible(setVisible);
             }
             else{
-                
+                if(station == 7)
+                    approachingStation.blink(yellowShadyside);
+                else if(station == 16)
+                    approachingStation.blink(yellowHerron);
+                else if(station == 21)
+                    approachingStation.blink(yellowSwissvale);
+                else if(station == 25)
+                    approachingStation.blink(yellowPennStation);
+                else if(station == 35)
+                    approachingStation.blink(yellowSteelPlaza);
+                else if(station == 45)
+                    approachingStation.blink(yellowFirst);
+                else if(station == 48)
+                    approachingStation.blink(yellowStationSquare);
+                else if(station == 60)
+                    approachingStation.blink(yellowSouthHills);
             }
         }
     }
-    public void blink(javax.swing.JLabel label){
-        
+    public void blink(javax.swing.JLabel label, boolean visible){
+        label.setVisible(visible);
     }
     public void on(int attribute){
         //1 = ac, 2 = heat, 3 = lights, 4 = left doors, 5 = right doors, 6 = service brakes
