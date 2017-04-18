@@ -14,7 +14,7 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
 public class MboInterfaceImpl implements MboInterface {
 
 /**
- *
+ *ewfwe
  * @author angie
  */
     String[] closedBlocks;
@@ -24,13 +24,19 @@ public class MboInterfaceImpl implements MboInterface {
     public MboInterfaceImpl(){
        
     }
-    public mboTrain[] initializeTrainArray(){
-        this.array = new mboTrain[100];
+    public void initializeTrainArray(){
+        mboTrain[] mytrains= new mboTrain[100];
         int i;
         for (i=0;i<100;i++){
-            this.array[i].id=0;//0 in id for unused train
+            mboTrain a = new mboTrain();
+            mytrains[i]=a;
+            System.out.println("i="+i);
+            mytrains[i].metersInBlock=-1;
+            mytrains[i].block=-1;
+            mytrains[i].id=0;//0 in id for unused train
         }
-        return this.array;
+        this.array=mytrains;
+        
     }
     
     void setClosedBlocks(String[] closed){

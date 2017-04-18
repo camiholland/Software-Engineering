@@ -40,7 +40,8 @@ public class Mbo extends Thread{
     
     @Override
     public void run() {
-        
+        //get initialized interface
+        MboInterface mboInterface=Interfaces.getMboInterface();
         //max 100 trains per line
         tempMboTrain[] redTrain=new tempMboTrain[100];
         tempMboTrain[] greenTrain=new tempMboTrain[100];
@@ -167,7 +168,7 @@ public class Mbo extends Thread{
        //running variable declarations
         String[] closedTracks=new String[100];
         mboTrain[] train=new mboTrain[100];
-        MboInterface inter=Interfaces.getMboInterface();
+        //MboInterface mbointerface=Interfaces.getMboInterface();
         running=1;
         while(running==1){
             //update time
@@ -194,7 +195,10 @@ public class Mbo extends Thread{
                 
                 
                 */
-                train=inter.getLocation();
+                train=mboInterface.getLocation();
+                double temp=train[1].metersInBlock;
+                int temp2=train[1].block;
+                System.out.println("Train 1 in block"+temp2+"  meters in: "+temp);
                 /*
                 Update authority with distance to station
                 */
