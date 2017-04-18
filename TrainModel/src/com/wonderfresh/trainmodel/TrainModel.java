@@ -14,6 +14,7 @@ import static java.lang.Math.sin;
 import javax.swing.JFrame;
 
 import com.wonderfresh.interfaces.TrainControllerInterface;
+import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.interfaces.Interfaces;
 
 
@@ -24,13 +25,15 @@ import com.wonderfresh.interfaces.Interfaces;
 public class TrainModel {
     TrainModelUI gui;
     TrainControllerInterface testing;
+    MboInterface mboInterface;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
 
     Block prevBlock;
     Block block;
     Block nextBlock;
-    TrackSimulator trackSim;
+    boolean line; //if true, green line; else, red line
+    //TrackSimulator trackSim;
 
     
     int ID;
@@ -64,6 +67,7 @@ public class TrainModel {
     double powerCmd;
     //double previousPowerCmd;
     double distance;
+    double distanceWithinBlock;
     double blockLengthTotal;
     
     int acStatus;
@@ -91,13 +95,18 @@ public class TrainModel {
         gui = new TrainModelUI(this);
         //trackSim = TrackSimulator.getInstance();
         prevBlock = null;
-        block = TrackSimulator.initBlock("Green");
+        line = true;                                                            // this should be a variable
+        if(line)
+            block = TrackSimulator.initBlock("Green");
+        else
+            block = TrackSimulator.initBlock("Red");
         block.setOccupied(true);
         nextBlock = block.getNextBlock(null);
         //System.out.println(block.getLabel());
         //System.out.println(nextBlock.getLabel());
         
         testing = Interfaces.getTrainControllerInterface();
+        mboInterface = Interfaces.getMboInterface();
         
         
         numCars = 1;
@@ -115,6 +124,7 @@ public class TrainModel {
         powerCmd = 0;
         //previousPowerCmd = 0;
         distance = 0;
+        distanceWithinBlock = 0;
         blockLengthTotal = block.getBlockLength();
         
         acStatus = 0;
@@ -139,6 +149,7 @@ public class TrainModel {
         gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(ID));
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
+        gui.setLine(line);
     }
     
     /**
@@ -242,7 +253,9 @@ public class TrainModel {
     protected void updateDistance(double acc){
         //d = vi*t + 1/2*a*t^2 where t = 1
         distance += speed + acc/2;
+        distanceWithinBlock += speed + acc/2;
         if(distance >= blockLengthTotal){
+            distanceWithinBlock = distance - blockLengthTotal;
             prevBlock = block;
             prevBlock.setOccupied(false);
             block = nextBlock;
@@ -251,9 +264,15 @@ public class TrainModel {
             speedLimit = block.getSpeedLimit();
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
-            System.out.println("moved to next block" + block.getBlockNum());
+            if(nextBlock.isStation()){
+                gui.setStation(line, nextBlock.getStation(), false);
+            }
+            if(block.isStation()){
+                gui.setStation(line, block.getStation(), true);
+            }
+            //System.out.println("moved to next block" + block.getBlockNum());
         }
-        
+        mboInterface.setLocation(ID, block.getBlockNum(), (int)distanceWithinBlock, line);
     }
     public void setTargetTemp(int temp) throws InterruptedException{
         targetTemp = temp;

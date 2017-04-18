@@ -24,6 +24,8 @@ interface TrainToTrainController extends TrainModelAPI{
     public void setPowerCommand(double pwrCmd, int trainID);
     public void setAnnouncement(String announcement, int trainID);
 
+    public void setBlockInfo(double distanceWithinBlock, int blockID, boolean line);
+    
     public void setSPS(int sps, int trainID);
 }
 
@@ -34,7 +36,7 @@ interface Testing extends TrainModelAPI{
     //public Block getNextBlock(Block currentBlock, Block previousBlock);
     
     //to Train Controller
-    public void setSpeedAndAuth(int speed, int authority, int trainID);
+    /*public void setSpeedAndAuth(int speed, int authority, int trainID);
     public void setSpeedLimit(int limit, int trainID);
     public void setSpeed(double speed, int trainID);
     public void setTemperature(int temperature, int trainID);
@@ -46,7 +48,7 @@ interface Testing extends TrainModelAPI{
     public void failPower(int trainID);
     public void failBrake(int trainID);
     public void emergencyBrake(int trainID);
-    public void sendBeaconInfo(boolean doors, int distance, String station, int trainID);
+    public void sendBeaconInfo(boolean doors, int distance, String station, int trainID);*/
     
     //to antenna
     //public void setSpeedAndAuth(double speed, int authority);
