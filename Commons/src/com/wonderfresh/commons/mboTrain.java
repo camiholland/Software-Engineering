@@ -8,7 +8,7 @@ public class mboTrain {
     
     public int id;
     public int block;
-    public int metersInBlock;
+    public double metersInBlock;
     public int number;
     public double speed;
     public double authority;

@@ -46,8 +46,11 @@ public class mboInterfaceClass implements MboInterface{
         return info;
     }
      
-    public void setLocation(int ID,int blockNum, int metersIn, String line){
-         array[ID].color=line;
+    public void setLocation(int ID,int blockNum, double metersIn, boolean line){
+        if (line==true){
+          array[ID].color="green";
+          }
+        else{array[ID].color="red";}
          array[ID].block=blockNum;
          array[ID].metersInBlock=metersIn;
          return ;
