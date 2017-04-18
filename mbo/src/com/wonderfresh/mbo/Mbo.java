@@ -156,7 +156,7 @@ public class Mbo extends Thread{
 //outputTrainSchedule
         //get station
         //add time for station
-        
+/***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
        
         running=1;
         while(running==1){
@@ -170,11 +170,7 @@ public class Mbo extends Thread{
    //---> closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
                 displayClosedTracks(closedTracks);
                 
-                /*
-                Get Updated Track chosen for schedule
-                (String)myCombobox.getSelectedItem()
-                onlyprints if station is changed
-                */
+/****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
                 station=(String) gui.jComboBox1.getSelectedItem();
                 if (lastStation.equalsIgnoreCase(station)!=true){
                     System.out.println("MBO: User chose:"+station);
@@ -197,7 +193,10 @@ public class Mbo extends Thread{
                 gui.passengerCount.setText(" "+(passengerCount));
             }
         }
+ /**********************************************    END OF RUNNING WHILE LOOP     ***************************************/  
     }
+    
+    
     int getBrakeDistance(double speed){
         int lengthOfCar=33;                     //Taken from Track Layout and vehicle Data excel document. Rounded up from 32.2 to 33, in meters
         int lengthOf2Cars=lengthOfCar*2;
