@@ -48,8 +48,16 @@ public class Interfaces {
         
         return trainControllerInterface;
     }
-     public static void setMBOInterface(MboInterface api) {
+    public static void setMBOInterface(MboInterface api) {
         mboInterface = api;
+    }
+    
+    public static MboInterface getMboInterface(){
+        
+        if(mboInterface == null) {
+            //mboInterface = new TestingMboInterface();
+        }
+        return mboInterface;
     }
     
     /*

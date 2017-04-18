@@ -1138,13 +1138,36 @@ public class TrainModelUI extends javax.swing.JFrame {
             greenLineLabel.setVisible(false);
         }
     }
-    public void setStation(boolean line, String station, boolean atStation){
+    public void setStation(boolean line, int station, boolean atStation){
         //if line, green line; else, red line
         if(line){
             if(atStation){
-                if(station.equals("")){
-
-                }
+                if(station == 2)
+                    yellowPioneer.setVisible(true);
+                else if(station == 9)
+                    yellowEdgebrook.setVisible(true);
+                else if(station == 16)
+                    yellowStation.setVisible(true);
+                else if(station == 22)
+                    yellowWhited.setVisible(true);
+                else if(station == 31)
+                    yellowSouthBank.setVisible(true);
+                else if(station == 39 || station == 141)
+                    yellowCentral.setVisible(true);
+                else if(station == 48 || station == 132)
+                    yellowInglewood.setVisible(true);
+                else if(station == 57 || station == 123)
+                    yellowOverbrook.setVisible(true);
+                else if(station == 65 || station == 114)
+                    yellowGlenbury.setVisible(true);
+                else if(station == 73 || station == 105)
+                    yellowDormont.setVisible(true);
+                else if(station == 77)
+                    yellowMtLebanon.setVisible(true);
+                else if(station == 88)
+                    yellowPoplar.setVisible(true);
+                else if(station == 96)
+                    yellowCastleShannon.setVisible(true);
             }
             else{
                 
@@ -1152,14 +1175,23 @@ public class TrainModelUI extends javax.swing.JFrame {
         }
         else{
             if(atStation){
-                if(station.equals("")){
-
-                }
+                if(station == 7)
+                    yellowShadyside.setVisible(true);
+                else if(station == 16)
+                    yellowHerron.setVisible(true);
+                else if(station == 21)
+                    yellowSwissvale.setVisible(true);
+                else if(station == 25)
+                    yellowPennStation.setVisible(true);
+                else if(station == )
             }
             else{
                 
             }
         }
+    }
+    public void blink(javax.swing.JLabel label){
+        
     }
     public void on(int attribute){
         //1 = ac, 2 = heat, 3 = lights, 4 = left doors, 5 = right doors, 6 = service brakes
