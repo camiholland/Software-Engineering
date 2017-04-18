@@ -5,6 +5,8 @@
  */
 package com.wonderfresh.mbo;
 
+import com.wonderfresh.commons.mboTrain;
+
 /**
  *
  * @author angie
@@ -43,7 +45,17 @@ public class mboInterfaceClass implements MboInterface{
     public com.wonderfresh.commons.mboTrainDepartInfo[] getTrainDepartInfo(){
         return info;
     }
-    
+     
+    public void setLocation(int ID,int blockNum, int metersIn, String line){
+         array[ID].color=line;
+         array[ID].block=blockNum;
+         array[ID].metersInBlock=metersIn;
+         return ;
+     }
+    public com.wonderfresh.commons.mboTrain[] getLocation(mboTrain[] array){
+        
+        return array;
+    }
 
 }
 

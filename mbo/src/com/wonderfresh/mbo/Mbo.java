@@ -4,6 +4,7 @@
  */
 package com.wonderfresh.mbo;
 
+import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.commons.Block;
 import com.wonderfresh.commons.Section;
@@ -37,8 +38,8 @@ public class Mbo extends Thread{
     public void run() {
         
         //max 100 trains per line
-        mboTrain[] redTrain=new mboTrain[100];
-        mboTrain[] greenTrain=new mboTrain[100];
+        tempMboTrain[] redTrain=new tempMboTrain[100];
+        tempMboTrain[] greenTrain=new tempMboTrain[100];
         String[] redSta=new String[20];
         String[] greenSta=new String[20];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
@@ -157,7 +158,10 @@ public class Mbo extends Thread{
         //get station
         //add time for station
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
-       
+       //running variable declarations
+        String[] closedTracks=new String[100];
+        mboTrain[] train=new mboTrain[100];
+        
         running=1;
         while(running==1){
             //update time
@@ -166,8 +170,7 @@ public class Mbo extends Thread{
                 /*
                 *get closed track information from CTC --- Save to String temp
                 */
-                String[] closedTracks=new String[100];
-   //---> closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
+                //closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
                 displayClosedTracks(closedTracks);
                 
 /****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
@@ -181,9 +184,15 @@ public class Mbo extends Thread{
                 //iterate track schedule for time to new station
                 
                 /*
-                Get train locations from Communications
-                */
+                Get train locations from 
                 
+                for(i=0;i<100;i++){
+                    if (train[i]!=null){
+                        train[i].block=
+                    }
+                    
+                }
+                */
                 /*
                 Update authority with distance to station
                 */
@@ -387,4 +396,12 @@ public class Mbo extends Thread{
             
         
       }
+    public mboTrain getTrain(int id ,int block,int distInBlock){
+        mboTrain train=new mboTrain();
+        train.block=block;
+        train.id=id;
+        train.metersInBlock=distInBlock;
+        return train;
+        
+    }
 }

@@ -6,6 +6,7 @@ package com.wonderfresh.commons;
  */
 public class mboTrain {
     
+    public int id;
     public int block;
     public int metersInBlock;
     public int number;
@@ -17,6 +18,10 @@ public class mboTrain {
     public int AMPM;
     public int hour;
     public int minutes;
+    
+    public mboTrain(){
+        
+    }
     
     public mboTrain (int num, double spd, double auth, String col, int departHour, int departMin){
         
