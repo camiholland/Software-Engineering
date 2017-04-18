@@ -108,7 +108,6 @@ public class TrainModel {
         testing = Interfaces.getTrainControllerInterface();
         mboInterface = Interfaces.getMboInterface();
         
-        
         numCars = 1;
         numPass = 0;
         numCrew = 1;
@@ -271,7 +270,7 @@ public class TrainModel {
                 gui.setStation(line, block.getBlockNum(), true, true);
             }
             if(prevBlock.isStation()){
-                gui.setStation(line, prevBlock.getBlockNum(), false, false);
+                gui.setStation(line, prevBlock.getBlockNum(), true, false);
             }
             //System.out.println("moved to next block" + block.getBlockNum());
         }

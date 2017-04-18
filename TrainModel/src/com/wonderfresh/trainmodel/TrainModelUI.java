@@ -13,11 +13,13 @@ import java.awt.Color;
  */
 public class TrainModelUI extends javax.swing.JFrame {
     static TrainModel trainModel;
+    ApproachingStation approachingStation;
     /**
      * Creates new form frame
      */
     public TrainModelUI(TrainModel train) {
         trainModel = train;
+        approachingStation = new ApproachingStation(this);
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -1170,7 +1172,32 @@ public class TrainModelUI extends javax.swing.JFrame {
                     yellowCastleShannon.setVisible(setVisible);
             }
             else{
-                
+                if(station == 2)
+                    approachingStation.blink(yellowPioneer);
+                else if(station == 9)
+                    approachingStation.blink(yellowEdgebrook);
+                else if(station == 16)
+                    approachingStation.blink(yellowStation);
+                else if(station == 22)
+                    approachingStation.blink(yellowWhited);
+                else if(station == 31)
+                    approachingStation.blink(yellowSouthBank);
+                else if(station == 39 || station == 141)
+                    approachingStation.blink(yellowCentral);
+                else if(station == 48 || station == 132)
+                    approachingStation.blink(yellowInglewood);
+                else if(station == 57 || station == 123)
+                    approachingStation.blink(yellowOverbrook);
+                else if(station == 65 || station == 114)
+                    approachingStation.blink(yellowGlenbury);
+                else if(station == 73 || station == 105)
+                    approachingStation.blink(yellowDormont);
+                else if(station == 77)
+                    approachingStation.blink(yellowMtLebanon);
+                else if(station == 88)
+                    approachingStation.blink(yellowPoplar);
+                else if(station == 96)
+                    approachingStation.blink(yellowCastleShannon);
             }
         }
         else{
@@ -1193,7 +1220,22 @@ public class TrainModelUI extends javax.swing.JFrame {
                     yellowSouthHills.setVisible(setVisible);
             }
             else{
-                
+                if(station == 7)
+                    approachingStation.blink(yellowShadyside);
+                else if(station == 16)
+                    approachingStation.blink(yellowHerron);
+                else if(station == 21)
+                    approachingStation.blink(yellowSwissvale);
+                else if(station == 25)
+                    approachingStation.blink(yellowPennStation);
+                else if(station == 35)
+                    approachingStation.blink(yellowSteelPlaza);
+                else if(station == 45)
+                    approachingStation.blink(yellowFirst);
+                else if(station == 48)
+                    approachingStation.blink(yellowStationSquare);
+                else if(station == 60)
+                    approachingStation.blink(yellowSouthHills);
             }
         }
     }
