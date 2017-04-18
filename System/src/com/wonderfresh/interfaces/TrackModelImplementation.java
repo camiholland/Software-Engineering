@@ -48,8 +48,8 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @param Distance length of track train is allowed to cover
          * @return true if successfully sent, false if not
          */
-    public boolean setAuthority(int Distance){
-        return TrackSimulator.setAuthority(Distance);
+    public boolean setAuthority(String line, int block, int Distance){
+        return TrackSimulator.setAuthority(line, block, Distance);
     }
     
     /**
@@ -57,8 +57,8 @@ public class TrackModelImplementation implements TrackModelInterface{
          * @param speed at which the train should travel for the given authority
          * @return true if the speed sent successfully, false otherwise
          */
-    public boolean setSetPointSpeed(int speed){
-        return TrackSimulator.setSetPointSpeed(speed);
+    public boolean setSetPointSpeed(String line, int block, int speed){
+        return TrackSimulator.setSetPointSpeed(line, block, speed);
     }
     
     public boolean setCrossing(String line, int BlockNum, boolean open){

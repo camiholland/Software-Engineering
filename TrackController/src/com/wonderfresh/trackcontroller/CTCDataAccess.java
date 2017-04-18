@@ -24,23 +24,11 @@ public class CTCDataAccess {
     }
     
     public static boolean setAuthority(String line, int block, int authority){
-        if(line.equals("Red")){
-            return TrackSimulator.setAuthority(authority);
-        }
-        else if(line.equals("Green")){
-            return TrackSimulator.setAuthority(authority);
-        }
-        return false;
+        return TrackSimulator.setAuthority(line, block, authority);
     }
     
     public static boolean setSetSpeed(String line, int block, int setSpeed){
-        if(line.equals("Red")){
-            return TrackSimulator.setAuthority(setSpeed);
-        }
-        else if(line.equals("Green")){
-            return TrackSimulator.setAuthority(setSpeed);
-        }
-        return false;
+        return TrackSimulator.setSetPointSpeed(line, block, setSpeed);
     }
     
     public static boolean setBlockOpen(String line, int block, boolean open){
