@@ -40,7 +40,7 @@ public class SpeedCalculator implements Runnable {
         this.targetAcc = targetAcc;
         this.speed = currentSpeed;
         if(!started){
-            System.out.println("Thread started");
+            //System.out.println("Thread started");
             started = true;
             thr.start();
         }
@@ -65,7 +65,7 @@ public class SpeedCalculator implements Runnable {
                     tm.updateDistance(acc);
                     acc = tm.updateAcc(speed);
                     tm.updateSpeed(speed);
-                    currentTime++;
+                    //currentTime++;
                     try {
                         Thread.sleep(1000 / time.getSpeed());
                     } catch (InterruptedException ex) {

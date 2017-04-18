@@ -1138,36 +1138,36 @@ public class TrainModelUI extends javax.swing.JFrame {
             greenLineLabel.setVisible(false);
         }
     }
-    public void setStation(boolean line, int station, boolean atStation){
+    public void setStation(boolean line, int station, boolean atStation, boolean setVisible){
         //if line, green line; else, red line
         if(line){
             if(atStation){
                 if(station == 2)
-                    yellowPioneer.setVisible(true);
+                    yellowPioneer.setVisible(setVisible);
                 else if(station == 9)
-                    yellowEdgebrook.setVisible(true);
+                    yellowEdgebrook.setVisible(setVisible);
                 else if(station == 16)
-                    yellowStation.setVisible(true);
+                    yellowStation.setVisible(setVisible);
                 else if(station == 22)
-                    yellowWhited.setVisible(true);
+                    yellowWhited.setVisible(setVisible);
                 else if(station == 31)
-                    yellowSouthBank.setVisible(true);
+                    yellowSouthBank.setVisible(setVisible);
                 else if(station == 39 || station == 141)
-                    yellowCentral.setVisible(true);
+                    yellowCentral.setVisible(setVisible);
                 else if(station == 48 || station == 132)
-                    yellowInglewood.setVisible(true);
+                    yellowInglewood.setVisible(setVisible);
                 else if(station == 57 || station == 123)
-                    yellowOverbrook.setVisible(true);
+                    yellowOverbrook.setVisible(setVisible);
                 else if(station == 65 || station == 114)
-                    yellowGlenbury.setVisible(true);
+                    yellowGlenbury.setVisible(setVisible);
                 else if(station == 73 || station == 105)
-                    yellowDormont.setVisible(true);
+                    yellowDormont.setVisible(setVisible);
                 else if(station == 77)
-                    yellowMtLebanon.setVisible(true);
+                    yellowMtLebanon.setVisible(setVisible);
                 else if(station == 88)
-                    yellowPoplar.setVisible(true);
+                    yellowPoplar.setVisible(setVisible);
                 else if(station == 96)
-                    yellowCastleShannon.setVisible(true);
+                    yellowCastleShannon.setVisible(setVisible);
             }
             else{
                 
@@ -1176,29 +1176,29 @@ public class TrainModelUI extends javax.swing.JFrame {
         else{
             if(atStation){
                 if(station == 7)
-                    yellowShadyside.setVisible(true);
+                    yellowShadyside.setVisible(setVisible);
                 else if(station == 16)
-                    yellowHerron.setVisible(true);
+                    yellowHerron.setVisible(setVisible);
                 else if(station == 21)
-                    yellowSwissvale.setVisible(true);
+                    yellowSwissvale.setVisible(setVisible);
                 else if(station == 25)
-                    yellowPennStation.setVisible(true);
+                    yellowPennStation.setVisible(setVisible);
                 else if(station == 35)
-                    yellowSteelPlaza.setVisible(true);
+                    yellowSteelPlaza.setVisible(setVisible);
                 else if(station == 45)
-                    yellowFirst.setVisible(true);
+                    yellowFirst.setVisible(setVisible);
                 else if(station == 48)
-                    yellowStationSquare.setVisible(true);
+                    yellowStationSquare.setVisible(setVisible);
                 else if(station == 60)
-                    yellowSouthHills.setVisible(true);
+                    yellowSouthHills.setVisible(setVisible);
             }
             else{
                 
             }
         }
     }
-    public void blink(javax.swing.JLabel label){
-        
+    public void blink(javax.swing.JLabel label, boolean visible){
+        label.setVisible(visible);
     }
     public void on(int attribute){
         //1 = ac, 2 = heat, 3 = lights, 4 = left doors, 5 = right doors, 6 = service brakes

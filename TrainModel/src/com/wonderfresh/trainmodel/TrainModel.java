@@ -265,10 +265,13 @@ public class TrainModel {
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
             if(nextBlock.isStation()){
-                gui.setStation(line, nextBlock.getBlockNum(), false);
+                gui.setStation(line, nextBlock.getBlockNum(), false, true);
             }
             if(block.isStation()){
-                gui.setStation(line, block.getBlockNum(), true);
+                gui.setStation(line, block.getBlockNum(), true, true);
+            }
+            if(prevBlock.isStation()){
+                gui.setStation(line, prevBlock.getBlockNum(), false, false);
             }
             //System.out.println("moved to next block" + block.getBlockNum());
         }
