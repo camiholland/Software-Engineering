@@ -22,6 +22,7 @@ import com.wonderfresh.commons.TrackSimulator;
 import com.wonderfresh.mbo.Mbo;
 //Interfaces
 import com.wonderfresh.interfaces.Interfaces;
+import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.interfaces.TrainControllerInterfaceImpl;
 import com.wonderfresh.interfaces.TrainModelAPIImpl;
 import com.wonderfresh.interfaces.MboInterfaceImpl;
@@ -38,7 +39,7 @@ public class SystemWrapper {
     public static Mbo mbo;
     public static TrackSimulator trackSimulator;
     public static TrackController trackController;
-    
+    public static MboInterface mboInterface;
     
     /**
      * @param args the command line arguments
@@ -55,10 +56,15 @@ public class SystemWrapper {
         mbo = new Mbo();
         mbo.start();
         trackController = new TrackController();
-        trackController.start();
-        
+        trackController.start(); 
+         
+       
         
         Interfaces.setMBOInterface(new MboInterfaceImpl());
+        //mboInterface.initializeTrainArray();
+        
+        //MboInterface mboInterface=Interfaces.getMboInterface();
+        
         Interfaces.setTrainControllerInterface(new TrainControllerInterfaceImpl(trainControllers));
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
         

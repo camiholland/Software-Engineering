@@ -49,7 +49,9 @@ public class Interfaces {
         return trainControllerInterface;
     }
     public static void setMBOInterface(MboInterface api) {
+        
         mboInterface = api;
+        mboInterface.initializeTrainArray();
     }
     
     public static MboInterface getMboInterface(){
