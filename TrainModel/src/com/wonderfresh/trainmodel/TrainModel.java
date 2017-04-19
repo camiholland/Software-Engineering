@@ -34,11 +34,8 @@ public class TrainModel {
     Block nextBlock;
     boolean line; //if true, green line; else, red line
     //TrackSimulator trackSim;
-
     
     int ID;
-    
-    int currentSecond;
     
     final int MAX_POWER = 480000; //watts
     final double CAR_MASS_TON = 40.9; //tonnes (metric ton = 1000kg = 2204.62lbs)
@@ -60,7 +57,7 @@ public class TrainModel {
     double totalMass;
     double acc;
     //double error;
-    double previousError;
+    //double previousError;
     double grade;
     int sps;
     int speedLimit;
@@ -84,7 +81,7 @@ public class TrainModel {
     int currentTemp;
     int targetTemp;
     boolean eBrake;
-    int authority;
+    double authority;
     String announcement;
     
     public TrainModel(int trainID){
@@ -116,9 +113,9 @@ public class TrainModel {
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
         acc = 0;
         //error = 0;
-        previousError = 0;
+        //previousError = 0;
         grade = block.getBlockGrade();
-        sps = 0;
+        sps = 0; //block.getSetPointSpeed();
         speedLimit = block.getSpeedLimit();
         powerCmd = 0;
         //previousPowerCmd = 0;
@@ -140,12 +137,12 @@ public class TrainModel {
         currentTemp = DEFAULT_TEMP; //degrees F
         targetTemp = DEFAULT_TEMP;
         eBrake = false;
-        authority = 0;
+        authority = 0; //block.getAuthority();
         announcement = null;
         
         gui.setSpeedLimit(Integer.toString(speedLimit));
-        //set max passenger capacity, num crew on board, num pass on board, train ID
-        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(ID));
+        //set max passenger capacity, num crew on board, num pass on board, sps, train ID
+        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(sps), Integer.toString(ID));
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
         gui.setLine(line);
@@ -167,30 +164,7 @@ public class TrainModel {
         return ID;
     }
     
-    
-    
-    /*private void updateAll(String speed, String sps, String speedLimit, String powerCmd){
-        gui.setSpeed(speed);
-        gui.setSPS(sps);
-        gui.setPowerCmd(powerCmd);
-        if(beacon != null){
-            if(previousBeacon != null){
-                if(!beacon.equals(previousBeacon))
-                    gui.setNotification(beacon);
-            }
-            else
-                gui.setNotification(beacon);
-            previousBeacon = beacon;
-        }
-    }*/
-    
     protected void adjustSpeed(){
-        //totalMass = CAR_MASS * numCars + PASS_WEIGHT * (numPass + numCrew);
-        //error = sps - speed;
-        //netForceUphillDecel = totalMass * acc + totalMass * 9.8 * sin(grade) + FRICTION * totalMass * 9.8 * cos(grade);
-        //netForceUphillAccel = totalMass * acc - totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
-        //netForceDownhillDecel = totalMass * acc - totalMass * 9.8 * sin(grade) + FRICTION * totalMass * 9.8 * cos(grade);
-        //netForceDownhillAccel = totalMass * acc + totalMass * 9.8 * sin(grade) - FRICTION * totalMass * 9.8 * cos(grade);
         if(eBrake){
             acc = E_BRAKE_RATE;
             speedCalc.setSpeed(acc, speed, powerCmd/(totalMass*sps));
@@ -261,6 +235,8 @@ public class TrainModel {
             block.setOccupied(true);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
+            //sps = block.getSetPointSpeed();
+            //authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
             System.out.println(nextBlock.toString());

@@ -144,7 +144,9 @@ public class TrainModelUI extends javax.swing.JFrame {
 
         trainIDLabel.setText("Train ID");
 
+        trainIDbox.setEditable(false);
         trainIDbox.setColumns(20);
+        trainIDbox.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
         trainIDbox.setRows(5);
 
         javax.swing.GroupLayout trainIDPanelLayout = new javax.swing.GroupLayout(trainIDPanel);
@@ -186,7 +188,7 @@ public class TrainModelUI extends javax.swing.JFrame {
 
         speedBox.setEditable(false);
         speedBox.setColumns(20);
-        speedBox.setFont(new java.awt.Font("Monospaced", 0, 36)); // NOI18N
+        speedBox.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
         speedBox.setRows(5);
         jScrollPane1.setViewportView(speedBox);
 
@@ -1108,10 +1110,11 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setPowerCmd(String powerCmd){
         powerCmdBox.setText(powerCmd);
     }
-    public void setInitials(String capacity, String numCrew, String numPass, String trainID){
+    public void setInitials(String capacity, String numCrew, String numPass, String sps, String trainID){
         maxPassCapacityBox.setText(capacity);
         numCrewBox.setText(numCrew);
         numPassBox.setText(numPass);
+        spsBox.setText(sps);
         trainIDbox.setText(trainID);
     }
     public void setNotification(String note){
