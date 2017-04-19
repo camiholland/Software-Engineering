@@ -637,7 +637,7 @@ public class TrackModel{
                 TrackLine_Instance.addEdge(defaultTwo, secondaryBlock, false);
                 TrackLine_Instance.addEdge(secondaryBlock, defaultTwo, false);
             }
-           // setBeacons();
+            //setBeacons();
         }
 
     }
@@ -648,10 +648,10 @@ public class TrackModel{
 //            TrackGraph currentLine;
 //            String color = "";
 //            if(i==0){
-//                currentLine = TrackSimulator.getInstance().getRedLine();
+//                currentLine = TrackSimulator.getInstance().getTrack().getRedLine();
 //                color = "Red";
 //            }else{
-//                currentLine = TrackSimulator.getInstance().getGreenLine();
+//                currentLine = TrackSimulator.getInstance().getTrack().getGreenLine();
 //                color = "Green";
 //            }
 //            
@@ -669,13 +669,13 @@ public class TrackModel{
 //                    String arrow = currentLine.getSection(tempBlock.getSection()).getArrowDirection();
 //                    
 //                    if(arrow.startsWith("Head")&&arrow.endsWith("Head")){
-//                        setBeaconBlock(line, tempBlock, -1, 0, station);
-//                        setBeaconBlock(line, tempBlock, 1, 0, station);
+//                        setBeaconBlock(currentLine, tempBlock, 0, station, null);
+//                        setBeaconBlock(currentLine, tempBlock, 0, station, null);
 //                    }else if(arrow.startsWith("Head")&&arrow.endsWith("Tail")){
 //                        // Add beacon to block preceding tail block
-//                        setBeaconBlock(line, tempBlock, 1, 0, station);
+//                        setBeaconBlock(currentLine, tempBlock, 0, station, null);
 //                    }else{
-//                        setBeaconBlock(line, tempBlock, -1, 0, station);
+//                        setBeaconBlock(currentLine, tempBlock, 0, station, null);
 //                    }
 //                }
 //            }
@@ -698,47 +698,69 @@ public class TrackModel{
 //     * @param distanceCovered 
 //     * @return an integer array where i[0] is the block that has the beacon and i[1] is the distance
 //     */
-//    private void setBeaconBlock(TrackGraph line, Block current, int direction, double distanceCovered, String station){
-//        
-//        if(direction<0){
-//            
-//            ArrayList<Block> leadingToCurrent = getPossiblePreviousBlocks(line, current);
-//            
-//            for(int p=0; p<leadingToCurrent.size(); p++){
-//                
-//                Block nextBlock = leadingToCurrent.get(p);
-//                
-//                    if(distanceCovered>=160.00){
-//                        Beacon beaconToAdd = new Beacon(station);
-//                        beaconToAdd.setDistance(distanceCovered+nextBlock.getBlockLength());
-//                        current.setBeacon(beaconToAdd);
-//                        return;
-//                    }else{
-//                        setBeaconBlock(line, nextBlock, direction, distanceCovered+nextBlock.getBlockLength(), station);
-//                    }
-//                    
+//    private void setBeaconBlock(TrackGraph line, Block current, double distanceCovered, String station, ArrayList<Block> switchBlock){
+//       
+//        // Gets all blocks leading to current, if part of a switch, both other blocks in switch are included.
+//        ArrayList<Block> leadingToCurrent = getPossiblePreviousBlocks(line, current);
+//        ArrayList<Block> leadingToCurrent_Filtered = new ArrayList<>();
+//        // Filters out any blocks that are the previous block or other blocks in the switch
+//        // Can tell that a block shouldnt' be connected if it is head/tail or tail/head and another switch block is of the same type.
+//        if(switchBlock!=null){
+//            Iterator<Block> BlockSifter = leadingToCurrent.iterator();
+//            while(BlockSifter.hasNext()){
+//                Block tp = BlockSifter.next();
+//                if(!switchBlock.contains(tp)){
+//                    leadingToCurrent_Filtered.add(tp);
+//                }
 //            }
 //        }else{
-//            
-//            ArrayList<Edge> neighbors = current.getNeighbors();
-//            ArrayList<Block> 
-//            
+//            leadingToCurrent_Filtered = leadingToCurrent;
 //        }
+//
+//        for(int p=0; p<leadingToCurrent_Filtered.size(); p++){
+//
+//            Block nextBlock = leadingToCurrent_Filtered.get(p);
+//
+//                if(distanceCovered>=160.00){
+//                    Beacon beaconToAdd = new Beacon(station);
+//                    beaconToAdd.setDistance(distanceCovered+nextBlock.getBlockLength());
+//                    Edge tmpEdge = nextBlock.getEdge(current);
+//                    tmpEdge.setBeacon(beaconToAdd);
+//                    return;
+//                }else{
+//                    //Decide whether it was the initial block that the beacon's being set for
+//                    if(nextBlock.getSwitchBlock()!=-1){
+//                        
+//                    }
+//                    setBeaconBlock(line, nextBlock, distanceCovered+nextBlock.getBlockLength(), station, null);
+//                }
+//
+//        }
+//      
 //    }
 //    
 //    private ArrayList<Block> getPossiblePreviousBlocks(TrackGraph line, Block current){
 //        // Find any block that leads to the current block and add to an array.
 //        ArrayList<Block> lineBlocks = line.getBlocks();
 //        ArrayList<Block> leadingToCurrent = new ArrayList<>();
+//        String arrowCurrent = line.getSection(current.getSection()).getArrowDirection();
 //        // Circulates through all blocks of graph
 //        for(int i=0; i< line.getNumBlocks(); i++){
 //            int n_count = lineBlocks.get(i).getNeighborCount();
 //            // Circulates through all neighbors of block
 //            for(int j=0; j<n_count; j++){
-//                Block possibleLead = lineBlocks.get(i).getNeighbor(j).getEndingBlock();
+//                Block possibleLead = lineBlocks.get(i);
+//                Block compare_To_Current_Block = lineBlocks.get(i).getNeighbor(j).getEndingBlock();
 //                // If neighbor block is a match to the current, add to list
-//                if((possibleLead.getBlockNum()-current.getBlockNum())==0){
-//                    leadingToCurrent.add(possibleLead);
+//                if((compare_To_Current_Block.getBlockNum()-current.getBlockNum())==0){
+//                    String arrowNext = line.getSection(possibleLead.getSection()).getArrowDirection();
+//                    if(!((arrowCurrent.startsWith("Head") && arrowCurrent.endsWith("Tail")) || (arrowCurrent.startsWith("Tail") && arrowCurrent.endsWith("Head")) &&
+//                        (arrowNext.startsWith("Head") && arrowNext.endsWith("Tail")) || (arrowNext.startsWith("Tail") && arrowNext.endsWith("Head")))){
+//                        leadingToCurrent.add(possibleLead);    
+//                        
+//                    }
+//                    else if()
+//                    
 //                }
 //            }
 //        }

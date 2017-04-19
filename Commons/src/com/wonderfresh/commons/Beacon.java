@@ -31,11 +31,11 @@ class Beacon {
         this.station = station;
     }
     
-    private void setDistance(double len){
+    public void setDistance(double len){
         this.distance = len;
     }
     
-    private void setSide(int n){
+    public void setSide(int n){
         this.side = n;
     }
 }

@@ -173,4 +173,12 @@ public class Section {
        
        return this.Section_Name.equals(v.Section_Name);
    }
+   
+   public Block getHighestBlock(){
+       return this.High_Block;
+   }
+   
+   public Block getLowestBlock(){
+       return this.Low_Block;
+   }
 }

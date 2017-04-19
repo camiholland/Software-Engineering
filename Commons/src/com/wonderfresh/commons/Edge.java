@@ -13,6 +13,7 @@ package com.wonderfresh.commons;
 public class Edge {
     private Block from, to;
     private boolean open;
+    private Beacon b = null;
     
     
     /**
@@ -103,5 +104,13 @@ public class Edge {
         Edge e = (Edge)other;
         
         return e.from.equals(this.from) && e.to.equals(this.to);
+    }
+    
+    public void setBeacon(Beacon a){
+        this.b = a;
+    }
+    
+    public Beacon getBeacon(){
+        return this.b;
     }
 }
