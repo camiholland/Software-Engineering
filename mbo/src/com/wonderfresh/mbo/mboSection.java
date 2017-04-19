@@ -1,6 +1,7 @@
-/*
+
 package com.wonderfresh.mbo;
 
+import com.wonderfresh.commons.Block;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -9,27 +10,28 @@ import java.util.Scanner;
 public class mboSection {
     
     
-    String ID;
-    double length;
-    double maxSpeed;
-    int numBlocks;
-    int numStation;
-    mboBlock[] blocks;
-    String nextID;
+    String ID="0";
+    double length=0;
+    double maxSpeed=0;
+    int numBlocks=0;
+    int blockStation=0;
+    Block[] blocks=new Block[20];   //MAX 20 BLOCKS PER SECTION
+    String nextID="0";
     
     
-    public mboSection[] newSection(mboSection[] sections,String secID, double secLength, double secMaxSpeed, int secNumBlocks, int secNumStation, mboBlock[] secBlocks, String secNextID){
+    
+    public mboSection[] newSection(mboSection[] sections,String secID, double secLength, double secMaxSpeed, int secNumBlocks, int secNumStation, Block[] secBlocks, String secNextID){
         mboSection[] sectionArray=sections;
         ID=secID;
         length=secLength;
         maxSpeed=secMaxSpeed;
         numBlocks=secNumBlocks;
-        numStation=secNumStation;
+        blockStation=secNumStation;
         nextID=secNextID;
-        blocks=new mboBlock[10];
+        blocks=secBlocks;
         return sectionArray;
     }
-    public mboSection[] addBlock(mboSection[] sections, String section, int blockNum , mboBlock block){
+    public mboSection[] addBlock(mboSection[] sections, String section, int blockNum , Block block){
         mboSection[] sectionArray=sections;
         
         
@@ -38,4 +40,3 @@ public class mboSection {
     
     
 }
-*/

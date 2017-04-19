@@ -116,8 +116,10 @@ public class Mbo extends Thread{
         System.out.println("MBO: Min braking distance: "+minDist);
         
 //Get time around track
-        int redTimeAroundTrack=getTimeAroundTrack(0);       //0 for red
-        int greenTimeAroundTrack=getTimeAroundTrack(1);     //1 for green
+        
+  
+        int redTimeAroundTrack=getTimeAroundTrack(0,redLine,greenLine);       //0 for red
+        int greenTimeAroundTrack=getTimeAroundTrack(1,redLine,greenLine);     //1 for green
 //create Train schedule with available drivers
         trainSchedule redSchedule=new trainSchedule();
         trainSchedule greenSchedule=new trainSchedule();
@@ -193,22 +195,48 @@ public class Mbo extends Thread{
      * @param track 0 for red 1 for green
      * @return 
      */
-    int getTimeAroundTrack(int track){
-        int time=0;
+    int getTimeAroundTrack(int track, TrackGraph gr, TrackGraph red){
+        int time=0;  //1 for green
         //red
-        if (track==0){
+        if (track==0){/**********RED**************/
  /**
   * Add u,c,b,a,f,g,h,i,j,k,l,m,n,i,
   */           
             
             
         }
-        else{ //green
+        else{ /**********GREEN**************/
+ 
+ /**  yard -k-l-m-n-o-p-q-n-r-s-t-u-v-w-x-y-z-f-e-d-c-b-a-d-e-f-g-h-i-(j-continue//zz-yard(leaving) or yy(coming in))**/
+            Section k=gr.getSection("k");
+            Section l=gr.getSection("l");
+            Section m=gr.getSection("m");
+            Section n=gr.getSection("n");
+            Section o=gr.getSection("o");
+            Section p=gr.getSection("p");
+            Section q=gr.getSection("q");
+            Section r=gr.getSection("r");
+            Section s=gr.getSection("s");
+            Section t=gr.getSection("t");
+            Section u=gr.getSection("u");
+            Section v=gr.getSection("v");
+            Section w=gr.getSection("w");
+            Section x=gr.getSection("x");
+            Section y=gr.getSection("y");
+            Section z=gr.getSection("z");
+            Section f=gr.getSection("f");
+            Section e=gr.getSection("e");
+            Section d=gr.getSection("g");
+            Section c=gr.getSection("c");
+            Section b=gr.getSection("b");
+            Section a=gr.getSection("a");
+            Section g=gr.getSection("g");
+            Section h=gr.getSection("h");
+            Section i=gr.getSection("i");
             
             
             
-        }
-        
+        }    
         return time;
     }
    public void setDrivers(int i){
