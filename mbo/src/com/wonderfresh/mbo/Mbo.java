@@ -67,29 +67,9 @@ public class Mbo extends Thread{
        
         
         System.out.println("Done");
-        
-//Get User Inputs
-        
-            while(gui == null) {
-                try {Thread.sleep(1000); } 
-                catch (Exception ex) {
-                    //do nothing busy work
-                }
-            }
-            while(running==1){
-                //keep clock running    
-              // System.out.println("here");
-                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));
-                    if (ready==1){
-                        running=0;
-                    } 
-            }
-        //verify correct inputs    
-        System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
+        getInputs(); //function to get user inputs
 
-/******************************************************************************************
- **********************  UPLOADING TRACK FROM TRAACKMODEL  ********************************
- ******************************************************************************************/ 
+/**********************  UPLOADING TRACK FROM TRAACKMODEL  ********************************/ 
 
         TrackSimulator ts=TrackSimulator.getInstance();
         //System.out.println("GET temp "+ts.getTemp());
@@ -101,7 +81,9 @@ public class Mbo extends Thread{
         //System.out.println("Section a "+A.getArrowDirection());
         
 /*********************** CALCULATE TIME AROUND TRACK FOR RED *******************************/
-         
+        
+        /**used for testing of integration - 
+         * track is called but CTC was never integrated into the system
         int loop=0;
         while(loop==0){
             try {
@@ -117,17 +99,15 @@ public class Mbo extends Thread{
                 Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        **/
         
  
-    //estimate train runs for passengers
+//estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
         int redWait = 0;
         redRuns=(redPassengers/passPerCar);//24+4 for double car on rush hour
         greenRuns=(greenPassengers/passPerCar);
-        
-        if (redRuns>0){
-           redWait=(minsPerDay/redRuns);}
+        if (redRuns>0){ redWait=(minsPerDay/redRuns);}
         redWait=redWait-redWait%5;
         int greenWait=(minsPerDay/greenRuns);
         greenWait=greenWait-greenWait%5;
@@ -138,20 +118,20 @@ public class Mbo extends Thread{
         System.out.println("MBO: Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
         int timeBetweenAllRuns=(((redWait+greenWait)/2)-((redWait+greenWait)/2)%5);
         System.out.println("MBO: need a driver every "+timeBetweenAllRuns+" minutes");
+//Create and output drivers Schedule        
         driverSchedule ds=new driverSchedule();
         ds.getSchedule(drivers, shift, timeBetweenAllRuns);
-//DisplayDrivers      
-        setDriverArray(ds);
-//Load Track
+        setDriverArray(ds);//DisplayDrivers  
         
 //Get Safe breaking distance with max speed off of the blocks &print to Screen
         double minDist=0;
         double maxSpeed=40;
-        //get max speed by iterating through the track
-        minDist=getBrakeDistance(maxSpeed);
+        minDist=getBrakeDistance(maxSpeed);//get max speed by iterating through the track
         System.out.println("MBO: Min braking distance: "+minDist);
-//Get time around track
         
+//Get time around track
+        int redTimeAroundTrack=getTimeAroundTrack(0);       //0 for red
+        int greenTimeAroundTrack=getTimeAroundTrack(1);     //1 for green
 //create Train schedule with available drivers
         
 //outputTrainSchedule
@@ -165,10 +145,11 @@ public class Mbo extends Thread{
         running=1;
         while(running==1){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 //update time
                 if (gui!=null){
-                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));
+                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock
+                    
                     /*
                     *get closed track information from CTC --- Save to String temp
                     */
@@ -181,7 +162,7 @@ public class Mbo extends Thread{
                         System.out.println("MBO: User chose:"+station);
                         lastStation=station;
                     }
-                    
+                    gui.passengerCount.setText(" "+(passengerCount));
                     
                     //iterate track schedule for time to new station
                     
@@ -193,7 +174,7 @@ public class Mbo extends Thread{
                     allTrains=mboInterface.getLocation();
                     double temp=allTrains[1].metersInBlock;
                     int temp2=allTrains[1].block;
-                    Block myblock=greenLine.getBlock("green", loop);
+                   // Block myblock=greenLine.getBlock("green", loop);
 //                    String section=myblock.getSection();
                     //System.out.println("Train 1 in block"+temp2+"  meters in: "+temp + "  section:"+section);
                     /*
@@ -202,7 +183,7 @@ public class Mbo extends Thread{
                     
                     
                     
-                    gui.passengerCount.setText(" "+(passengerCount));
+                    
                 }
             } catch (InterruptedException ex) { Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex); }
         }
@@ -406,6 +387,28 @@ public class Mbo extends Thread{
         train.id=id;
         train.metersInBlock=distInBlock;
         return train;
+        
+    }
+    public void getInputs(){
+        //Get User Inputs
+            int running=1;
+            while(gui == null) {
+                try {Thread.sleep(1000); } 
+                catch (Exception ex) {
+                    //do nothing busy work
+                }
+            }
+            while(running==1){
+                //keep clock running    
+              // System.out.println("here");
+                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));
+                    if (ready==1){
+                        running=0;
+                    } 
+            }
+        //verify correct inputs    
+        System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
+
         
     }
 }
