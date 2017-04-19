@@ -20,7 +20,7 @@ public interface MboInterface {
     void setLocation(int ID, int blockNum, int metersIn, boolean line);
     void setSpeedAuthority(int ID, double speed, double authority);
     mboTrain[] getLocation();
-    mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info);
+    mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id);
     mboTrainDepartInfo[] getTrainDepartInfo();
     mboTrain[] getDispatchedTrain();
     mboTrain[] getUpdatedSpeedAuthority();

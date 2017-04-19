@@ -69,8 +69,7 @@ public class Mbo extends Thread{
         TrackGraph greenLine=tm.getGreenLine();
         //System.out.println("Section a "+A.getArrowDirection());
         
-/*********************** CALCULATE TIME AROUND TRACK FOR RED *******************************/
-        
+      
         /**used for testing of integration - 
          * track is called but CTC was never integrated into the system
         int loop=0;
@@ -89,8 +88,6 @@ public class Mbo extends Thread{
             }
         }
         **/
-        
- 
 //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
         int redWait = 0;
@@ -127,10 +124,12 @@ public class Mbo extends Thread{
         trainSchedule[] redGreenSchedule=new trainSchedule[2];
         redGreenSchedule=trainSchedule.getTrainSchedule(drivers,ds,redTimeAroundTrack,greenTimeAroundTrack,redPassengers, greenPassengers);
         redSchedule=redGreenSchedule[0];
-        greenSchedule=redGreenSchedule[1];        
+        greenSchedule=redGreenSchedule[1];   
 //outputTrainSchedule-- Starts from green-yard
-        //get station
-        //add time for station
+        
+//Train Depart Info Initializations
+        mboTrainDepartInfo[] departInfo=new mboTrainDepartInfo[100];
+        departInfo=initializeDepartInfo();
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
        //running variable declarations
         String[] closedTracks=new String[100];
@@ -145,6 +144,8 @@ public class Mbo extends Thread{
                 if (gui!=null){
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock
                     displayClosedTracks(closedTracks);
+/****** UPDATE DEPART INFO FOR TRACK MODEL ********/
+                    
                     
 /****** Get Updated Track chosen for schedule *****/
                     String station =null;
@@ -726,4 +727,14 @@ public class Mbo extends Thread{
         }
         return t;
    }
+
+    private mboTrainDepartInfo[] initializeDepartInfo() {
+       mboTrainDepartInfo[] a = new mboTrainDepartInfo[100];
+       mboTrainDepartInfo info = new mboTrainDepartInfo();
+       int i=0;
+       for (i=0;i<100;i++){
+           a[i]=info;
+       }
+       return a;
+    }
 }

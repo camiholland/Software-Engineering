@@ -47,9 +47,6 @@ public class MboInterfaceImpl implements MboInterface {
         return closedBlocks;
     }
     
-  
-    
-    
     @Override
     public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array){
         this.array[trainID].speed=speed;
@@ -62,9 +59,10 @@ public class MboInterfaceImpl implements MboInterface {
         return this.array;
     }
     @Override
-    public mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info){
-        
-        return info;
+    public mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id){
+        this.info[id].station=station;
+        this.info[id].trainIDAndDepart=trainIDandDepartTime;
+        return this.info;
     }
     @Override
     public mboTrain[] getDispatchedTrain(){
