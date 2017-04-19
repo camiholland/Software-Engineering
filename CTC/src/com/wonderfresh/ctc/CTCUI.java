@@ -1,12 +1,24 @@
 package com.wonderfresh.ctc;
 
+import com.wonderfresh.commons.Block;
 
+//import com.wonderfresh.mbo.Mbo;
 //@author Sarah
-
 public class CTCUI extends javax.swing.JFrame {
-    
+
+    int mode;
+    int simspeed;
+    javax.swing.JTable redtable;
+    SimpleTrack strak;
+
+//    Mbo mbo;
     public CTCUI() {
         initComponents();
+        redtable = new javax.swing.JTable();
+        strak = new SimpleTrack();
+        strak.loadTrack();
+        mode = 0;
+//        mbo = new Mbo();
     }
 
     /**
@@ -18,6 +30,8 @@ public class CTCUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        speedgroup = new javax.swing.ButtonGroup();
+        modegroup = new javax.swing.ButtonGroup();
         tabpane = new javax.swing.JTabbedPane();
         trainPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -385,9 +399,22 @@ public class CTCUI extends javax.swing.JFrame {
 
         speedpanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Simulation Speed", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
+        speedgroup.add(oneXButton);
+        oneXButton.setSelected(true);
         oneXButton.setText("x1");
+        oneXButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oneXButtonActionPerformed(evt);
+            }
+        });
 
+        speedgroup.add(tenXButton);
         tenXButton.setText("x10");
+        tenXButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenXButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout speedpanelLayout = new javax.swing.GroupLayout(speedpanel);
         speedpanel.setLayout(speedpanelLayout);
@@ -411,8 +438,16 @@ public class CTCUI extends javax.swing.JFrame {
 
         modepanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
+        modegroup.add(manualButton);
+        manualButton.setSelected(true);
         manualButton.setText("Manual");
+        manualButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualButtonActionPerformed(evt);
+            }
+        });
 
+        modegroup.add(fboButton);
         fboButton.setText("Fixed Block Auto");
         fboButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,7 +455,13 @@ public class CTCUI extends javax.swing.JFrame {
             }
         });
 
+        modegroup.add(mboButton);
         mboButton.setText("MBO");
+        mboButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mboButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout modepanelLayout = new javax.swing.GroupLayout(modepanel);
         modepanel.setLayout(modepanelLayout);
@@ -534,7 +575,7 @@ public class CTCUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addComponent(tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 415, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -560,20 +601,17 @@ public class CTCUI extends javax.swing.JFrame {
         boolean isUpdating = true;
         boolean isTrain = true;
         rowfound = entryErrorCheck(values, isUpdating, isTrain);
-        
+
         //talk to any other modules?
-        
         //MBO interface has this:
         //mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
         //ask whether this means what i think it means
         //that the MBO uses this info for its own scheduling
         //would go like this:
         //trainarray = setUpdatedSpeedAuthority(rowfound, values[1], values[2], trainarray);
-        
         //track controller, on the other hand
         //would get updates on a block-by-block basis
         //so nothing from this train-related update
-        
         //how train-based speed and authority relate to block-by-block updates:
         //this info is associated with the train
         //when a train reaches a block, send it to that block
@@ -583,7 +621,6 @@ public class CTCUI extends javax.swing.JFrame {
         //what if other train is there, and gets wrong info?
         //authority might be what lets the train know it can keep going
         //even though the start of a block might momentarily have eg. speed 0
-
         //if no errors, update train table
         if (rowfound >= 0) {
             trainTable.setValueAt(values[0], rowfound, 0); //name
@@ -618,10 +655,9 @@ public class CTCUI extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Name not found", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         //tell MBO to remove train?
         //ask about this
-
         //remove row if found
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) trainTable.getModel();
         model.removeRow(rowfound);
@@ -650,18 +686,14 @@ public class CTCUI extends javax.swing.JFrame {
         //tell it I'm dispatching a train
         //Track Controller interface currently has no function for this
         //ask about that
-        
         //if not Track Controller, call Track Model
         //their interface doesn't have this either
         //okay
         //ask about that
-        
         //call Train Model?
         //no
-        
         //Train Controller?
         //no
-        
         //MBO?
         //yes
         //mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
@@ -681,8 +713,9 @@ public class CTCUI extends javax.swing.JFrame {
         //assuming this function returns the updated array
         //how to check for success?
         //ask about this
-        
-        
+        //they're discussing how to dispatch right now
+        //pretty sure I'd call the trackcontroller
+        //startTrain(line, speed, authority) from trackcontroller CTCDataAccess
         //if no errors, update train table
         if (errd >= 0) {
             //add a new row to the train table
@@ -728,14 +761,11 @@ public class CTCUI extends javax.swing.JFrame {
         //ask about this
         //may need to agree to identifying block by name, not id#
         //or I may need a way to calculate id#
-        
         //and then:
         //public boolean setAuthority(int block, int authority);
         //boolean authSuccess = setAuthority(rowfound, Integer.parseInt(values[2]));
-        
         //update table if both are success
         //i'm guessing returning true is success
-        
         //if no errors, update train table
         if (rowfound >= 0) {
             //ctc can only update these values
@@ -786,13 +816,12 @@ public class CTCUI extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Invalid ID", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         //who to talk to about switches?
         //Track Controller interface has no function for them
         //neither does MBO
         //neither does Track Model
         //ask about this
-
         //index to the given row in the switch table, and swap values
         String blockSwap = (String) switchTable2.getValueAt(idRow, 2);
         switchTable2.setValueAt((String) switchTable2.getValueAt(idRow, 3), idRow, 2);
@@ -800,8 +829,24 @@ public class CTCUI extends javax.swing.JFrame {
     }//GEN-LAST:event_toggleButton2ActionPerformed
 
     private void fboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fboButtonActionPerformed
-        // TODO add your handling code here:
+        mode = 1;
     }//GEN-LAST:event_fboButtonActionPerformed
+
+    private void oneXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneXButtonActionPerformed
+        simspeed = 1;
+    }//GEN-LAST:event_oneXButtonActionPerformed
+
+    private void tenXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenXButtonActionPerformed
+       simspeed = 10;
+    }//GEN-LAST:event_tenXButtonActionPerformed
+
+    private void manualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualButtonActionPerformed
+        mode = 0;
+    }//GEN-LAST:event_manualButtonActionPerformed
+
+    private void mboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mboButtonActionPerformed
+        mode = 2;
+    }//GEN-LAST:event_mboButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel assortedFunctionsPanel;
@@ -824,6 +869,7 @@ public class CTCUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JRadioButton manualButton;
     private javax.swing.JRadioButton mboButton;
+    private javax.swing.ButtonGroup modegroup;
     private javax.swing.JPanel modepanel;
     private javax.swing.JRadioButton oneXButton;
     private javax.swing.JButton openButton;
@@ -831,6 +877,7 @@ public class CTCUI extends javax.swing.JFrame {
     private javax.swing.JButton removeButton;
     private javax.swing.JLabel schedulefile;
     private javax.swing.JPanel schedulepanel;
+    private javax.swing.ButtonGroup speedgroup;
     private javax.swing.JPanel speedpanel;
     private javax.swing.JPanel switchPanel2;
     private javax.swing.JTable switchTable2;
@@ -869,7 +916,6 @@ public class CTCUI extends javax.swing.JFrame {
             //it might be pointless
             //message += "Destination must be a block name, eg. GA.\n";
             //errd++;
-            
             //(max name length hardcoded for now because it's not too important)
             if (values[0].length() > 255) {
                 message += "Name too long.\n";
@@ -909,7 +955,6 @@ public class CTCUI extends javax.swing.JFrame {
         //int speedlim = getSpeedLimit( blockid );
         //message += "Can't exceed speed limit.\n";
         //errd++;
-        
         //error if authority isn't a number, or is negative
         if (!isPositiveNumber(values[2])) {
             message += "Authority must be a positive numerical value.\n";
@@ -929,7 +974,7 @@ public class CTCUI extends javax.swing.JFrame {
     //returns all user-entered values from train or block edit table
     public String[] getValues(int numvals) {
         String values[] = new String[numvals];
-        
+
         //if train
         if (numvals == 4) {
             values[0] = (String) editTrainTable.getValueAt(0, 0); //row, column
@@ -942,7 +987,7 @@ public class CTCUI extends javax.swing.JFrame {
             values[1] = (String) editBlockTable.getValueAt(0, 1);
             values[2] = (String) editBlockTable.getValueAt(0, 2);
         }
-        
+
         return values;
     }
 
@@ -977,7 +1022,7 @@ public class CTCUI extends javax.swing.JFrame {
     //returns -1 if key not found
     public int findmatchingrow(String key, Boolean isTrain) {
         int i;
-        
+
         if (isTrain) {
             int rowcount = trainTable.getRowCount();
             for (i = 0; i < rowcount; i++) {
@@ -985,8 +1030,7 @@ public class CTCUI extends javax.swing.JFrame {
                     return i;
                 }
             }
-        }
-        else {
+        } else {
             int rowcount = blockTable.getRowCount();
             for (i = 0; i < rowcount; i++) {
                 if (key.compareTo((String) blockTable.getValueAt(i, 0)) == 0) {
@@ -994,7 +1038,7 @@ public class CTCUI extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         return -1;
     }
 
@@ -1037,20 +1081,161 @@ public class CTCUI extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Name not found.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         //call Track Controller
         //public boolean setBlockOpen(int block, boolean open);
         //i'm guessing set open to true if opening block
         //false if closing
         //and proceed if it returns true?
-        
+        //MBO also wants to know that block is closing/opening
+        //just tell track controller to close a hardcoded block: E4, green
+        //just set block E4 on green line to closed
+//        Block tempblock = greenLine.getBlock("green", 19);
+//        tempblock.closeBlock();
         //if block found, open or closed as requested
         if (isOpening) {
-            blockTable.setValueAt("Open", rowfound, 1); 
-        }
-        else {
-            blockTable.setValueAt("Closed", rowfound, 1); 
+            blockTable.setValueAt("Open", rowfound, 1);
+        } else {
+            blockTable.setValueAt("Closed", rowfound, 1);
         }
 
+    }
+
+    //returns the set speed the CTC believes this block currently has
+    public int getSetSpeed(String line, int block) {
+        if (0 == line.compareTo("green")) {
+            return strak.mytrack.getGreenLine().getBlock(line, block).getSetPointSpeed();
+        }
+        return strak.mytrack.getRedLine().getBlock(line, block).getSetPointSpeed();
+    }
+
+    //informs CTC of a change in the track.
+    public void setSetSpeed(String line, int block, int speed) {
+        if (0 == line.compareTo("green")) {
+            strak.mytrack.getGreenLine().getBlock(line, block).setSetPointSpeed(speed);
+        }
+        strak.mytrack.getRedLine().getBlock(line, block).setSetPointSpeed(speed);
+    }
+
+    //returns the authority the CTC believes this block currently has
+    public double getAuthority(String line, int block) {
+        if (0 == line.compareTo("green")) {
+            return strak.mytrack.getGreenLine().getBlock(line, block).getAuthority();
+        }
+        return strak.mytrack.getRedLine().getBlock(line, block).getAuthority();
+    }
+
+    //informs CTC of a change in the track.
+    public void getAuthority(String line, int block, double auth) {
+        if (0 == line.compareTo("green")) {
+            strak.mytrack.getGreenLine().getBlock(line, block).setAuthority(auth);
+        }
+        strak.mytrack.getRedLine().getBlock(line, block).setAuthority(auth);
+    }
+
+    //returns whether or not the CTC believes a block is open
+    public boolean getBlockOpen(String line, int block) {
+        if (0 == line.compareTo("green")) {
+            return strak.mytrack.getGreenLine().getBlock(line, block).closed;
+        }
+        return strak.mytrack.getRedLine().getBlock(line, block).closed;
+    }
+
+    //informs CTC of a change in the track.
+    public void setBlockOpen(String line, int block, boolean closed) {
+        if (0 == line.compareTo("green")) {
+            strak.mytrack.getGreenLine().getBlock(line, block).closed = closed;
+        }
+        strak.mytrack.getRedLine().getBlock(line, block).closed = closed;
+    }
+
+    //0 = manual, 1 = fixed block auto, 2 = MBO
+    public int getMode() {
+        return mode;
+    }
+
+    public int getSimulationSpeed() {
+        return simspeed;
+    }
+
+    public void initBlockTables() {
+        redtable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        redtable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Train", "Block", "Set Speed", "Authority", "Destination", "ID#"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        redtable.setGridColor(new java.awt.Color(250, 250, 250));
+        redtable.setSelectionBackground(new java.awt.Color(14, 159, 251));
+        redtable.setShowGrid(false);
+        redtable.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(redtable);
+
+    }
+
+    public void addToBlockTables(String linetoadd) {
+        int i;
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) blockTable.getModel();
+        Block tblok;
+        String cros, clos;
+
+        if (linetoadd.compareTo("green") == 0) {
+            for (i = 0; i < strak.mytrack.getGreenCount(); i++) {
+                tblok = strak.greenLine.getBlock("green", i);
+                if (tblok.isCrossing()) {
+                    cros = "Down";
+                } else {
+                    cros = "Open";
+                }
+                if (tblok.closed) {
+                    clos = "Closed";
+                } else {
+                    clos = "Open";
+                }
+                model.addRow(new Object[]{tblok.getBlockNum(), clos, tblok.getSetPointSpeed(), tblok.getAuthority(), tblok.getSpeedLimit(), cros, ""});
+            }
+        } else {
+            for (i = 0; i < strak.mytrack.getRedCount(); i++) {
+                tblok = strak.redLine.getBlock("red", i);
+                if (tblok.isCrossing()) {
+                    cros = "Down";
+                } else {
+                    cros = "Open";
+                }
+                if (tblok.closed) {
+                    clos = "Closed";
+                } else {
+                    clos = "Open";
+                }
+                model.addRow(new Object[]{tblok.getBlockNum(), clos, tblok.getSetPointSpeed(), tblok.getAuthority(), tblok.getSpeedLimit(), cros, ""});
+            }
+        }
+
+    }
+
+    public void swapBlockTables(String linetoadd) {
+        int i;
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) blockTable.getModel();
+
+        if (linetoadd.compareTo("green") == 0) {
+            for (i = 0; i < strak.mytrack.getRedCount(); i++) {
+                model.removeRow(i);
+            }
+            addToBlockTables(linetoadd);
+        } else {
+            for (i = 0; i < strak.mytrack.getGreenCount(); i++) {
+                model.removeRow(i);
+            }
+            addToBlockTables(linetoadd);
+        }
     }
 }
