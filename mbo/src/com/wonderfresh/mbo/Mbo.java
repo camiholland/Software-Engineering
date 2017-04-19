@@ -42,8 +42,8 @@ public class Mbo extends Thread{
         //get initialized interface
         MboInterface mboInterface=Interfaces.getMboInterface();
         //max 100 trains per line
-        tempMboTrain[] redTrain=new tempMboTrain[100];
-        tempMboTrain[] greenTrain=new tempMboTrain[100];
+        mboTrain[] redTrain=new mboTrain[100];
+        mboTrain[] greenTrain=new mboTrain[100];
         String[] redSta=new String[20];
         String[] greenSta=new String[20];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
@@ -151,20 +151,13 @@ public class Mbo extends Thread{
                     String station =null;
                     station=checkUserStation(station);
 /****** Get Passenger count ***********************/                    
-                    
+                 //   passengerCount=passengerCount+=getPassengers(redTrain, greenTrain);
                     gui.passengerCount.setText(" "+(passengerCount));
                     
                     //iterate track schedule for time to new station
                     
-                    /*
-                    Get train locations from
-                    
-                    
-                    */
+/**************Get train locations from Train Controller since the CTC is MIA******************/
                     allTrains=mboInterface.getLocation();
-                    double temp=allTrains[1].metersInBlock;
-                    double temp2=allTrains[1].block;
-                    System.out.println(" 1: meters in"+ temp+"   block: "+temp2);
                     displayTrainLocations(allTrains);
                     
                     
@@ -172,7 +165,7 @@ public class Mbo extends Thread{
                 }
             } catch (InterruptedException ex) { Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex); }
         }
- /**********************************************    END OF RUNNING WHILE LOOP     ***************************************/  
+ /******************************    END OF RUNNING WHILE LOOP     ***************************************/  
     }
     
     

@@ -96,6 +96,48 @@ public class mbotime{
  * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
  * 
  * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
+ * output           :   12:00A-8:30P    /**
+ * -DONE-
+ * public String scheduleTime(time t)
+ * 
+ * takes time t and outputs time t to time t+8.5 hours for scheduling purposes
+ * 
+ * example input    :   time=0
  * output           :   12:00A-8:30P    
  */    
     

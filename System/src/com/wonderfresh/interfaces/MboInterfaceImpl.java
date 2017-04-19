@@ -102,9 +102,10 @@ public class MboInterfaceImpl implements MboInterface {
     }
 
     @Override
-    public void setSpeedAuthority(int ID, double speed, double authority) {
+    public void setSpeedAuthorityPassengerCount(int ID, double speed, double authority, int passengers) {
         this.array[ID].speed=speed;
         this.array[ID].authority=authority;
+        this.array[ID].number=passengers;
     }
     
 
