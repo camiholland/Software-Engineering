@@ -194,7 +194,7 @@ public class Mbo extends Thread{
                     double temp=allTrains[1].metersInBlock;
                     int temp2=allTrains[1].block;
                     Block myblock=greenLine.getBlock("green", loop);
-                    String section=myblock.getSection();
+//                    String section=myblock.getSection();
                     //System.out.println("Train 1 in block"+temp2+"  meters in: "+temp + "  section:"+section);
                     /*
                     Update authority with distance to station
