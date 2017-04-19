@@ -1,20 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
 
-/**
- *
- * @author Kayla
- */
-public class Module7 extends javax.swing.JFrame {
+public class Module7 extends javax.swing.JFrame implements CommunicationController {
+    
+    //used to determine if send button is invoked for Track Ctrl
+    private boolean buttonPressedTrack = false, userRailway, userLights, userSwitches, userOccupancy;
+    private boolean ready0 = false, ready1 = false, ready2 = false, ready3 = false;
+    private boolean ready4 = false, ready5 = false, ready6 = false, ready7 = false;
+    private String userBlockID, userTrainID, userEncoded;
+    private double userSpeed, userAuthority, userBeacon, userVelocity, userPosition;
+    private JFrame frame; //used for JOptionPanes
 
     /**
      * Creates new form NewJFrame
+     * Initializes testing and creates ButtonGroup for testing/automatic modes
      */
     public Module7() {
         initComponents();
+        //initialize button group to handle automatic and testing modes
+        ButtonGroup group = new ButtonGroup();
+        group.add(testingMode);
+        group.add(autoMode);
+        
+        //automatically start program in automatic mode
+        autoMode.setSelected(true);
+        
+        //since we are in automatic mode, text fields must be set as editable or uneditable right away
+        inAutoMode();
     }
 
     /**
@@ -26,234 +39,206 @@ public class Module7 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel6 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jTextField21 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        CommunicationController = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        communicationController = new javax.swing.JPanel();
+        commCtrlLabel = new javax.swing.JLabel();
         IncomingTrackController = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        receivedNullTrackCtrl = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        incomingTrackLabel = new javax.swing.JLabel();
+        errorIncomingTrack = new javax.swing.JPanel();
+        railwayLabel = new javax.swing.JLabel();
+        lightLabel = new javax.swing.JLabel();
+        switchLabel = new javax.swing.JLabel();
+        occupancyLabel = new javax.swing.JLabel();
         incomingMsgTrackCtrl = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
+        blockIDLabel = new javax.swing.JLabel();
         incomingIDTrackCtrl = new javax.swing.JFormattedTextField();
         incomingRailwayTrackCtrl = new javax.swing.JFormattedTextField();
         incomingLightsTrackCtrl = new javax.swing.JFormattedTextField();
         incomingSwitchesTrackCtrl = new javax.swing.JFormattedTextField();
         incomingOccupancyTrackCtrl = new javax.swing.JFormattedTextField();
         IncomingCTC = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        receivedNullCTC = new javax.swing.JPanel();
+        incomingCTCLabel = new javax.swing.JLabel();
+        incomingSpeedLabel = new javax.swing.JLabel();
+        mphLabelIncomingCTC = new javax.swing.JLabel();
+        incomingAuthorityLabel = new javax.swing.JLabel();
+        errorIncomingCTC = new javax.swing.JPanel();
         incomingMsgCTC = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
+        milesLabelIncomingCTC = new javax.swing.JLabel();
+        incomingIDLabel = new javax.swing.JLabel();
         incomingSpeedCTC = new javax.swing.JFormattedTextField();
         incomingAuthorityCTC = new javax.swing.JFormattedTextField();
         incomingIDCTC = new javax.swing.JFormattedTextField();
         OutgoingTrackController = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        sentNullTrackCtrl = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        blockIDLabel1 = new javax.swing.JLabel();
+        speedLabel1 = new javax.swing.JLabel();
+        authorityLabel1 = new javax.swing.JLabel();
+        errorOutgoingTrack = new javax.swing.JPanel();
+        outgoingTrackLabel = new javax.swing.JLabel();
         outgoingIDTrackCtrl = new javax.swing.JFormattedTextField();
         outgoingSpeedTrackCtrl = new javax.swing.JFormattedTextField();
         outgoingAuthorityTrackCtrl = new javax.swing.JFormattedTextField();
-        jPanel1 = new javax.swing.JPanel();
-        outgoingTrackCtrlIDTest = new javax.swing.JComboBox<>();
-        outgoingTrackCtrlSpeedTest = new javax.swing.JTextField();
-        outgoingTrackCtrlAuthorityTest = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        milesLabel1 = new javax.swing.JLabel();
+        mphLabel1 = new javax.swing.JLabel();
+        sendToTrackCtrl = new javax.swing.JButton();
         OutgoingCTC = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        sentNullCTC = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        outgoingCTCIDTest = new javax.swing.JComboBox<>();
-        outgoingCTCLightsTest = new javax.swing.JComboBox<>();
-        outgoingCTCSwitchesTest = new javax.swing.JComboBox<>();
-        outgoingCTCRailwayTest = new javax.swing.JComboBox<>();
-        outgoingCTCOccupancyTest = new javax.swing.JComboBox<>();
-        sendButtonCTCTest = new javax.swing.JButton();
-        jLabel42 = new javax.swing.JLabel();
+        outgoingCTCLabel = new javax.swing.JLabel();
+        errorOutgoingCTC = new javax.swing.JPanel();
+        occupancyLabel1 = new javax.swing.JLabel();
+        blockIDLabel2 = new javax.swing.JLabel();
+        lightLabel1 = new javax.swing.JLabel();
+        switchLabel1 = new javax.swing.JLabel();
+        railwayLabel1 = new javax.swing.JLabel();
         outgoingIDCTC = new javax.swing.JFormattedTextField();
         outgoingLightsCTC = new javax.swing.JFormattedTextField();
         outgoingSwitchesCTC = new javax.swing.JFormattedTextField();
         outgoingOccupancyCTC = new javax.swing.JFormattedTextField();
         outgoingRailwayCTC = new javax.swing.JFormattedTextField();
-        ModeSelect = new javax.swing.JPanel();
+        sendToCTC = new javax.swing.JButton();
+        antennasPanel = new javax.swing.JPanel();
+        trainAntenna6 = new javax.swing.JPanel();
+        errorTrainAnt1 = new javax.swing.JPanel();
+        encodedLabel5 = new javax.swing.JLabel();
+        blockIDLabel7 = new javax.swing.JLabel();
+        speedLabel7 = new javax.swing.JLabel();
+        authorityLabel7 = new javax.swing.JLabel();
+        encodedTrainModel = new javax.swing.JFormattedTextField();
+        blockIDTrainModel = new javax.swing.JFormattedTextField();
+        speedTrainModel = new javax.swing.JFormattedTextField();
+        authorityTrainModel = new javax.swing.JFormattedTextField();
+        mphLabel7 = new javax.swing.JLabel();
+        milesLabel7 = new javax.swing.JLabel();
+        decodedLabel4 = new javax.swing.JLabel();
+        incomingTrainAnt1 = new javax.swing.JPanel();
+        sendTrainModel = new javax.swing.JButton();
+        beaconLabel2 = new javax.swing.JLabel();
+        beaconTrainModel = new javax.swing.JFormattedTextField();
+        trainAnt1Label = new javax.swing.JLabel();
+        trainAnt2Panel = new javax.swing.JPanel();
+        incomingTrainAnt2 = new javax.swing.JPanel();
+        errorTrainAnt2 = new javax.swing.JPanel();
+        velocityLabel = new javax.swing.JLabel();
+        positionLabel = new javax.swing.JLabel();
+        velocityFromTrainCtrl = new javax.swing.JFormattedTextField();
+        positionFromTrainCtrl = new javax.swing.JFormattedTextField();
+        encodedLabel4 = new javax.swing.JLabel();
+        encodedFromTrainCtrl = new javax.swing.JFormattedTextField();
+        speedLabel8 = new javax.swing.JLabel();
+        authorityLabel8 = new javax.swing.JLabel();
+        speedFromMBOAnt = new javax.swing.JFormattedTextField();
+        authorityFromMBOAnt = new javax.swing.JFormattedTextField();
+        encodedLabel6 = new javax.swing.JLabel();
+        decodedLabel2 = new javax.swing.JLabel();
+        encodedFromMBOAnt = new javax.swing.JFormattedTextField();
+        fromTrainCtrlLabel = new javax.swing.JLabel();
+        fromMBOLabel = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        mphLabel8 = new javax.swing.JLabel();
+        milesLabel8 = new javax.swing.JLabel();
+        sendToMBOAnt = new javax.swing.JButton();
+        sendToTrainCtrl = new javax.swing.JButton();
+        trainAnt2Label = new javax.swing.JLabel();
+        MBOAntPanel = new javax.swing.JPanel();
+        incomingMBOAnt = new javax.swing.JPanel();
+        errorMBOAnt = new javax.swing.JPanel();
+        fromTrainAnt2Label = new javax.swing.JLabel();
+        fromMBOLabel22 = new javax.swing.JLabel();
+        encodedTrainAnt2 = new javax.swing.JFormattedTextField();
+        encodedLabel7 = new javax.swing.JLabel();
+        decodedLabel3 = new javax.swing.JLabel();
+        velocityToMBO = new javax.swing.JFormattedTextField();
+        velocityLabel3 = new javax.swing.JLabel();
+        mphLabel9 = new javax.swing.JLabel();
+        positionToMBO = new javax.swing.JFormattedTextField();
+        authorityLabel9 = new javax.swing.JLabel();
+        milesLabel9 = new javax.swing.JLabel();
+        sendToMBO = new javax.swing.JButton();
+        speedLabel10 = new javax.swing.JLabel();
+        authorityLabel10 = new javax.swing.JLabel();
+        encodedLabel8 = new javax.swing.JLabel();
+        encodedMBO = new javax.swing.JFormattedTextField();
+        authorityFromMBO = new javax.swing.JFormattedTextField();
+        speedFromMBO = new javax.swing.JFormattedTextField();
+        sendToTrainAnt2 = new javax.swing.JButton();
+        mphLabel11 = new javax.swing.JLabel();
+        milesLabel11 = new javax.swing.JLabel();
+        mboAntLabel = new javax.swing.JLabel();
+        modeSelect = new javax.swing.JPanel();
         testingMode = new javax.swing.JRadioButton();
         autoMode = new javax.swing.JRadioButton();
-        jLabel10 = new javax.swing.JLabel();
-        TrackCircuit = new javax.swing.JPanel();
-        receivedNullTrackCircuit = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        modeLabel = new javax.swing.JLabel();
+        trackCircuit = new javax.swing.JPanel();
+        errorTrackCircuit = new javax.swing.JPanel();
+        speedLabel3 = new javax.swing.JLabel();
+        authorityLabel2 = new javax.swing.JLabel();
+        blockIDLabel3 = new javax.swing.JLabel();
+        encodedLabel = new javax.swing.JLabel();
         trackCircuitSpeed = new javax.swing.JFormattedTextField();
-        jLabel22 = new javax.swing.JLabel();
+        mphLabel2 = new javax.swing.JLabel();
         trackCircuitAuthority = new javax.swing.JFormattedTextField();
         trackCircuitID = new javax.swing.JFormattedTextField();
         trackCircuitEncoded = new javax.swing.JFormattedTextField();
-        jLabel43 = new javax.swing.JLabel();
+        milesLabel3 = new javax.swing.JLabel();
         incomingMsgTrackCircuit = new javax.swing.JPanel();
-        TrainAntenna = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        trainAntennaID = new javax.swing.JFormattedTextField();
-        trainAntennaDecoded = new javax.swing.JFormattedTextField();
-        trainAntennaSpeed = new javax.swing.JFormattedTextField();
-        trainAntennaAuthority = new javax.swing.JFormattedTextField();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        TestingCircuitAntenna = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        circuitAntennaID = new javax.swing.JComboBox<>();
-        circuitAntennaSpeed = new javax.swing.JTextField();
-        circuitAntennaAuthority = new javax.swing.JTextField();
+        beaconLabel = new javax.swing.JLabel();
+        trackCircuitBeacon = new javax.swing.JFormattedTextField();
+        reportFailure = new javax.swing.JButton();
+        circuitLabel = new javax.swing.JLabel();
+        testingCircuitAntenna = new javax.swing.JPanel();
+        blockIDLabel4 = new javax.swing.JLabel();
+        encodedLabel2 = new javax.swing.JLabel();
         circuitAntennaEncoded = new javax.swing.JFormattedTextField();
-        circuitAntennaIDDecoded = new javax.swing.JFormattedTextField();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        circuitAntennaSpeedDecoded = new javax.swing.JFormattedTextField();
-        circuitAntennaAuthorityDecoded = new javax.swing.JFormattedTextField();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        circuitAntennaEncodedReceived = new javax.swing.JFormattedTextField();
-        jLabel60 = new javax.swing.JLabel();
-        fixedEncoded = new javax.swing.JFormattedTextField();
-        sendTrainModelTest = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel61 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jLabel64 = new javax.swing.JLabel();
-        errorCircuitAntennaTest = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-
-        jPanel6.setBackground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jPanel9.setBackground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jPanel12.setBackground(new java.awt.Color(0, 0, 255));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        jTextField21.setText("Speed");
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
-            }
-        });
+        testAntennaID = new javax.swing.JFormattedTextField();
+        encodedLabel3 = new javax.swing.JLabel();
+        testAntennaEncoded = new javax.swing.JFormattedTextField();
+        fixedLabel = new javax.swing.JLabel();
+        testAntennaFixed = new javax.swing.JFormattedTextField();
+        send0 = new javax.swing.JButton();
+        send1 = new javax.swing.JButton();
+        sendMoreThan1 = new javax.swing.JButton();
+        zeroBitLabel = new javax.swing.JLabel();
+        oneBitLabel = new javax.swing.JLabel();
+        moreThanOneLabel = new javax.swing.JLabel();
+        sendNull = new javax.swing.JButton();
+        nullLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        antennasLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(4000, 4000));
 
-        jPanel2.setMaximumSize(new java.awt.Dimension(3500, 3500));
+        communicationController.setBackground(new java.awt.Color(245, 245, 245));
+        communicationController.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        communicationController.setMaximumSize(new java.awt.Dimension(25000, 2250));
 
-        CommunicationController.setBackground(new java.awt.Color(245, 245, 245));
-        CommunicationController.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        CommunicationController.setMaximumSize(new java.awt.Dimension(25000, 2250));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Communication Controller");
+        commCtrlLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        commCtrlLabel.setText("Communication Controller");
 
         IncomingTrackController.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         IncomingTrackController.setPreferredSize(new java.awt.Dimension(666, 459));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("Incoming from Track Controller");
+        incomingTrackLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        incomingTrackLabel.setText("Incoming from Track Controller");
 
-        receivedNullTrackCtrl.setBackground(new java.awt.Color(255, 0, 0));
+        errorIncomingTrack.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout receivedNullTrackCtrlLayout = new javax.swing.GroupLayout(receivedNullTrackCtrl);
-        receivedNullTrackCtrl.setLayout(receivedNullTrackCtrlLayout);
-        receivedNullTrackCtrlLayout.setHorizontalGroup(
-            receivedNullTrackCtrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout errorIncomingTrackLayout = new javax.swing.GroupLayout(errorIncomingTrack);
+        errorIncomingTrack.setLayout(errorIncomingTrackLayout);
+        errorIncomingTrackLayout.setHorizontalGroup(
+            errorIncomingTrackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        receivedNullTrackCtrlLayout.setVerticalGroup(
-            receivedNullTrackCtrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        errorIncomingTrackLayout.setVerticalGroup(
+            errorIncomingTrackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel27.setText("Railway Crossing Status:");
+        railwayLabel.setText("Railway Crossing Status:");
 
-        jLabel28.setText("Lights Status:");
+        lightLabel.setText("Lights Status:");
 
-        jLabel29.setText("Switches Status:");
+        switchLabel.setText("Switches Status:");
 
-        jLabel30.setText("Block occupancy Status:");
+        occupancyLabel.setText("Block occupancy Status:");
 
-        incomingMsgTrackCtrl.setBackground(new java.awt.Color(0, 0, 255));
+        incomingMsgTrackCtrl.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout incomingMsgTrackCtrlLayout = new javax.swing.GroupLayout(incomingMsgTrackCtrl);
         incomingMsgTrackCtrl.setLayout(incomingMsgTrackCtrlLayout);
@@ -266,27 +251,27 @@ public class Module7 extends javax.swing.JFrame {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel35.setText("Block ID:");
+        blockIDLabel.setText("Block ID:");
 
         javax.swing.GroupLayout IncomingTrackControllerLayout = new javax.swing.GroupLayout(IncomingTrackController);
         IncomingTrackController.setLayout(IncomingTrackControllerLayout);
         IncomingTrackControllerLayout.setHorizontalGroup(
             IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IncomingTrackControllerLayout.createSequentialGroup()
+            .addGroup(IncomingTrackControllerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IncomingTrackControllerLayout.createSequentialGroup()
                         .addComponent(incomingMsgTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(receivedNullTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(errorIncomingTrack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(IncomingTrackControllerLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel30)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel35))
+                            .addComponent(switchLabel)
+                            .addComponent(occupancyLabel)
+                            .addComponent(lightLabel)
+                            .addComponent(railwayLabel)
+                            .addComponent(blockIDLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(incomingIDTrackCtrl, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
@@ -297,38 +282,38 @@ public class Module7 extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(IncomingTrackControllerLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(incomingTrackLabel)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         IncomingTrackControllerLayout.setVerticalGroup(
             IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IncomingTrackControllerLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabel6)
+                .addComponent(incomingTrackLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel35)
+                    .addComponent(blockIDLabel)
                     .addComponent(incomingIDTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
+                    .addComponent(railwayLabel)
                     .addComponent(incomingRailwayTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
+                    .addComponent(lightLabel)
                     .addComponent(incomingLightsTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
+                    .addComponent(switchLabel)
                     .addComponent(incomingSwitchesTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
+                    .addComponent(occupancyLabel)
                     .addComponent(incomingOccupancyTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(IncomingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(receivedNullTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(errorIncomingTrack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(incomingMsgTrackCtrl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -337,30 +322,30 @@ public class Module7 extends javax.swing.JFrame {
         IncomingCTC.setMinimumSize(new java.awt.Dimension(100, 100));
         IncomingCTC.setPreferredSize(new java.awt.Dimension(666, 459));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Incoming from CTC Office");
+        incomingCTCLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        incomingCTCLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        incomingCTCLabel.setText("Incoming from CTC Office");
 
-        jLabel8.setText("Speed:");
+        incomingSpeedLabel.setText("Speed:");
 
-        jLabel9.setText("mph");
+        mphLabelIncomingCTC.setText("mph");
 
-        jLabel15.setText("Authority:");
+        incomingAuthorityLabel.setText("Authority:");
 
-        receivedNullCTC.setBackground(new java.awt.Color(255, 0, 0));
+        errorIncomingCTC.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout receivedNullCTCLayout = new javax.swing.GroupLayout(receivedNullCTC);
-        receivedNullCTC.setLayout(receivedNullCTCLayout);
-        receivedNullCTCLayout.setHorizontalGroup(
-            receivedNullCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout errorIncomingCTCLayout = new javax.swing.GroupLayout(errorIncomingCTC);
+        errorIncomingCTC.setLayout(errorIncomingCTCLayout);
+        errorIncomingCTCLayout.setHorizontalGroup(
+            errorIncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        receivedNullCTCLayout.setVerticalGroup(
-            receivedNullCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        errorIncomingCTCLayout.setVerticalGroup(
+            errorIncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        incomingMsgCTC.setBackground(new java.awt.Color(0, 0, 255));
+        incomingMsgCTC.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout incomingMsgCTCLayout = new javax.swing.GroupLayout(incomingMsgCTC);
         incomingMsgCTC.setLayout(incomingMsgCTCLayout);
@@ -373,13 +358,25 @@ public class Module7 extends javax.swing.JFrame {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel13.setText("miles");
+        milesLabelIncomingCTC.setText("miles");
 
-        jLabel38.setText("Train ID:");
+        incomingIDLabel.setText("Train ID:");
 
         incomingSpeedCTC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 incomingSpeedCTCActionPerformed(evt);
+            }
+        });
+
+        incomingAuthorityCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incomingAuthorityCTCActionPerformed(evt);
+            }
+        });
+
+        incomingIDCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incomingIDCTCActionPerformed(evt);
             }
         });
 
@@ -388,419 +385,897 @@ public class Module7 extends javax.swing.JFrame {
         IncomingCTCLayout.setHorizontalGroup(
             IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IncomingCTCLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IncomingCTCLayout.createSequentialGroup()
-                        .addComponent(incomingMsgCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(receivedNullCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(IncomingCTCLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel38))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(IncomingCTCLayout.createSequentialGroup()
-                                .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(incomingAuthorityCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                    .addComponent(incomingSpeedCTC))
+                                .addGap(81, 81, 81)
+                                .addComponent(incomingSpeedLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(incomingSpeedCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mphLabelIncomingCTC))
+                            .addGroup(IncomingCTCLayout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(incomingAuthorityLabel)
+                                    .addComponent(incomingIDLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel9)))
-                            .addComponent(incomingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGroup(IncomingCTCLayout.createSequentialGroup()
+                                        .addComponent(incomingAuthorityCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(milesLabelIncomingCTC))
+                                    .addComponent(incomingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IncomingCTCLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(incomingMsgCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(errorIncomingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(IncomingCTCLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel7)
+                .addGap(56, 56, 56)
+                .addComponent(incomingCTCLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         IncomingCTCLayout.setVerticalGroup(
             IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IncomingCTCLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(incomingCTCLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(incomingSpeedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(incomingSpeedCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mphLabelIncomingCTC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(incomingAuthorityCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(incomingAuthorityLabel)
+                    .addComponent(milesLabelIncomingCTC))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(incomingIDLabel)
+                    .addComponent(incomingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
                 .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(IncomingCTCLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(receivedNullCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(IncomingCTCLayout.createSequentialGroup()
-                        .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(incomingSpeedCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(incomingAuthorityCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(IncomingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel38)
-                            .addComponent(incomingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(incomingMsgCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(errorIncomingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(incomingMsgCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         OutgoingTrackController.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         OutgoingTrackController.setPreferredSize(new java.awt.Dimension(666, 459));
 
-        jLabel11.setText("Block ID:");
+        blockIDLabel1.setText("Block ID:");
 
-        jLabel14.setText("Speed:");
+        speedLabel1.setText("Speed:");
 
-        jLabel16.setText("Authority:");
+        authorityLabel1.setText("Authority:");
 
-        sentNullTrackCtrl.setBackground(new java.awt.Color(255, 0, 0));
+        errorOutgoingTrack.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout sentNullTrackCtrlLayout = new javax.swing.GroupLayout(sentNullTrackCtrl);
-        sentNullTrackCtrl.setLayout(sentNullTrackCtrlLayout);
-        sentNullTrackCtrlLayout.setHorizontalGroup(
-            sentNullTrackCtrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout errorOutgoingTrackLayout = new javax.swing.GroupLayout(errorOutgoingTrack);
+        errorOutgoingTrack.setLayout(errorOutgoingTrackLayout);
+        errorOutgoingTrackLayout.setHorizontalGroup(
+            errorOutgoingTrackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        sentNullTrackCtrlLayout.setVerticalGroup(
-            sentNullTrackCtrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        errorOutgoingTrackLayout.setVerticalGroup(
+            errorOutgoingTrackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 24, Short.MAX_VALUE)
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("Outgoing to Track Controller");
+        outgoingTrackLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        outgoingTrackLabel.setText("Outgoing to Track Controller");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        outgoingTrackCtrlIDTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID1", "ID2" }));
-
-        outgoingTrackCtrlSpeedTest.setText("[Speed]");
-
-        outgoingTrackCtrlAuthorityTest.setText("[Authority]");
-
-        jLabel17.setText("mph");
-
-        jLabel39.setText("miles");
-
-        jButton1.setText("Send");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        outgoingIDTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                outgoingIDTrackCtrlActionPerformed(evt);
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel12.setText("Testing");
+        milesLabel1.setText("miles");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(outgoingTrackCtrlIDTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(outgoingTrackCtrlAuthorityTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel39))
-                    .addComponent(jButton1)
-                    .addComponent(jLabel12)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(outgoingTrackCtrlSpeedTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(outgoingTrackCtrlIDTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outgoingTrackCtrlSpeedTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outgoingTrackCtrlAuthorityTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel39))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(10, 10, 10))
-        );
+        mphLabel1.setText("mph");
 
-        jLabel40.setText("miles");
-
-        jLabel41.setText("mph");
+        sendToTrackCtrl.setText("Send to Track Controller");
+        sendToTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToTrackCtrlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout OutgoingTrackControllerLayout = new javax.swing.GroupLayout(OutgoingTrackController);
         OutgoingTrackController.setLayout(OutgoingTrackControllerLayout);
         OutgoingTrackControllerLayout.setHorizontalGroup(
             OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OutgoingTrackControllerLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
-                        .addComponent(outgoingAuthorityTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel40))
+                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(blockIDLabel1)
+                            .addComponent(speedLabel1)
+                            .addComponent(authorityLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
+                                .addComponent(outgoingAuthorityTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(milesLabel1))
+                            .addComponent(outgoingIDTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
+                                .addComponent(outgoingSpeedTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(mphLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(errorOutgoingTrack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel41))
-                    .addComponent(outgoingIDTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(outgoingSpeedTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OutgoingTrackControllerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(sentNullTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(outgoingTrackLabel)
+                            .addComponent(sendToTrackCtrl))
+                        .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         OutgoingTrackControllerLayout.setVerticalGroup(
             OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(outgoingTrackLabel)
+                .addGap(18, 18, 18)
+                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(blockIDLabel1)
+                    .addComponent(outgoingIDTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(speedLabel1)
+                    .addComponent(outgoingSpeedTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mphLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorityLabel1)
+                    .addComponent(outgoingAuthorityTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(milesLabel1))
                 .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(outgoingIDTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(outgoingSpeedTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel41))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(OutgoingTrackControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(outgoingAuthorityTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel40)
-                            .addComponent(jLabel16))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(OutgoingTrackControllerLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sentNullTrackCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(sendToTrackCtrl)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OutgoingTrackControllerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(errorOutgoingTrack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
         );
 
         OutgoingCTC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         OutgoingCTC.setPreferredSize(new java.awt.Dimension(666, 459));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("Outgoing to CTC Office");
+        outgoingCTCLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        outgoingCTCLabel.setText("Outgoing to CTC Office");
 
-        sentNullCTC.setBackground(new java.awt.Color(255, 0, 0));
+        errorOutgoingCTC.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout sentNullCTCLayout = new javax.swing.GroupLayout(sentNullCTC);
-        sentNullCTC.setLayout(sentNullCTCLayout);
-        sentNullCTCLayout.setHorizontalGroup(
-            sentNullCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout errorOutgoingCTCLayout = new javax.swing.GroupLayout(errorOutgoingCTC);
+        errorOutgoingCTC.setLayout(errorOutgoingCTCLayout);
+        errorOutgoingCTCLayout.setHorizontalGroup(
+            errorOutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        sentNullCTCLayout.setVerticalGroup(
-            sentNullCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        errorOutgoingCTCLayout.setVerticalGroup(
+            errorOutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel31.setText("Block occupancy Status:");
+        occupancyLabel1.setText("Block occupancy Status:");
 
-        jLabel32.setText("Block ID:");
+        blockIDLabel2.setText("Block ID:");
 
-        jLabel33.setText("Lights Status:");
+        lightLabel1.setText("Lights Status:");
 
-        jLabel34.setText("Switches Status:");
+        switchLabel1.setText("Switches Status:");
 
-        jLabel36.setText("Railway Crossing Status:");
+        railwayLabel1.setText("Railway Crossing Status:");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        outgoingCTCIDTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID1", "ID2" }));
-
-        outgoingCTCLightsTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1" }));
-        outgoingCTCLightsTest.addActionListener(new java.awt.event.ActionListener() {
+        sendToCTC.setText("Send to CTC");
+        sendToCTC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outgoingCTCLightsTestActionPerformed(evt);
+                sendToCTCActionPerformed(evt);
             }
         });
-
-        outgoingCTCSwitchesTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
-
-        outgoingCTCRailwayTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
-
-        outgoingCTCOccupancyTest.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Status1", "Status2" }));
-
-        sendButtonCTCTest.setText("Send");
-        sendButtonCTCTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendButtonCTCTestActionPerformed(evt);
-            }
-        });
-
-        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel42.setText("Testing");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sendButtonCTCTest)
-            .addComponent(outgoingCTCOccupancyTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(outgoingCTCRailwayTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(outgoingCTCSwitchesTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(outgoingCTCLightsTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(outgoingCTCIDTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel42)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel42)
-                .addGap(4, 4, 4)
-                .addComponent(outgoingCTCIDTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(outgoingCTCLightsTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outgoingCTCSwitchesTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outgoingCTCRailwayTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outgoingCTCOccupancyTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sendButtonCTCTest))
-        );
 
         javax.swing.GroupLayout OutgoingCTCLayout = new javax.swing.GroupLayout(OutgoingCTC);
         OutgoingCTC.setLayout(OutgoingCTCLayout);
         OutgoingCTCLayout.setHorizontalGroup(
             OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel5))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(sendToCTC)
+                        .addGap(18, 18, 18)
+                        .addComponent(errorOutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                                .addComponent(jLabel31)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(outgoingOccupancyCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                                    .addComponent(jLabel34)
-                                    .addGap(7, 7, 7)
-                                    .addComponent(outgoingSwitchesCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                                    .addComponent(jLabel36)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(outgoingRailwayCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                                    .addComponent(jLabel33)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(outgoingLightsCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                                    .addComponent(jLabel32)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(outgoingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sentNullCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(2, 2, 2)
+                                .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                        .addComponent(railwayLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(outgoingRailwayCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                        .addComponent(lightLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(outgoingLightsCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                        .addComponent(blockIDLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(outgoingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                        .addComponent(switchLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(outgoingSwitchesCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(outgoingCTCLabel)))
+                            .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                .addComponent(occupancyLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(outgoingOccupancyCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 40, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         OutgoingCTCLayout.setVerticalGroup(
             OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(outgoingCTCLabel)
+                .addGap(3, 3, 3)
+                .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(errorOutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(OutgoingCTCLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(10, 10, 10)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(outgoingIDCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel32))
+                            .addComponent(blockIDLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33)
+                            .addComponent(lightLabel1)
                             .addComponent(outgoingLightsCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(outgoingSwitchesCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34))
+                            .addComponent(switchLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel36)
+                            .addComponent(railwayLabel1)
                             .addComponent(outgoingRailwayCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(OutgoingCTCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel31)
-                            .addComponent(outgoingOccupancyCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(occupancyLabel1)
+                            .addComponent(outgoingOccupancyCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sendToCTC)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OutgoingCTCLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(sentNullCTC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
         );
 
-        javax.swing.GroupLayout CommunicationControllerLayout = new javax.swing.GroupLayout(CommunicationController);
-        CommunicationController.setLayout(CommunicationControllerLayout);
-        CommunicationControllerLayout.setHorizontalGroup(
-            CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CommunicationControllerLayout.createSequentialGroup()
-                .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CommunicationControllerLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IncomingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                            .addComponent(IncomingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 334, Short.MAX_VALUE))
+        javax.swing.GroupLayout communicationControllerLayout = new javax.swing.GroupLayout(communicationController);
+        communicationController.setLayout(communicationControllerLayout);
+        communicationControllerLayout.setHorizontalGroup(
+            communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(communicationControllerLayout.createSequentialGroup()
+                .addGroup(communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(communicationControllerLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(IncomingTrackController, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                            .addComponent(IncomingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(OutgoingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(OutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(CommunicationControllerLayout.createSequentialGroup()
-                        .addGap(229, 229, 229)
-                        .addComponent(jLabel1)))
+                        .addGroup(communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(OutgoingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(communicationControllerLayout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(commCtrlLabel)))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        communicationControllerLayout.setVerticalGroup(
+            communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(communicationControllerLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(commCtrlLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(OutgoingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(IncomingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(communicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(OutgoingCTC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IncomingTrackController, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        CommunicationControllerLayout.setVerticalGroup(
-            CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CommunicationControllerLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(OutgoingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(IncomingCTC, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
-                .addGroup(CommunicationControllerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(OutgoingCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE)
-                    .addComponent(IncomingTrackController, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE))
-                .addGap(53, 53, 53))
+
+        antennasPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        trainAntenna6.setBackground(new java.awt.Color(245, 245, 245));
+        trainAntenna6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        errorTrainAnt1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout errorTrainAnt1Layout = new javax.swing.GroupLayout(errorTrainAnt1);
+        errorTrainAnt1.setLayout(errorTrainAnt1Layout);
+        errorTrainAnt1Layout.setHorizontalGroup(
+            errorTrainAnt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        errorTrainAnt1Layout.setVerticalGroup(
+            errorTrainAnt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        ModeSelect.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        encodedLabel5.setText("Encoded:");
+
+        blockIDLabel7.setText("Block ID:");
+
+        speedLabel7.setText("Speed:");
+
+        authorityLabel7.setText("Authority:");
+
+        mphLabel7.setText("mph");
+
+        milesLabel7.setText("miles");
+
+        decodedLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        decodedLabel4.setText("Decoded:");
+
+        incomingTrainAnt1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout incomingTrainAnt1Layout = new javax.swing.GroupLayout(incomingTrainAnt1);
+        incomingTrainAnt1.setLayout(incomingTrainAnt1Layout);
+        incomingTrainAnt1Layout.setHorizontalGroup(
+            incomingTrainAnt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        incomingTrainAnt1Layout.setVerticalGroup(
+            incomingTrainAnt1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        sendTrainModel.setText("Send to Train Model");
+
+        beaconLabel2.setText("Beacon:");
+
+        javax.swing.GroupLayout trainAntenna6Layout = new javax.swing.GroupLayout(trainAntenna6);
+        trainAntenna6.setLayout(trainAntenna6Layout);
+        trainAntenna6Layout.setHorizontalGroup(
+            trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(trainAntenna6Layout.createSequentialGroup()
+                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(incomingTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sendTrainModel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(errorTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(decodedLabel4))
+                            .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(speedLabel7)
+                                            .addComponent(authorityLabel7)
+                                            .addComponent(blockIDLabel7)
+                                            .addComponent(beaconLabel2)))
+                                    .addComponent(encodedLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(blockIDTrainModel)
+                                    .addComponent(encodedTrainModel)
+                                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(beaconTrainModel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                                            .addComponent(authorityTrainModel, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(speedTrainModel, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(mphLabel7)
+                                            .addComponent(milesLabel7))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        trainAntenna6Layout.setVerticalGroup(
+            trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trainAntenna6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(errorTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(encodedLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(encodedTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(decodedLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(blockIDLabel7)
+                            .addComponent(blockIDTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(speedLabel7)
+                            .addComponent(speedTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mphLabel7))
+                        .addGap(3, 3, 3)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(authorityLabel7)
+                            .addComponent(authorityTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(milesLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(beaconLabel2)
+                            .addComponent(beaconTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(incomingTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(trainAntenna6Layout.createSequentialGroup()
+                                .addComponent(sendTrainModel)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+
+        trainAnt1Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        trainAnt1Label.setText("Train Antenna 1");
+
+        trainAnt2Panel.setBackground(new java.awt.Color(245, 245, 245));
+        trainAnt2Panel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        incomingTrainAnt2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout incomingTrainAnt2Layout = new javax.swing.GroupLayout(incomingTrainAnt2);
+        incomingTrainAnt2.setLayout(incomingTrainAnt2Layout);
+        incomingTrainAnt2Layout.setHorizontalGroup(
+            incomingTrainAnt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        incomingTrainAnt2Layout.setVerticalGroup(
+            incomingTrainAnt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        errorTrainAnt2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout errorTrainAnt2Layout = new javax.swing.GroupLayout(errorTrainAnt2);
+        errorTrainAnt2.setLayout(errorTrainAnt2Layout);
+        errorTrainAnt2Layout.setHorizontalGroup(
+            errorTrainAnt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        errorTrainAnt2Layout.setVerticalGroup(
+            errorTrainAnt2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        velocityLabel.setText("Velocity:");
+
+        positionLabel.setText("Position:");
+
+        velocityFromTrainCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                velocityFromTrainCtrlActionPerformed(evt);
+            }
+        });
+
+        encodedLabel4.setText("Encoded:");
+
+        encodedFromTrainCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodedFromTrainCtrlActionPerformed(evt);
+            }
+        });
+
+        speedLabel8.setText("Speed:");
+
+        authorityLabel8.setText("Authority:");
+
+        encodedLabel6.setText("Encoded:");
+
+        decodedLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        decodedLabel2.setText("Decoded:");
+
+        encodedFromMBOAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodedFromMBOAntActionPerformed(evt);
+            }
+        });
+
+        fromTrainCtrlLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        fromTrainCtrlLabel.setText("From Train Controller");
+
+        fromMBOLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        fromMBOLabel.setText("From MBO Antenna");
+
+        jLabel11.setText("ft/s");
+
+        mphLabel8.setText("mph");
+
+        milesLabel8.setText("miles");
+
+        sendToMBOAnt.setText("Send to MBO Antenna");
+
+        sendToTrainCtrl.setText("Send to Train Controller");
+
+        javax.swing.GroupLayout trainAnt2PanelLayout = new javax.swing.GroupLayout(trainAnt2Panel);
+        trainAnt2Panel.setLayout(trainAnt2PanelLayout);
+        trainAnt2PanelLayout.setHorizontalGroup(
+            trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(incomingTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fromTrainCtrlLabel)
+                                .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                    .addComponent(velocityLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(velocityFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel11))
+                                .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                    .addComponent(positionLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(positionFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                .addComponent(encodedLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(encodedFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))
+                            .addComponent(sendToMBOAnt))
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(fromMBOLabel))
+                            .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(sendToTrainCtrl)
+                                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                        .addComponent(encodedLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(decodedLabel2)
+                                            .addComponent(encodedFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(speedLabel8)
+                                            .addComponent(authorityLabel8))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(speedFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(authorityFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(mphLabel8)
+                                            .addComponent(milesLabel8))))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(errorTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        trainAnt2PanelLayout.setVerticalGroup(
+            trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trainAnt2PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fromTrainCtrlLabel)
+                    .addComponent(fromMBOLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(velocityFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(velocityLabel)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(positionFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(positionLabel))
+                        .addGap(5, 5, 5)
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(encodedLabel4)
+                            .addComponent(encodedFromTrainCtrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sendToMBOAnt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(incomingTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(trainAnt2PanelLayout.createSequentialGroup()
+                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(encodedLabel6)
+                                    .addComponent(encodedFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(decodedLabel2)
+                                .addGap(4, 4, 4)
+                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(speedLabel8)
+                                    .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(speedFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(mphLabel8)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(authorityLabel8)
+                                    .addComponent(milesLabel8)
+                                    .addComponent(authorityFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sendToTrainCtrl)
+                                .addGap(11, 11, 11))
+                            .addComponent(errorTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+
+        trainAnt2Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        trainAnt2Label.setText("Train Antenna 2");
+
+        MBOAntPanel.setBackground(new java.awt.Color(245, 245, 245));
+        MBOAntPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        incomingMBOAnt.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout incomingMBOAntLayout = new javax.swing.GroupLayout(incomingMBOAnt);
+        incomingMBOAnt.setLayout(incomingMBOAntLayout);
+        incomingMBOAntLayout.setHorizontalGroup(
+            incomingMBOAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        incomingMBOAntLayout.setVerticalGroup(
+            incomingMBOAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        errorMBOAnt.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout errorMBOAntLayout = new javax.swing.GroupLayout(errorMBOAnt);
+        errorMBOAnt.setLayout(errorMBOAntLayout);
+        errorMBOAntLayout.setHorizontalGroup(
+            errorMBOAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+        errorMBOAntLayout.setVerticalGroup(
+            errorMBOAntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        fromTrainAnt2Label.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        fromTrainAnt2Label.setText("From Train Antenna 2");
+
+        fromMBOLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        fromMBOLabel22.setText("From MBO");
+
+        encodedTrainAnt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodedTrainAnt2ActionPerformed(evt);
+            }
+        });
+
+        encodedLabel7.setText("Encoded:");
+
+        decodedLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        decodedLabel3.setText("Decoded:");
+
+        velocityLabel3.setText("Velocity:");
+
+        mphLabel9.setText("ft/s");
+
+        authorityLabel9.setText("Position:");
+
+        milesLabel9.setText("miles");
+
+        sendToMBO.setText("Send to MBO");
+
+        speedLabel10.setText("Speed:");
+
+        authorityLabel10.setText("Authority:");
+
+        encodedLabel8.setText("Encoded:");
+
+        encodedMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodedMBOActionPerformed(evt);
+            }
+        });
+
+        speedFromMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speedFromMBOActionPerformed(evt);
+            }
+        });
+
+        sendToTrainAnt2.setText("Send to Train Antenna 2");
+
+        mphLabel11.setText("mph");
+
+        milesLabel11.setText("miles");
+
+        javax.swing.GroupLayout MBOAntPanelLayout = new javax.swing.GroupLayout(MBOAntPanel);
+        MBOAntPanel.setLayout(MBOAntPanelLayout);
+        MBOAntPanelLayout.setHorizontalGroup(
+            MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(incomingMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                        .addComponent(fromTrainAnt2Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(fromMBOLabel22)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MBOAntPanelLayout.createSequentialGroup()
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MBOAntPanelLayout.createSequentialGroup()
+                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(decodedLabel3)
+                                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(velocityLabel3)
+                                                    .addComponent(authorityLabel9))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(velocityToMBO, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(positionToMBO, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(mphLabel9)
+                                                    .addComponent(milesLabel9))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(encodedLabel8))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MBOAntPanelLayout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(authorityLabel10))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MBOAntPanelLayout.createSequentialGroup()
+                                        .addComponent(encodedLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(encodedTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(66, 66, 66)
+                                        .addComponent(speedLabel10)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(encodedMBO, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                        .addComponent(speedFromMBO, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mphLabel11))
+                                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                        .addComponent(authorityFromMBO, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(milesLabel11))))
+                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(sendToMBO)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(sendToTrainAnt2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(errorMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        MBOAntPanelLayout.setVerticalGroup(
+            MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MBOAntPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fromTrainAnt2Label)
+                    .addComponent(fromMBOLabel22))
+                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(errorMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(incomingMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(encodedLabel7)
+                            .addComponent(encodedTrainAnt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(speedLabel10)
+                            .addComponent(speedFromMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mphLabel11))
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(decodedLabel3)
+                                    .addComponent(authorityLabel10)))
+                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(authorityFromMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(milesLabel11))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(velocityLabel3)
+                            .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(velocityToMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(mphLabel9)
+                                .addComponent(encodedLabel8)
+                                .addComponent(encodedMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(MBOAntPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(authorityLabel9)
+                                    .addComponent(milesLabel9)
+                                    .addComponent(positionToMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sendToMBO))
+                            .addGroup(MBOAntPanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(sendToTrainAnt2)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        mboAntLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        mboAntLabel.setText("MBO Antenna");
+
+        javax.swing.GroupLayout antennasPanelLayout = new javax.swing.GroupLayout(antennasPanel);
+        antennasPanel.setLayout(antennasPanelLayout);
+        antennasPanelLayout.setHorizontalGroup(
+            antennasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(antennasPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(trainAntenna6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(trainAnt2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(MBOAntPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(antennasPanelLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(trainAnt1Label)
+                .addGap(229, 229, 229)
+                .addComponent(trainAnt2Label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mboAntLabel)
+                .addGap(172, 172, 172))
+        );
+        antennasPanelLayout.setVerticalGroup(
+            antennasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(antennasPanelLayout.createSequentialGroup()
+                .addGroup(antennasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(trainAnt1Label)
+                    .addComponent(trainAnt2Label)
+                    .addComponent(mboAntLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(antennasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(antennasPanelLayout.createSequentialGroup()
+                        .addComponent(trainAntenna6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(antennasPanelLayout.createSequentialGroup()
+                        .addGroup(antennasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(MBOAntPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(trainAnt2Panel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        modeSelect.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         testingMode.setText("Testing");
         testingMode.addActionListener(new java.awt.event.ActionListener() {
@@ -810,27 +1285,38 @@ public class Module7 extends javax.swing.JFrame {
         });
 
         autoMode.setText("Automatic");
+        autoMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                autoModeActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
-        jLabel10.setText("Mode");
+        modeLabel.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
+        modeLabel.setText("Mode");
 
-        javax.swing.GroupLayout ModeSelectLayout = new javax.swing.GroupLayout(ModeSelect);
-        ModeSelect.setLayout(ModeSelectLayout);
-        ModeSelectLayout.setHorizontalGroup(
-            ModeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ModeSelectLayout.createSequentialGroup()
+        javax.swing.GroupLayout modeSelectLayout = new javax.swing.GroupLayout(modeSelect);
+        modeSelect.setLayout(modeSelectLayout);
+        modeSelectLayout.setHorizontalGroup(
+            modeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modeSelectLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ModeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(testingMode)
-                    .addComponent(autoMode))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(modeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modeSelectLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(modeLabel)
+                        .addGap(16, 16, 16))
+                    .addGroup(modeSelectLayout.createSequentialGroup()
+                        .addComponent(testingMode)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modeSelectLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(autoMode)
+                .addContainerGap())
         );
-        ModeSelectLayout.setVerticalGroup(
-            ModeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ModeSelectLayout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel10)
+        modeSelectLayout.setVerticalGroup(
+            modeSelectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modeSelectLayout.createSequentialGroup()
+                .addComponent(modeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(testingMode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -838,29 +1324,29 @@ public class Module7 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TrackCircuit.setBackground(new java.awt.Color(245, 245, 245));
-        TrackCircuit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        trackCircuit.setBackground(new java.awt.Color(245, 245, 245));
+        trackCircuit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        receivedNullTrackCircuit.setBackground(new java.awt.Color(255, 0, 0));
+        errorTrackCircuit.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout receivedNullTrackCircuitLayout = new javax.swing.GroupLayout(receivedNullTrackCircuit);
-        receivedNullTrackCircuit.setLayout(receivedNullTrackCircuitLayout);
-        receivedNullTrackCircuitLayout.setHorizontalGroup(
-            receivedNullTrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout errorTrackCircuitLayout = new javax.swing.GroupLayout(errorTrackCircuit);
+        errorTrackCircuit.setLayout(errorTrackCircuitLayout);
+        errorTrackCircuitLayout.setHorizontalGroup(
+            errorTrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
-        receivedNullTrackCircuitLayout.setVerticalGroup(
-            receivedNullTrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        errorTrackCircuitLayout.setVerticalGroup(
+            errorTrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        jLabel18.setText("Speed:");
+        speedLabel3.setText("Speed:");
 
-        jLabel19.setText("Authority:");
+        authorityLabel2.setText("Authority:");
 
-        jLabel20.setText("Block ID:");
+        blockIDLabel3.setText("Block ID:");
 
-        jLabel21.setText("Encoded:");
+        encodedLabel.setText("Encoded:");
 
         trackCircuitSpeed.setDragEnabled(true);
         trackCircuitSpeed.addActionListener(new java.awt.event.ActionListener() {
@@ -869,7 +1355,7 @@ public class Module7 extends javax.swing.JFrame {
             }
         });
 
-        jLabel22.setText("mph");
+        mphLabel2.setText("mph");
 
         trackCircuitAuthority.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -877,9 +1363,9 @@ public class Module7 extends javax.swing.JFrame {
             }
         });
 
-        jLabel43.setText("miles");
+        milesLabel3.setText("miles");
 
-        incomingMsgTrackCircuit.setBackground(new java.awt.Color(0, 0, 255));
+        incomingMsgTrackCircuit.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout incomingMsgTrackCircuitLayout = new javax.swing.GroupLayout(incomingMsgTrackCircuit);
         incomingMsgTrackCircuit.setLayout(incomingMsgTrackCircuitLayout);
@@ -892,654 +1378,1054 @@ public class Module7 extends javax.swing.JFrame {
             .addGap(0, 25, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout TrackCircuitLayout = new javax.swing.GroupLayout(TrackCircuit);
-        TrackCircuit.setLayout(TrackCircuitLayout);
-        TrackCircuitLayout.setHorizontalGroup(
-            TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrackCircuitLayout.createSequentialGroup()
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TrackCircuitLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel18)))
-                    .addGroup(TrackCircuitLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(incomingMsgTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TrackCircuitLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(trackCircuitEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(TrackCircuitLayout.createSequentialGroup()
-                                .addComponent(trackCircuitSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel22))
-                            .addGroup(TrackCircuitLayout.createSequentialGroup()
-                                .addComponent(trackCircuitAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel43))
-                            .addComponent(trackCircuitID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(46, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrackCircuitLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(receivedNullTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9))))
-        );
-        TrackCircuitLayout.setVerticalGroup(
-            TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrackCircuitLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(trackCircuitSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addGap(2, 2, 2)
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(trackCircuitAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel43))
-                .addGap(1, 1, 1)
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(trackCircuitID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(trackCircuitEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        beaconLabel.setText("Beacon:");
+
+        javax.swing.GroupLayout trackCircuitLayout = new javax.swing.GroupLayout(trackCircuit);
+        trackCircuit.setLayout(trackCircuitLayout);
+        trackCircuitLayout.setHorizontalGroup(
+            trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(trackCircuitLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(incomingMsgTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(TrackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(errorTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(trackCircuitLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(beaconLabel)
+                    .addComponent(encodedLabel)
+                    .addComponent(blockIDLabel3)
+                    .addComponent(authorityLabel2)
+                    .addComponent(speedLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trackCircuitEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(trackCircuitLayout.createSequentialGroup()
+                        .addComponent(trackCircuitSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mphLabel2))
+                    .addGroup(trackCircuitLayout.createSequentialGroup()
+                        .addComponent(trackCircuitAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(milesLabel3))
+                    .addComponent(trackCircuitID, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(trackCircuitBeacon, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+        trackCircuitLayout.setVerticalGroup(
+            trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(trackCircuitLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(speedLabel3)
+                    .addComponent(trackCircuitSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mphLabel2))
+                .addGap(2, 2, 2)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorityLabel2)
+                    .addComponent(trackCircuitAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(milesLabel3))
+                .addGap(1, 1, 1)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(blockIDLabel3)
+                    .addComponent(trackCircuitID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(beaconLabel)
+                    .addComponent(trackCircuitBeacon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(encodedLabel)
+                    .addComponent(trackCircuitEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(trackCircuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(incomingMsgTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(receivedNullTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(errorTrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        TrainAntenna.setBackground(new java.awt.Color(245, 245, 245));
-        TrainAntenna.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        reportFailure.setBackground(new java.awt.Color(255, 0, 0));
+        reportFailure.setText("Report Failure");
 
-        jPanel7.setBackground(new java.awt.Color(255, 0, 0));
+        circuitLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        circuitLabel.setText("Track Circuit");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
+        testingCircuitAntenna.setBackground(new java.awt.Color(245, 245, 245));
+        testingCircuitAntenna.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel23.setText("Encoded:");
+        blockIDLabel4.setText("Decoded data:");
 
-        jLabel25.setText("Block ID:");
+        encodedLabel2.setText("Encoded:");
 
-        jLabel26.setText("Speed:");
+        encodedLabel3.setText("Encoded Received:");
 
-        jLabel37.setText("Authority:");
+        fixedLabel.setText("Fixed:");
 
-        jLabel44.setText("mph");
+        send0.setText("Send");
+        send0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                send0ActionPerformed(evt);
+            }
+        });
 
-        jLabel45.setText("miles");
+        send1.setText("Send");
+        send1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                send1ActionPerformed(evt);
+            }
+        });
 
-        jLabel52.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel52.setText("Decoded:");
+        sendMoreThan1.setText("Send");
+        sendMoreThan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendMoreThan1ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout TrainAntennaLayout = new javax.swing.GroupLayout(TrainAntenna);
-        TrainAntenna.setLayout(TrainAntennaLayout);
-        TrainAntennaLayout.setHorizontalGroup(
-            TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrainAntennaLayout.createSequentialGroup()
-                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TrainAntennaLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TrainAntennaLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel37)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel25))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(trainAntennaDecoded)
-                            .addGroup(TrainAntennaLayout.createSequentialGroup()
-                                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(trainAntennaAuthority, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                    .addComponent(trainAntennaSpeed, javax.swing.GroupLayout.Alignment.LEADING))
+        zeroBitLabel.setText("0 bits");
+
+        oneBitLabel.setText("1 bit");
+
+        moreThanOneLabel.setText(">1 bits");
+
+        sendNull.setText("Send");
+        sendNull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendNullActionPerformed(evt);
+            }
+        });
+
+        nullLabel.setText("NULL");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Encode/Decode Tester");
+
+        javax.swing.GroupLayout testingCircuitAntennaLayout = new javax.swing.GroupLayout(testingCircuitAntenna);
+        testingCircuitAntenna.setLayout(testingCircuitAntennaLayout);
+        testingCircuitAntennaLayout.setHorizontalGroup(
+            testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(encodedLabel3)
+                                    .addComponent(fixedLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel44)
-                                    .addComponent(jLabel45)))
-                            .addComponent(trainAntennaID))))
-                .addContainerGap())
-            .addGroup(TrainAntennaLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jLabel52)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        TrainAntennaLayout.setVerticalGroup(
-            TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TrainAntennaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(trainAntennaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel52)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(trainAntennaDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(trainAntennaSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44))
-                .addGap(3, 3, 3)
-                .addGroup(TrainAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(trainAntennaAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel45))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Track Circuit");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Train Antenna");
-
-        TestingCircuitAntenna.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel46.setText("Testing");
-
-        jLabel47.setText("Speed:");
-
-        jLabel48.setText("Authority:");
-
-        jLabel49.setText("Block ID:");
-
-        jLabel50.setText("Encoded:");
-
-        jLabel51.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel51.setText("Decoded:");
-
-        circuitAntennaID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID1", "ID2" }));
-
-        circuitAntennaSpeed.setText("[Speed]");
-
-        circuitAntennaAuthority.setText("[Authority]");
-
-        jLabel24.setText("mph");
-
-        jLabel53.setText("miles");
-
-        jLabel54.setText("Block ID:");
-
-        jLabel55.setText("Speed:");
-
-        jLabel56.setText("Authority:");
-
-        jLabel57.setText("mph");
-
-        jLabel58.setText("miles");
-
-        jLabel59.setText("Encoded:");
-
-        jLabel60.setText("Fixed:");
-
-        sendTrainModelTest.setText("Send");
-
-        jButton2.setText("Send");
-
-        jButton3.setText("Send");
-
-        jButton4.setText("Send");
-
-        jLabel61.setText("0 bits");
-
-        jLabel62.setText("1 bit");
-
-        jLabel63.setText(">1 bits");
-
-        jButton5.setText("Send");
-
-        jLabel64.setText("NULL");
-
-        errorCircuitAntennaTest.setBackground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout errorCircuitAntennaTestLayout = new javax.swing.GroupLayout(errorCircuitAntennaTest);
-        errorCircuitAntennaTest.setLayout(errorCircuitAntennaTestLayout);
-        errorCircuitAntennaTestLayout.setHorizontalGroup(
-            errorCircuitAntennaTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-        errorCircuitAntennaTestLayout.setVerticalGroup(
-            errorCircuitAntennaTestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 25, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout TestingCircuitAntennaLayout = new javax.swing.GroupLayout(TestingCircuitAntenna);
-        TestingCircuitAntenna.setLayout(TestingCircuitAntennaLayout);
-        TestingCircuitAntennaLayout.setHorizontalGroup(
-            TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                .addComponent(jLabel56)
-                                .addGap(4, 4, 4)
-                                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                        .addComponent(circuitAntennaAuthorityDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel58))
-                                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                        .addComponent(sendTrainModelTest)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(errorCircuitAntennaTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel55)
-                                    .addComponent(jLabel49))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                        .addComponent(circuitAntennaSpeedDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel57))
-                                    .addComponent(circuitAntennaIDDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(32, 32, 32))
-                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel59)
-                            .addComponent(jLabel60))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(circuitAntennaEncodedReceived, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(fixedEncoded)))
-                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jLabel51))
-                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel64)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel61)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel62)
+                                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(testAntennaEncoded)
+                                    .addComponent(testAntennaFixed, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(blockIDLabel4))))
+                    .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jLabel63))
-                    .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TestingCircuitAntennaLayout.createSequentialGroup()
-                            .addComponent(jButton5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton4))
-                        .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                            .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel48)
-                                    .addComponent(jLabel47)
-                                    .addComponent(jLabel50)))
-                            .addGap(13, 13, 13)
-                            .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                    .addComponent(circuitAntennaAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel53))
-                                .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                    .addComponent(circuitAntennaSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel24))
-                                .addComponent(circuitAntennaEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                                    .addGap(4, 4, 4)
-                                    .addComponent(jLabel46))
-                                .addComponent(circuitAntennaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        TestingCircuitAntennaLayout.setVerticalGroup(
-            TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                .addComponent(jLabel46)
-                .addGap(18, 18, 18)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(circuitAntennaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel54))
-                .addGap(3, 3, 3)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel47)
-                    .addComponent(circuitAntennaSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
-                .addGap(1, 1, 1)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel48)
-                    .addComponent(circuitAntennaAuthority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel53))
-                .addGap(3, 3, 3)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel50)
-                    .addComponent(circuitAntennaEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel61)
-                    .addComponent(jLabel62)
-                    .addComponent(jLabel63)
-                    .addComponent(jLabel64))
-                .addGap(1, 1, 1)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(TestingCircuitAntennaLayout.createSequentialGroup()
-                        .addComponent(jLabel51)
-                        .addGap(6, 6, 6)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel59)
-                            .addComponent(circuitAntennaEncodedReceived, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel60)
-                            .addComponent(fixedEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(circuitAntennaIDDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel49))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(circuitAntennaSpeedDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel57)
-                            .addComponent(jLabel55))
-                        .addGap(5, 5, 5)
-                        .addGroup(TestingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(circuitAntennaAuthorityDecoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel56)
-                            .addComponent(jLabel58))
-                        .addGap(22, 22, 22)
-                        .addComponent(sendTrainModelTest))
-                    .addComponent(errorCircuitAntennaTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
-
-        jButton6.setBackground(new java.awt.Color(255, 0, 0));
-        jButton6.setText("Report Failure");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(CommunicationController, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(nullLabel)
+                                .addGap(47, 47, 47)
+                                .addComponent(zeroBitLabel))
+                            .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                    .addComponent(send1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(sendMoreThan1))
+                                .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                    .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                            .addComponent(oneBitLabel)
+                                            .addGap(35, 35, 35))
+                                        .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                            .addComponent(sendNull)
+                                            .addGap(10, 10, 10)))
+                                    .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                            .addGap(10, 10, 10)
+                                            .addComponent(moreThanOneLabel))
+                                        .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                            .addGap(8, 8, 8)
+                                            .addComponent(send0)))))))
+                    .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                                .addComponent(encodedLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(TrackCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(TrainAntenna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(ModeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton6))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel3)))
-                        .addGap(30, 30, 30)
-                        .addComponent(TestingCircuitAntenna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(circuitAntennaEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(testAntennaID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TrackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addGap(3, 3, 3)
-                                .addComponent(TrainAntenna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(TestingCircuitAntenna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ModeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(56, 56, 56))
-                    .addComponent(CommunicationController, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        testingCircuitAntennaLayout.setVerticalGroup(
+            testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testingCircuitAntennaLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(encodedLabel2)
+                    .addComponent(circuitAntennaEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nullLabel)
+                    .addComponent(zeroBitLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sendNull)
+                    .addComponent(send0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(oneBitLabel)
+                    .addComponent(moreThanOneLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sendMoreThan1)
+                    .addComponent(send1))
+                .addGap(18, 18, 18)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(encodedLabel3)
+                    .addComponent(testAntennaEncoded, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(testingCircuitAntennaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fixedLabel)
+                    .addComponent(testAntennaFixed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(blockIDLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(testAntennaID, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addGap(16, 16, 16))
         );
+
+        antennasLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        antennasLabel.setText("Antennas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(communicationController, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(trackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(modeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(reportFailure)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addComponent(circuitLabel)))
+                                .addGap(18, 18, 18)
+                                .addComponent(testingCircuitAntenna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(antennasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(456, 456, 456)
+                        .addComponent(antennasLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(circuitLabel)
+                            .addGap(4, 4, 4)
+                            .addComponent(trackCircuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(modeSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(reportFailure, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(communicationController, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(testingCircuitAntenna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(antennasLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(antennasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void trackCircuitSpeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trackCircuitSpeedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_trackCircuitSpeedActionPerformed
-
-    private void sendButtonCTCTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonCTCTestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sendButtonCTCTestActionPerformed
-
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
-
-    private void testingModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingModeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_testingModeActionPerformed
-
-    private void incomingSpeedCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomingSpeedCTCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_incomingSpeedCTCActionPerformed
-
-    private void outgoingCTCLightsTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingCTCLightsTestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_outgoingCTCLightsTestActionPerformed
-
     private void trackCircuitAuthorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trackCircuitAuthorityActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_trackCircuitAuthorityActionPerformed
 
+    private void trackCircuitSpeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trackCircuitSpeedActionPerformed
+        
+    }//GEN-LAST:event_trackCircuitSpeedActionPerformed
+    
     /**
-     * @param args the command line arguments
+     * sets certain text fields to be editable or not editable based on whether
+     * they can have values changed in them for testing
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Module7.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Module7.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Module7.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Module7.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void inTestingMode() {
+        //make appropriate fields editable or not editable for testing modes
+        outgoingIDTrackCtrl.setEditable(true);
+        outgoingSpeedTrackCtrl.setEditable(true);
+        outgoingAuthorityTrackCtrl.setEditable(true);
+        outgoingIDCTC.setEditable(true);
+        outgoingLightsCTC.setEditable(true);
+        outgoingRailwayCTC.setEditable(true);
+        outgoingSwitchesCTC.setEditable(true);
+        outgoingOccupancyCTC.setEditable(true);
+        incomingSpeedCTC.setEditable(true);
+        incomingAuthorityCTC.setEditable(true);
+        incomingIDCTC.setEditable(true);
+        incomingIDTrackCtrl.setEditable(true);
+        incomingRailwayTrackCtrl.setEditable(true);
+        incomingLightsTrackCtrl.setEditable(true);
+        incomingSwitchesTrackCtrl.setEditable(true);
+        incomingOccupancyTrackCtrl.setEditable(true);
+        trackCircuitSpeed.setEditable(true);
+        trackCircuitAuthority.setEditable(true);
+        trackCircuitID.setEditable(true);
+        trackCircuitEncoded.setEditable(true);  
+        encodedTrainModel.setEditable(true);
+        blockIDTrainModel.setEditable(true);
+        speedTrainModel.setEditable(true);
+        authorityTrainModel.setEditable(true);
+        circuitAntennaEncoded.setEditable(true);
+        testAntennaEncoded.setEditable(true);
+        testAntennaFixed.setEditable(false);
+        testAntennaID.setEditable(true);
+        encodedTrainModel.setEditable(true);
+        blockIDTrainModel.setEditable(true);
+        speedTrainModel.setEditable(true);
+        authorityTrainModel.setEditable(true);
+        velocityFromTrainCtrl.setEditable(true);
+        positionFromTrainCtrl.setEditable(true);
+        encodedFromTrainCtrl.setEditable(true);
+        encodedFromMBOAnt.setEditable(true);
+        speedFromMBOAnt.setEditable(true);
+        authorityFromMBOAnt.setEditable(true);
+        encodedTrainAnt2.setEditable(true);
+        velocityToMBO.setEditable(true);
+        positionToMBO.setEditable(true);
+        speedFromMBO.setEditable(true);
+        authorityFromMBO.setEditable(true);
+        encodedMBO.setEditable(true);
+        
+        //disable buttons
+        sendTrainModel.enable();
+        sendToMBOAnt.enable();
+        sendToTrainCtrl.enable();
+        sendToMBO.enable();
+        sendToTrainAnt2.enable();
+        sendToTrackCtrl.enable();
+        sendToCTC.enable();
+        sendNull.enable();
+        send0.enable();
+        send1.enable();
+        sendMoreThan1.enable();
+    }
+    
+    /**
+     * @param evt - method is triggered if testing mode radio button was clicked
+     * puts the system in testing mode and initializes everything for testing
+     */
+    private void testingModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingModeActionPerformed
+        testingMode.setSelected(true);
+        autoMode.setSelected(false);
+        inTestingMode();
+        initTesting(1);
+    }//GEN-LAST:event_testingModeActionPerformed
 
+    private void sendToCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToCTCActionPerformed
+       //buttonPressedCTC = true;
+    }//GEN-LAST:event_sendToCTCActionPerformed
+
+    private void sendToTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToTrackCtrlActionPerformed
+        buttonPressedTrack = true;
+    }//GEN-LAST:event_sendToTrackCtrlActionPerformed
+
+    private void outgoingIDTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingIDTrackCtrlActionPerformed
+   
+    }//GEN-LAST:event_outgoingIDTrackCtrlActionPerformed
+
+    private void incomingIDCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomingIDCTCActionPerformed
+
+    }//GEN-LAST:event_incomingIDCTCActionPerformed
+
+    private void incomingAuthorityCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomingAuthorityCTCActionPerformed
+
+    }//GEN-LAST:event_incomingAuthorityCTCActionPerformed
+
+    private void incomingSpeedCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomingSpeedCTCActionPerformed
+
+    }//GEN-LAST:event_incomingSpeedCTCActionPerformed
+    
+    /**
+     * sets all text fields to be not editable, since the code is now in automatic
+     * mode
+     */
+    private void inAutoMode() {
+        //make all fields uneditable or editable and buttons unusable
+        outgoingIDTrackCtrl.setEditable(false);
+        outgoingSpeedTrackCtrl.setEditable(false);
+        outgoingAuthorityTrackCtrl.setEditable(false);
+        outgoingIDCTC.setEditable(false);
+        outgoingLightsCTC.setEditable(false);
+        outgoingRailwayCTC.setEditable(false);
+        outgoingSwitchesCTC.setEditable(false);
+        outgoingOccupancyCTC.setEditable(false);
+        incomingSpeedCTC.setEditable(false);
+        incomingAuthorityCTC.setEditable(false);
+        incomingIDCTC.setEditable(false);
+        incomingIDTrackCtrl.setEditable(false);
+        incomingRailwayTrackCtrl.setEditable(false);
+        incomingLightsTrackCtrl.setEditable(false);
+        incomingSwitchesTrackCtrl.setEditable(false);
+        incomingOccupancyTrackCtrl.setEditable(false);
+        trackCircuitSpeed.setEditable(false);
+        trackCircuitAuthority.setEditable(false);
+        trackCircuitID.setEditable(false);
+        trackCircuitEncoded.setEditable(false);
+        encodedTrainModel.setEditable(false);
+        blockIDTrainModel.setEditable(false);
+        speedTrainModel.setEditable(false);
+        authorityTrainModel.setEditable(false);
+        circuitAntennaEncoded.setEditable(false);
+        testAntennaEncoded.setEditable(false);
+        testAntennaFixed.setEditable(false);
+        testAntennaID.setEditable(false);
+        encodedTrainModel.setEditable(false);
+        blockIDTrainModel.setEditable(false);
+        speedTrainModel.setEditable(false);
+        authorityTrainModel.setEditable(false);
+        velocityFromTrainCtrl.setEditable(false);
+        positionFromTrainCtrl.setEditable(false);
+        encodedFromTrainCtrl.setEditable(false);
+        encodedFromMBOAnt.setEditable(false);
+        speedFromMBOAnt.setEditable(false);
+        authorityFromMBOAnt.setEditable(false);
+        encodedTrainAnt2.setEditable(false);
+        velocityToMBO.setEditable(false);
+        positionToMBO.setEditable(false);
+        speedFromMBO.setEditable(false);
+        authorityFromMBO.setEditable(false);
+        encodedMBO.setEditable(false);
+        
+        //disable buttons
+        sendTrainModel.disable();
+        sendToMBOAnt.disable();
+        sendToTrainCtrl.disable();
+        sendToMBO.disable();
+        sendToTrainAnt2.disable();
+        sendToTrackCtrl.disable();
+        sendToCTC.disable();
+        sendNull.disable();
+        send0.disable();
+        send1.disable();
+        sendMoreThan1.disable();    
+    }
+    
+    /**
+     * @param evt - triggers if automatic mode radio button was clicked
+     * puts the program into automatic mode
+     */
+    private void autoModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoModeActionPerformed
+        autoMode.setSelected(true);
+        testingMode.setSelected(false);
+        inAutoMode();
+    }//GEN-LAST:event_autoModeActionPerformed
+
+    /**
+     * resets the ready booleans being used for testing mode
+     */
+    private void resetReady() {
+        ready0 = false;
+        ready1 = false;
+        ready2 = false;
+        ready3 = false;
+        ready4 = false;
+        ready5 = false;
+        ready6 = false;
+        ready7 = false;
+    }
+    
+    private void velocityFromTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityFromTrainCtrlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_velocityFromTrainCtrlActionPerformed
+
+    private void encodedFromTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedFromTrainCtrlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_encodedFromTrainCtrlActionPerformed
+
+    private void encodedFromMBOAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedFromMBOAntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_encodedFromMBOAntActionPerformed
+
+    private void sendNullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendNullActionPerformed
+        if(testingMode.isSelected()) {
+
+        }
+    }//GEN-LAST:event_sendNullActionPerformed
+
+    private void sendMoreThan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMoreThan1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sendMoreThan1ActionPerformed
+
+    private void send1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_send1ActionPerformed
+
+    private void send0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send0ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_send0ActionPerformed
+
+    private void encodedTrainAnt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedTrainAnt2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_encodedTrainAnt2ActionPerformed
+
+    private void speedFromMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedFromMBOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_speedFromMBOActionPerformed
+
+    private void encodedMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedMBOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_encodedMBOActionPerformed
+
+    /**
+     * used for initializing Testing Mode and allowing for the user to change
+     * fields and edit what they wish
+     */
+    private void initTesting(int option) {
+        //used if simply testing outgoing messages
+        if(testingMode.isSelected() && option == 1) {
+            //Outgoing to Track Controller Test
+            //pull block ID information from text field
+            outgoingIDTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    userBlockID = outgoingIDTrackCtrl.getText();
+                    //check to see if blockID is valid
+                }
+            });
+            //pull authority information from text field
+            outgoingAuthorityTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    boolean valid = false;
+                    while(valid == false) {
+                        String authorityStr = outgoingAuthorityTrackCtrl.getText();
+                            try {
+                                    userAuthority = Double.parseDouble(authorityStr);
+                                    valid = true;
+                                    if(userAuthority < 0) {
+                                       valid = false; 
+                                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                                       break;
+                                    }          
+                            } catch (NumberFormatException e) {
+                                valid = false;
+                                JOptionPane.showMessageDialog(frame, "Please enter a valid authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                                break;
+                            }
+                    }
+                }
+            });
+            //pull speed information from text field
+            outgoingSpeedTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    boolean valid = false;
+                    while(valid == false) {
+                        String speedStr = outgoingSpeedTrackCtrl.getText();
+                            try {
+                                    userSpeed = Double.parseDouble(speedStr);
+                                    valid = true;
+                                    if(userSpeed < 0) {
+                                       valid = false; 
+                                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                                       break;
+                                    }          
+                            } catch (NumberFormatException e) {
+                                valid = false;
+                                JOptionPane.showMessageDialog(frame, "Please enter a valid speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                                break;
+                        }
+                    }
+                }
+            });
+
+            //outgoing to CTC Test
+            //pull ID information from text field
+            outgoingIDCTC.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        String ID = outgoingIDCTC.getText();
+                        //check to see if Block ID is valid                 
+                }
+            });     
+            //pull switches status information from text field
+            outgoingSwitchesCTC.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    String switches = outgoingSwitchesCTC.getText();
+                    while(!switches.equalsIgnoreCase("true") || !switches.equalsIgnoreCase("false")) {
+                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+                        switches = outgoingSwitchesCTC.getText();                
+                    }
+                }
+            });
+            //pull lights status information from text field
+            outgoingLightsCTC.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    String lights = outgoingLightsCTC.getText();
+                    while(!lights.equalsIgnoreCase("true") || !lights.equalsIgnoreCase("false")) {
+                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+                        lights = outgoingLightsCTC.getText();                
+                    }
+                }
+            });
+            //pull occupancy status information from text field
+            outgoingOccupancyCTC.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    String occupancy = outgoingOccupancyCTC.getText();
+                    while(!occupancy.equalsIgnoreCase("true") || !occupancy.equalsIgnoreCase("false")) {
+                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+                        occupancy = outgoingOccupancyCTC.getText();                
+                    }
+                }
+            });
+            //pull railway status information from text field
+            outgoingRailwayCTC.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    String railway = outgoingRailwayCTC.getText();
+                    while(!railway.equalsIgnoreCase("true") || !railway.equalsIgnoreCase("false")) {
+                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+                        railway = outgoingRailwayCTC.getText();                
+                    }
+                }
+            });
+           
+            if(buttonPressedTrack == true) {
+                //method from Track Controller that allows me to send information
+                //i.e. sendToTrackCtrl(speed, authority, blockID);
+                buttonPressedTrack = false;
+            }
+        }
+        //used if user changed values in the Incoming from CTC panel in testing mode
+        else if(testingMode.isSelected() && option == 2) {
+            outgoingIDTrackCtrl.setValue(userBlockID);
+            outgoingSpeedTrackCtrl.setValue(userSpeed);
+            outgoingAuthorityTrackCtrl.setValue(userAuthority);
+            initTesting(1);
+        }
+        //used if user changed values in the Incoming from Track Controller panel in testing mode
+        else if(testingMode.isSelected() && option == 3) {
+            outgoingIDCTC.setValue(userBlockID);
+            outgoingLightsCTC.setValue(userLights);
+            outgoingSwitchesCTC.setValue(userSwitches);
+            outgoingOccupancyCTC.setValue(userOccupancy);
+            outgoingRailwayCTC.setValue(userRailway);
+            initTesting(1);
+        }
+    }
+    
+    /**
+     * @param JPanel panel - is the JPanel that represents the incoming message
+     * blue indicator
+     * flashes the panel from blue to white to blue to white to blue to white with .5 second in between
+     */
+    private void triggerIncoming(JPanel panel) {
+        try {
+            panel.setBackground(Color.blue);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.blue);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.blue);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.blue);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+        }
+        catch(InterruptedException e) {
+            System.out.println("WTF");
+        }
+    }
+    
+    /**
+     * @param JPanel panel - is the JPanel that represents that an error occurred
+     * red indicator
+     * flashes the panel from red to white to red to red with .5 second in between
+     */
+    private void triggerError(JPanel panel) {
+        try {
+            panel.setBackground(Color.red);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.red);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.red);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+            Thread.sleep(500);
+            panel.setBackground(Color.red);
+            Thread.sleep(500);
+            panel.setBackground(Color.white);
+        }
+        catch(InterruptedException e) {
+        }
+    }
+    /**
+     * @param speed - speed in mph from CTC
+     * @param authority - authority in miles from CTC
+     * @param trainID - train ID string from CTC
+     * function is invoked by CTC only; sets values in GUI and then sends information
+     * to Track Controller
+     */
+    public void incomingCTCOutgoingTrackCtrl(double speed, double authority, String trainID) {
+        if(autoMode.isSelected()) {
+            //sets the values in the Incoming CTC JPanel GUI
+            incomingSpeedCTC.setValue(speed);
+            incomingAuthorityCTC.setValue(authority);
+            incomingIDCTC.setValue(trainID);
+
+            //trigger incoming message signal box
+            triggerIncoming(incomingMsgCTC);
+
+            //triggers error signal box if null was received
+            if(trainID == null) {
+                //trigger error occurred signal box
+                triggerError(errorIncomingCTC);
+                JOptionPane.showMessageDialog(frame, "Received invalid information from CTC.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //gets the appropriate block ID for the track controller
+            String blockID = getBlockID(trainID);
+            
+            outgoingIDTrackCtrl.setValue(blockID);
+            outgoingSpeedTrackCtrl.setValue(speed);
+            outgoingAuthorityTrackCtrl.setValue(authority);
+
+            //method from Track Controller that allows me to send information
+            //i.e. sendToTrackCtrl(speed, authority, blockID);
+            
+            //triggers error signal box if null will be sent to Track Controller
+            if(blockID == null) {
+                triggerError(errorOutgoingTrack);
+                JOptionPane.showMessageDialog(frame, "Sending invalid information to Track Controller.", "Error", JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }
+
+    /**
+     * @param trainID - String which contains the train ID
+     * @return blockID - String which contains appropriate block ID
+     * private method used to get the block ID to determine the appropriate track controller
+     */
+    private String getBlockID(String trainID) {
+        String blockID = "Santa Monica";
+        
+        //if trainID is invalid, return null;
+        return blockID;
+    }
+    
+    /**
+     * @param blockID - block ID from Track Controller
+     * @param railwayStatus - railway crossing status from Track Controller
+     * @param lightsStatus - lights status from Track Controller
+     * @param switchesStatus - switches status from Track Controller
+     * @param occupancyStatus - occupancy status from Track Controller
+     * handles communication from Track Controller to CTC
+     */
+    public void incomingTrackCtrlOutgoingCTC(String blockID, boolean railwayStatus, boolean lightsStatus, boolean switchesStatus, boolean occupancyStatus) {
+        if(autoMode.isSelected()) {
+            //set values in the Incoming Track Controller JPanel GUI
+            incomingIDTrackCtrl.setValue(blockID);
+            incomingRailwayTrackCtrl.setValue(railwayStatus);
+            incomingLightsTrackCtrl.setValue(lightsStatus);
+            incomingSwitchesTrackCtrl.setValue(switchesStatus);
+            incomingOccupancyTrackCtrl.setValue(occupancyStatus);
+            
+            //trigger incoming message signal box
+            triggerIncoming(incomingMsgTrackCtrl);
+
+            //triggers error signal box if null was received
+            if(blockID == null) {
+                triggerError(errorIncomingTrack);
+                JOptionPane.showMessageDialog(frame, "Received invalid information from Track Controller.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            outgoingIDCTC.setValue(blockID);
+            outgoingRailwayCTC.setValue(railwayStatus);
+            outgoingLightsCTC.setValue(lightsStatus);
+            outgoingSwitchesCTC.setValue(switchesStatus);
+            outgoingOccupancyCTC.setValue(occupancyStatus);
+
+            //method from CTC that allows me to send information
+            //i.e. sendToCTC(blockID, railwayStatus, lightsStatus, switchesStatus, occupancyStatus);   
+        }
+    }
+    
+    /**
+     * @param speed - speed from Track Model
+     * @param authority - authority from Track Model
+     * @param blockID - block ID from Track Model
+     * handles communication from Track Model to Track Circuit
+     */
+    public void incomingTrackModelOutgoingTrackCircuit(double speed, double authority, double beacon, String blockID) {     
+        trackCircuitSpeed.setValue(speed);
+        trackCircuitAuthority.setValue(authority);
+        trackCircuitID.setValue(blockID);
+        trackCircuitBeacon.setValue(beacon);
+        
+        this.userSpeed = speed;
+        this.userAuthority = authority;
+        this.userBlockID = blockID;
+        this.userBeacon = beacon;
+        
+        //trigger incoming message signal box
+        triggerIncoming(incomingMsgTrackCircuit);
+        
+        //triggers error signal box if null was received
+        if(blockID == null) {
+            triggerError(errorTrackCircuit);
+            JOptionPane.showMessageDialog(frame, "Received invalid information from Track Model.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        //determine encoded data
+        String encoded = "00001010101010101";
+        encoded = encodeData("trackCircuit");
+        
+        incomingTrainAntenna1OutgoingTrainModel(encoded);    
+    }
+    
+      /**
+     * @param requester - String with name of encoding data requester
+     * @return String - returns encoded data
+     */
+    private String encodeData(String requester) {
+        String encodedData = null;
+        if(requester.equals("trackCircuit")) {
+            //use speed, authority, blockID, and beacon and encode this
+            
+        }
+        else if(requester.equals("mboAntenna")) {
+            
+        }
+        else if(requester.equals("trainAntenna2")) {
+            
+        }
+        else if(requester.equals("test")) {
+            
+        }
+        return encodedData;
+    }
+    
+    /**
+     * @param encodedData - String of 0s and 1s representing encoded data
+     * from Track Circuit
+     * @return ArrayList - ArrayList containing decoded information for Train
+     * Antenna
+     */
+    private void decodeData(String encodedData, String whoToDecodeFor) {
+        if(whoToDecodeFor.equals("trackCircuit")) {
+            //use speed, authority, blockID, and beacon and encode this
+            
+        }
+        else if(whoToDecodeFor.equals("mboAntenna")) {
+            
+        }
+        else if(whoToDecodeFor.equals("trainAntenna2")) {
+            
+        }
+        else if(whoToDecodeFor.equals("test")) {
+            
+        }
+
+    }
+    
+    /**
+     * @param encoded - encoded data from Train Antenna
+     * handles communication from Train Antenna to Train Model
+     */
+    private void incomingTrainAntenna1OutgoingTrainModel(String encoded) {   
+        triggerIncoming(incomingTrainAnt1);
+        encodedTrainModel.setValue(encoded);
+        decodeData(encoded, "trackCircuit");
+        if(userBlockID == null) {
+            triggerError(errorTrainAnt1);
+            JOptionPane.showMessageDialog(frame, "Sending invalid information to Train Model.\nVITAL ERROR!", "Error", JOptionPane.ERROR_MESSAGE);
+            blockIDTrainModel.setValue("null");
+            speedTrainModel.setValue("null");
+            authorityTrainModel.setValue("null");
+            beaconTrainModel.setValue("null");
+        }
+        else {
+            blockIDTrainModel.setValue(userBlockID);
+            speedTrainModel.setValue(userSpeed);
+            authorityTrainModel.setValue(userAuthority);
+            beaconTrainModel.setValue(userBeacon);
+        }
+        //mtehod to send information to Train Model
+    }
+    
+    public void incomingMBOOutgoingTrainAnt2(double speed, double authority) {
+        triggerIncoming(incomingMBOAnt);
+        speedFromMBO.setValue(speed);
+        authorityFromMBO.setValue(authority);
+        //encode();
+        //sendToAntenna2(encoded); 
+    }
+    
+    public void incomingTrainCtrlOutgoingMBOAnt(double velocity, double position) {
+        triggerIncoming(incomingTrainAnt2);
+        velocityFromTrainCtrl.setValue(velocity);
+        positionFromTrainCtrl.setValue(position);
+        //encode
+        
+       //if(velocity == null) {
+       //   triggerError(errorTrainAnt2);
+       // }
+       //toMBOAntenna(encoded);
+    }
+    
+    private void toMBOAntenna(String encoded) {
+        triggerIncoming(incomingMBOAnt);
+        
+    }
+            
+    //main method which can run the GUI by simply running Module7.java
+    public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Module7().setVisible(true);
             }
-        });
+        }); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CommunicationController;
     private javax.swing.JPanel IncomingCTC;
     private javax.swing.JPanel IncomingTrackController;
-    private javax.swing.JPanel ModeSelect;
+    private javax.swing.JPanel MBOAntPanel;
     private javax.swing.JPanel OutgoingCTC;
     private javax.swing.JPanel OutgoingTrackController;
-    private javax.swing.JPanel TestingCircuitAntenna;
-    private javax.swing.JPanel TrackCircuit;
-    private javax.swing.JPanel TrainAntenna;
+    private javax.swing.JLabel antennasLabel;
+    private javax.swing.JPanel antennasPanel;
+    private javax.swing.JFormattedTextField authorityFromMBO;
+    private javax.swing.JFormattedTextField authorityFromMBOAnt;
+    private javax.swing.JLabel authorityLabel1;
+    private javax.swing.JLabel authorityLabel10;
+    private javax.swing.JLabel authorityLabel2;
+    private javax.swing.JLabel authorityLabel7;
+    private javax.swing.JLabel authorityLabel8;
+    private javax.swing.JLabel authorityLabel9;
+    private javax.swing.JFormattedTextField authorityTrainModel;
     private javax.swing.JRadioButton autoMode;
-    private javax.swing.JTextField circuitAntennaAuthority;
-    private javax.swing.JFormattedTextField circuitAntennaAuthorityDecoded;
+    private javax.swing.JLabel beaconLabel;
+    private javax.swing.JLabel beaconLabel2;
+    private javax.swing.JFormattedTextField beaconTrainModel;
+    private javax.swing.JLabel blockIDLabel;
+    private javax.swing.JLabel blockIDLabel1;
+    private javax.swing.JLabel blockIDLabel2;
+    private javax.swing.JLabel blockIDLabel3;
+    private javax.swing.JLabel blockIDLabel4;
+    private javax.swing.JLabel blockIDLabel7;
+    private javax.swing.JFormattedTextField blockIDTrainModel;
     private javax.swing.JFormattedTextField circuitAntennaEncoded;
-    private javax.swing.JFormattedTextField circuitAntennaEncodedReceived;
-    private javax.swing.JComboBox<String> circuitAntennaID;
-    private javax.swing.JFormattedTextField circuitAntennaIDDecoded;
-    private javax.swing.JTextField circuitAntennaSpeed;
-    private javax.swing.JFormattedTextField circuitAntennaSpeedDecoded;
-    private javax.swing.JPanel errorCircuitAntennaTest;
-    private javax.swing.JFormattedTextField fixedEncoded;
+    private javax.swing.JLabel circuitLabel;
+    private javax.swing.JLabel commCtrlLabel;
+    private javax.swing.JPanel communicationController;
+    private javax.swing.JLabel decodedLabel2;
+    private javax.swing.JLabel decodedLabel3;
+    private javax.swing.JLabel decodedLabel4;
+    private javax.swing.JFormattedTextField encodedFromMBOAnt;
+    private javax.swing.JFormattedTextField encodedFromTrainCtrl;
+    private javax.swing.JLabel encodedLabel;
+    private javax.swing.JLabel encodedLabel2;
+    private javax.swing.JLabel encodedLabel3;
+    private javax.swing.JLabel encodedLabel4;
+    private javax.swing.JLabel encodedLabel5;
+    private javax.swing.JLabel encodedLabel6;
+    private javax.swing.JLabel encodedLabel7;
+    private javax.swing.JLabel encodedLabel8;
+    private javax.swing.JFormattedTextField encodedMBO;
+    private javax.swing.JFormattedTextField encodedTrainAnt2;
+    private javax.swing.JFormattedTextField encodedTrainModel;
+    private javax.swing.JPanel errorIncomingCTC;
+    private javax.swing.JPanel errorIncomingTrack;
+    private javax.swing.JPanel errorMBOAnt;
+    private javax.swing.JPanel errorOutgoingCTC;
+    private javax.swing.JPanel errorOutgoingTrack;
+    private javax.swing.JPanel errorTrackCircuit;
+    private javax.swing.JPanel errorTrainAnt1;
+    private javax.swing.JPanel errorTrainAnt2;
+    private javax.swing.JLabel fixedLabel;
+    private javax.swing.JLabel fromMBOLabel;
+    private javax.swing.JLabel fromMBOLabel22;
+    private javax.swing.JLabel fromTrainAnt2Label;
+    private javax.swing.JLabel fromTrainCtrlLabel;
     private javax.swing.JFormattedTextField incomingAuthorityCTC;
+    private javax.swing.JLabel incomingAuthorityLabel;
+    private javax.swing.JLabel incomingCTCLabel;
     private javax.swing.JFormattedTextField incomingIDCTC;
+    private javax.swing.JLabel incomingIDLabel;
     private javax.swing.JFormattedTextField incomingIDTrackCtrl;
     private javax.swing.JFormattedTextField incomingLightsTrackCtrl;
+    private javax.swing.JPanel incomingMBOAnt;
     private javax.swing.JPanel incomingMsgCTC;
     private javax.swing.JPanel incomingMsgTrackCircuit;
     private javax.swing.JPanel incomingMsgTrackCtrl;
     private javax.swing.JFormattedTextField incomingOccupancyTrackCtrl;
     private javax.swing.JFormattedTextField incomingRailwayTrackCtrl;
     private javax.swing.JFormattedTextField incomingSpeedCTC;
+    private javax.swing.JLabel incomingSpeedLabel;
     private javax.swing.JFormattedTextField incomingSwitchesTrackCtrl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel incomingTrackLabel;
+    private javax.swing.JPanel incomingTrainAnt1;
+    private javax.swing.JPanel incomingTrainAnt2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField21;
+    private javax.swing.JLabel lightLabel;
+    private javax.swing.JLabel lightLabel1;
+    private javax.swing.JLabel mboAntLabel;
+    private javax.swing.JLabel milesLabel1;
+    private javax.swing.JLabel milesLabel11;
+    private javax.swing.JLabel milesLabel3;
+    private javax.swing.JLabel milesLabel7;
+    private javax.swing.JLabel milesLabel8;
+    private javax.swing.JLabel milesLabel9;
+    private javax.swing.JLabel milesLabelIncomingCTC;
+    private javax.swing.JLabel modeLabel;
+    private javax.swing.JPanel modeSelect;
+    private javax.swing.JLabel moreThanOneLabel;
+    private javax.swing.JLabel mphLabel1;
+    private javax.swing.JLabel mphLabel11;
+    private javax.swing.JLabel mphLabel2;
+    private javax.swing.JLabel mphLabel7;
+    private javax.swing.JLabel mphLabel8;
+    private javax.swing.JLabel mphLabel9;
+    private javax.swing.JLabel mphLabelIncomingCTC;
+    private javax.swing.JLabel nullLabel;
+    private javax.swing.JLabel occupancyLabel;
+    private javax.swing.JLabel occupancyLabel1;
+    private javax.swing.JLabel oneBitLabel;
     private javax.swing.JFormattedTextField outgoingAuthorityTrackCtrl;
-    private javax.swing.JComboBox<String> outgoingCTCIDTest;
-    private javax.swing.JComboBox<String> outgoingCTCLightsTest;
-    private javax.swing.JComboBox<String> outgoingCTCOccupancyTest;
-    private javax.swing.JComboBox<String> outgoingCTCRailwayTest;
-    private javax.swing.JComboBox<String> outgoingCTCSwitchesTest;
+    private javax.swing.JLabel outgoingCTCLabel;
     private javax.swing.JFormattedTextField outgoingIDCTC;
     private javax.swing.JFormattedTextField outgoingIDTrackCtrl;
     private javax.swing.JFormattedTextField outgoingLightsCTC;
@@ -1547,24 +2433,53 @@ public class Module7 extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField outgoingRailwayCTC;
     private javax.swing.JFormattedTextField outgoingSpeedTrackCtrl;
     private javax.swing.JFormattedTextField outgoingSwitchesCTC;
-    private javax.swing.JTextField outgoingTrackCtrlAuthorityTest;
-    private javax.swing.JComboBox<String> outgoingTrackCtrlIDTest;
-    private javax.swing.JTextField outgoingTrackCtrlSpeedTest;
-    private javax.swing.JPanel receivedNullCTC;
-    private javax.swing.JPanel receivedNullTrackCircuit;
-    private javax.swing.JPanel receivedNullTrackCtrl;
-    private javax.swing.JButton sendButtonCTCTest;
-    private javax.swing.JButton sendTrainModelTest;
-    private javax.swing.JPanel sentNullCTC;
-    private javax.swing.JPanel sentNullTrackCtrl;
+    private javax.swing.JLabel outgoingTrackLabel;
+    private javax.swing.JFormattedTextField positionFromTrainCtrl;
+    private javax.swing.JLabel positionLabel;
+    private javax.swing.JFormattedTextField positionToMBO;
+    private javax.swing.JLabel railwayLabel;
+    private javax.swing.JLabel railwayLabel1;
+    private javax.swing.JButton reportFailure;
+    private javax.swing.JButton send0;
+    private javax.swing.JButton send1;
+    private javax.swing.JButton sendMoreThan1;
+    private javax.swing.JButton sendNull;
+    private javax.swing.JButton sendToCTC;
+    private javax.swing.JButton sendToMBO;
+    private javax.swing.JButton sendToMBOAnt;
+    private javax.swing.JButton sendToTrackCtrl;
+    private javax.swing.JButton sendToTrainAnt2;
+    private javax.swing.JButton sendToTrainCtrl;
+    private javax.swing.JButton sendTrainModel;
+    private javax.swing.JFormattedTextField speedFromMBO;
+    private javax.swing.JFormattedTextField speedFromMBOAnt;
+    private javax.swing.JLabel speedLabel1;
+    private javax.swing.JLabel speedLabel10;
+    private javax.swing.JLabel speedLabel3;
+    private javax.swing.JLabel speedLabel7;
+    private javax.swing.JLabel speedLabel8;
+    private javax.swing.JFormattedTextField speedTrainModel;
+    private javax.swing.JLabel switchLabel;
+    private javax.swing.JLabel switchLabel1;
+    private javax.swing.JFormattedTextField testAntennaEncoded;
+    private javax.swing.JFormattedTextField testAntennaFixed;
+    private javax.swing.JFormattedTextField testAntennaID;
+    private javax.swing.JPanel testingCircuitAntenna;
     private javax.swing.JRadioButton testingMode;
+    private javax.swing.JPanel trackCircuit;
     private javax.swing.JFormattedTextField trackCircuitAuthority;
+    private javax.swing.JFormattedTextField trackCircuitBeacon;
     private javax.swing.JFormattedTextField trackCircuitEncoded;
     private javax.swing.JFormattedTextField trackCircuitID;
     private javax.swing.JFormattedTextField trackCircuitSpeed;
-    private javax.swing.JFormattedTextField trainAntennaAuthority;
-    private javax.swing.JFormattedTextField trainAntennaDecoded;
-    private javax.swing.JFormattedTextField trainAntennaID;
-    private javax.swing.JFormattedTextField trainAntennaSpeed;
+    private javax.swing.JLabel trainAnt1Label;
+    private javax.swing.JLabel trainAnt2Label;
+    private javax.swing.JPanel trainAnt2Panel;
+    private javax.swing.JPanel trainAntenna6;
+    private javax.swing.JFormattedTextField velocityFromTrainCtrl;
+    private javax.swing.JLabel velocityLabel;
+    private javax.swing.JLabel velocityLabel3;
+    private javax.swing.JFormattedTextField velocityToMBO;
+    private javax.swing.JLabel zeroBitLabel;
     // End of variables declaration//GEN-END:variables
 }
