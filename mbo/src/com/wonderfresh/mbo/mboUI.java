@@ -276,7 +276,7 @@ public class mboUI extends javax.swing.JFrame {
 
         trainDetails1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1011", "15:12", "40mph", "300 ft", "60"},
+                
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},

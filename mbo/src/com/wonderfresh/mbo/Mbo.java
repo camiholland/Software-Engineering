@@ -4,7 +4,6 @@
  */
 package com.wonderfresh.mbo;
 
-
 import com.wonderfresh.interfaces.TrainModelAPI;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.Time;
@@ -48,25 +47,15 @@ public class Mbo extends Thread{
         String[] redSta=new String[20];
         String[] greenSta=new String[20];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
-        int i;
         int passengerCount=0;
-        String station =null;
-        int greenRuns,redRuns;
-        int redRunTime,greenRunTime; 
-        int passPerCar=300; //assume that all 300 wont ride at once
+        int greenRuns,redRuns, redRunTime,greenRunTime, passPerCar=300, i; 
         boolean test=true;
         int running=1;
         Time startTime=Time.getTimeNow();
         String timeOutput,lastStation="nothing";
         Time currentTime=startTime;
-       /*
-        mboUI gui = new mboUI(); // GUI gui = new GUI() as well
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setVisible(true);
-        */
-       
         
-        System.out.println("Done");
+//  GET USER INPUTS       
         getInputs(); //function to get user inputs
 
 /**********************  UPLOADING TRACK FROM TRAACKMODEL  ********************************/ 
@@ -114,8 +103,8 @@ public class Mbo extends Thread{
         if(drivers>50){System.out.println("MBO: Only 50 Drivers are supported");}
         if(drivers<7){System.out.println("MBO: Innadequate number of drivers to run 24 hours a day, 7 days a week");}
         System.out.println("MBO: Number of Drivers:"+drivers);
-        System.out.println("MBO: Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/redRuns)+ "  redWait:"+redWait);    
-        System.out.println("MBO: Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
+        System.out.println("MBO: Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/(redRuns+1))+ "  redWait:"+redWait);    
+        System.out.println("MBO: Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/(greenRuns+1))+"  greenWait"+greenWait);
         int timeBetweenAllRuns=(((redWait+greenWait)/2)-((redWait+greenWait)/2)%5);
         System.out.println("MBO: need a driver every "+timeBetweenAllRuns+" minutes");
 //Create and output drivers Schedule        
@@ -133,8 +122,13 @@ public class Mbo extends Thread{
         int redTimeAroundTrack=getTimeAroundTrack(0);       //0 for red
         int greenTimeAroundTrack=getTimeAroundTrack(1);     //1 for green
 //create Train schedule with available drivers
-        
-//outputTrainSchedule
+        trainSchedule redSchedule=new trainSchedule();
+        trainSchedule greenSchedule=new trainSchedule();
+        trainSchedule[] redGreenSchedule=new trainSchedule[2];
+        redGreenSchedule=trainSchedule.getTrainSchedule(drivers,ds,redTimeAroundTrack,greenTimeAroundTrack,redPassengers, greenPassengers);
+        redSchedule=redGreenSchedule[0];
+        greenSchedule=redGreenSchedule[1];        
+//outputTrainSchedule-- Starts from green-yard
         //get station
         //add time for station
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
@@ -149,19 +143,18 @@ public class Mbo extends Thread{
                 //update time
                 if (gui!=null){
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock
+                    //displayClosedTracks(closedTracks);
                     
+/****** Get Updated Track chosen for schedule *****/
+                    String station =null;
+                    station=checkUserStation(station);
                     /*
-                    *get closed track information from CTC --- Save to String temp
-                    */
-                    // closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
-                    displayClosedTracks(closedTracks);
-                    
-                    /****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
                     station=(String) gui.jComboBox1.getSelectedItem();
                     if (lastStation.equalsIgnoreCase(station)!=true){
                         System.out.println("MBO: User chose:"+station);
                         lastStation=station;
                     }
+                    */
                     gui.passengerCount.setText(" "+(passengerCount));
                     
                     //iterate track schedule for time to new station
@@ -173,14 +166,7 @@ public class Mbo extends Thread{
                     */
                     allTrains=mboInterface.getLocation();
                     double temp=allTrains[1].metersInBlock;
-                    int temp2=allTrains[1].block;
-                   // Block myblock=greenLine.getBlock("green", loop);
-//                    String section=myblock.getSection();
-                    //System.out.println("Train 1 in block"+temp2+"  meters in: "+temp + "  section:"+section);
-                    /*
-                    Update authority with distance to station
-                    */
-                    
+                    displayTrainLocations(allTrains);
                     
                     
                     
@@ -410,5 +396,161 @@ public class Mbo extends Thread{
         System.out.println("MBO: Accepted inputs (Drivers:"+drivers+", Red Passengers:"+redPassengers+", GreenPassengers:"+greenPassengers);      
 
         
+    }
+
+
+    private void displayTrainLocations(mboTrain[] t) {
+        String[][] redDetails=new String[100][5];
+        String[][] greenDetails=new String[100][5];
+        int i=0,j=0,redIndex=0,greenIndex=0;
+        for(i=0;i<100;i++){
+            if (t[i].id>=1 && t[i].color.compareToIgnoreCase("red")==0){
+            //   "Train ID", "Location", "Speed", "Authority", "Passengers"
+                redDetails[i][0]=t[i].id+"";
+                redDetails[i][1]=t[i].block+":"+t[i].metersInBlock;
+                redDetails[i][2]=t[i].speed+"";
+                redDetails[i][3]=t[i].authority+"";
+                redDetails[i][4]=t[i].number+"";
+            }
+            else{
+               for(j=0;j<5;j++){
+                   redDetails[i][j]=null;
+               }
+            }
+        }
+        gui.trainDetails1.setModel(new javax.swing.table.DefaultTableModel(//red
+            new Object [][] {
+                {redDetails[0][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[1][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[2][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[3][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[4][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[5][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[6][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[7][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[8][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[9][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                {redDetails[10][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[11][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[12][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[13][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[14][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[15][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[16][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[17][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[18][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[19][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[20][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[21][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[22][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[23][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[24][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[25][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[26][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[27][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[28][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[29][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[30][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[31][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[32][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[33][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[34][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[35][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[36][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[37][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[38][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[39][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[40][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[41][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[42][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[43][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[44][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[45][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[46][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[47][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[48][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[49][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[50][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[51][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[52][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[53][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[54][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[55][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[56][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[57][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[58][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[59][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[60][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[61][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[62][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[63][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[64][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[65][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[66][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[67][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[68][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[69][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                 {redDetails[70][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[71][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[72][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[73][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[74][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[75][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[76][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[77][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[78][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[79][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                {redDetails[80][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[81][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[82][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[83][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[84][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[85][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[86][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[87][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[88][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[89][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]},
+
+                {redDetails[90][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},
+                {redDetails[91][0], redDetails[1][1], redDetails[1][2], redDetails[1][3], redDetails[1][4]},
+                {redDetails[92][0], redDetails[2][1], redDetails[2][2], redDetails[2][3], redDetails[2][4]},
+                {redDetails[93][0], redDetails[3][1], redDetails[3][2], redDetails[3][3], redDetails[3][4]},
+                {redDetails[94][0], redDetails[4][1], redDetails[4][2], redDetails[4][3], redDetails[4][4]},
+                {redDetails[95][0], redDetails[5][1], redDetails[5][2], redDetails[5][3], redDetails[5][4]},
+                {redDetails[96][0], redDetails[6][1], redDetails[6][2], redDetails[6][3], redDetails[6][4]},
+                {redDetails[97][0], redDetails[7][1], redDetails[7][2], redDetails[7][3], redDetails[7][4]},
+                {redDetails[98][0], redDetails[8][1], redDetails[8][2], redDetails[8][3], redDetails[8][4]},
+                {redDetails[99][0], redDetails[9][1], redDetails[9][2], redDetails[9][3], redDetails[9][4]}
+            },
+            new String [] {
+                "Train ID", "Location", "Speed", "Authority", "Passengers"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+    }
+
+    private String checkUserStation(String lastStation) {
+        String station=(String) gui.jComboBox1.getSelectedItem();
+        if ((lastStation!=null)  &&  (lastStation.equalsIgnoreCase(station)!=true)){
+            System.out.println("MBO: User chose:"+station);
+            lastStation=station;
+        }
+        return lastStation;
+
     }
 }

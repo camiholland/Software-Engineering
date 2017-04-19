@@ -8,17 +8,11 @@ import static java.lang.Math.sqrt;
 import java.util.Scanner;
 
 /**
- *
- * @author angie
- */
-
-/**
- *
  * @author angie
  */
 public class trainSchedule {
    
-     int driverID[] =new int[50];
+    int driverID[] =new int[50];
     mbotime[][] monday=new mbotime[7][2];
     mbotime[][] tuesday=new mbotime[7][2];
     mbotime[][] wednesday=new mbotime[7][2];
@@ -30,15 +24,16 @@ public class trainSchedule {
     String[][] arr=new String[50][8];
     
     
-    public trainSchedule getTrainSchedule(int d, driverSchedule ds){
-        trainSchedule t=new trainSchedule();
+    public static trainSchedule[] getTrainSchedule(int d, driverSchedule ds, double rTime, double gTime, int rpass, int gPass){
+        trainSchedule redTrainSchedule=new trainSchedule();
+        trainSchedule greenTrainSchedule=new trainSchedule();
+        trainSchedule[] t = new trainSchedule[2];
+        
         int hours=d*40;
         int drivers=d;
-        if (d<=0){
-            System.out.println("\nNot Adequate number of drivers\n");
-            return t=null;
-        }
-        
+      
+        t[0]=redTrainSchedule;
+        t[1]=greenTrainSchedule;
         return t;
     }
     
