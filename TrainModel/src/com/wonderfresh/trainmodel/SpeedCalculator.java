@@ -50,40 +50,20 @@ public class SpeedCalculator implements Runnable {
     public void run(){
         //System.out.println("running SpeedCalc");
         while(true){
-            //System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
-            //currentTime = (int) ceil(System.nanoTime()/1000000000);
-            while(acc != targetAcc){
-                //if(System.nanoTime()/1000000000 >= currentTime+1){
-                    //System.out.println("speed > sps");
-                    //System.out.println("SPS: " + sps + "  Speed: " + speed);
-                    //v = v0 + at, where t = 1
-                    speed += acc;
-                    //System.out.println("acc = " + acc);
-                    if(speed < 0){
-                        speed = 0;
-                    }
-                    tm.updateDistance(acc);
-                    acc = tm.updateAcc(speed);
-                    tm.updateSpeed(speed);
-                    //currentTime++;
-                    try {
-                        Thread.sleep(1000 / time.getSpeed());
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                //}
-
-                tm.updateSpeed(speed);
-                //waiting = true;
+            speed += acc;
+            //System.out.println("acc = " + acc);
+            if(speed < 0){
+                speed = 0;
             }
-            /*waiting = true;
-            while(waiting){
-                try {
-                    thr.wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }*/
+            tm.updateDistance(acc);
+            acc = tm.updateAcc(speed);
+            tm.updateSpeed(speed);
+            //currentTime++;
+            try {
+                Thread.sleep(1000 / time.getSpeed());
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

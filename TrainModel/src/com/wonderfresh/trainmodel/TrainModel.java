@@ -115,7 +115,8 @@ public class TrainModel {
         //error = 0;
         //previousError = 0;
         grade = block.getBlockGrade();
-        sps = 0; //block.getSetPointSpeed();
+        sps = block.getSetPointSpeed();
+        System.out.println(sps);
         speedLimit = block.getSpeedLimit();
         powerCmd = 0;
         //previousPowerCmd = 0;
@@ -137,7 +138,7 @@ public class TrainModel {
         currentTemp = DEFAULT_TEMP; //degrees F
         targetTemp = DEFAULT_TEMP;
         eBrake = false;
-        authority = 0; //block.getAuthority();
+        authority = block.getAuthority();
         announcement = null;
         
         gui.setSpeedLimit(Integer.toString(speedLimit));
@@ -235,8 +236,8 @@ public class TrainModel {
             block.setOccupied(true);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
-            //sps = block.getSetPointSpeed();
-            //authority = block.getAuthority();
+            sps = block.getSetPointSpeed();
+            authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
             System.out.println(nextBlock.toString());
