@@ -6,18 +6,18 @@ package com.wonderfresh.commons;
  */
 public class mboTrain {
     
-    public int id;
-    public int block;
-    public double metersInBlock;
-    public int number;
-    public double speed;
-    public double authority;
-    public String color;
-    public String departureTime;
-    public String bound;
-    public int AMPM;
-    public int hour;
-    public int minutes;
+    public int id=-1;
+    public int block=-1;
+    public double metersInBlock=-1;
+    public int number=-1;
+    public double speed=-1;
+    public double authority=-1;
+    public String color="-";
+    public String departureTime="-";
+    public String bound="-";
+    public int AMPM=-1;
+    public int hour=-1;
+    public int minutes=-1;
     
     public mboTrain(){
         

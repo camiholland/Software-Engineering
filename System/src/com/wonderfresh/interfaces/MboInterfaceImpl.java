@@ -103,6 +103,12 @@ public class MboInterfaceImpl implements MboInterface {
            return this.array;
     }
 
+    @Override
+    public void setSpeedAuthority(int ID, double speed, double authority) {
+        this.array[ID].speed=speed;
+        this.array[ID].authority=authority;
+    }
+    
 
  
 }
