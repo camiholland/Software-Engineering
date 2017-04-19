@@ -257,12 +257,13 @@ public class TrainModel {
             distanceWithinBlock = distance - blockLengthTotal;
             prevBlock = block;
             prevBlock.setOccupied(false);
-            block = nextBlock;
+            block = block.getNextBlock(block);
             block.setOccupied(true);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
             blockLengthTotal += block.getBlockLength();
             nextBlock = block.getNextBlock(prevBlock);
+            System.out.println(nextBlock.toString());
             if(nextBlock.isStation()){
                 gui.setStation(line, nextBlock.getBlockNum(), false, true);
             }

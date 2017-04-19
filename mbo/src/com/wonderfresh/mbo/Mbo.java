@@ -104,19 +104,14 @@ public class Mbo extends Thread{
          
         int loop=0;
         while(loop==0){
-        
             try {
                 //Check for intigration on closed block with CTC
                 Section e=redLine.getSection("E");
                 Block b4=greenLine.getBlock("Green", 4);
                 boolean cl=b4.closed;
-                if (cl){
-                    System.out.println("Block is open");
-                }
-                else{
-                    System.out.println("Block is closed");
-                    loop=1;
-                }
+                if (cl){System.out.println("Block is open"); }
+                else{ System.out.println("Block is closed");
+                    loop=1;}
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,9 +136,7 @@ public class Mbo extends Thread{
         System.out.println("MBO: Number of Drivers:"+drivers);
         System.out.println("MBO: Red Passangers: "+redPassengers+"  Running total:"+redRuns+ "  minutes between runs: "+(minsPerDay/redRuns)+ "  redWait:"+redWait);    
         System.out.println("MBO: Green Passangers: "+greenPassengers+ "  Running total: "+greenRuns+"  minutes between runs: "+(minsPerDay/greenRuns)+"  greenWait"+greenWait);
-        
         int timeBetweenAllRuns=(((redWait+greenWait)/2)-((redWait+greenWait)/2)%5);
-        
         System.out.println("MBO: need a driver every "+timeBetweenAllRuns+" minutes");
         driverSchedule ds=new driverSchedule();
         ds.getSchedule(drivers, shift, timeBetweenAllRuns);
@@ -167,46 +160,51 @@ public class Mbo extends Thread{
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
        //running variable declarations
         String[] closedTracks=new String[100];
-        mboTrain[] train=new mboTrain[100];
+        mboTrain[] allTrains=new mboTrain[100];
         //MboInterface mbointerface=Interfaces.getMboInterface();
         running=1;
         while(running==1){
-            //update time
-            if (gui!=null){
-                gui.clock.setText(Time.stringTime(Time.getTimeNow()));  
-                /*
-                *get closed track information from CTC --- Save to String temp
-                */
-               // closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
-                displayClosedTracks(closedTracks);
-                
-/****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
-                station=(String) gui.jComboBox1.getSelectedItem();
-                if (lastStation.equalsIgnoreCase(station)!=true){
-                    System.out.println("MBO: User chose:"+station);
-                    lastStation=station;
+            try {
+                Thread.sleep(1000);
+                //update time
+                if (gui!=null){
+                    gui.clock.setText(Time.stringTime(Time.getTimeNow()));
+                    /*
+                    *get closed track information from CTC --- Save to String temp
+                    */
+                    // closedTracks=com.wonderfresh.interfaces.CTC.getClosedTracks();
+                    displayClosedTracks(closedTracks);
+                    
+                    /****** Get Updated Track chosen for schedule (String)myCombobox.getSelectedItem() only prints if station is changed *****/
+                    station=(String) gui.jComboBox1.getSelectedItem();
+                    if (lastStation.equalsIgnoreCase(station)!=true){
+                        System.out.println("MBO: User chose:"+station);
+                        lastStation=station;
+                    }
+                    
+                    
+                    //iterate track schedule for time to new station
+                    
+                    /*
+                    Get train locations from
+                    
+                    
+                    */
+                    allTrains=mboInterface.getLocation();
+                    double temp=allTrains[1].metersInBlock;
+                    int temp2=allTrains[1].block;
+                    Block myblock=greenLine.getBlock("green", loop);
+//                    String section=myblock.getSection();
+                    //System.out.println("Train 1 in block"+temp2+"  meters in: "+temp + "  section:"+section);
+                    /*
+                    Update authority with distance to station
+                    */
+                    
+                    
+                    
+                    gui.passengerCount.setText(" "+(passengerCount));
                 }
-                
-                
-                //iterate track schedule for time to new station
-                
-                /*
-                Get train locations from 
-                
-                
-                */
-                train=mboInterface.getLocation();
-                double temp=train[1].metersInBlock;
-                int temp2=train[1].block;
-                System.out.println("Train 1 in block"+temp2+"  meters in: "+temp);
-                /*
-                Update authority with distance to station
-                */
-                
-                
-                
-                gui.passengerCount.setText(" "+(passengerCount));
-            }
+            } catch (InterruptedException ex) { Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex); }
         }
  /**********************************************    END OF RUNNING WHILE LOOP     ***************************************/  
     }
