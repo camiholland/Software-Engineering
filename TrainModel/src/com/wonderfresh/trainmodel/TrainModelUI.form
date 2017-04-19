@@ -409,6 +409,11 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="serviceBrakesOffLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="eBrakeOnLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="eBrakeOffLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="eBrakeLabel" min="-2" max="-2" attributes="0"/>
@@ -416,20 +421,10 @@
                                       <Component id="brakeFailureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="doorsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="serviceBrakeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="modeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="antennaFailureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="undergroundLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="eBrakeOnLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="eBrakeOffLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="manualLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="autoLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -492,13 +487,8 @@
                       <Component id="eBrakeOnLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="eBrakeOffLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="modeLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="manualLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="autoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="undergroundLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="powerFailureLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -652,22 +642,12 @@
             <Property name="text" type="java.lang.String" value="Left"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="modeLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Mode"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="manualLabel">
+        <Component class="javax.swing.JLabel" name="undergroundLabel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="78" green="78" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Manual"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="autoLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Auto"/>
+            <Property name="text" type="java.lang.String" value="UNDERGROUND"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -77,9 +77,7 @@ public class TrainModelUI extends javax.swing.JFrame {
         rightDoorsOpenLabel = new javax.swing.JLabel();
         doorsClosedLabel = new javax.swing.JLabel();
         leftDoorsOpenLabel = new javax.swing.JLabel();
-        modeLabel = new javax.swing.JLabel();
-        manualLabel = new javax.swing.JLabel();
-        autoLabel = new javax.swing.JLabel();
+        undergroundLabel = new javax.swing.JLabel();
         notificationPanel = new javax.swing.JPanel();
         notificationsScrollPane = new javax.swing.JScrollPane();
         notificationsBox = new javax.swing.JTextArea();
@@ -343,12 +341,8 @@ public class TrainModelUI extends javax.swing.JFrame {
         leftDoorsOpenLabel.setForeground(new java.awt.Color(120, 120, 120));
         leftDoorsOpenLabel.setText("Left");
 
-        modeLabel.setText("Mode");
-
-        manualLabel.setForeground(new java.awt.Color(120, 120, 120));
-        manualLabel.setText("Manual");
-
-        autoLabel.setText("Auto");
+        undergroundLabel.setForeground(new java.awt.Color(120, 120, 120));
+        undergroundLabel.setText("UNDERGROUND");
 
         javax.swing.GroupLayout attributePanelLayout = new javax.swing.GroupLayout(attributePanel);
         attributePanel.setLayout(attributePanelLayout);
@@ -387,23 +381,19 @@ public class TrainModelUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(serviceBrakesOffLabel))
                             .addGroup(attributePanelLayout.createSequentialGroup()
+                                .addComponent(eBrakeOnLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(eBrakeOffLabel))
+                            .addGroup(attributePanelLayout.createSequentialGroup()
                                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(eBrakeLabel)
                                     .addComponent(powerFailureLabel)
                                     .addComponent(brakeFailureLabel)
                                     .addComponent(doorsLabel)
                                     .addComponent(serviceBrakeLabel)
-                                    .addComponent(modeLabel)
-                                    .addComponent(antennaFailureLabel))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(attributePanelLayout.createSequentialGroup()
-                                .addComponent(eBrakeOnLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(eBrakeOffLabel))
-                            .addGroup(attributePanelLayout.createSequentialGroup()
-                                .addComponent(manualLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(autoLabel)))
+                                    .addComponent(antennaFailureLabel)
+                                    .addComponent(undergroundLabel))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         attributePanelLayout.setVerticalGroup(
@@ -451,12 +441,8 @@ public class TrainModelUI extends javax.swing.JFrame {
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(eBrakeOnLabel)
                     .addComponent(eBrakeOffLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(modeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manualLabel)
-                    .addComponent(autoLabel))
+                .addGap(26, 26, 26)
+                .addComponent(undergroundLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(powerFailureLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1095,6 +1081,12 @@ public class TrainModelUI extends javax.swing.JFrame {
         trainModel.failLights();
     }//GEN-LAST:event_setLightsFailure
     
+    public void setUnderground(boolean isUnderground){
+        if(isUnderground)
+            undergroundLabel.setForeground(Color.green);
+        else
+            undergroundLabel.setForeground(new java.awt.Color(120, 120, 120));
+    }
     public void setTemp(String temp){
         tempBox.setText(temp);
     }
@@ -1381,7 +1373,6 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel actualSpeedLabel;
     private javax.swing.JLabel antennaFailureLabel;
     private javax.swing.JPanel attributePanel;
-    private javax.swing.JLabel autoLabel;
     private javax.swing.JLabel brakeFailureLabel;
     private javax.swing.JLabel doorsClosedLabel;
     private javax.swing.JLabel doorsLabel;
@@ -1422,10 +1413,8 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel lightsLabel;
     private javax.swing.JLabel lightsOffLabel;
     private javax.swing.JLabel lightsOnLabel;
-    private javax.swing.JLabel manualLabel;
     private javax.swing.JTextArea maxPassCapacityBox;
     private javax.swing.JLabel maxPassengerCapacityLabel;
-    private javax.swing.JLabel modeLabel;
     private javax.swing.JPanel notificationPanel;
     private javax.swing.JTextArea notificationsBox;
     private javax.swing.JScrollPane notificationsScrollPane;
@@ -1458,6 +1447,7 @@ public class TrainModelUI extends javax.swing.JFrame {
     private javax.swing.JLabel trainIDLabel;
     private javax.swing.JPanel trainIDPanel;
     private javax.swing.JTextArea trainIDbox;
+    private javax.swing.JLabel undergroundLabel;
     private javax.swing.JLabel yellowCastleShannon;
     private javax.swing.JLabel yellowCentral;
     private javax.swing.JLabel yellowDormont;

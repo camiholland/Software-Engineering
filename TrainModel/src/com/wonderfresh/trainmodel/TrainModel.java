@@ -75,8 +75,8 @@ public class TrainModel {
     int serviceBrakesStatus;
     boolean driverSetBrake;
     
-    String beacon;
-    String previousBeacon;
+    String[] beacon;
+    //String previousBeacon;
     
     int currentTemp;
     int targetTemp;
@@ -132,8 +132,8 @@ public class TrainModel {
         serviceBrakesStatus = 0;
         driverSetBrake = false;
         
-        beacon = null;
-        previousBeacon = null;
+        beacon = block.getBeaconSignal();
+        //previousBeacon = null;
         
         currentTemp = DEFAULT_TEMP; //degrees F
         targetTemp = DEFAULT_TEMP;
@@ -198,6 +198,7 @@ public class TrainModel {
         this.speed = speed;
         gui.setSpeed(Double.toString(speed*3600/1602)); //m/s / 1602 m/mi * 3600 s/h
         testing.setSpeed(speed, ID);
+        mboInterface.setSpeedAuthorityPassengerCount(ID, speed, authority, numPass);
     }
     protected double updateAcc(double speed){
         acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
@@ -239,8 +240,10 @@ public class TrainModel {
             sps = block.getSetPointSpeed();
             authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
+            beacon = block.getBeaconSignal();
             nextBlock = block.getNextBlock(prevBlock);
             System.out.println(nextBlock.toString());
+            gui.setUnderground(block.isUnderground());
             if(nextBlock.isStation()){
                 gui.setStation(line, nextBlock.getBlockNum(), false, true);
             }
