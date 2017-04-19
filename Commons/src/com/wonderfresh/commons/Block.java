@@ -62,7 +62,7 @@ public class Block {
         this.BlockLength = length;
         this.BlockGrade = grade;
         this.SpeedLimit = (int)speed;
-        this.setPointSpeed = SpeedLimit;
+        this.setPointSpeed = this.SpeedLimit;
         this.closed = false;
        
         // Adding the components of the infrastructure
@@ -165,6 +165,17 @@ public class Block {
      */
     public String getSection(){
         return this.Section;
+    }
+    
+    public Edge getEdge(Block prevBlock){
+        Iterator<Edge> EdgeSifter = neighborhood.iterator();
+        while(EdgeSifter.hasNext()){
+            Edge e = EdgeSifter.next();
+            if((e.getEndingBlock().getBlockNum()-prevBlock.getBlockNum())==0){
+                return e;
+            }
+        }
+        return null;
     }
     
     /**
