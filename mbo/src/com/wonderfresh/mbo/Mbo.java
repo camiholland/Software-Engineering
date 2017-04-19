@@ -114,12 +114,22 @@ public class Mbo extends Thread{
         double maxSpeed=40;
         minDist=getBrakeDistance(maxSpeed);//get max speed by iterating through the track
         System.out.println("MBO: Min braking distance: "+minDist);
-        
+//intializ mboSection arrays
+        mboSection[] greenSections=new mboSection[28];
+        for (i=0;i<28;i++){
+            mboSection temp=new mboSection();
+            greenSections[i]=temp;
+        }
+        mboSection[] redSections=new mboSection[21];
+        for (i=0;i<21;i++){
+            mboSection temp=new mboSection();
+            redSections[i]=temp;
+        }
 //Get time around track
         
   
-        int redTimeAroundTrack=getTimeAroundTrack(0,redLine,greenLine);       //0 for red
-        int greenTimeAroundTrack=getTimeAroundTrack(1,redLine,greenLine);     //1 for green
+        int redTimeAroundTrack=getTimeAroundTrack(0,redLine,greenLine, redSections);       //0 for red
+        int greenTimeAroundTrack=getTimeAroundTrack(1,redLine,greenLine, greenSections);     //1 for green
 //create Train schedule with available drivers
         trainSchedule redSchedule=new trainSchedule();
         trainSchedule greenSchedule=new trainSchedule();
@@ -160,6 +170,7 @@ public class Mbo extends Thread{
                     
 /**************Get train locations from Train Controller since the CTC is MIA******************/
                     allTrains=mboInterface.getLocation();
+                    allTrains=mboInterface.getAuthority(allTrains);
                     displayTrainLocations(allTrains);
                     
                     
@@ -195,7 +206,7 @@ public class Mbo extends Thread{
      * @param track 0 for red 1 for green
      * @return 
      */
-    int getTimeAroundTrack(int track, TrackGraph gr, TrackGraph red){
+    int getTimeAroundTrack(int track, TrackGraph gr, TrackGraph red, mboSection[] mySections){
         int time=0;  //1 for green
         //red
         if (track==0){/**********RED**************/
@@ -208,11 +219,19 @@ public class Mbo extends Thread{
         else{ /**********GREEN**************/
  
  /**  yard -k-l-m-n-o-p-q-n-r-s-t-u-v-w-x-y-z-f-e-d-c-b-a-d-e-f-g-h-i-(j-continue//zz-yard(leaving) or yy(coming in))**/
+            
             Section k=gr.getSection("k");
+                mySections[0].ID=k.getSectionName();
+            
             Section l=gr.getSection("l");
+                mySections[1].ID=k.getSectionName();
+                
             Section m=gr.getSection("m");
+                mySections[2].ID=k.getSectionName();
             Section n=gr.getSection("n");
+                mySections[3].ID=k.getSectionName();
             Section o=gr.getSection("o");
+                mySections[4].ID=k.getSectionName();
             Section p=gr.getSection("p");
             Section q=gr.getSection("q");
             Section r=gr.getSection("r");
@@ -234,7 +253,10 @@ public class Mbo extends Thread{
             Section h=gr.getSection("h");
             Section i=gr.getSection("i");
             
-            
+            Section yy=gr.getSection("yy"); 
+            Section zz=gr.getSection("zz");
+            //28
+           
             
         }    
         return time;
@@ -369,20 +391,12 @@ public class Mbo extends Thread{
 {ts.arr[47][0], ts.arr[47][1], ts.arr[47][2], ts.arr[47][3],ts.arr[47][4], ts.arr[47][5], ts.arr[47][6], ts.arr[47][7] },
 {ts.arr[48][0], ts.arr[48][1], ts.arr[48][2], ts.arr[48][3],ts.arr[48][4], ts.arr[48][5], ts.arr[48][6], ts.arr[48][7] },
 {ts.arr[49][0], ts.arr[49][1], ts.arr[49][2], ts.arr[49][3],ts.arr[49][4], ts.arr[49][5], ts.arr[49][6], ts.arr[49][7] },
+    },
+            new String [] {  "Train ID", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }
+        ) { Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class };
 
-                
-            },
-            new String [] {
-                "Train ID", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+            public Class getColumnClass(int columnIndex) {return types [columnIndex];  }
         });
             
         
