@@ -115,7 +115,8 @@ public class TrainModel {
         testing = Interfaces.getTrainControllerInterface();
         mboInterface = Interfaces.getMboInterface();
         
-        if(time.getComparableTime() >= 70000 && time.getComparableTime() < 90000 || time.getComparableTime() >= 160000 && time.getComparableTime() < 160000)
+        int currentTime = time.getComparableTime();
+        if((currentTime >= 70000 && currentTime < 90000) || (currentTime >= 160000 && currentTime < 180000))
             numCars = 2;
         else
             numCars = 1;
