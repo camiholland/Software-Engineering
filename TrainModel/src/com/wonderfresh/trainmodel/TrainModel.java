@@ -12,6 +12,7 @@ import static java.lang.Math.ceil;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import javax.swing.JFrame;
+import java.util.Random;
 
 import com.wonderfresh.interfaces.TrainControllerInterface;
 import com.wonderfresh.interfaces.MboInterface;
@@ -28,6 +29,7 @@ public class TrainModel {
     MboInterface mboInterface;
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
+    Random random;
 
     Block prevBlock;
     Block block;
@@ -52,6 +54,7 @@ public class TrainModel {
     int numCars;
     int numPass;
     int numCrew;
+    int maxPassCapacity;
     
     double speed;
     double totalMass;
@@ -103,13 +106,15 @@ public class TrainModel {
         nextBlock = block.getNextBlock(null);
         //System.out.println(block.getLabel());
         //System.out.println(nextBlock.getLabel());
+        random = new Random();
         
         testing = Interfaces.getTrainControllerInterface();
         mboInterface = Interfaces.getMboInterface();
         
-        numCars = 1;
+        numCars = 1;                                                            //should be variable
         numPass = 0;
         numCrew = 1;
+        maxPassCapacity = 222*numCars;
         
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
@@ -147,7 +152,7 @@ public class TrainModel {
         
         gui.setSpeedLimit(Integer.toString(speedLimit));
         //set max passenger capacity, num crew on board, num pass on board, sps, train ID
-        gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(sps), Integer.toString(ID));
+        gui.setInitials(Integer.toString(maxPassCapacity), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(sps), Integer.toString(ID));
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
         testing.setSpeedAndAuth(sps, authority, ID);
@@ -230,8 +235,6 @@ public class TrainModel {
         return acc;
     }
     
-    
-    
     protected void updateDistance(double acc){
         //d = vi*t + 1/2*a*t^2 where t = 1
         distance += speed + acc/2;
@@ -239,15 +242,16 @@ public class TrainModel {
         if(distance >= blockLengthTotal){
             distanceWithinBlock = distance - blockLengthTotal;
             prevBlock = block;
-            prevBlock.setOccupied(false);
-            block = block.getNextBlock(block);
+            block = nextBlock;
+            System.out.println(prevBlock.getNeighborCount());
             block.setOccupied(true);
+            prevBlock.setOccupied(false);
             grade = block.getBlockGrade();
             speedLimit = block.getSpeedLimit();
             sps = block.getSetPointSpeed();
             authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
-            //beacon = block.getBeaconSignal();
+            beacon = block.getBeaconSignal();
             //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
             //System.out.println(nextBlock.toString());
@@ -259,7 +263,8 @@ public class TrainModel {
                 }
             }
             if(prevBlock.isStation()){
-                gui.setStation(line, previousStation, false);
+                for(int i = 0; i < 13; i++)
+                    gui.setStation(line, testStationString[i]/*previousStation*/, false);
             }
             //System.out.println("moved to next block" + block.getBlockNum());
         }
@@ -327,6 +332,9 @@ public class TrainModel {
         leftDoorsStatus = status;
         if(status > 0){
             gui.on(4);
+            numPass -= random.nextInt(numPass);
+            numPass += block.takePeopleAtStation(maxPassCapacity-numPass);
+            gui.setNumPass(Integer.toString(numPass));
         }
         else if(status == 0){
             gui.off(4);
@@ -346,6 +354,9 @@ public class TrainModel {
         rightDoorsStatus = status;
         if(status > 0){
             gui.on(5);
+            numPass -= random.nextInt(numPass);
+            numPass += block.takePeopleAtStation(maxPassCapacity-numPass);
+            gui.setNumPass(Integer.toString(numPass));
         }
         else if(status == 0){
             gui.off(5);
