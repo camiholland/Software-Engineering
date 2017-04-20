@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class MboSecArray{
     
     
-     static mboSection[] get(int track, TrackGraph gr, TrackGraph red){
+     static mboSection[] get(int track,TrackGraph red, TrackGraph gr ){
         ArrayList<Block> Included_Blocks;
         boolean checkStation=false;
         String stationName="  ";
@@ -27,6 +27,11 @@ public class MboSecArray{
         double len=0, lowspeed=100;  //1 for green
         //red
         if (track==0){/**********RED**************/
+            //initialize sections
+            for(itter=0;itter<28;itter++){
+                redSections[itter]=new mboSection();
+            }
+                     
                  Section A=new Section("A");
                     checkStation=false;
                     A=gr.getSection("A");
@@ -308,31 +313,7 @@ public class MboSecArray{
                     redSections[10].maxSpeed=lowspeed;
                     redSections[10].numBlocks=total;
                     redSections[10].station=stationName;//K_[10]
-                      Section V=new Section("V");
-                    checkStation=false;
-                    V=gr.getSection("V");
-                    redSections[11].ID=V.getSectionName();
-                    redSections[11].lowBlock=V.getLowestBlock().getBlockNum();
-                    redSections[11].highBlock=V.getHighestBlock().getBlockNum();
-                    Included_Blocks=V.getBlockList();
-                    total=Included_Blocks.size();
-                    for(itter=0;itter<total;itter++){
-                       // redSections=redSections.addBlock()
-                        len=Included_Blocks.get(itter).getBlockLength()+len;
-                        if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
-                            lowspeed=Included_Blocks.get(itter).getSpeedLimit();
-                            checkStation=Included_Blocks.get(itter).isStation();
-                            if(checkStation){
-                                redSections[11].lengthToStation=len;
-                                stationName=Included_Blocks.get(itter).getStation();
-                            }
-                        }
-                    }
-                    redSections[11].length=len;
-                    redSections[11].lengthFromStation=len-redSections[11].lengthToStation;
-                    redSections[11].maxSpeed=lowspeed;
-                    redSections[11].numBlocks=total;
-                    redSections[11].station=stationName;//V_[11]        
+   
              Section L=new Section("L");
                     checkStation=false;
                     L=gr.getSection("L");
@@ -590,10 +571,14 @@ public class MboSecArray{
                     redSections[21].numBlocks=total;
                     redSections[21].station=stationName;//U_[21]  
                     return redSections;
+                
+            
             
         }
         else{ /**********GREEN**************/
- 
+                for(itter=0;itter<28;itter++){
+                greenSections[itter]=new mboSection();
+            }
  /**  yard -k-l-m-n-o-p-q-n-r-s-t-u-v-w-x-y-z-f-e-d-c-b-a-d-e-f-g-h-i-(j-continue//zz-yard(leaving) or yy(coming in))**/
             
             
@@ -878,7 +863,7 @@ public class MboSecArray{
                     greenSections[10].maxSpeed=lowspeed;
                     greenSections[10].numBlocks=total;
                     greenSections[10].station=stationName;//U_[10]
-                      Section V=new Section("V");
+         Section V=new Section("V");
                     checkStation=false;
                     V=gr.getSection("V");
                     greenSections[11].ID=V.getSectionName();
