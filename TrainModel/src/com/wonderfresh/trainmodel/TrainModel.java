@@ -84,7 +84,7 @@ public class TrainModel {
     double authority;
     String announcement;
     
-    String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
+    //String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
     
     public TrainModel(int trainID, String lineString){
         ID = trainID;
@@ -113,7 +113,7 @@ public class TrainModel {
         mboInterface = Interfaces.getMboInterface();
         
         numCars = 1;                                                            //should be variable
-        numPass = 0;
+        numPass = 1;
         numCrew = 1;
         maxPassCapacity = 222*numCars;
         numNewPass = 0;
@@ -252,8 +252,8 @@ public class TrainModel {
             nextBlock = block.getNextBlock(prevBlock);
             gui.setUnderground(block.isUnderground());
             if(block.isStation()){
-                gui.setStation(line, beacon[0], true);
-                gui.setNotification("Next Stop: " + beacon[0]);
+                gui.setStation(line, block.getStation()/*beacon[0]*/, true);
+                gui.setNotification("Next Stop: " + block.getStation()/*beacon[0]*/+ "!");
                 /*for(int i = 0; i < 13; i++){
                     gui.setStation(line, testStationString[i], true);
                     gui.setNotification("Next Stop: " + testStationString[i]);
@@ -357,7 +357,9 @@ public class TrainModel {
         if(status > 0){
             gui.on(5);
             numPass -= random.nextInt(numPass);
+            System.out.println("Num pass leaving: " + numPass);
             numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
+            System.out.println("Num new pass: " + numNewPass);
             numPass += numNewPass;
             mboInterface.addToDailyPassengers(numNewPass);
             mboInterface.setPassengersOnTrain(ID, numPass);
