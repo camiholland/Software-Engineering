@@ -582,7 +582,7 @@ public class CTCUI extends javax.swing.JFrame {
         
         //if no errors, update mbo and update train table
         if (rowfound >= 0) {
-            mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+            //mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
             
             trainTable.setValueAt(values[0], rowfound, 0); //name
             trainTable.setValueAt("GA", rowfound, 1); //shb block the train is in
@@ -684,7 +684,7 @@ public class CTCUI extends javax.swing.JFrame {
         
         //doubles as a train dispatching function
         //ids start at 1
-        mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+       // mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
         
         //if no errors, update train table
         if (errd >= 0) {

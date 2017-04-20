@@ -709,4 +709,17 @@ public class Mbo extends Thread{
     void setDrivers(int i){
         drivers=i;
     }
+    double getTimeAround(int line){  //0=red 1=green
+        double lowSpeed;
+        double time=0;
+        int i=0;
+        int stations=0;
+        int blocks=28;
+        if (line==0){blocks=21;}
+        for(i=0;i<blocks;i++){
+            
+        }
+            return time;
+    }
+                
 }

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class MboSecArray{
     
     
-     mboSection[] get(int track, TrackGraph gr, TrackGraph red){
+     static mboSection[] get(int track, TrackGraph gr, TrackGraph red){
         ArrayList<Block> Included_Blocks;
         boolean checkStation=false;
         String stationName="  ";
