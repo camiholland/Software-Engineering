@@ -1167,7 +1167,7 @@ public class TrainControllerUI extends javax.swing.JFrame {
     }
     
     public int setAuthority(double auth) {
-        AuthorityText.setText("" + auth);
+        AuthorityText.setText(String.format("%.2f",auth));
         
         return 1;
     }

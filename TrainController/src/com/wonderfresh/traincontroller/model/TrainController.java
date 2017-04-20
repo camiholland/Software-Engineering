@@ -7,6 +7,7 @@ package com.wonderfresh.traincontroller.model;
 
 import com.wonderfresh.traincontroller.TrainControllerUI;
 import com.wonderfresh.interfaces.TrainModelAPI;
+import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.interfaces.Interfaces;
 
 /**
@@ -19,10 +20,11 @@ public class TrainController {
         this.trainID = trainID;
         this.routeID = routeID;
         this.trainModel = Interfaces.getTrainModelInterface();
+        this.mboInterface = Interfaces.getMboInterface();
         trainUI = new TrainControllerUI(this, trainModel);
         auto = true;
         setPointSpeed = 10;
-        setAuthority = 10000;
+        setAuthority = .5;
         setSpeed = 0;
         realSpeed = 0;
         speedLimit = 25;
@@ -48,6 +50,7 @@ public class TrainController {
     }    
 
     public TrainModelAPI trainModel;
+    public MboInterface mboInterface;
     public DistanceCalculator dc;
     public PowerCalculators pc;
     public TrainControllerUI trainUI;
@@ -227,12 +230,16 @@ public class TrainController {
         
         if (setAuthority < 0) {
             powerCommand = 0;
-            trainUI.setAuthority(0);
+            trainUI.setAuthority(setAuthority);
+            mboInterface.setAuthority(trainID, 0);
         } else {
             trainUI.setAuthority(setAuthority);
+            mboInterface.setAuthority(trainID, setAuthority);
         }
         
-        double stoppingDistance = ((realSpeed * 0.44704) * (realSpeed * 0.44704) / 2.4) * 0.000621371;
+        
+        
+        double stoppingDistance = ((realSpeed * 0.44704) * (realSpeed * 0.44704) / 2.4) * 0.000621371 + .0035;
         
         if(stoppingDistance >= setAuthority && setSpeed != 0) {
             setSetSpeed(0);
