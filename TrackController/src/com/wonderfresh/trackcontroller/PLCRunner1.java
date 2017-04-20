@@ -153,6 +153,7 @@ public class PLCRunner1 extends PLCRunner {
         this.lm = (DefaultListModel)lm;
     }
     
+    @Override
     public void print(String s){
         this.lm.addElement(s);
     }
