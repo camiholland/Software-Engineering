@@ -21,7 +21,6 @@ public class SpeedCalculator implements Runnable {
     
     Thread thr;
     boolean started;
-    //boolean waiting;
     
     double speed;
     double targetAcc;
@@ -32,7 +31,6 @@ public class SpeedCalculator implements Runnable {
         thr = new Thread(this);
         started = false;
         time = time.getInstance();
-        //waiting = true;
     }
     
     public void setSpeed(double acc, double currentSpeed, double targetAcc) {
@@ -40,7 +38,6 @@ public class SpeedCalculator implements Runnable {
         this.targetAcc = targetAcc;
         this.speed = currentSpeed;
         if(!started){
-            //System.out.println("Thread started");
             started = true;
             thr.start();
         }
@@ -48,17 +45,14 @@ public class SpeedCalculator implements Runnable {
     
     @Override
     public void run(){
-        //System.out.println("running SpeedCalc");
         while(true){
             speed += acc;
-            //System.out.println("acc = " + acc);
             if(speed < 0){
                 speed = 0;
             }
             tm.updateDistance(acc);
             acc = tm.updateAcc(speed);
             tm.updateSpeed(speed);
-            //currentTime++;
             try {
                 Thread.sleep(1000 / time.getSpeed());
             } catch (InterruptedException ex) {
