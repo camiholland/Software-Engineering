@@ -13,8 +13,9 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
 public interface MboInterface {
     
     void initializeTrainArray();
-    void setClosedBlocks(int block, String description);
-    String[] getClosedBlocks();
+    void setClosedBlocks(int block, String description, String line);
+    void setOpenBlocks(int block,String description, String line);
+    String[][] getClosedBlocks();
     mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
     mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
     void setLocation(int ID, int blockNum, int metersIn, boolean line);

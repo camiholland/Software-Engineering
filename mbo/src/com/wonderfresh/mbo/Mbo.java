@@ -247,9 +247,34 @@ public class Mbo extends Thread{
                     mySections[0].numBlocks=total;
                     mySections[0].station=stationName;
                     
-                    
-            Section l=gr.getSection("l");
-                mySections[1].ID=k.getSectionName();
+                Section L=new Section("L");
+                    checkStation=false;
+                    L=gr.getSection("L");
+                    mySections[1].ID=L.getSectionName();
+                    mySections[1].lowBlock=L.getLowestBlock().getBlockNum();
+                    mySections[1].highBlock=L.getHighestBlock().getBlockNum();
+                    Included_Blocks=L.getBlockList();
+                    total=Included_Blocks.size();
+                    for(itter=0;itter<total;itter++){
+                       // mySections=mySections.addBlock()
+                        len=Included_Blocks.get(itter).getBlockLength()+len;
+                        if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
+                            lowspeed=Included_Blocks.get(itter).getSpeedLimit();
+                            checkStation=Included_Blocks.get(itter).isStation();
+                            if(checkStation){
+                                mySections[1].lengthToStation=len;
+                                stationName=Included_Blocks.get(itter).getStation();
+                            }
+                        }
+                    }
+                    mySections[1].length=len;
+                    mySections[1].lengthFromStation=len-mySections[1].lengthToStation;
+                    mySections[1].maxSpeed=lowspeed;
+                    mySections[1].numBlocks=total;
+                    mySections[1].station=stationName;
+                           
+            //Section l=gr.getSection("l");
+              //  mySections[1].ID=k.getSectionName();
                 
             Section m=gr.getSection("m");
                 mySections[2].ID=k.getSectionName();
