@@ -245,7 +245,8 @@ public class TrainModel {
             distanceWithinBlock = distance - blockLengthTotal;
             prevBlock = block;
             block = nextBlock;
-            System.out.println(prevBlock.getNeighborCount());
+            if(block == null)
+                System.out.println("Error: block is null");
             block.setOccupied(true);
             prevBlock.setOccupied(false);
             grade = block.getBlockGrade();
@@ -254,19 +255,25 @@ public class TrainModel {
             authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
             beacon = block.getBeaconSignal();
-            //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
+            if(Integer.parseInt(beacon[2]) == -1)
+                testing.sendBeaconInfo(false, Integer.parseInt(beacon[1]), beacon[0], ID);
+            else if(Integer.parseInt(beacon[2]) == 1)
+                testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
             //System.out.println(nextBlock.toString());
             gui.setUnderground(block.isUnderground());
             if(block.isStation()){
-                for(int i = 0; i < 13; i++){
-                    gui.setStation(line, testStationString[i]/*beacon[0]*/, true);
-                    gui.setNotification("Next Stop: " + testStationString[i]/*beacon[0]*/);
-                }
+                gui.setStation(line, beacon[0], true);
+                gui.setNotification("Next Stop: " + beacon[0]);
+                /*for(int i = 0; i < 13; i++){
+                    gui.setStation(line, testStationString[i], true);
+                    gui.setNotification("Next Stop: " + testStationString[i]);
+                }*/
             }
             if(prevBlock.isStation()){
-                for(int i = 0; i < 13; i++)
-                    gui.setStation(line, testStationString[i]/*previousStation*/, false);
+                gui.setStation(line, previousStation, false);
+                /*for(int i = 0; i < 13; i++)
+                    gui.setStation(line, testStationString[i], false);*/
             }
             //System.out.println("moved to next block" + block.getBlockNum());
         }
@@ -312,6 +319,7 @@ public class TrainModel {
             gui.fail(1);
             testing.setAirConditioning(-1, ID);
             testing.failPower(ID);
+            setEBrake(true);
         }
     }
     protected void setHeat(int status){
@@ -328,6 +336,7 @@ public class TrainModel {
             gui.fail(2);
             testing.setHeating(-1, ID);
             testing.failPower(ID);
+            setEBrake(true);
         }
     }
     public void setLeftDoors(int status){
@@ -347,6 +356,7 @@ public class TrainModel {
         else{
             gui.fail(4);
             testing.failPower(ID);
+            setEBrake(true);
         }
     }
     public void failLeftDoors(){
@@ -354,6 +364,7 @@ public class TrainModel {
         gui.fail(4);
         testing.setLeftDoors(-1, ID);
         testing.failPower(ID);
+        setEBrake(true);
     }
     public void setRightDoors(int status){
         rightDoorsStatus = status;
@@ -372,6 +383,7 @@ public class TrainModel {
         else{
             gui.fail(5);
             testing.failPower(ID);
+            setEBrake(true);
         }
     }
     public void failRightDoors(){
@@ -379,6 +391,7 @@ public class TrainModel {
         gui.fail(5);
         testing.setRightDoors(-1, ID);
         testing.failPower(ID);
+        setEBrake(true);
     }
     public void setLights(int status){
         lightsStatus = status;
@@ -391,6 +404,7 @@ public class TrainModel {
         else{
             gui.fail(3);
             testing.failPower(ID);
+            setEBrake(true);
         }
     }
     public void failLights(){
@@ -398,6 +412,7 @@ public class TrainModel {
         gui.fail(3);
         testing.setLights(-1, ID);
         testing.failPower(ID);
+        setEBrake(true);
     }
     public void activateEBrake(){
         eBrake = true;
@@ -410,6 +425,7 @@ public class TrainModel {
         adjustSpeed();
     }
     public void setServiceBrake(int status, boolean driverSet){
+        int previousStatus = serviceBrakesStatus;
         serviceBrakesStatus = status;
         
         if(status > 0){
@@ -419,15 +435,21 @@ public class TrainModel {
                 adjustSpeed();
         }
         else if(status == 0){
+            if(!driverSet && previousStatus == -1){
+                serviceBrakesStatus = -1;
+                gui.fail(6);
+            }
+            else
+                gui.off(6);
             driverSetBrake = false;
-            gui.off(6);
+            //gui.off(6);
         }
         else{
             driverSetBrake = false;
-            gui.fail(6);
-            eBrake = true;
             adjustSpeed();
             testing.failBrake(ID);
+            setEBrake(true);
+            gui.fail(6);
         }
     }
     public void setPowerCmd(double pwrCmd){

@@ -28,7 +28,7 @@ public class TrainModelAPIImpl implements TrainModelAPI {
     }
     @Override
     public void setServiceBrake(int status, int trainID){
-        trains.getTrain(trainID).setServiceBrake(1, true);
+        trains.getTrain(trainID).setServiceBrake(status, true);
     }
     @Override
     public void setLeftDoors(int status, int trainID){
