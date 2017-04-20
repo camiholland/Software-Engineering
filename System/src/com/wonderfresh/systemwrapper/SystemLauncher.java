@@ -13,6 +13,7 @@ import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.mbo.Mbo;
 import com.wonderfresh.commons.TrackSimulator;
 import com.wonderfresh.ctc.CTC;
+import com.wonderfresh.trackcontroller.TrackController;
 
 /**
  *
@@ -26,18 +27,20 @@ public class SystemLauncher extends javax.swing.JFrame {
     private TrackSimulator trackSimulator;
     private Time time;
     private CTC ctc;
+    private TrackController trackController;
     
     /**
      * Creates new form SystemLauncher
      * @param trainControllers
      * @param trainModels
      */
-    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo, CTC ctc) {
+    public SystemLauncher(Trains trainControllers, Train trainModels, Mbo mbo, CTC ctc, TrackController trackController) {
         this.trainControllers = trainControllers;
         this.trainModels = trainModels;
         this.mbo=mbo;
         this.trackSimulator = TrackSimulator.getInstance();
         this.ctc = ctc;
+        this.trackController = trackController;
         initComponents();
         time = Time.getInstance();
     }
@@ -263,7 +266,7 @@ public class SystemLauncher extends javax.swing.JFrame {
     }//GEN-LAST:event_CommunicationsButtonActionPerformed
 
     private void TrackControllerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrackControllerButtonActionPerformed
-        // TODO add your handling code here:
+        trackController.setVisible();
     }//GEN-LAST:event_TrackControllerButtonActionPerformed
 
     private void TrackModelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrackModelButtonActionPerformed

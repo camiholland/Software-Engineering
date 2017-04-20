@@ -53,15 +53,15 @@ public class SystemWrapper {
         
 
         trackSimulator = TrackSimulator.getInstance();
+        trackController = new TrackController();
+        trackController.start();
         trainControllers = new Trains();
         trainModels = new Train();
         
         Interfaces.setMBOInterface(new MboInterfaceImpl());
         
         mbo = new Mbo();
-        mbo.start();
-        trackController = new TrackController();
-        trackController.start(); 
+        mbo.start(); 
         ctc = new CTC();
        
         
@@ -80,7 +80,7 @@ public class SystemWrapper {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                (new SystemLauncher(trainControllers, trainModels,mbo,ctc)).setVisible(true);
+                (new SystemLauncher(trainControllers, trainModels,mbo,ctc, trackController)).setVisible(true);
             }
         });
         

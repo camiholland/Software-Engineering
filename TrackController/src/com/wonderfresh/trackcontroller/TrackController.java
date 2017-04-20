@@ -11,15 +11,24 @@ package com.wonderfresh.trackcontroller;
  */
 public class TrackController {
     PLCRunner1 plc1;
+    TrackControllerUI tcui;
     /**
      * @param args the command line arguments
      */
     public TrackController(){
         plc1 = new PLCRunner1();
+        tcui = new TrackControllerUI(plc1);
     }
     
     public void start(){
         plc1.start();
+    }
+    
+    public void setVisible(){
+        System.out.println("init");
+        tcui.initValues();
+        System.out.println("visible");
+        tcui.setVisible(true);
     }
     
     public void stop(){
