@@ -32,6 +32,10 @@ public class Mbo extends Thread{
     private mboUI gui=null;
     mboSection[] greenSections;
     mboSection[] redSections;
+    mboStation[] redStation;
+    mboStation[] greenStation;
+    String[][] closedTracks;
+    String[] cltrack;
     
     public Mbo(){
         
@@ -45,16 +49,23 @@ public class Mbo extends Thread{
     @Override
     public void run() {
         //get initialized interface
+        int i;
+        String[] cltrack=new String[20];
+        for(i=0;i<20;i++){
+            cltrack[i]=null;
+        }
         MboInterface mboInterface=Interfaces.getMboInterface();
         mboInterface.initialize();
         //max 100 trains per line
+        mboStation[] redStation=new mboStation[9];
+        mboStation[] greenStation=new mboStation[14];
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
         String[] redSta=new String[20];
         String[] greenSta=new String[20];
         boolean shift[][]=new boolean[7][120]; //max run 1 every 5mins
         int passengerCount=0;
-        int greenRuns,redRuns, redRunTime,greenRunTime, passPerCar=300, i; 
+        int greenRuns,redRuns, redRunTime,greenRunTime, passPerCar=300; 
         boolean test=true;
         int running=1;
         Time startTime=Time.getTimeNow();
@@ -128,24 +139,34 @@ public class Mbo extends Thread{
         departInfo=initializeDepartInfo();
 /***************************     ALL INITIAL INFORMATION LOADED - CONTINUE RUNNINW IN WHILE LOOP     **************/        
        //running variable declarations
-        String[] closedTracks=new String[100];
+        String[][] closedTracks=new String[200][2];
+            for(i=0;i<200;i++){
+            int j;
+                for (j=0;j<2;j++){
+                    closedTracks[i][j]=null;
+                }
+            }
+       
         mboTrain[] allTrains=new mboTrain[100];
         allTrains=mboTrainInitialization(allTrains);//initialize all trains
         //System.out.println("id: "+allTrains[0].id+" "+allTrains[0].color);
         running=1;
         mboInterface.addToDailyPassengers(2);
         while(running==1){
+            System.out.println("MBO: running");
             try {
                 Thread.sleep(100);
-                
+                System.out.println("MBO: running");
                 
 //tesing passenger stuff in interface************************************************************************<-takeout
         //mboInterface.setPassengersOnTrain(1, 15);
         
                 
                 //check if still in mbo mode
+                MboMode=mboInterface.getMode();
                 
                 //update time
+                 System.out.println("MBO: running1");
                 if (gui!=null){
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock
                     displayClosedTracks(closedTracks);
@@ -154,7 +175,9 @@ public class Mbo extends Thread{
                     
 /****** Get Updated Track chosen for schedule *****/
                     String station =null;
+                     System.out.println("MBO: running1.5");
                     station=checkUserStation(station);
+                     System.out.println("MBO: running2");
 /****** Get Passenger count ***********************/                    
                  //   passengerCount=passengerCount+=getPassengers(redTrain, greenTrain);
                     gui.passengerCount.setText(" "+mboInterface.getDailyPassengers());
@@ -163,6 +186,7 @@ public class Mbo extends Thread{
                     
 /**************Get train locations from Train Controller since the CTC is MIA******************/
                     allTrains=mboInterface.getLocation();
+                     System.out.println("MBO: running3");
                     allTrains=mboInterface.getAuthority(allTrains);
                     displayTrainLocations(allTrains);
                     
@@ -263,11 +287,64 @@ public class Mbo extends Thread{
         ));
          }
 
-    private void displayClosedTracks(String[] closedTracks) {
-        int i=0;
-        for(i=0;i<100;i++){
-            gui.displayClosedTrack.getModel().setValueAt(closedTracks[i], 0, 0);
+    private void displayClosedTracks(String[][] closedTracks) {//0 red, 1 green
+        int i=0,j=0;
+        int counter=0;
+         //System.out.println("MBO:disTracks");
+        cltrack=new String[20];
+        for(i=0;i<200;i++){
+             //System.out.println("MBO:disTracks   "+i);
+            if (closedTracks[i][0]!=null){
+                cltrack[counter]=" Red line : Block "+i+" : closed";
+                counter++;
+            }
+            if (closedTracks[i][1]!=null){
+                cltrack[counter]=" Red line : Block "+i+" : closed";
+                counter++;
+            }
+            for(j=counter;j<20;j++){
+                cltrack[counter]=null;
+            }
         }
+        /*
+        if (gui!=null){
+             gui.displayClosedTrack.setModel(new javax.swing.table.DefaultTableModel(
+                new String [][] {
+                    {cltrack[0]},
+                    {cltrack[1]},
+                    {cltrack[2]},
+                    {cltrack[3]},
+                    {cltrack[4]},
+                    {cltrack[5]},
+                    {cltrack[6]},
+                    {cltrack[7]},
+                    {cltrack[8]},
+                    {cltrack[9]},
+                    {cltrack[10]},
+                    {cltrack[11]},
+                    {cltrack[12]},
+                    {cltrack[13]},
+                    {cltrack[14]},
+                    {cltrack[15]},
+                    {cltrack[16]},
+                    {cltrack[17]},
+                    {cltrack[18]},
+                    {cltrack[19]}
+
+                },
+                            new String [] {
+                    "Closed Tracks"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        }*/
     }
     private void DisplayTrainSchedule(trainSchedule ts){
     
@@ -410,6 +487,7 @@ public class Mbo extends Thread{
             }
             
         }
+        System.out.println("MBO: show red");
         gui.trainDetails1.setModel(new javax.swing.table.DefaultTableModel(//red
             new Object [][] {
                 {redDetails[0][0], redDetails[0][1], redDetails[0][2], redDetails[0][3], redDetails[0][4]},

@@ -30,7 +30,7 @@ public class MboInterfaceImpl implements MboInterface {
     @Override
     public void initialize(){
         mboTrain[] mytrains= new mboTrain[100];
-        String[][] closedBlocks=new String[100][2];
+        String[][] closedBlocks=new String[200][2];
         int i;
         for (i=0;i<100;i++){
             closedBlocks[i][0]=null;
@@ -89,6 +89,10 @@ public class MboInterfaceImpl implements MboInterface {
         else{
             System.out.println("MboInterfaceImplementation: setClosedBlocks ERROR: Line must either be \"red\" or \"green\" ");
         }
+        
+    }
+    public boolean getMode(){
+        return mboMode;
     }
 
 

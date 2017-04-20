@@ -12,6 +12,7 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  * 
  */
 public interface MboInterface {
+    boolean getMode();
     void sendSuggestedSpeedAndAuthority(int trainID,double speed, double authority);
     mboSuggest[] getSuggestedSpeedAndAuthority();//[trainid][speed][authority]
     void addToDailyPassengers(int passengers);
