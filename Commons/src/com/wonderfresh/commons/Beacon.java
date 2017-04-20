@@ -12,7 +12,7 @@ package com.wonderfresh.commons;
 class Beacon {
     private String station;
     private double distance;
-    private int side;
+    private int side = 1;
     
     public Beacon(String station){
         this.station = station;
