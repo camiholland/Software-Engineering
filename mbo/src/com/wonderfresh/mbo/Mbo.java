@@ -781,7 +781,7 @@ public class Mbo extends Thread{
             t[i].number=-1;
             t[i].speed=-1;
             t[i].color= "---";
-            //System.out.println(""+t[i].id+"  "+t[i].color);
+           // System.out.println(""+t[i].id+"  "+t[i].color);
         }
         return t;
    }
