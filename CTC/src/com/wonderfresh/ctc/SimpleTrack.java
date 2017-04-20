@@ -19,8 +19,8 @@ public class SimpleTrack {
     public void loadTrack() {
         int i;
         
-        Block greenBlocks[];
-        Block redBlocks[];
+//        Block greenBlocks[];
+//        Block redBlocks[];
         
         tracksimulator=TrackSimulator.getInstance();
         mytrack=tracksimulator.getTrack();
@@ -28,14 +28,14 @@ public class SimpleTrack {
         greenLine=mytrack.getGreenLine();
         
         //get separate blocks for each line
-        greenBlocks = new Block[mytrack.getGreenCount()];
-        for (i=0;i<mytrack.getGreenCount();i++) {
-            greenBlocks[i] = greenLine.getBlock("green", i);
-        }
-        
-        redBlocks = new Block[mytrack.getGreenCount()];
-        for (i=0;i<mytrack.getGreenCount();i++) {
-            redBlocks[i] = greenLine.getBlock("green", i);
-        }
+//        greenBlocks = new Block[mytrack.getGreenCount()];
+//        for (i=0;i<mytrack.getGreenCount();i++) {
+//            greenBlocks[i] = greenLine.getBlock("green", i);
+//        }
+//        
+//        redBlocks = new Block[mytrack.getGreenCount()];
+//        for (i=0;i<mytrack.getGreenCount();i++) {
+//            redBlocks[i] = greenLine.getBlock("green", i);
+//        }
     }
 }
