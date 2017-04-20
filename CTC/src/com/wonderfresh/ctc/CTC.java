@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.trackcontroller.CTCDataAccess;
+import com.wonderfresh.commons.mboTrain;
+import com.wonderfresh.interfaces.Interfaces;
 
 //@author Sarah
 public class CTC extends Thread {
@@ -81,6 +83,9 @@ public class CTC extends Thread {
         currenttimedecimal = starttimedecimal;
         mode = 0;
         wayside = new CTCDataAccess();
+        mboTrain[] mboTrains;
+        mbo = Interfaces.getMboInterface();
+        Block tempblock;
         
         //to account for every train theoretically possible,
         //schedule has length = number of blocks in whole transit system
@@ -108,14 +113,39 @@ public class CTC extends Thread {
                 ctcui.strak.redLine.addBlock(wayside.getBlock("Red",i), true);
             }
             
+            //if not in MBO mode, call MBO to relay changes
+            //wait, MBO wants train velocity and position, not block speed and authority
+            //ask track controller about that
+            //at least i can say what blocks are open/closed
+            if (ctcui.mode != 2) {
+                for (i = 0; i < ctcui.strak.mytrack.getGreenCount(); i++) {
+                    tempblock = ctcui.strak.greenLine.getBlock("Green", i);
+                    if (tempblock.closed) {
+                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Green");
+                    }
+                    else {
+                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Green");
+                    }
+                }
+                for (i = 0; i < ctcui.strak.mytrack.getRedCount(); i++) {
+                    tempblock = ctcui.strak.greenLine.getBlock("Green", i);
+                    if (tempblock.closed) {
+                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Green");
+                    }
+                    else {
+                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Green");
+                    }
+                }
+            }
+            
             //check trains
             
             //check MBO if in MBO mode
             if (ctcui.mode == 2) {
                 //lots of functions that return an mboTrain array
                 //are they really interchangeable?
-                ctcui.mboTrains = mbo.getUpdatedSpeedAuthority();
-                for (i=0;i<ctcui.mboTrains.length;i++) {
+                mboTrains = mbo.getUpdatedSpeedAuthority();
+                for (i=0;i<mboTrains.length;i++) {
                     //check for new speed, auth, and train ids
                     //compare to current train/track info
                     //call track controller if something's different

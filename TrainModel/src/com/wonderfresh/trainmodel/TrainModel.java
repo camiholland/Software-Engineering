@@ -55,6 +55,7 @@ public class TrainModel {
     int numPass;
     int numCrew;
     int maxPassCapacity;
+    int numNewPass;
     
     double speed;
     double totalMass;
@@ -115,6 +116,7 @@ public class TrainModel {
         numPass = 0;
         numCrew = 1;
         maxPassCapacity = 222*numCars;
+        numNewPass = 0;
         
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
@@ -333,7 +335,10 @@ public class TrainModel {
         if(status > 0){
             gui.on(4);
             numPass -= random.nextInt(numPass);
-            numPass += block.takePeopleAtStation(maxPassCapacity-numPass);
+            numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
+            numPass += numNewPass;
+            mboInterface.addToDailyPassengers(numNewPass);
+            mboInterface.setPassengersOnTrain(ID, numPass);
             gui.setNumPass(Integer.toString(numPass));
         }
         else if(status == 0){
@@ -355,7 +360,10 @@ public class TrainModel {
         if(status > 0){
             gui.on(5);
             numPass -= random.nextInt(numPass);
-            numPass += block.takePeopleAtStation(maxPassCapacity-numPass);
+            numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
+            numPass += numNewPass;
+            mboInterface.addToDailyPassengers(numNewPass);
+            mboInterface.setPassengersOnTrain(ID, numPass);
             gui.setNumPass(Integer.toString(numPass));
         }
         else if(status == 0){

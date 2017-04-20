@@ -1,6 +1,6 @@
 package com.wonderfresh.ctc.ctcapi;
 
 //@author Sarah
-public interface CTC {
+public interface CTCInterface {
     //the cleanest interface
 }
