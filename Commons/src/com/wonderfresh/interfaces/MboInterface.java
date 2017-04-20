@@ -1,5 +1,6 @@
 package com.wonderfresh.interfaces;
 
+import com.wonderfresh.commons.mboSuggest;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.mboTrainDepartInfo;
 
@@ -11,6 +12,8 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  * 
  */
 public interface MboInterface {
+    void sendSuggestedSpeedAndAuthority(int trainID,double speed, double authority);
+    mboSuggest[] getSuggestedSpeedAndAuthority();//[trainid][speed][authority]
     void addToDailyPassengers(int passengers);
     void setPassengersOnTrain(int trainID, int currentPassengers);
     void setMboMode(boolean mode);//true=mbo mode on : false = mbo mode off

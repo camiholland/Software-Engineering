@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.wonderfresh.interfaces;
+import com.wonderfresh.commons.mboSuggest;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.commons.mboTrainDepartInfo;
 
@@ -11,11 +12,14 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  *
  * @author angie
  */
+
+
 public class MboInterfaceImpl implements MboInterface {
 
-
+    
     String[][] closedBlocks; //[id][0 red || 1 green]
     mboTrain[] array;
+    mboSuggest[] suggested;
     mboTrainDepartInfo[] info; 
     boolean mboMode;
     int dailyPassengers;
@@ -195,6 +199,17 @@ public class MboInterfaceImpl implements MboInterface {
     @Override
     public void removeTrain(int trainID) {
             array[trainID].id=-1;
+    }
+
+    @Override
+    public void sendSuggestedSpeedAndAuthority(int trainID, double speed, double authority) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public mboSuggest[] getSuggestedSpeedAndAuthority() {//[100-trainid][Speed][Authority]
+       return suggested;
+    
     }
 
    

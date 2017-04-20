@@ -23,12 +23,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
 public class Mbo extends Thread{
     boolean MboMode=true;
     int ready=0;
     int drivers=0;
     int redPassengers=0,greenPassengers=0;
     private mboUI gui=null;
+    mboSection[] greenSections;
+    mboSection[] redSections;
     
     public Mbo(){
         
@@ -60,9 +63,7 @@ public class Mbo extends Thread{
         
 //  GET USER INPUTS       
         getInputs(); //function to get user inputs
-
 /**********************  UPLOADING TRACK FROM TRAACKMODEL  ********************************/ 
-
         TrackSimulator ts=TrackSimulator.getInstance();
         //System.out.println("GET temp "+ts.getTemp());
         TrackModel tm=ts.getTrack();
@@ -71,26 +72,7 @@ public class Mbo extends Thread{
         //System.out.println("redline"+redLine.getBlock("Red",60));
         TrackGraph greenLine=tm.getGreenLine();
         //System.out.println("Section a "+A.getArrowDirection());
-        
-      
-        /**used for testing of integration - 
-         * track is called but CTC was never integrated into the system
-        int loop=0;
-        while(loop==0){
-            try {
-                //Check for intigration on closed block with CTC
-                Section e=redLine.getSection("E");
-                Block b4=greenLine.getBlock("Green", 4);
-                boolean cl=b4.closed;
-                if (cl){System.out.println("Block is open"); }
-                else{ System.out.println("Block is closed");
-                    loop=1;}
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Mbo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        **/
+ 
 //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
         int redWait = 0;
@@ -118,17 +100,20 @@ public class Mbo extends Thread{
         minDist=getBrakeDistance(maxSpeed);//get max speed by iterating through the track
         System.out.println("MBO: Min braking distance: "+minDist);
 //intializ mboSection arrays
-        mboSection[] greenSections=new mboSection[28];
+        greenSections=new mboSection[28];
         for (i=0;i<28;i++){
             mboSection temp=new mboSection();
             greenSections[i]=temp; }
-        mboSection[] redSections=new mboSection[21];
+        redSections=new mboSection[21];
         for (i=0;i<21;i++){
             mboSection temp=new mboSection();
             redSections[i]=temp; }
 //Get time around track
-        int redTimeAroundTrack=getTimeAroundTrack(0,redLine,greenLine, redSections);       //0 for red
-        int greenTimeAroundTrack=getTimeAroundTrack(1,redLine,greenLine, greenSections);     //1 for green
+        redSections=MboSecArray.get(0,redLine,greenLine);       //0 for red
+        greenSections=MboSecArray.get(1,redLine,greenLine);     //1 for green
+        
+        int redTimeAroundTrack=0;
+        int greenTimeAroundTrack=0;
 //create Train schedule with available drivers
         trainSchedule redSchedule=new trainSchedule();
         trainSchedule greenSchedule=new trainSchedule();
@@ -213,118 +198,7 @@ public class Mbo extends Thread{
      * @param track 0 for red 1 for green
      * @return 
      */
-    int getTimeAroundTrack(int track, TrackGraph gr, TrackGraph red, mboSection[] mySections){
-        ArrayList<Block> Included_Blocks;
-        boolean checkStation=false;
-        String stationName="  ";
-        int time=0,itter,total=0;
-        double len=0, lowspeed=100;  //1 for green
-        //red
-        if (track==0){/**********RED**************/
- /**
-  * Add u,c,b,a,f,g,h,i,j,k,l,m,n,i,
-  */           
-            
-            
-        }
-        else{ /**********GREEN**************/
  
- /**  yard -k-l-m-n-o-p-q-n-r-s-t-u-v-w-x-y-z-f-e-d-c-b-a-d-e-f-g-h-i-(j-continue//zz-yard(leaving) or yy(coming in))**/
-            
-            Section k=new Section("k");
-                    checkStation=false;
-                    k=gr.getSection("K");
-                    mySections[0].ID=k.getSectionName();
-                    mySections[0].lowBlock=k.getLowestBlock().getBlockNum();
-                    mySections[0].highBlock=k.getHighestBlock().getBlockNum();
-                    Included_Blocks=k.getBlockList();
-                    total=Included_Blocks.size();
-                    for(itter=0;itter<total;itter++){
-                       // mySections=mySections.addBlock()
-                        len=Included_Blocks.get(itter).getBlockLength()+len;
-                        if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
-                            lowspeed=Included_Blocks.get(itter).getSpeedLimit();
-                            checkStation=Included_Blocks.get(itter).isStation();
-                            if(checkStation){
-                                mySections[0].lengthToStation=len;
-                                stationName=Included_Blocks.get(itter).getStation();
-                            }
-                        }
-                    }
-                    mySections[0].length=len;
-                    mySections[0].lengthFromStation=len-mySections[0].lengthToStation;
-                    mySections[0].maxSpeed=lowspeed;
-                    mySections[0].numBlocks=total;
-                    mySections[0].station=stationName;
-                    
-                Section L=new Section("L");
-                    checkStation=false;
-                    L=gr.getSection("L");
-                    mySections[1].ID=L.getSectionName();
-                    mySections[1].lowBlock=L.getLowestBlock().getBlockNum();
-                    mySections[1].highBlock=L.getHighestBlock().getBlockNum();
-                    Included_Blocks=L.getBlockList();
-                    total=Included_Blocks.size();
-                    for(itter=0;itter<total;itter++){
-                       // mySections=mySections.addBlock()
-                        len=Included_Blocks.get(itter).getBlockLength()+len;
-                        if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
-                            lowspeed=Included_Blocks.get(itter).getSpeedLimit();
-                            checkStation=Included_Blocks.get(itter).isStation();
-                            if(checkStation){
-                                mySections[1].lengthToStation=len;
-                                stationName=Included_Blocks.get(itter).getStation();
-                            }
-                        }
-                    }
-                    mySections[1].length=len;
-                    mySections[1].lengthFromStation=len-mySections[1].lengthToStation;
-                    mySections[1].maxSpeed=lowspeed;
-                    mySections[1].numBlocks=total;
-                    mySections[1].station=stationName;
-                           
-            //Section l=gr.getSection("l");
-              //  mySections[1].ID=k.getSectionName();
-                
-            Section m=gr.getSection("m");
-                mySections[2].ID=k.getSectionName();
-            Section n=gr.getSection("n");
-                mySections[3].ID=k.getSectionName();
-            Section o=gr.getSection("o");
-                mySections[4].ID=k.getSectionName();
-            Section p=gr.getSection("p");
-            Section q=gr.getSection("q");
-            Section r=gr.getSection("r");
-            Section s=gr.getSection("s");
-            Section t=gr.getSection("t");
-            Section u=gr.getSection("u");
-            Section v=gr.getSection("v");
-            Section w=gr.getSection("w");
-            Section x=gr.getSection("x");
-            Section y=gr.getSection("y");
-            Section z=gr.getSection("z");
-            Section f=gr.getSection("f");
-            Section e=gr.getSection("e");
-            Section d=gr.getSection("g");
-            Section c=gr.getSection("c");
-            Section b=gr.getSection("b");
-            Section a=gr.getSection("a");
-            Section g=gr.getSection("g");
-            Section h=gr.getSection("h");
-            Section i=gr.getSection("i");
-            
-            Section yy=gr.getSection("yy"); 
-            Section zz=gr.getSection("zz");
-            //28
-           
-            
-        }    
-        return time;
-    }
-   public void setDrivers(int i){
-       drivers=i;
-       
-   }  
 
     private void setDriverArray(driverSchedule ds) {
         gui.displayWorkers.setModel(new javax.swing.table.DefaultTableModel(
@@ -831,5 +705,8 @@ public class Mbo extends Thread{
            a[i]=info;
        }
        return a;
+    }
+    void setDrivers(int i){
+        drivers=i;
     }
 }
