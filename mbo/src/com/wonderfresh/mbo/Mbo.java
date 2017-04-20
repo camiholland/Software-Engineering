@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 
 public class Mbo extends Thread{
+    boolean MboMode=true;
     int ready=0;
     int drivers=0;
     int redPassengers=0,greenPassengers=0;
@@ -149,6 +150,8 @@ public class Mbo extends Thread{
         while(running==1){
             try {
                 Thread.sleep(100);
+                //check if still in mbo mode
+                
                 //update time
                 if (gui!=null){
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock

@@ -17,12 +17,12 @@ public interface MboInterface {
     void setClosedBlocks(int block, String description, String line);
     void setOpenBlocks(int block,String description, String line);
     String[][] getClosedBlocks();
-    mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
-    mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
+    void setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
+    void setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
     void setLocation(int ID, int blockNum, int metersIn, boolean line);
     void setSpeedAuthorityPassengerCount(int ID, double speed, double authority, int passengers);
     mboTrain[] getLocation();
-    mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id);
+    void setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id);
     mboTrainDepartInfo[] getTrainDepartInfo();
     mboTrain[] getDispatchedTrain();
     mboTrain[] getUpdatedSpeedAuthority();

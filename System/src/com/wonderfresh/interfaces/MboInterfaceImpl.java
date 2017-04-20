@@ -13,13 +13,11 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  */
 public class MboInterfaceImpl implements MboInterface {
 
-/**
- *ewfwe
- * @author angie
- */
-    String[] closedBlocks;
+
+    String[][] closedBlocks; //[id][0 red || 1 green]
     mboTrain[] array;
     mboTrainDepartInfo[] info;
+    boolean mboMode;
     
     public MboInterfaceImpl(){
        
@@ -39,30 +37,31 @@ public class MboInterfaceImpl implements MboInterface {
         
     }
     
-    void setClosedBlocks(String[] closed){
-        this.closedBlocks=closed;
-    }
+   
     @Override
-    public String[] getClosedBlocks(){
+    public String[][] getClosedBlocks(){
         return closedBlocks;
     }
     
     @Override
-    public mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array){
+    public void setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array){
+        
         this.array[trainID].speed=speed;
         this.array[trainID].authority=authority;
-        return this.array;
+       
     }
     @Override
-    public mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array){
-        
-        return this.array;
+    public void setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array){
+        this.array=array;
+        array[trainID].speed=speed;
+        this.array[trainID].authority=authority;
+       
     }
     @Override
-    public mboTrainDepartInfo[] setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id){
+    public void setTrainDepartInfo(String station,String trainIDandDepartTime,mboTrainDepartInfo[] info, int id){
         this.info[id].station=station;
         this.info[id].trainIDAndDepart=trainIDandDepartTime;
-        return this.info;
+        
     }
     @Override
     public mboTrain[] getDispatchedTrain(){
@@ -79,8 +78,16 @@ public class MboInterfaceImpl implements MboInterface {
     }
 
     @Override
-    public void setClosedBlocks(int block, String description) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setClosedBlocks(int block, String description, String line) {//0 red- 1 green
+        if (line.compareToIgnoreCase("green")==0){
+            closedBlocks[block][1]="closed";
+        }
+        else if(line.compareToIgnoreCase("red")==0){
+            closedBlocks[block][0]="closed";
+        }
+        else{
+            System.out.println("MboInterfaceImplementation: setClosedBlocks ERROR: Line must either be \"red\" or \"green\" ");
+        }
     }
 
 
@@ -118,6 +125,24 @@ public class MboInterfaceImpl implements MboInterface {
     public mboTrain[] getAuthority(mboTrain[] mbotrains) {
         return this.array;
                 }
+
+    @Override
+    public void setMboMode(boolean mode) {
+        if (mode==true){
+            mboMode=true;
+        }
+        else{
+            mboMode=false;
+        }
+    }
+
+
+    @Override
+    public void setOpenBlocks(int block, String description, String line) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 
  
