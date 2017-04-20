@@ -26,7 +26,7 @@ public class CTCUI extends javax.swing.JFrame {
         initComponents();
         strak = new SimpleTrack();
         strak.loadTrack();
-        mode = 0;
+        mode = 2; //default is MBO mode
         tputval = 0;
         ntrains = 0;
         wayside = new CTCDataAccess();

@@ -126,17 +126,17 @@ public class CTC extends Thread {
             if (ctcui.mode == 2) {
                 //lots of functions that return an mboTrain array
                 //are they really interchangeable?
-                mboTrains = mbo.getUpdatedSpeedAuthority();
-                for (i=0;i<mboTrains.length;i++) {
-                    //check for new speed, auth, and train ids
-                    //compare to current train/track info
-                    //call track controller if something's different
-                }
-                for (i=0;i<closedblocks.length;i++) {
-                    //check for changed blocks
-                    //compare to current track info
-                    //call track controller if something's different
-                }
+//                mboTrains = mbo.getUpdatedSpeedAuthority();
+//                for (i=0;i<mboTrains.length;i++) {
+//                    //check for new speed, auth, and train ids
+//                    //compare to current train/track info
+//                    //call track controller if something's different
+//                }
+//                for (i=0;i<closedblocks.length;i++) {
+//                    //check for changed blocks
+//                    //compare to current track info
+//                    //call track controller if something's different
+//                }
             }
             //check own schedule if in Fixed Block Auto mode
             else if (ctcui.mode == 1) {
