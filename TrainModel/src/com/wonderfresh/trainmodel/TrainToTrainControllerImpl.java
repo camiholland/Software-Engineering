@@ -59,7 +59,7 @@ public class TrainToTrainControllerImpl implements TrainToTrainController {
     
     //not from trian controller
     @Override
-    public void setSPS(int sps, int trainID){
-        trains.getTrain(trainID).setSPS(sps);
+    public void addTrain(int trainID, String line){
+        trains.addTrain(trainID, line);
     }
 }

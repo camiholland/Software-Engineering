@@ -63,7 +63,7 @@ public class NewTrain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        TrainModel tm = new TrainModel(count);
+        TrainModel tm = new TrainModel(count, "Green");
         TrainModelTest tc = new TrainModelTest(count, trainlist);
         trainlist.addTrain(tm);
         tclist.addTrain(tc);

@@ -74,7 +74,7 @@ public class SystemWrapper {
         Interfaces.setTrainModelInterface(new TrainModelAPIImpl(trainModels));
         
         
-        trainModels.addTrain(new TrainModel(1));
+        trainModels.addTrain(new TrainModel(1, "Green"));
         trainControllers.addTrainController(new TrainController(1, 3));
        // trackController.start();
         

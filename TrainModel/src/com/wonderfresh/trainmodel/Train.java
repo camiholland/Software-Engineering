@@ -25,6 +25,10 @@ public class Train {
         return count;
     }
     
+    public void addTrain(int trainID, String line){
+        addTrain(new TrainModel(trainID, line));
+    }
+    
     public void addTrain(TrainModel newTrain){
         trainList.add(newTrain);
         count++;

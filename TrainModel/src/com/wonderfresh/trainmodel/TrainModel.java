@@ -84,16 +84,23 @@ public class TrainModel {
     double authority;
     String announcement;
     
-    String[] testStationString = {"Pioneer", "Edgebrook", "Station", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
+    String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
     
-    public TrainModel(int trainID){
+    public TrainModel(int trainID, String lineString){
         ID = trainID;
         
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
         prevBlock = null;
-        line = true;                                                            // this should be a variable
+        if(lineString.equals("Red"))
+            line = true;
+        else if(lineString.equals("Green"))
+            line = false;
+        else{
+            System.out.println("Error: incorrect line. Green line will be assumed");
+            line = false;
+        }
         if(line)
             block = TrackSimulator.initBlock("Green");
         else

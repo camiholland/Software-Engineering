@@ -1192,7 +1192,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                 else if(station.equals("Edgebrook")){
                     yellowEdgebrook.setVisible(atStation);
                 }
-                else if(station.equals("Station")){
+                else if(station.equals("University of Pittsburgh")){
                     yellowStation.setVisible(atStation);
                 }
                 else if(station.equals("Whited")){
