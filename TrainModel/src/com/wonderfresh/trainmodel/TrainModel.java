@@ -274,6 +274,7 @@ public class TrainModel {
                 mboInterface.addToDailyPassengers(numNewPass);
                 mboInterface.setPassengersOnTrain(ID, numPass);
                 gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
+                previousStation = block.getStation();
             }
             if(prevBlock.isStation()){
                 gui.setStation(line, previousStation, false);

@@ -92,6 +92,10 @@ public class Time extends Thread{
         return time;
     }
     
+    public int getComparableTime(){
+        return (hr%24)*10000 + min*100 + sec;
+    }
+    
     @SuppressWarnings("SleepWhileInLoop")
     @Override
     public void run() {
