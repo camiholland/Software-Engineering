@@ -485,7 +485,7 @@ public class Block {
                 tempEdge = neighborIterator.next();
                 if(tempEdge.getStatus()){
                     tempBlock = tempEdge.getEndingBlock();
-                    tempBlock.setBeacon(tempEdge.getBeacon());
+                    //tempBlock.setBeacon(tempEdge.getBeacon());
                     if((tempBlock.getBlockNum()-prevBlock.getBlockNum())!=0){
                         return tempBlock;
                     }

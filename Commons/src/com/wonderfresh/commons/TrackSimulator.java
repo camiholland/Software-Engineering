@@ -11,7 +11,8 @@ package com.wonderfresh.commons;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JFrame;
-
+import com.wonderfresh.interfaces.TrainModelAPI;
+import com.wonderfresh.interfaces.Interfaces;
 
 /**
  *
@@ -200,5 +201,11 @@ public class TrackSimulator {
     }
     public static int getTemp(){
         return lastTemp;
+    }
+    
+    public void startTrain(int ID, String line){
+        
+        TrainModelAPI aTrain = Interfaces.getTrainModelInterface();
+        aTrain.addTrain(ID, line);
     }
 }

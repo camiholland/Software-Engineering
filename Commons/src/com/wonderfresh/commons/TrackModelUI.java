@@ -742,8 +742,8 @@ public class TrackModelUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Temp_Gauge, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -826,7 +826,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                                     .addComponent(Update_Speed_Limit)
                                     .addComponent(Update_Underground)
                                     .addComponent(Update_Arrow_Direction))))))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1104,19 +1104,19 @@ public class TrackModelUI extends javax.swing.JFrame {
         if(Section.getSelectedItem().equals("Section")){
             String[] BlockBoxModel = new String[1];
             BlockBoxModel[0] = "Block";
-            Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
+            Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(BlockBoxModel));
         }else{
             if(Line.getSelectedItem().equals("Red")){
                 ArrayList<Block> blocks = newTrack.getRedLine().getSection((String)Section.getSelectedItem()).getBlockList();
                 int blockArraySize = blocks.size();
-                System.out.println("Red size "+blockArraySize);
+                //System.out.println("Red size "+blockArraySize);
                 String[] BlockBoxModel = new String[blockArraySize+1];
                 BlockBoxModel[0] = "Block";
                 for(int i=0; i<blockArraySize; i++){
                     System.out.println(i);
                     BlockBoxModel[i+1] = Integer.toString(blocks.get(i).getBlockNum());
                 }
-                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
+                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(BlockBoxModel));
 //                Iterator<Block> BlockSifter = blocks.iterator();
 //                while(BlockSifter.hasNext()){
 //                    Block_ComboBox.addItem(BlockSifter.next().getBlockNum());
@@ -1130,7 +1130,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                 for(int i=0; i<blockArraySize; i++){
                     BlockBoxModel[i+1] = Integer.toString(blocks.get(i).getBlockNum());
                 }
-                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<String>(BlockBoxModel));
+                Block_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(BlockBoxModel));
             }
             
         }
@@ -1161,7 +1161,7 @@ public class TrackModelUI extends javax.swing.JFrame {
             for(int i=0; i<section_size; i++){
                 SectionModel[i+1] = sections.get(i).getSectionName();
             }
-            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
+            Section.setModel(new javax.swing.DefaultComboBoxModel<>(SectionModel));
         }else if(Line.getSelectedItem().equals("Green")){
             ArrayList<Section> sections = newTrack.getGreenLine().getSections();
             int section_size = sections.size();
@@ -1170,11 +1170,11 @@ public class TrackModelUI extends javax.swing.JFrame {
             for(int i=0; i<section_size; i++){
                 SectionModel[i+1] = sections.get(i).getSectionName();
             }
-            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
+            Section.setModel(new javax.swing.DefaultComboBoxModel<>(SectionModel));
         }else{
             String[] SectionModel = new String[1];
             SectionModel[0] = "Section";
-            Section.setModel(new javax.swing.DefaultComboBoxModel<String>(SectionModel));
+            Section.setModel(new javax.swing.DefaultComboBoxModel<>(SectionModel));
         }
         
        
@@ -1378,7 +1378,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                 }else if(newNum<5){
                     currentTemp -= 1;
                 }else if(newNum<10){
-                    currentTemp = currentTemp;
+                    
                 }else if(newNum<13){
                     currentTemp += 1;
                 }else{
