@@ -94,12 +94,12 @@ public class TrainModel {
         gui = new TrainModelUI(this);
         prevBlock = null;
         if(lineString.equals("Red"))
-            line = true;
-        else if(lineString.equals("Green"))
             line = false;
+        else if(lineString.equals("Green"))
+            line = true;
         else{
             System.out.println("Error: incorrect line. Green line will be assumed");
-            line = false;
+            line = true;
         }
         if(line)
             block = TrackSimulator.initBlock("Green");
