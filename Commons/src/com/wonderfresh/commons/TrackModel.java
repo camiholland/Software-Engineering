@@ -724,7 +724,7 @@ public class TrackModel{
             Block nextBlock = leadingToCurrent_Filtered.get(p);
 
                 // Need to also cover the case for the first block in red line where not 160 before beacon
-                if(distanceCovered>=160.00 || (priorBlock.isSwitchFromYard() && ((priorBlock.getBlockNum()-nextBlock.getBlockNum())>2))){
+                if(distanceCovered>=160.00 || (priorBlock.isSwitchFromYard() && ((priorBlock.getBlockNum()-nextBlock.getBlockNum())<2))){
                     Beacon beaconToAdd = new Beacon(station);
                     beaconToAdd.setDistance(distanceCovered);
                     Edge tmpEdge = nextBlock.getEdge(current);
