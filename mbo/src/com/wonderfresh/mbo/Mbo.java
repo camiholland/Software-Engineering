@@ -230,6 +230,7 @@ public class Mbo extends Thread{
                     Included_Blocks=k.getBlockList();
                     total=Included_Blocks.size();
                     for(itter=0;itter<total;itter++){
+                       // mySections=mySections.addBlock()
                         len=Included_Blocks.get(itter).getBlockLength()+len;
                         if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
                             lowspeed=Included_Blocks.get(itter).getSpeedLimit();
@@ -245,6 +246,7 @@ public class Mbo extends Thread{
                     mySections[0].maxSpeed=lowspeed;
                     mySections[0].numBlocks=total;
                     mySections[0].station=stationName;
+                    
                     
             Section l=gr.getSection("l");
                 mySections[1].ID=k.getSectionName();
