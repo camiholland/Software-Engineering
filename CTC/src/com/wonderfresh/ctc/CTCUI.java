@@ -1,8 +1,10 @@
 package com.wonderfresh.ctc;
 
 import com.wonderfresh.commons.Block;
+import com.wonderfresh.interfaces.MboInterface;
+import com.wonderfresh.commons.mboTrain;
+import com.wonderfresh.trackcontroller.CTCDataAccess;
 
-//import com.wonderfresh.mbo.Mbo;
 //@author Sarah
 public class CTCUI extends javax.swing.JFrame {
 
@@ -12,8 +14,11 @@ public class CTCUI extends javax.swing.JFrame {
     SimpleTrack strak;
     double tputval;
     int ntrains;
+    MboInterface mbo;
+    CTCDataAccess wayside;
+    mboTrain[] mboTrains;
+    boolean mbomode;
 
-//    Mbo mbo;
     public CTCUI() {
         initComponents();
         redtable = new javax.swing.JTable();
@@ -22,7 +27,9 @@ public class CTCUI extends javax.swing.JFrame {
         mode = 0;
         tputval = 0;
         ntrains = 0;
-//        mbo = new Mbo();
+        wayside = new CTCDataAccess();
+        mboTrains = mbo.getDispatchedTrain();
+        mbomode = false;
     }
 
     /**
@@ -625,6 +632,9 @@ public class CTCUI extends javax.swing.JFrame {
         //what if other train is there, and gets wrong info?
         //authority might be what lets the train know it can keep going
         //even though the start of a block might momentarily have eg. speed 0
+        
+        
+        
         //if no errors, update train table
         if (rowfound >= 0) {
             trainTable.setValueAt(values[0], rowfound, 0); //name
@@ -721,6 +731,10 @@ public class CTCUI extends javax.swing.JFrame {
         //they're discussing how to dispatch right now
         //pretty sure I'd call the trackcontroller
         //startTrain(line, speed, authority) from trackcontroller CTCDataAccess
+        
+        
+        //mboTrains = mbo.setDispatchedTrain(ntrains, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+        
         //if no errors, update train table
         if (errd >= 0) {
             //add a new row to the train table
@@ -733,7 +747,7 @@ public class CTCUI extends javax.swing.JFrame {
             trainTable.setValueAt(values[1], rowCount, 2);
             trainTable.setValueAt(values[2], rowCount, 3);
             trainTable.setValueAt(values[3], rowCount, 4);
-            trainTable.setValueAt(rowCount, rowCount, 5); //shb the id given back?
+            trainTable.setValueAt(ntrains, rowCount, 5); //shb the id given back?
             ntrains++;
         }
     }//GEN-LAST:event_dispatchButtonActionPerformed
@@ -836,6 +850,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     private void fboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fboButtonActionPerformed
         mode = 1;
+        mbomode = false;
     }//GEN-LAST:event_fboButtonActionPerformed
 
     private void oneXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneXButtonActionPerformed
@@ -848,10 +863,12 @@ public class CTCUI extends javax.swing.JFrame {
 
     private void manualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualButtonActionPerformed
         mode = 0;
+        mbomode = false;
     }//GEN-LAST:event_manualButtonActionPerformed
 
     private void mboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mboButtonActionPerformed
         mode = 2;
+        mbomode = true;
     }//GEN-LAST:event_mboButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.commons.mboTrain;
+import com.wonderfresh.trackcontroller.CTCDataAccess;
 
 //@author Sarah
 public class CTC extends Thread {
     int i;
-    Block[] greenBlocks, redBlocks;
     Time time;
     CTCUI ctcui;
     int mode;
@@ -24,10 +24,10 @@ public class CTC extends Thread {
     double currenttimedecimal;
     String[] scheduleLines;
     MboInterface mbo;
-    mboTrain[] mboTrains;
     String[] closedblocks;
     ScheduleItem[] schedule; //index is train id
     int nblocks;
+    CTCDataAccess wayside;
     
     public CTC() {
         
@@ -60,11 +60,13 @@ public class CTC extends Thread {
         //</editor-fold>
         //</editor-fold>
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ctcui.setVisible(true);
-            }
-        });
+        ctcui.setVisible(true);
+        
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                ctcui.setVisible(true);
+//            }
+//        });
     }
     
     public void init() throws Exception {
@@ -79,6 +81,7 @@ public class CTC extends Thread {
         starttimedecimal = 0;
         currenttimedecimal = starttimedecimal;
         mode = 0;
+        wayside = new CTCDataAccess();
         
         //to account for every train theoretically possible,
         //schedule has length = number of blocks in whole transit system
@@ -100,10 +103,10 @@ public class CTC extends Thread {
             //check track
             //for every block
             for (i=0; i < ctcui.strak.mytrack.getGreenCount(); i++) {
-                
+                ctcui.strak.greenLine.addBlock(wayside.getBlock("Green",i), true);
             }
             for (i=0; i < ctcui.strak.mytrack.getRedCount(); i++) {
-                
+                ctcui.strak.redLine.addBlock(wayside.getBlock("Red",i), true);
             }
             
             //check trains
@@ -112,13 +115,12 @@ public class CTC extends Thread {
             if (ctcui.mode == 2) {
                 //lots of functions that return an mboTrain array
                 //are they really interchangeable?
-                mboTrains = mbo.getUpdatedSpeedAuthority();
-                for (i=0;i<mboTrains.length;i++) {
+                ctcui.mboTrains = mbo.getUpdatedSpeedAuthority();
+                for (i=0;i<ctcui.mboTrains.length;i++) {
                     //check for new speed, auth, and train ids
                     //compare to current train/track info
                     //call track controller if something's different
                 }
-                closedblocks = mbo.getClosedBlocks();
                 for (i=0;i<closedblocks.length;i++) {
                     //check for changed blocks
                     //compare to current track info
@@ -127,7 +129,7 @@ public class CTC extends Thread {
             }
             //check own schedule if in Fixed Block Auto mode
             else if (ctcui.mode == 1) {
-                
+                routeTrains();
             }
             
             //calculate throughput
