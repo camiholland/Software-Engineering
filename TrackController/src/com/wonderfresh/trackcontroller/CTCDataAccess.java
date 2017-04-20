@@ -45,8 +45,4 @@ public class CTCDataAccess {
         TrackSimulator.setSwitch(line, block1, block2);
         return true;
     }
-    
-    public static boolean deployTrain(String line, int setSpeed, int authority){
-        return false;
-    }
 }
