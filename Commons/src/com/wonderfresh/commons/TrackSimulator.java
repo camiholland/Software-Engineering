@@ -19,8 +19,8 @@ import javax.swing.JFrame;
  */
 public class TrackSimulator {
     private static TrackModel MainTrack;
-    private static int lastTemp = 0;
-    private static int Authority;
+    private static int lastTemp = 47;
+    
     private TrackModelUI gui=null;
     private static TrackSimulator instance = null;
     
@@ -98,8 +98,15 @@ public class TrackSimulator {
     }
     
     public static boolean setAuthority(String line, int block, int Distance){
-        Authority = Distance;
-        return true;
+        if(line.equals("Red")){
+            instance.getTrack().getRedLine().getBlock("Red", block).setAuthority(Distance);
+            return true;
+        }else if(line.equals("Green")){
+            instance.getTrack().getGreenLine().getBlock("Green", block).setAuthority(Distance);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     
@@ -188,6 +195,9 @@ public class TrackSimulator {
         }
     }
     
+    public static void saveTemp(int last){
+        lastTemp = last;
+    }
     public static int getTemp(){
         return lastTemp;
     }

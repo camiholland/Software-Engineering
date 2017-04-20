@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit;
  * @author kwc12
  */
 public class TrackModelUI extends javax.swing.JFrame {
-    private int lastTemp;
+    private static int lastTemp;
+    private static int currentTemp;
     private static TrackModel newTrack;
     private TrackSimulator trackSimulator;
     private ArrayList<TrackGraph> tempGraphList;
@@ -47,6 +48,8 @@ public class TrackModelUI extends javax.swing.JFrame {
         trackSimulator = TrackSimulator.getInstance();
         newTrack = trackSimulator.getTrack();
         initComponents();
+        lastTemp = TrackSimulator.getTemp();
+        currentTemp = lastTemp;
         if(newTrack!=null){
             Line.addItem(newTrack.getRedLine().toString());
             Line.addItem(newTrack.getGreenLine().toString());
@@ -156,7 +159,7 @@ public class TrackModelUI extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        Temp_Gauge = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
@@ -657,14 +660,19 @@ public class TrackModelUI extends javax.swing.JFrame {
         });
 
         jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel16.setText("Update Temperature");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("47°F");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Temp_Gauge.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Temp_Gauge.setText("47°F");
+        Temp_Gauge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                Temp_GaugeActionPerformed(evt);
             }
         });
 
@@ -736,7 +744,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Temp_Gauge, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(142, 142, 142))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
@@ -877,7 +885,7 @@ public class TrackModelUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Temp_Gauge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1128,9 +1136,9 @@ public class TrackModelUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PowerFailure_CheckBoxActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void Temp_GaugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Temp_GaugeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_Temp_GaugeActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -1286,6 +1294,28 @@ public class TrackModelUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+            int newTemp = Integer.parseInt(jTextField2.getText());
+            if(currentTemp>=33 && lastTemp >= 39){
+                lastTemp = currentTemp;
+                currentTemp = newTemp;
+                Temp_Gauge.setText(Integer.toString(newTemp)+"°F");
+            }else if(currentTemp<=32 && lastTemp>=33){
+                lastTemp = currentTemp;
+                currentTemp = newTemp;
+                Temp_Gauge.setText(Integer.toString(newTemp)+"°F");
+            }else{
+                Temp_Gauge.setText(Integer.toString(newTemp)+"°F");
+            }
+        }catch(NumberFormatException e){
+            jTextField2.setText("N/A");
+        }
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1318,9 +1348,42 @@ public class TrackModelUI extends javax.swing.JFrame {
             public void run() {
                 new TrackModelUI().setVisible(true);
                 new updateOccuppiedBlocks().start();
+                new updateTemp().start();
 
             }
         });
+    }
+    
+    private static class updateTemp extends Thread{
+        public void run(){
+            Time clock = Time.getInstance();
+            int speed = clock.getSpeed();
+            while(!Thread.interrupted()){
+                try{
+                    if(speed == 1){
+                        TimeUnit.SECONDS.sleep(1);
+                    }else{
+                        TimeUnit.SECONDS.sleep(1);
+                    }
+                }catch(InterruptedException e){
+                }
+                double newNum = Math.random()*15;
+                lastTemp = currentTemp;
+                if(newNum<2){
+                    currentTemp -= 2;
+                }else if(newNum<5){
+                    currentTemp -= 1;
+                }else if(newNum<10){
+                    currentTemp = currentTemp;
+                }else if(newNum<13){
+                    currentTemp += 1;
+                }else{
+                    currentTemp += 2;
+                }
+                Temp_Gauge.setText(Integer.toString(currentTemp)+"°F");
+                TrackSimulator.saveTemp(currentTemp);
+            }
+        }
     }
     
     private static class updateOccuppiedBlocks extends Thread{
@@ -1410,6 +1473,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JButton SubmitChangeButton;
     private javax.swing.JButton SubmitInfoToTrackButton;
     private javax.swing.JButton SubmitInfoToTrainButton;
+    private static javax.swing.JTextField Temp_Gauge;
     private javax.swing.JToggleButton ToggleBrokenRail;
     private javax.swing.JToggleButton TogglePowerFailure;
     private javax.swing.JToggleButton ToggleTrackCircuitFailure;
@@ -1475,7 +1539,6 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private static javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
