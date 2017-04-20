@@ -519,6 +519,7 @@ public class TrainModelUI extends javax.swing.JFrame {
         routePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         routePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        greenLineLightPanel.setOpaque(false);
         greenLineLightPanel.setPreferredSize(new java.awt.Dimension(500, 111));
 
         yellowEdgebrook.setBackground(new java.awt.Color(255, 255, 0));
@@ -1172,13 +1173,11 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setLine(boolean line){
         //if line == true, green line; else, red line
         if(line){
-            //routePanel.setLayer(greenLinePanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-            //routePanel.setLayer(redLinePanel, javax.swing.JLayeredPane.PALETTE_LAYER);
-            redLinePanel.setVisible(false);
+            redLineRouteImage.setVisible(false);
             redLineLabel.setVisible(false);
         }
         else{
-            greenLinePanel.setVisible(false);
+            greenLineRouteImage.setVisible(false);
             greenLineLabel.setVisible(false);
         }
     }
@@ -1377,11 +1376,13 @@ public class TrainModelUI extends javax.swing.JFrame {
         else if(attribute == 4){
             doorsLabel.setForeground(new java.awt.Color(120, 120, 120));
             leftDoorsOpenLabel.setForeground(new java.awt.Color(120, 120, 120));
+            doorsClosedLabel.setForeground(new java.awt.Color(120, 120, 120));
             powerFailureLabel.setForeground(Color.red);
         }
         else if(attribute == 5){
             doorsLabel.setForeground(new java.awt.Color(120, 120, 120));
             rightDoorsOpenLabel.setForeground(new java.awt.Color(120, 120, 120));
+            doorsClosedLabel.setForeground(new java.awt.Color(120, 120, 120));
             powerFailureLabel.setForeground(Color.red);
         }
         else{
