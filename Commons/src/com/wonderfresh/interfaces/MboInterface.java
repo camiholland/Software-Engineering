@@ -12,6 +12,7 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  */
 public interface MboInterface {
     
+    void setMboMode(boolean mode);//true=mbo mode on : false = mbo mode off
     void initializeTrainArray();
     void setClosedBlocks(int block, String description, String line);
     void setOpenBlocks(int block,String description, String line);
