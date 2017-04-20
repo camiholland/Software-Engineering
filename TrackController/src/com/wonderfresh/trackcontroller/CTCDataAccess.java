@@ -32,11 +32,21 @@ public class CTCDataAccess {
     }
     
     public static boolean setBlockOpen(String line, int block, boolean open){
+        if(line.equals("Red")){
+            return TrackSimulator.getInstance().getTrack().getRedLine().getBlock(line, block).closed = !open;
+        }
+        else if(line.equals("Green")){
+            return TrackSimulator.getInstance().getTrack().getGreenLine().getBlock(line, block).closed = !open;
+        }
         return false;
     }
     
     public static boolean setSwitch(String line, int block1, int block2){
         TrackSimulator.setSwitch(line, block1, block2);
         return true;
+    }
+    
+    public static boolean deployTrain(String line, int setSpeed, int authority){
+        return false;
     }
 }
