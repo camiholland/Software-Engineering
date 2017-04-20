@@ -139,18 +139,32 @@ public class MboInterfaceImpl implements MboInterface {
 
 
     @Override
-    public void setOpenBlocks(int block, String description, String line) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setOpenBlocks(int block, String description, String line) {//0 red- 1 green
+        if (line.compareToIgnoreCase("green")==0){
+            closedBlocks[block][1]=null;
+        }
+        else if(line.compareToIgnoreCase("red")==0){
+            closedBlocks[block][0]=null;
+        }
+        else{
+            System.out.println("MboInterfaceImplementation: setOpenBlocks ERROR: Line must either be \"red\" or \"green\" ");
+        }
     }
+        
+        
+        
+        
+    
 
     @Override
     public void addToDailyPassengers(int passengers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       dailyPassengers=dailyPassengers+passengers;
+
     }
 
     @Override
     public void setPassengersOnTrain(int trainID, int currentPassengers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        array[trainID].numPassengers=currentPassengers;
     }
 
     

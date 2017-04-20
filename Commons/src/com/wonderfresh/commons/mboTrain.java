@@ -18,6 +18,7 @@ public class mboTrain {
     public int AMPM=-1;
     public int hour=-1;
     public int minutes=-1;
+    public int numPassengers=0;
     
     public mboTrain(){
         
