@@ -30,14 +30,14 @@ public class Block {
     final private boolean Underground;
     final private boolean Crossing;
     public boolean CrossingOpenToCars;
-    private boolean Station_status;
+    final private boolean Station_status;
     final private String Station;
     private int PeopleAtStation;
     private boolean Occupied;
     private boolean BrokenTrack;
     private boolean CircuitFailure;
     private boolean PowerFailure;
-    private Beacon beaconSig;
+    private Beacon beaconSig = null;
     private int setPointSpeed;
     private double Authority = -1;
     public boolean closed;
@@ -425,9 +425,10 @@ public class Block {
         if(this.hasBeacon()){
             return this.beaconSig.getSignal();
         }
-        String[] returnString = new String[2];
+        String[] returnString = new String[3];
         returnString[0] = "Warning: No Beacon";
         returnString[1] = "0.0";
+        returnString[2] = "0";
         return returnString;
     }
     
@@ -461,8 +462,10 @@ public class Block {
                     return null;
                 }
                 tempBlock = tempEdge.getEndingBlock();
+                tempBlock.setBeacon(tempEdge.getBeacon());
             }
             newBlock = tempBlock;
+            
             return newBlock;
             
         }else{
@@ -482,6 +485,7 @@ public class Block {
                 tempEdge = neighborIterator.next();
                 if(tempEdge.getStatus()){
                     tempBlock = tempEdge.getEndingBlock();
+                    tempBlock.setBeacon(tempEdge.getBeacon());
                     if((tempBlock.getBlockNum()-prevBlock.getBlockNum())!=0){
                         break;
                     }
