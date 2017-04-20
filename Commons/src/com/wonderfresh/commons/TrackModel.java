@@ -290,6 +290,10 @@ public class TrackModel{
                 }
 
             }
+            
+            Block tempBlock2 = new Block("Green", "", 0.0, 0.0, 0.0, 0.0, null, null, null);
+            GreenLine.addBlock(tempBlock2, true);
+            
         }catch(IOException Error){
             System.out.println("Error loading the track model.");
         }

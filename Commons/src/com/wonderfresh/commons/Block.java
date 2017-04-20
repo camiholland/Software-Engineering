@@ -455,18 +455,15 @@ public class Block {
             if(neighbors.isEmpty()){
                 System.out.println("The array list is empty.");
             }
-            if(neighborIterator.hasNext()){
+            while(neighborIterator.hasNext()){
                 tempEdge = neighborIterator.next();
-                if(!tempEdge.getStatus()){
-                    System.out.println("The track ahead is closed.");
-                    return null;
+                if(tempEdge.getStatus()){
+                  
+                    tempBlock = tempEdge.getEndingBlock();
+                    tempBlock.setBeacon(tempEdge.getBeacon());
+                    return tempBlock;
                 }
-                tempBlock = tempEdge.getEndingBlock();
-                tempBlock.setBeacon(tempEdge.getBeacon());
             }
-            newBlock = tempBlock;
-            
-            return newBlock;
             
         }else{
             if(prevBlock.SwitchToYard){
@@ -496,6 +493,7 @@ public class Block {
             return newBlock;
             
         }
+        return null;
     }
     
     /**
