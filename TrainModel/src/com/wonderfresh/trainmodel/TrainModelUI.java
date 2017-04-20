@@ -1153,44 +1153,44 @@ public class TrainModelUI extends javax.swing.JFrame {
         //if line, green line; else, red line
         if(line){
             if(station != null){
-                if(station.equals("Pioneer")){
+                if(station.trim().equals("PIONEER")){
                     //approachingStation.isAtStation(yellowPioneer);
                     yellowPioneer.setVisible(atStation);
                 }
-                else if(station.equals("Edgebrook")){
+                else if(station.trim().equals("EDGEBROOK")){
                     yellowEdgebrook.setVisible(atStation);
                 }
-                else if(station.equals("University of Pittsburgh")){
+                else if(station.trim().equals("STATION")){
                     yellowStation.setVisible(atStation);
                 }
-                else if(station.equals("Whited")){
+                else if(station.trim().equals("WHITED")){
                     yellowWhited.setVisible(atStation);
                 }
-                else if(station.equals("South Bank")){
+                else if(station.trim().equals("SOUTH BANK")){
                     yellowSouthBank.setVisible(atStation);
                 }
-                else if(station.equals("Central")){
+                else if(station.trim().equals("CENTRAL")){
                     yellowCentral.setVisible(atStation);
                 }
-                else if(station.equals("Inglewood")){
+                else if(station.trim().equals("INGLEWOOD")){
                     yellowInglewood.setVisible(atStation);
                 }
-                else if(station.equals("Overbrook")){
+                else if(station.trim().equals("OVERBROOK")){
                     yellowOverbrook.setVisible(atStation);
                 }
                 else if(station.trim().equals("GLENBURY")){
                     yellowGlenbury.setVisible(atStation);
                 }
-                else if(station.equals("Dormont")){
+                else if(station.trim().equals("DORMONT")){
                     yellowDormont.setVisible(atStation);
                 }
-                else if(station.equals("Mount Lebanon")){
+                else if(station.trim().equals("MT LEBANON")){
                     yellowMtLebanon.setVisible(atStation);
                 }
-                else if(station.equals("Poplar")){
+                else if(station.trim().equals("POPLAR")){
                     yellowPoplar.setVisible(atStation);
                 }
-                else if(station.equals("Castle Shannon")){
+                else if(station.trim().equals("CASTLE SHANNON")){
                     yellowCastleShannon.setVisible(atStation);
                 }
             }
@@ -1225,21 +1225,21 @@ public class TrainModelUI extends javax.swing.JFrame {
         }
         else{
             //if(atStation){
-                if(station.equals("Shadyside"))
+                if(station.trim().equals("SHADYSIDE"))
                     yellowShadyside.setVisible(atStation);
-                else if(station.equals("Herron"))
+                else if(station.trim().equals("HERRON AVE"))
                     yellowHerron.setVisible(atStation);
-                else if(station.equals("Swissvale"))
+                else if(station.trim().equals("SWISSVALE"))
                     yellowSwissvale.setVisible(atStation);
-                else if(station.equals("Penn Station"))
+                else if(station.trim().equals("PENN STATION"))
                     yellowPennStation.setVisible(atStation);
-                else if(station.equals("Steel Plaza"))
+                else if(station.trim().equals("STEEL PLAZA"))
                     yellowSteelPlaza.setVisible(atStation);
-                else if(station.equals("First Avenue"))
+                else if(station.trim().equals("FIRST AVE"))
                     yellowFirst.setVisible(atStation);
-                else if(station.equals("Station Square"))
+                else if(station.trim().equals("STATION SQUARE"))
                     yellowStationSquare.setVisible(atStation);
-                else if(station.equals("South Hills"))
+                else if(station.trim().equals("SOUTH HILLS JUNCTION"))
                     yellowSouthHills.setVisible(atStation);
             //}
             //else{
