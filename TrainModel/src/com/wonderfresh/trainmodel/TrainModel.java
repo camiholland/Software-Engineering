@@ -76,13 +76,15 @@ public class TrainModel {
     boolean driverSetBrake;
     
     String[] beacon;
-    //String previousBeacon;
+    String previousStation;
     
     int currentTemp;
     int targetTemp;
     boolean eBrake;
     double authority;
     String announcement;
+    
+    String[] testStationString = {"Pioneer", "Edgebrook", "Station", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
     
     public TrainModel(int trainID){
         ID = trainID;
@@ -133,7 +135,7 @@ public class TrainModel {
         driverSetBrake = false;
         
         beacon = block.getBeaconSignal();
-        //previousBeacon = null;
+        previousStation = null;
         
         currentTemp = DEFAULT_TEMP; //degrees F
         targetTemp = DEFAULT_TEMP;
@@ -141,11 +143,15 @@ public class TrainModel {
         authority = block.getAuthority();
         announcement = null;
         
+        
+        
         gui.setSpeedLimit(Integer.toString(speedLimit));
         //set max passenger capacity, num crew on board, num pass on board, sps, train ID
         gui.setInitials(Integer.toString(numCars*222), Integer.toString(numCrew), Integer.toString(numPass), Integer.toString(sps), Integer.toString(ID));
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
+        testing.setSpeedAndAuth(sps, authority, ID);
+        //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
         gui.setLine(line);
     }
     
@@ -183,7 +189,8 @@ public class TrainModel {
             }
             if(acc < 0){
                 acc = S_BRAKE_RATE;
-                setServiceBrake(1, driverSetBrake);
+                if(serviceBrakesStatus == 0)
+                    setServiceBrake(1, driverSetBrake);
             }
             else{
                 setServiceBrake(0, driverSetBrake);
@@ -240,18 +247,19 @@ public class TrainModel {
             sps = block.getSetPointSpeed();
             authority = block.getAuthority();
             blockLengthTotal += block.getBlockLength();
-            beacon = block.getBeaconSignal();
+            //beacon = block.getBeaconSignal();
+            //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
-            System.out.println(nextBlock.toString());
+            //System.out.println(nextBlock.toString());
             gui.setUnderground(block.isUnderground());
-            if(nextBlock.isStation()){
-                gui.setStation(line, nextBlock.getBlockNum(), false, true);
-            }
             if(block.isStation()){
-                gui.setStation(line, block.getBlockNum(), true, true);
+                for(int i = 0; i < 13; i++){
+                    gui.setStation(line, testStationString[i]/*beacon[0]*/, true);
+                    gui.setNotification("Next Stop: " + testStationString[i]/*beacon[0]*/);
+                }
             }
             if(prevBlock.isStation()){
-                gui.setStation(line, prevBlock.getBlockNum(), true, false);
+                gui.setStation(line, previousStation, false);
             }
             //System.out.println("moved to next block" + block.getBlockNum());
         }
