@@ -17,7 +17,7 @@ import java.util.Random;
 import com.wonderfresh.interfaces.TrainControllerInterface;
 import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.interfaces.Interfaces;
-
+import com.wonderfresh.commons.Time;
 
 /**
  *
@@ -30,6 +30,7 @@ public class TrainModel {
     TemperatureCalculator tempCalc;
     SpeedCalculator speedCalc;
     Random random;
+    Time time;
 
     Block prevBlock;
     Block block;
@@ -109,11 +110,15 @@ public class TrainModel {
         block.setOccupied(true);
         nextBlock = block.getNextBlock(null);
         random = new Random();
+        time = time.getInstance();
         
         testing = Interfaces.getTrainControllerInterface();
         mboInterface = Interfaces.getMboInterface();
         
-        numCars = 1;                                                            //should be variable
+        if(time.getComparableTime() >= 70000 && time.getComparableTime() < 90000 || time.getComparableTime() >= 160000 && time.getComparableTime() < 160000)
+            numCars = 2;
+        else
+            numCars = 1;
         numPass = 1;
         numCrew = 1;
         maxPassCapacity = 222*numCars;
