@@ -12,30 +12,28 @@ public class SimpleTrack {
     TrackGraph redLine;
     TrackGraph greenLine;
     
+    //internal representation of track
+    //necessary because the display table swaps lines
+    //0 is green, 1 is red
+    //block id, open, setspeed, authority, speed limit, crossing, light
+    int[][] blockids;
+    boolean[][] blockopenarray;
+    double[][] currsetspeeds;
+     double[][] currauthorities;
+    double[][] speedlimits;
+    boolean[][] crossings;
+    boolean[][] lights;
+    
+    
     public SimpleTrack() {
         
     }
     
     public void loadTrack() {
-        int i;
-        
-//        Block greenBlocks[];
-//        Block redBlocks[];
-        
         tracksimulator=TrackSimulator.getInstance();
         mytrack=tracksimulator.getTrack();
         redLine=mytrack.getRedLine();
         greenLine=mytrack.getGreenLine();
-        
-        //get separate blocks for each line
-//        greenBlocks = new Block[mytrack.getGreenCount()];
-//        for (i=0;i<mytrack.getGreenCount();i++) {
-//            greenBlocks[i] = greenLine.getBlock("green", i);
-//        }
-//        
-//        redBlocks = new Block[mytrack.getGreenCount()];
-//        for (i=0;i<mytrack.getGreenCount();i++) {
-//            redBlocks[i] = greenLine.getBlock("green", i);
-//        }
+        //blocks are numbered starting at 1
     }
 }

@@ -27,7 +27,6 @@ public class CTC extends Thread {
     MboInterface mbo;
     String[] closedblocks;
     ScheduleItem[] schedule; //index is train id
-    int nblocks;
     CTCDataAccess wayside;
     
     public CTC() {
@@ -35,17 +34,17 @@ public class CTC extends Thread {
     }
     
     public void launchUI() {
-        ctcui = new CTCUI();
         ctcui.setVisible(true);
     }
     
-    public void init() throws Exception {
+    public void initSchedule() throws Exception {
         //load fixed block automatic mode schedule
         String scheduleFilename = "/Users/Madchen/Documents/sched.txt"; //hardcoded temporarily
         scheduleLines = loadArrayStyleFile(scheduleFilename);
     }
     
     @Override public void run() {
+        ctcui = new CTCUI();
         startTime=Time.getTimeNow();
         currentTime=startTime;
         starttimedecimal = 0;
@@ -57,9 +56,8 @@ public class CTC extends Thread {
         Block tempblock;
         
         //to account for every train theoretically possible,
-        //schedule has length = number of blocks in whole transit system
-        nblocks = ctcui.strak.mytrack.getGreenCount() + ctcui.strak.mytrack.getRedCount();
-        schedule = new ScheduleItem[nblocks];
+        //schedule has length = 100; mbo is assuming that as max # trains
+        schedule = new ScheduleItem[101];
         
         int i;
         
@@ -75,11 +73,17 @@ public class CTC extends Thread {
             
             //check track
             //for every block
-            for (i=0; i < ctcui.strak.mytrack.getGreenCount(); i++) {
-                ctcui.strak.greenLine.addBlock(wayside.getBlock("Green",i), true);
+            for (i=1; i <= ctcui.strak.mytrack.getGreenCount(); i++) {
+                tempblock = wayside.getBlock("Green",i);
+                if (ctcui.greenselected) {
+                    ctcui.updateBlockTable(tempblock);
+                }
             }
-            for (i=0; i < ctcui.strak.mytrack.getRedCount(); i++) {
-                ctcui.strak.redLine.addBlock(wayside.getBlock("Red",i), true);
+            for (i=1; i <= ctcui.strak.mytrack.getRedCount(); i++) {
+                tempblock = wayside.getBlock("Red",i);
+                if (!ctcui.greenselected) {
+                    ctcui.updateBlockTable(tempblock);
+                }
             }
             
             //if not in MBO mode, call MBO to relay changes
@@ -87,22 +91,31 @@ public class CTC extends Thread {
             //ask track controller about that
             //at least i can say what blocks are open/closed
             if (ctcui.mode != 2) {
-                for (i = 0; i < ctcui.strak.mytrack.getGreenCount(); i++) {
+                for (i = 1; i <= ctcui.strak.mytrack.getGreenCount(); i++) {
                     tempblock = ctcui.strak.greenLine.getBlock("Green", i);
                     if (tempblock.closed) {
-                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Green");
+                        //System.out.println("boo" + tempblock.getBlockNum());
+                        //change this back if it doesn't matter
+                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "green");
+                        //mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Green");
                     }
                     else {
-                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Green");
+                        //System.out.println("boo" + tempblock.getBlockNum());
+                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "green");
+                        //mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Green");
                     }
                 }
-                for (i = 0; i < ctcui.strak.mytrack.getRedCount(); i++) {
-                    tempblock = ctcui.strak.greenLine.getBlock("Green", i);
+                for (i = 1; i <= ctcui.strak.mytrack.getRedCount(); i++) {
+                    tempblock = ctcui.strak.greenLine.getBlock("Red", i);
                     if (tempblock.closed) {
-                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Green");
+                        //System.out.println("boo" + tempblock.getBlockNum());
+                        mbo.setClosedBlocks(tempblock.getBlockNum(),"", "red");
+                        //mbo.setClosedBlocks(tempblock.getBlockNum(),"", "Red");
                     }
                     else {
-                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Green");
+                        //System.out.println("boo" + tempblock.getBlockNum());
+                        mbo.setOpenBlocks(tempblock.getBlockNum(),"", "red");
+                        //mbo.setOpenBlocks(tempblock.getBlockNum(),"", "Red");
                     }
                 }
             }
@@ -191,7 +204,7 @@ public class CTC extends Thread {
         ScheduleItem tempCurrSchedItem;
         Block movingToNextBlock;
         
-        ScheduleItem[] newschedule = new ScheduleItem[nblocks+1];
+        ScheduleItem[] newschedule = new ScheduleItem[101];
         //make sure lines and trains are updated (maybe not necessary)
         
         //for each train

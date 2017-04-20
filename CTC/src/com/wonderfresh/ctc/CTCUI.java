@@ -19,6 +19,8 @@ public class CTCUI extends javax.swing.JFrame {
     mboTrain[] mboTrains;
     boolean mbomode;
     String selline;
+    boolean greenselected;
+    int lastTrainID;
 
     public CTCUI() {
         initComponents();
@@ -31,7 +33,9 @@ public class CTCUI extends javax.swing.JFrame {
         mbomode = false;
         mbo = Interfaces.getMboInterface();
         selline = "Green";
+        greenselected = true;
         addToBlockTables(selline);
+        lastTrainID = 0; //choose train id with begin at 1
     }
 
     /**
@@ -211,9 +215,7 @@ public class CTCUI extends javax.swing.JFrame {
         blockTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         blockTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"GA", "Open", "54", "1", "55", "n/a", "n/a"},
-                {"GB", "Closed", "0", "0", "55", "down", "on"},
-                {"GC", "Open", "15", "1", "75", "n/a", "n/a"}
+
             },
             new String [] {
                 "Block", "Open", "Set Speed", "Authority", "Speed Limit", "Crossing", "Light"
@@ -583,10 +585,8 @@ public class CTCUI extends javax.swing.JFrame {
         
         
         
-        //if no errors, update mbo and update train table
+        //if no errors, update train table
         if (rowfound >= 0) {
-            mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
-            
             trainTable.setValueAt(values[0], rowfound, 0); //name
             trainTable.setValueAt("GA", rowfound, 1); //shb block the train is in
             trainTable.setValueAt(values[1], rowfound, 2); //speed
@@ -649,19 +649,13 @@ public class CTCUI extends javax.swing.JFrame {
         boolean isTrain = true;
         int errd = entryErrorCheck(values, isUpdating, isTrain);
 
-        //if no errors, call Track Controller
-        //tell it I'm dispatching a train
-        //Track Controller interface currently has no function for this
-        //ask about that
-        //pretty sure I'd call the trackcontroller
-        //startTrain(line, speed, authority) from trackcontroller CTCDataAccess
-        
-        //doubles as a train dispatching function
-        //train ids start at 1
-        mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]));
-        
-        //if no errors, update train table
+        //if no errors, call track controller and update train table
         if (errd >= 0) {
+            int trainID = chooseTrainId();
+            
+            //deployTrain(int id, String line)
+            wayside.deployTrain(trainID, selline);
+            
             //add a new row to the train table
             javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) trainTable.getModel();
             int rowCount = model.getRowCount();
@@ -672,7 +666,7 @@ public class CTCUI extends javax.swing.JFrame {
             trainTable.setValueAt(values[1], rowCount, 2);
             trainTable.setValueAt(values[2], rowCount, 3);
             trainTable.setValueAt(values[3], rowCount, 4);
-            trainTable.setValueAt(ntrains+1, rowCount, 5); //shb the id given back?
+            trainTable.setValueAt(trainID, rowCount, 5); //train ids start at 1
             ntrains++;
         }
     }//GEN-LAST:event_dispatchButtonActionPerformed
@@ -729,9 +723,13 @@ public class CTCUI extends javax.swing.JFrame {
         if (chooseLine.getSelectedIndex() == 0) {
             blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
             selline = "Green";
+            greenselected = true;
+            swapBlockTables(selline);
         } else {
             blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
             selline = "Red";
+            greenselected = false;
+            swapBlockTables(selline);
         }
     }//GEN-LAST:event_chooseLineActionPerformed
 
@@ -969,7 +967,7 @@ public class CTCUI extends javax.swing.JFrame {
         } else {
             int rowcount = blockTable.getRowCount();
             for (i = 0; i < rowcount; i++) {
-                if (key.compareTo((String) blockTable.getValueAt(i, 0)) == 0) {
+                if (Integer.parseInt(key) == (int)blockTable.getValueAt(i, 0)) {
                     return i;
                 }
             }
@@ -997,20 +995,17 @@ public class CTCUI extends javax.swing.JFrame {
     }
 
     public void closeOrOpenBlock(boolean isOpening) {
-        String blockName = (String) editBlockTable.getValueAt(0, 0);
-
         //error and return if string is null
-        if (blockName == null) {
+        if (editBlockTable.getValueAt(0, 0) == null) {
             javax.swing.JOptionPane.showMessageDialog(null, "Enter value in field 0", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        //remove extraneous spaces
-        blockName = blockName.trim();
+        
+        int blockID = Integer.parseInt((String)editBlockTable.getValueAt(0, 0));
 
         //get row to edit
         Boolean isTrain = false;
-        int rowfound = findmatchingrow(blockName, isTrain);
+        int rowfound = findmatchingrow("" + blockID, isTrain);
 
         //error and return if block not found
         if (rowfound < 0) {
@@ -1038,9 +1033,11 @@ public class CTCUI extends javax.swing.JFrame {
         Block tblok;
         String cros, clos;
 
+        //blocks numbered starting at 1
         if (linetoadd.compareTo("Green") == 0) {
-            for (i = 0; i < strak.mytrack.getGreenCount(); i++) {
+            for (i = 1; i <= strak.mytrack.getGreenCount(); i++) {
                 tblok = strak.greenLine.getBlock("Green", i);
+                tblok.toString();
                 if (tblok.isCrossing()) {
                     cros = "Down";
                 } else {
@@ -1054,7 +1051,7 @@ public class CTCUI extends javax.swing.JFrame {
                 model.addRow(new Object[]{tblok.getBlockNum(), clos, tblok.getSetPointSpeed(), tblok.getAuthority(), tblok.getSpeedLimit(), cros, ""});
             }
         } else {
-            for (i = 0; i < strak.mytrack.getRedCount(); i++) {
+            for (i = 1; i <= strak.mytrack.getRedCount(); i++) {
                 tblok = strak.redLine.getBlock("Red", i);
                 if (tblok.isCrossing()) {
                     cros = "Down";
@@ -1076,13 +1073,13 @@ public class CTCUI extends javax.swing.JFrame {
         int i;
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) blockTable.getModel();
 
-        if (linetoadd.compareTo("Green") == 0) {
-            for (i = 0; i < strak.mytrack.getRedCount(); i++) {
+        if ((linetoadd.compareTo("Green") == 0) && (!greenselected)) {
+            for (i = (strak.mytrack.getRedCount() - 1 ); i >= 0; i--) {
                 model.removeRow(i);
             }
             addToBlockTables(linetoadd);
-        } else {
-            for (i = 0; i < strak.mytrack.getGreenCount(); i++) {
+        } else if (greenselected) {
+            for (i = (strak.mytrack.getGreenCount() - 1 ); i >= 0; i--) {
                 model.removeRow(i);
             }
             addToBlockTables(linetoadd);
@@ -1100,9 +1097,54 @@ public class CTCUI extends javax.swing.JFrame {
         int[] trains = new int[ntrains];
         
         for (i=0;i<ntrains;i++) {
-            trains[i] = Integer.parseInt((String)trainTable.getValueAt(i, 5));
+            trains[i] = (int)trainTable.getValueAt(i, 5);
         }
         
         return trains;
+    }
+    
+    public void updateBlockTable(Block block) {
+        //block id, open, set speed, authority, speed limit, crossing, light
+        //speed, authority, speed limit, crossing, lights, has switch, length, occupied?, 
+        if (block.closed) {
+            blockTable.setValueAt("Closed", block.getBlockNum() - 1, 1);
+        } else {
+            blockTable.setValueAt("Open", block.getBlockNum() - 1, 1);
+        }
+        blockTable.setValueAt("" + block.getSetPointSpeed(), block.getBlockNum() - 1, 3);
+        blockTable.setValueAt("" + block.getAuthority(), block.getBlockNum() - 1, 3);
+
+        //crossing is coming
+        //lights is coming
+        //block.Occupied;
+    }
+    
+    //returns an id for a new train
+    //returns 9001 if the transit system has max trains
+    public int chooseTrainId() {
+        int i;
+        int id = 9001;
+        
+        //if possible keep increasing ids
+        lastTrainID++;
+        
+        //if id can't be higher, pick the smallest available
+        if (lastTrainID >= mboTrains.length) {
+            //search mboTrains to find lowest unused id
+            //remember that train ids start at 1
+            for (i = 1; i < mboTrains.length; i++) {
+                if (mboTrains[i] == null) {
+                    id = i;
+                }
+            }
+        }
+        else {
+            //if possible, assign the next train id
+            id = lastTrainID;
+        }
+        
+        //if mboTrains is full, return in failure
+        
+        return id;
     }
 }

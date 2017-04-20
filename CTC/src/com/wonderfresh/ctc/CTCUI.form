@@ -310,42 +310,14 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="3">
-                        <Column editable="false" title="Block" type="java.lang.Object">
-                          <Data value="GA"/>
-                          <Data value="GB"/>
-                          <Data value="GC"/>
-                        </Column>
-                        <Column editable="false" title="Open" type="java.lang.Object">
-                          <Data value="Open"/>
-                          <Data value="Closed"/>
-                          <Data value="Open"/>
-                        </Column>
-                        <Column editable="false" title="Set Speed" type="java.lang.Object">
-                          <Data value="54"/>
-                          <Data value="0"/>
-                          <Data value="15"/>
-                        </Column>
-                        <Column editable="false" title="Authority" type="java.lang.Object">
-                          <Data value="1"/>
-                          <Data value="0"/>
-                          <Data value="1"/>
-                        </Column>
-                        <Column editable="false" title="Speed Limit" type="java.lang.Object">
-                          <Data value="55"/>
-                          <Data value="55"/>
-                          <Data value="75"/>
-                        </Column>
-                        <Column editable="false" title="Crossing" type="java.lang.Object">
-                          <Data value="n/a"/>
-                          <Data value="down"/>
-                          <Data value="n/a"/>
-                        </Column>
-                        <Column editable="false" title="Light" type="java.lang.Object">
-                          <Data value="n/a"/>
-                          <Data value="on"/>
-                          <Data value="n/a"/>
-                        </Column>
+                      <Table columnCount="7" rowCount="0">
+                        <Column editable="false" title="Block" type="java.lang.Object"/>
+                        <Column editable="false" title="Open" type="java.lang.Object"/>
+                        <Column editable="false" title="Set Speed" type="java.lang.Object"/>
+                        <Column editable="false" title="Authority" type="java.lang.Object"/>
+                        <Column editable="false" title="Speed Limit" type="java.lang.Object"/>
+                        <Column editable="false" title="Crossing" type="java.lang.Object"/>
+                        <Column editable="false" title="Light" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
