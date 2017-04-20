@@ -17,3 +17,4 @@
 /TrainModel/build/
 /mbo/build/
 **/*.class
+/CTC/dist/

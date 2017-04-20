@@ -18,6 +18,7 @@ import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.MboInterface;
 //import com.wonderfresh.commons.MboInterfaceImpl;
 import com.wonderfresh.interfaces.TrackModelInterface;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -118,16 +119,12 @@ public class Mbo extends Thread{
         mboSection[] greenSections=new mboSection[28];
         for (i=0;i<28;i++){
             mboSection temp=new mboSection();
-            greenSections[i]=temp;
-        }
+            greenSections[i]=temp; }
         mboSection[] redSections=new mboSection[21];
         for (i=0;i<21;i++){
             mboSection temp=new mboSection();
-            redSections[i]=temp;
-        }
+            redSections[i]=temp; }
 //Get time around track
-        
-  
         int redTimeAroundTrack=getTimeAroundTrack(0,redLine,greenLine, redSections);       //0 for red
         int greenTimeAroundTrack=getTimeAroundTrack(1,redLine,greenLine, greenSections);     //1 for green
 //create Train schedule with available drivers
@@ -147,7 +144,7 @@ public class Mbo extends Thread{
         String[] closedTracks=new String[100];
         mboTrain[] allTrains=new mboTrain[100];
         allTrains=mboTrainInitialization(allTrains);//initialize all trains
-        System.out.println("id: "+allTrains[0].id+" "+allTrains[0].color);
+        //System.out.println("id: "+allTrains[0].id+" "+allTrains[0].color);
         running=1;
         while(running==1){
             try {
@@ -207,7 +204,11 @@ public class Mbo extends Thread{
      * @return 
      */
     int getTimeAroundTrack(int track, TrackGraph gr, TrackGraph red, mboSection[] mySections){
-        int time=0;  //1 for green
+        ArrayList<Block> Included_Blocks;
+        boolean checkStation=false;
+        String stationName="  ";
+        int time=0,itter,total=0;
+        double len=0, lowspeed=100;  //1 for green
         //red
         if (track==0){/**********RED**************/
  /**
@@ -220,9 +221,33 @@ public class Mbo extends Thread{
  
  /**  yard -k-l-m-n-o-p-q-n-r-s-t-u-v-w-x-y-z-f-e-d-c-b-a-d-e-f-g-h-i-(j-continue//zz-yard(leaving) or yy(coming in))**/
             
-            Section k=gr.getSection("k");
-                mySections[0].ID=k.getSectionName();
-            
+            Section k=new Section("k");
+                    checkStation=false;
+                    k=gr.getSection("K");
+                    mySections[0].ID=k.getSectionName();
+                    mySections[0].lowBlock=k.getLowestBlock().getBlockNum();
+                    mySections[0].highBlock=k.getHighestBlock().getBlockNum();
+                    Included_Blocks=k.getBlockList();
+                    total=Included_Blocks.size();
+                    for(itter=0;itter<total;itter++){
+                       // mySections=mySections.addBlock()
+                        len=Included_Blocks.get(itter).getBlockLength()+len;
+                        if (lowspeed>Included_Blocks.get(itter).getSpeedLimit()){
+                            lowspeed=Included_Blocks.get(itter).getSpeedLimit();
+                            checkStation=Included_Blocks.get(itter).isStation();
+                            if(checkStation){
+                                mySections[0].lengthToStation=len;
+                                stationName=Included_Blocks.get(itter).getStation();
+                            }
+                        }
+                    }
+                    mySections[0].length=len;
+                    mySections[0].lengthFromStation=len-mySections[0].lengthToStation;
+                    mySections[0].maxSpeed=lowspeed;
+                    mySections[0].numBlocks=total;
+                    mySections[0].station=stationName;
+                    
+                    
             Section l=gr.getSection("l");
                 mySections[1].ID=k.getSectionName();
                 
@@ -758,7 +783,7 @@ public class Mbo extends Thread{
             t[i].number=-1;
             t[i].speed=-1;
             t[i].color= "---";
-            System.out.println(""+t[i].id+"  "+t[i].color);
+           // System.out.println(""+t[i].id+"  "+t[i].color);
         }
         return t;
    }
