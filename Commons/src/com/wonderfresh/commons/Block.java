@@ -37,6 +37,7 @@ public class Block {
     private boolean BrokenTrack;
     private boolean CircuitFailure;
     private boolean PowerFailure;
+    private boolean beaconExists;
     private Beacon beaconSig = null;
     private int setPointSpeed;
     private double Authority = -1;
@@ -64,6 +65,7 @@ public class Block {
         this.SpeedLimit = (int)speed;
         this.setPointSpeed = this.SpeedLimit;
         this.closed = false;
+        this.beaconExists = false;
        
         // Adding the components of the infrastructure
         this.Underground = infra.contains("UNDERGROUND");
@@ -402,7 +404,7 @@ public class Block {
      * @return true if beacon exists, false otherwise
      */
     public boolean hasBeacon(){
-        return false;
+        return this.beaconExists;
     }
     
     /**
@@ -414,6 +416,7 @@ public class Block {
     }
     
     public void setBeacon(Beacon b){
+        this.beaconExists = true;
         this.beaconSig = b;
     }
     
