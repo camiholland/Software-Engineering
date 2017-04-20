@@ -76,11 +76,11 @@ public class Mbo extends Thread{
 //estimate train runs for passengers
         int minsPerDay=28*60;   //24+4 for double rush
         int redWait = 0;
-        redRuns=(redPassengers/passPerCar);//24+4 for double car on rush hour
+        redRuns=(redPassengers/(passPerCar+1));//24+4 for double car on rush hour
         greenRuns=(greenPassengers/passPerCar);
         if (redRuns>0){ redWait=(minsPerDay/redRuns);}
         redWait=redWait-redWait%5;
-        int greenWait=(minsPerDay/greenRuns);
+        int greenWait=(minsPerDay/(greenRuns+1));
         greenWait=greenWait-greenWait%5;
         if(drivers>50){System.out.println("MBO: Only 50 Drivers are supported");}
         if(drivers<7){System.out.println("MBO: Innadequate number of drivers to run 24 hours a day, 7 days a week");}
@@ -133,14 +133,15 @@ public class Mbo extends Thread{
         allTrains=mboTrainInitialization(allTrains);//initialize all trains
         //System.out.println("id: "+allTrains[0].id+" "+allTrains[0].color);
         running=1;
+        mboInterface.addToDailyPassengers(2);
         while(running==1){
             try {
                 Thread.sleep(100);
                 
                 
 //tesing passenger stuff in interface************************************************************************<-takeout
-        mboInterface.setPassengersOnTrain(1, 15);
-        mboInterface.addToDailyPassengers(2);
+        //mboInterface.setPassengersOnTrain(1, 15);
+        
                 
                 //check if still in mbo mode
                 
@@ -383,7 +384,7 @@ public class Mbo extends Thread{
                 redDetails[redIndex][1]=t[i].block+":"+t[i].metersInBlock;
                 redDetails[redIndex][2]=t[i].speed+"";
                 redDetails[redIndex][3]=t[i].authority+"";
-                redDetails[redIndex][4]=t[i].number+"";
+                redDetails[redIndex][4]=t[i].numPassengers+"";
                 redIndex++;
             }
             if(t[i].id<1 && t[i].color.compareToIgnoreCase("red")==0){
@@ -398,7 +399,7 @@ public class Mbo extends Thread{
                 greenDetails[greenIndex][1]=t[i].block+":"+t[i].metersInBlock;
                 greenDetails[greenIndex][2]=t[i].speed+"";
                 greenDetails[greenIndex][3]=t[i].authority+"";
-                greenDetails[greenIndex][4]=t[i].number+"";
+                greenDetails[redIndex][4]=t[i].numPassengers+"";
                 greenIndex++;
             }
             if(t[i].id<1 &&t[i].color.compareToIgnoreCase("green")==0){
