@@ -63,7 +63,7 @@ public class SystemWrapper {
         mbo = new Mbo();
         mbo.start(); 
         ctc = new CTC();
-       
+        ctc.start();
         
         
         //mboInterface.initializeTrainArray();
