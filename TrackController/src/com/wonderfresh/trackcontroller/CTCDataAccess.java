@@ -46,7 +46,8 @@ public class CTCDataAccess {
         return true;
     }
     
-    public static boolean deployTrain(String line, int setSpeed, int authority){
-        return false;
+    public static boolean deployTrain(int id, String line){
+        TrackSimulator.startTrain(id, line);
+        return true;
     }
 }
