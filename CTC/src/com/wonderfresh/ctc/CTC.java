@@ -34,6 +34,8 @@ public class CTC extends Thread {
     }
     
     public void launchUI() {
+        ctcui = new CTCUI();
+        
         //Set the Nimbus look and feel for the user interface
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -58,8 +60,6 @@ public class CTC extends Thread {
         //</editor-fold>
         //</editor-fold>
         
-        ctcui = new CTCUI();
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ctcui.setVisible(true);
@@ -73,7 +73,7 @@ public class CTC extends Thread {
         scheduleLines = loadArrayStyleFile(scheduleFilename);
     }
     
-    public void run() {
+    @Override public void run() {
         startTime=Time.getTimeNow();
         currentTime=startTime;
         starttimedecimal = 0;
