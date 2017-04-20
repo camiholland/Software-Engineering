@@ -31,7 +31,7 @@ public class CTCUI extends javax.swing.JFrame {
         mbomode = false;
         mbo = Interfaces.getMboInterface();
         selline = "Green";
-//        addToBlockTables(selline);
+        addToBlockTables(selline);
     }
 
     /**
@@ -725,12 +725,12 @@ public class CTCUI extends javax.swing.JFrame {
 
     private void chooseLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseLineActionPerformed
         //switches block table to display blocks from selected line
-        //changes table color (was getting error so removed that)
+        //changes table color
         if (chooseLine.getSelectedIndex() == 0) {
-//            blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
+            blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
             selline = "Green";
         } else {
-//            blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
+            blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
             selline = "Red";
         }
     }//GEN-LAST:event_chooseLineActionPerformed
