@@ -10,6 +10,8 @@ public class CTCUI extends javax.swing.JFrame {
     int simspeed;
     javax.swing.JTable redtable;
     SimpleTrack strak;
+    double tputval;
+    int ntrains;
 
 //    Mbo mbo;
     public CTCUI() {
@@ -18,6 +20,8 @@ public class CTCUI extends javax.swing.JFrame {
         strak = new SimpleTrack();
         strak.loadTrack();
         mode = 0;
+        tputval = 0;
+        ntrains = 0;
 //        mbo = new Mbo();
     }
 
@@ -493,7 +497,7 @@ public class CTCUI extends javax.swing.JFrame {
         throughpanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Throughput", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         throughput.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        throughput.setText("0 Trains/Hour");
+        throughput.setText("0 trains/hour");
 
         javax.swing.GroupLayout throughpanelLayout = new javax.swing.GroupLayout(throughpanel);
         throughpanel.setLayout(throughpanelLayout);
@@ -661,6 +665,7 @@ public class CTCUI extends javax.swing.JFrame {
         //remove row if found
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) trainTable.getModel();
         model.removeRow(rowfound);
+        ntrains--;
     }//GEN-LAST:event_removeButtonActionPerformed
 
     private void dispatchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dispatchButtonActionPerformed
@@ -728,7 +733,8 @@ public class CTCUI extends javax.swing.JFrame {
             trainTable.setValueAt(values[1], rowCount, 2);
             trainTable.setValueAt(values[2], rowCount, 3);
             trainTable.setValueAt(values[3], rowCount, 4);
-            trainTable.setValueAt(rowCount, rowCount, 5);
+            trainTable.setValueAt(rowCount, rowCount, 5); //shb the id given back?
+            ntrains++;
         }
     }//GEN-LAST:event_dispatchButtonActionPerformed
 
@@ -1090,7 +1096,7 @@ public class CTCUI extends javax.swing.JFrame {
         //MBO also wants to know that block is closing/opening
         //just tell track controller to close a hardcoded block: E4, green
         //just set block E4 on green line to closed
-//        Block tempblock = greenLine.getBlock("green", 19);
+//        Block tempblock = greenLine.getBlock("Green", 19);
 //        tempblock.closeBlock();
         //if block found, open or closed as requested
         if (isOpening) {
@@ -1103,7 +1109,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //returns the set speed the CTC believes this block currently has
     public int getSetSpeed(String line, int block) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             return strak.mytrack.getGreenLine().getBlock(line, block).getSetPointSpeed();
         }
         return strak.mytrack.getRedLine().getBlock(line, block).getSetPointSpeed();
@@ -1111,7 +1117,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //informs CTC of a change in the track.
     public void setSetSpeed(String line, int block, int speed) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             strak.mytrack.getGreenLine().getBlock(line, block).setSetPointSpeed(speed);
         }
         strak.mytrack.getRedLine().getBlock(line, block).setSetPointSpeed(speed);
@@ -1119,7 +1125,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //returns the authority the CTC believes this block currently has
     public double getAuthority(String line, int block) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             return strak.mytrack.getGreenLine().getBlock(line, block).getAuthority();
         }
         return strak.mytrack.getRedLine().getBlock(line, block).getAuthority();
@@ -1127,7 +1133,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //informs CTC of a change in the track.
     public void getAuthority(String line, int block, double auth) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             strak.mytrack.getGreenLine().getBlock(line, block).setAuthority(auth);
         }
         strak.mytrack.getRedLine().getBlock(line, block).setAuthority(auth);
@@ -1135,7 +1141,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //returns whether or not the CTC believes a block is open
     public boolean getBlockOpen(String line, int block) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             return strak.mytrack.getGreenLine().getBlock(line, block).closed;
         }
         return strak.mytrack.getRedLine().getBlock(line, block).closed;
@@ -1143,7 +1149,7 @@ public class CTCUI extends javax.swing.JFrame {
 
     //informs CTC of a change in the track.
     public void setBlockOpen(String line, int block, boolean closed) {
-        if (0 == line.compareTo("green")) {
+        if (0 == line.compareTo("Green")) {
             strak.mytrack.getGreenLine().getBlock(line, block).closed = closed;
         }
         strak.mytrack.getRedLine().getBlock(line, block).closed = closed;
@@ -1188,9 +1194,9 @@ public class CTCUI extends javax.swing.JFrame {
         Block tblok;
         String cros, clos;
 
-        if (linetoadd.compareTo("green") == 0) {
+        if (linetoadd.compareTo("Green") == 0) {
             for (i = 0; i < strak.mytrack.getGreenCount(); i++) {
-                tblok = strak.greenLine.getBlock("green", i);
+                tblok = strak.greenLine.getBlock("Green", i);
                 if (tblok.isCrossing()) {
                     cros = "Down";
                 } else {
@@ -1205,7 +1211,7 @@ public class CTCUI extends javax.swing.JFrame {
             }
         } else {
             for (i = 0; i < strak.mytrack.getRedCount(); i++) {
-                tblok = strak.redLine.getBlock("red", i);
+                tblok = strak.redLine.getBlock("Red", i);
                 if (tblok.isCrossing()) {
                     cros = "Down";
                 } else {
@@ -1226,7 +1232,7 @@ public class CTCUI extends javax.swing.JFrame {
         int i;
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) blockTable.getModel();
 
-        if (linetoadd.compareTo("green") == 0) {
+        if (linetoadd.compareTo("Green") == 0) {
             for (i = 0; i < strak.mytrack.getRedCount(); i++) {
                 model.removeRow(i);
             }
@@ -1237,5 +1243,22 @@ public class CTCUI extends javax.swing.JFrame {
             }
             addToBlockTables(linetoadd);
         }
+    }
+    
+    public void setThroughput(double tput) {
+        tputval = tput;
+        throughput.setText(tputval + "trains/hour");
+    }
+    
+    //returns array of train ids
+    public int[] getMyTrains() {
+        int i;
+        int[] trains = new int[ntrains];
+        
+        for (i=0;i<ntrains;i++) {
+            trains[i] = Integer.parseInt((String)trainTable.getValueAt(i, 5));
+        }
+        
+        return trains;
     }
 }
