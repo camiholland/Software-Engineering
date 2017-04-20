@@ -12,21 +12,12 @@ package com.wonderfresh.commons;
  */
 public class mboTrainDepartInfo {
     
-    public String station="-", station2="-",station3="-";
+    public int trainID;
+    public String line;
+    public String station;
     public String trainIDAndDepart=" Nothing to Show "; // Train 1 : Departing 1:19 pm
-    public mboTrainDepartInfo info[];//100 1 for 
     
     public mboTrainDepartInfo(){
          }
-    
-    public mboTrainDepartInfo[] setmboTrainDepartInfo(String station, int ID, String departTime){
-        mboTrainDepartInfo info[]=new mboTrainDepartInfo[100];
-        
-        
-        return info;
-    }
-    public mboTrainDepartInfo[] getmboTrainDepartInfo(String station){
-        mboTrainDepartInfo info[]=new mboTrainDepartInfo[10];
-        return info;
-    }
+   
 }
