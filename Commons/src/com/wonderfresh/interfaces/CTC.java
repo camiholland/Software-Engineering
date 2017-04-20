@@ -1,4 +1,4 @@
-package com.wonderfresh.ctc.ctcapi;
+package com.wonderfresh.interfaces;
 
 public interface CTC {
     //the cleanest interface
