@@ -10,8 +10,8 @@ package com.wonderfresh.commons;
  * @author kwc12
  */
 class Beacon {
-    private String station;
-    private double distance;
+    private String station = "no name";
+    private double distance = 0.0;
     private int side = 1;
     
     public Beacon(String station){
