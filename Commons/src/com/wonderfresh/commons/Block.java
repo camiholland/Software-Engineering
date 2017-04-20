@@ -487,14 +487,10 @@ public class Block {
                     tempBlock = tempEdge.getEndingBlock();
                     tempBlock.setBeacon(tempEdge.getBeacon());
                     if((tempBlock.getBlockNum()-prevBlock.getBlockNum())!=0){
-                        break;
+                        return tempBlock;
                     }
                 }
-            }
-            newBlock = tempBlock;
-            
-            return newBlock;
-            
+            }            
         }
         return null;
     }

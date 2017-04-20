@@ -727,7 +727,7 @@ public class TrackModel{
                 if(distanceCovered>=160.00 || (priorBlock.isSwitchFromYard() && ((priorBlock.getBlockNum()-nextBlock.getBlockNum())<2))){
                     Beacon beaconToAdd = new Beacon(station);
                     beaconToAdd.setDistance(distanceCovered);
-                    Edge tmpEdge = nextBlock.getEdge(current);
+                    Edge tmpEdge = nextBlock.getEdge(priorBlock);
                     tmpEdge.setBeacon(beaconToAdd);
                     return;
                 }else{
