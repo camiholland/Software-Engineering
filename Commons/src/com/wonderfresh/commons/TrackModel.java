@@ -637,7 +637,9 @@ public class TrackModel{
                 TrackLine_Instance.addEdge(defaultTwo, secondaryBlock, false);
                 TrackLine_Instance.addEdge(secondaryBlock, defaultTwo, false);
             }
-            setBeacons();
+            if(line_no==1){
+                setBeacons();
+            }
         }
 
     }
@@ -692,7 +694,7 @@ public class TrackModel{
      * @return an integer array where i[0] is the block that has the beacon and i[1] is the distance
      */
     private void setBeaconBlock(TrackGraph line, Block current, double distanceCovered, String station, Block priorBlock){
-        
+        System.out.println("You have entered the SET BEACON BLOCK FUNCTION!!!!");
         // Gets all blocks leading to current, if part of a switch, both other blocks in switch are included.
         ArrayList<Block> leadingToCurrent = getPossiblePreviousBlocks(line, current);
         ArrayList<Block> leadingToCurrent_Filtered = new ArrayList<>();

@@ -29,7 +29,7 @@ public class Block {
     final private String ArrowDirection;
     final private boolean Underground;
     final private boolean Crossing;
-    private boolean CrossingOpenToCars;
+    public boolean CrossingOpenToCars;
     private boolean Station_status;
     final private String Station;
     private int PeopleAtStation;

@@ -1317,37 +1317,45 @@ public class TrackModelUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TrackModelUI().setVisible(true);
-//                while(true){
-////                    try{
-////                        TimeUnit.SECONDS.sleep(1);
-////                    }catch(InterruptedException e){
-////                        System.out.println("exit trackUI");
-////                    }
-//                    ArrayList<Block> OccupiedBlocksRed = newTrack.getRedLine().getOccupiedBlocks();
-//                    ArrayList<Block> OccupiedBlocksGreen = newTrack.getGreenLine().getOccupiedBlocks();
-//                    int RedSizeO = OccupiedBlocksRed.size();
-//                    int GreenSizeO = OccupiedBlocksGreen.size();
-//                    String[] OccupiedString = new String[RedSizeO+GreenSizeO];
-//                    String OccupiedText = "";
-//                    for(int i=0; i<RedSizeO; i++){
-//                        OccupiedString[i] = OccupiedBlocksRed.get(i).getLabel();
-//                    }
-//                    for(int j=0; j<GreenSizeO; j++){
-//                        OccupiedString[RedSizeO+j] = OccupiedBlocksGreen.get(j).getLabel();
-//                    }
-//                    int rows = 0;
-//                    for(int k=0; k<OccupiedString.length; k++){
-//                        if(rows<5){
-//                            OccupiedText.concat(OccupiedString[k]+"\t");
-//                        }else{
-//                            rows = 0;
-//                            OccupiedText.concat(OccupiedString[k]+"\n");
-//                        }
-//                    }
-//                    jTextArea1.setText(OccupiedText);
-//                }
+                new updateOccuppiedBlocks().start();
+
             }
         });
+    }
+    
+    private static class updateOccuppiedBlocks extends Thread{
+        
+        public void run(){
+                  while(!Thread.interrupted()){
+//                    try{
+//                        TimeUnit.SECONDS.sleep(1);
+//                    }catch(InterruptedException e){
+//                        System.out.println("exit trackUI");
+//                    }
+                    ArrayList<Block> OccupiedBlocksRed = newTrack.getRedLine().getOccupiedBlocks();
+                    ArrayList<Block> OccupiedBlocksGreen = newTrack.getGreenLine().getOccupiedBlocks();
+                    int RedSizeO = OccupiedBlocksRed.size();
+                    int GreenSizeO = OccupiedBlocksGreen.size();
+                    String[] OccupiedString = new String[RedSizeO+GreenSizeO];
+                    String OccupiedText = "";
+                    for(int i=0; i<RedSizeO; i++){
+                        OccupiedString[i] = OccupiedBlocksRed.get(i).getLabel();
+                    }
+                    for(int j=0; j<GreenSizeO; j++){
+                        OccupiedString[RedSizeO+j] = OccupiedBlocksGreen.get(j).getLabel();
+                    }
+                    int rows = 0;
+                    for(int k=0; k<OccupiedString.length; k++){
+                        if(rows<5){
+                            OccupiedText.concat(OccupiedString[k]+"\t");
+                        }else{
+                            rows = 0;
+                            OccupiedText.concat(OccupiedString[k]+"\n");
+                        }
+                    }
+                    jTextArea1.setText(OccupiedText);
+                }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1472,4 +1480,4 @@ public class TrackModelUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-} 
+}
