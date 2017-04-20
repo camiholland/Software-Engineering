@@ -641,19 +641,19 @@ public class TrackModel{
                 TrackLine_Instance.addEdge(defaultTwo, secondaryBlock, false);
                 TrackLine_Instance.addEdge(secondaryBlock, defaultTwo, false);
             }
-            if(line_no==1){
-                setBeacons();
-            }
+//            if(line_no==1){
+//                setBeacons(line_no);
+//            }
         }
 
     }
     
-    private void setBeacons(){
+    private void setBeacons(int line_no){
         // First loop to run through both tracks
-        for(int i = 0; i<2; i++){
+        
             TrackGraph currentLine;
             String color = "";
-            if(i==0){
+            if(line_no==0){
                 currentLine = TrackSimulator.getInstance().getTrack().getRedLine();
                 color = "Red";
             }else{
@@ -686,7 +686,7 @@ public class TrackModel{
 //             Should indicate which direction the beacon is signaling for
 //             Should set beacons 160 m away from station or tunnel entrance.
             
-        }
+        
     }
     
     /**
@@ -724,10 +724,10 @@ public class TrackModel{
             Block nextBlock = leadingToCurrent_Filtered.get(p);
 
                 // Need to also cover the case for the first block in red line where not 160 before beacon
-                if(distanceCovered>=160.00 || (priorBlock.isSwitchFromYard() && ((priorBlock.getBlockNum()-nextBlock.getBlockNum())>2))){
+                if(distanceCovered>=160.00 || (priorBlock.isSwitchFromYard() && ((priorBlock.getBlockNum()-nextBlock.getBlockNum())<2))){
                     Beacon beaconToAdd = new Beacon(station);
                     beaconToAdd.setDistance(distanceCovered);
-                    Edge tmpEdge = nextBlock.getEdge(current);
+                    Edge tmpEdge = nextBlock.getEdge(priorBlock);
                     tmpEdge.setBeacon(beaconToAdd);
                     return;
                 }else{

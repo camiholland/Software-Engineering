@@ -35,7 +35,6 @@ public class TrainModel {
     Block block;
     Block nextBlock;
     boolean line; //if true, green line; else, red line
-    //TrackSimulator trackSim;
     
     int ID;
     
@@ -43,12 +42,12 @@ public class TrainModel {
     final double CAR_MASS_TON = 40.9; //tonnes (metric ton = 1000kg = 2204.62lbs)
     final int PASS_WEIGHT = 75; //kg                                            //... or 70???
     final int CAR_MASS = 40900; //kg
-    final double FRICTION = .06;                                                  //<-- that ain't right!
+    final double FRICTION = .06;
     final int T = 1;
     final double MAX_ACC = .5; //m/s2
     final double S_BRAKE_RATE = -1.2; //m/s2
     final double E_BRAKE_RATE = -2.73; //m/s2
-    final int DEFAULT_TEMP = 75;
+    final int DEFAULT_TEMP = 70;
     final double G = 9.8; //m/s2
     
     int numCars;
@@ -60,13 +59,10 @@ public class TrainModel {
     double speed;
     double totalMass;
     double acc;
-    //double error;
-    //double previousError;
     double grade;
     int sps;
     int speedLimit;
     double powerCmd;
-    //double previousPowerCmd;
     double distance;
     double distanceWithinBlock;
     double blockLengthTotal;
@@ -88,25 +84,29 @@ public class TrainModel {
     double authority;
     String announcement;
     
-    String[] testStationString = {"Pioneer", "Edgebrook", "Station", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
+    String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
     
-    public TrainModel(int trainID){
+    public TrainModel(int trainID, String lineString){
         ID = trainID;
         
         tempCalc = new TemperatureCalculator(this);
         speedCalc = new SpeedCalculator(this);
         gui = new TrainModelUI(this);
-        //trackSim = TrackSimulator.getInstance();
         prevBlock = null;
-        line = true;                                                            // this should be a variable
+        if(lineString.equals("Red"))
+            line = false;
+        else if(lineString.equals("Green"))
+            line = true;
+        else{
+            System.out.println("Error: incorrect line. Green line will be assumed");
+            line = true;
+        }
         if(line)
             block = TrackSimulator.initBlock("Green");
         else
             block = TrackSimulator.initBlock("Red");
         block.setOccupied(true);
         nextBlock = block.getNextBlock(null);
-        //System.out.println(block.getLabel());
-        //System.out.println(nextBlock.getLabel());
         random = new Random();
         
         testing = Interfaces.getTrainControllerInterface();
@@ -121,14 +121,10 @@ public class TrainModel {
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
         acc = 0;
-        //error = 0;
-        //previousError = 0;
         grade = block.getBlockGrade();
         sps = block.getSetPointSpeed();
-        System.out.println(sps);
         speedLimit = block.getSpeedLimit();
         powerCmd = 0;
-        //previousPowerCmd = 0;
         distance = 0;
         distanceWithinBlock = 0;
         blockLengthTotal = block.getBlockLength();
@@ -158,17 +154,13 @@ public class TrainModel {
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
         testing.setSpeedAndAuth(sps, authority, ID);
-        //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
+        if(Integer.parseInt(beacon[2]) == -1)
+                testing.sendBeaconInfo(false, Integer.parseInt(beacon[1]), beacon[0], ID);
+        else if(Integer.parseInt(beacon[2]) == 1)
+            testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
+            nextBlock = block.getNextBlock(prevBlock);
         gui.setLine(line);
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String[] args) {
-        // TODO code application logic here
-        
-    }*/
     
     public void launchUI() {
         gui.setVisible(true);
@@ -189,8 +181,7 @@ public class TrainModel {
         }
         else if(powerCmd <= MAX_POWER){
             //a = P/mv
-            //acc = abs(powerCmd - previousPowerCmd) / (totalMass * (sps - speed)); //? I don't think this is right. plus obvi haven't taken into acct friction, grade, etc.
-            acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
+            acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);
             if(Double.isNaN(acc)){
                 acc = 0;
             }
@@ -216,7 +207,6 @@ public class TrainModel {
     }
     protected double updateAcc(double speed){
         acc = powerCmd/(totalMass*speed) - G*sin(grade) - FRICTION*G*cos(grade);  //reaches infinity...
-        //System.out.println("Acceleration = " + acc);
         if(eBrake)
             acc = E_BRAKE_RATE;
         else if(driverSetBrake){
@@ -260,7 +250,6 @@ public class TrainModel {
             else if(Integer.parseInt(beacon[2]) == 1)
                 testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
-            //System.out.println(nextBlock.toString());
             gui.setUnderground(block.isUnderground());
             if(block.isStation()){
                 gui.setStation(line, beacon[0], true);
@@ -275,7 +264,6 @@ public class TrainModel {
                 /*for(int i = 0; i < 13; i++)
                     gui.setStation(line, testStationString[i], false);*/
             }
-            //System.out.println("moved to next block" + block.getBlockNum());
         }
         mboInterface.setLocation(ID, block.getBlockNum(), (int)distanceWithinBlock, line);
     }
@@ -284,8 +272,6 @@ public class TrainModel {
         if(targetTemp != currentTemp){
             tempCalc.setTemp(currentTemp, targetTemp);
         }
-//        if(targetTemp != currentTemp)
-//            train.adjustTemp(); every second                                  FIX THIS and maybe do the same thing with speed so I don't have to deal with threads
     }
     protected void updateTemp(int currentTemp, int status){
         this.currentTemp = currentTemp;

@@ -23,7 +23,6 @@ public class ApproachingStation implements Runnable {
     boolean started;
     boolean isApproaching;
     boolean isVisible;
-    //boolean waiting;
     
     javax.swing.JLabel label;
     
@@ -39,7 +38,6 @@ public class ApproachingStation implements Runnable {
         this.label = label;
         isApproaching = true;
         if(!started){
-            //System.out.println("Thread started");
             started = true;
             thr.start();
         }

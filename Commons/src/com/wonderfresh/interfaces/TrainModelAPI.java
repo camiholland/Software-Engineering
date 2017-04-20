@@ -25,4 +25,6 @@ public interface TrainModelAPI {
     public void setPowerCommand(double pwrCmd, int trainID);
     
     public void setAnnouncement(String announcement, int trainID);
+    
+    public void addTrain(int trainID, String line);
 }

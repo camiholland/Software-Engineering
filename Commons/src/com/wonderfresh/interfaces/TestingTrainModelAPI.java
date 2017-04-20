@@ -53,4 +53,8 @@ public class TestingTrainModelAPI implements TrainModelAPI {
         System.out.println("\nTrainID: " + trainID + "\nAnnouncement: " + announcement);
     }
     
+    @Override
+    public void addTrain(int trainID, String line){
+        System.out.println("\nTrainID: " + trainID + "\nLine: " + line);
+    }
 }

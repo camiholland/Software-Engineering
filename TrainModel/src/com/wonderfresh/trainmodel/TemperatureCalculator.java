@@ -19,7 +19,6 @@ public class TemperatureCalculator implements Runnable {
     
     Thread thr;
     boolean started;
-    //boolean waiting;
     
     int currentTemp;
     int targetTemp;
@@ -28,14 +27,12 @@ public class TemperatureCalculator implements Runnable {
         tm = TM;
         thr = new Thread(this);
         started = false;
-        //waiting = true;
     }
     
     public void setTemp(int currentTemp, int targetTemp) {
         this.currentTemp = currentTemp;
         this.targetTemp = targetTemp;
         if(!started){
-            //System.out.println("Thread started");
             started = true;
             thr.start();
         }
@@ -43,11 +40,8 @@ public class TemperatureCalculator implements Runnable {
     
     @Override
     public void run(){
-        //System.out.println("running TempCalc");
         while(true){
-            //System.out.println("running...");                                   //WTH this loop works when this line exists but not when it doesn't
             if(currentTemp != targetTemp){
-                //System.out.println("RESUMED");
                 currentTime = (int) ceil(System.nanoTime()/1000000000);
                 while(currentTemp != targetTemp){
                     if(System.nanoTime()/1000000000 >= currentTime+1){
@@ -68,16 +62,12 @@ public class TemperatureCalculator implements Runnable {
                     }
                 }
                 tm.updateTemp(currentTemp, 0);
-                //waiting = true;
             }
-            /*waiting = true;
-            while(waiting){
-                try {
-                    thr.wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }*/
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TemperatureCalculator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

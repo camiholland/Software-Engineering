@@ -58,4 +58,8 @@ public class TrainModelAPIImpl implements TrainModelAPI {
     public void setAnnouncement(String announcement, int trainID){
         trains.getTrain(trainID).setAnnouncement(announcement);
     }
+    @Override
+    public void addTrain(int trainID, String line){
+        trains.addTrain(trainID, line);
+    }
 }
