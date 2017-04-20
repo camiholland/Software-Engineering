@@ -460,7 +460,7 @@ public class Block {
                 if(tempEdge.getStatus()){
                   
                     tempBlock = tempEdge.getEndingBlock();
-                    //tempBlock.setBeacon(tempEdge.getBeacon());
+                    tempBlock.setBeacon(tempEdge.getBeacon());
                     return tempBlock;
                 }
             }
