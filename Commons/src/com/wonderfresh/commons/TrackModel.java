@@ -641,9 +641,9 @@ public class TrackModel{
                 TrackLine_Instance.addEdge(defaultTwo, secondaryBlock, false);
                 TrackLine_Instance.addEdge(secondaryBlock, defaultTwo, false);
             }
-            if(line_no==1){
-                setBeacons(line_no);
-            }
+//            if(line_no==1){
+//                setBeacons(line_no);
+//            }
         }
 
     }
