@@ -18,6 +18,7 @@ public class MboInterfaceImpl implements MboInterface {
     mboTrain[] array;
     mboTrainDepartInfo[] info;
     boolean mboMode;
+    int dailyPassengers;
     
     public MboInterfaceImpl(){
        
@@ -139,6 +140,16 @@ public class MboInterfaceImpl implements MboInterface {
 
     @Override
     public void setOpenBlocks(int block, String description, String line) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addToDailyPassengers(int passengers) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPassengersOnTrain(int trainID, int currentPassengers) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

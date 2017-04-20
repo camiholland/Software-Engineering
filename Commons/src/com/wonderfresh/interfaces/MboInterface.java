@@ -11,7 +11,8 @@ import com.wonderfresh.commons.mboTrainDepartInfo;
  * 
  */
 public interface MboInterface {
-    
+    void addToDailyPassengers(int passengers);
+    void setPassengersOnTrain(int trainID, int currentPassengers);
     void setMboMode(boolean mode);//true=mbo mode on : false = mbo mode off
     void initializeTrainArray();
     void setClosedBlocks(int block, String description, String line);
