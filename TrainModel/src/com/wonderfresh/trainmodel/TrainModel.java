@@ -158,7 +158,11 @@ public class TrainModel {
         gui.setTemp(Double.toString(currentTemp));
         testing.setSpeedLimit(speedLimit, ID);
         testing.setSpeedAndAuth(sps, authority, ID);
-        //testing.sendBeaconInfo(Integer.parseInt(beacon[2]), Integer.parseInt(beacon[1]), beacon[0], ID);
+        if(Integer.parseInt(beacon[2]) == -1)
+                testing.sendBeaconInfo(false, Integer.parseInt(beacon[1]), beacon[0], ID);
+        else if(Integer.parseInt(beacon[2]) == 1)
+            testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
+            nextBlock = block.getNextBlock(prevBlock);
         gui.setLine(line);
     }
     
