@@ -160,6 +160,8 @@ public class TrainModel {
             testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
         gui.setLine(line);
+        mboInterface.addToDailyPassengers(numNewPass);
+        mboInterface.setPassengersOnTrain(ID, numPass);
     }
     
     public void launchUI() {
