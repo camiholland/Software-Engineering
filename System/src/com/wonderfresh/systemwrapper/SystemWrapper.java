@@ -20,6 +20,7 @@ import com.wonderfresh.trainmodel.Train;
 import com.wonderfresh.trainmodel.TrainModel;
 import com.wonderfresh.commons.TrackSimulator;
 import com.wonderfresh.mbo.Mbo;
+import com.wonderfresh.ctc.CTC;
 //Interfaces
 import com.wonderfresh.interfaces.Interfaces;
 import com.wonderfresh.interfaces.MboInterface;
@@ -40,6 +41,7 @@ public class SystemWrapper {
     public static TrackSimulator trackSimulator;
     public static TrackController trackController;
     public static MboInterface mboInterface;
+    public static CTC ctc;
     
     /**
      * @param args the command line arguments
@@ -60,7 +62,7 @@ public class SystemWrapper {
         mbo.start();
         trackController = new TrackController();
         trackController.start(); 
-         
+        ctc = new CTC();
        
         
         
@@ -78,7 +80,7 @@ public class SystemWrapper {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                (new SystemLauncher(trainControllers, trainModels,mbo)).setVisible(true);
+                (new SystemLauncher(trainControllers, trainModels,mbo,ctc)).setVisible(true);
             }
         });
         

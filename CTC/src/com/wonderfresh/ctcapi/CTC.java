@@ -1,19 +1,19 @@
 package com.wonderfresh.ctcapi;
 
 public interface CTC {
-    public int getSetSpeed(int block); //mph
+    public int getSetSpeed(String line, int block); //mph
     
-    public boolean setSetSpeed(int block, int speed);
-    
-    
-    public int getAuthority(int block);
-    
-    public boolean setAuthority(int block, int authority);
+    public boolean setSetSpeed(String line, int block, int speed);
     
     
-    public boolean getBlockOpen(int block); //true = open
+    public int getAuthority(String line, int block);
     
-    public boolean setBlockOpen(int block, boolean open);
+    public boolean setAuthority(String line, int block, int authority);
+    
+    
+    public boolean getBlockOpen(String line, int block); //true = open
+    
+    public boolean setBlockOpen(String line, int block, boolean open);
     //if automatic modes don't tell the CTC to open/close blocks, remove this
     
     
