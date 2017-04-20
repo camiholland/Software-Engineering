@@ -388,7 +388,12 @@ public class TrackControllerUI extends javax.swing.JFrame {
         setSpeedText.setText(Integer.toString(b.getSetPointSpeed()));
         
         if(b.isCrossing()){
-            
+            if(b.CrossingOpenToCars){
+                crossingText.setText("Crossing lights are down");
+            }
+            else{
+                crossingText.setText("Crossing lights are up");
+            }
         }
         else{
             crossingText.setText("No crossing");

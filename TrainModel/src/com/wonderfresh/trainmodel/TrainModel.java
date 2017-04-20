@@ -55,6 +55,7 @@ public class TrainModel {
     int numCrew;
     int maxPassCapacity;
     int numNewPass;
+    int numDisembarking;
     
     double speed;
     double totalMass;
@@ -84,7 +85,7 @@ public class TrainModel {
     double authority;
     String announcement;
     
-    String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
+    //String[] testStationString = {"Pioneer", "Edgebrook", "University of Pittsburgh", "Whited", "South Bank", "Central", "Inglewood", "Overbrook", "Glenbury", "Dormont", "Mount Lebanon", "Castle Shannon", "Poplar"};
     
     public TrainModel(int trainID, String lineString){
         ID = trainID;
@@ -113,10 +114,11 @@ public class TrainModel {
         mboInterface = Interfaces.getMboInterface();
         
         numCars = 1;                                                            //should be variable
-        numPass = 0;
+        numPass = 1;
         numCrew = 1;
         maxPassCapacity = 222*numCars;
         numNewPass = 0;
+        numDisembarking = 0;
         
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
@@ -160,6 +162,8 @@ public class TrainModel {
             testing.sendBeaconInfo(true, Integer.parseInt(beacon[1]), beacon[0], ID);
             nextBlock = block.getNextBlock(prevBlock);
         gui.setLine(line);
+        mboInterface.addToDailyPassengers(numNewPass);
+        mboInterface.setPassengersOnTrain(ID, numPass);
     }
     
     public void launchUI() {
@@ -252,12 +256,19 @@ public class TrainModel {
             nextBlock = block.getNextBlock(prevBlock);
             gui.setUnderground(block.isUnderground());
             if(block.isStation()){
-                gui.setStation(line, beacon[0], true);
-                gui.setNotification("Next Stop: " + beacon[0]);
+                gui.setStation(line, block.getStation()/*beacon[0]*/, true);
+                gui.setNotification("Next Stop: " + block.getStation()/*beacon[0]*/+ "!");
                 /*for(int i = 0; i < 13; i++){
                     gui.setStation(line, testStationString[i], true);
                     gui.setNotification("Next Stop: " + testStationString[i]);
                 }*/
+                numDisembarking = random.nextInt(numPass);
+                numPass -= numDisembarking;
+                numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
+                numPass += numNewPass;
+                mboInterface.addToDailyPassengers(numNewPass);
+                mboInterface.setPassengersOnTrain(ID, numPass);
+                gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
             }
             if(prevBlock.isStation()){
                 gui.setStation(line, previousStation, false);
@@ -329,12 +340,13 @@ public class TrainModel {
         leftDoorsStatus = status;
         if(status > 0){
             gui.on(4);
-            numPass -= random.nextInt(numPass);
+            numDisembarking = random.nextInt(numPass);
+            numPass -= numDisembarking;
             numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
             numPass += numNewPass;
             mboInterface.addToDailyPassengers(numNewPass);
             mboInterface.setPassengersOnTrain(ID, numPass);
-            gui.setNumPass(Integer.toString(numPass));
+            gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
         }
         else if(status == 0){
             gui.off(4);
@@ -356,12 +368,13 @@ public class TrainModel {
         rightDoorsStatus = status;
         if(status > 0){
             gui.on(5);
-            numPass -= random.nextInt(numPass);
+            numDisembarking = random.nextInt(numPass);
+            numPass -= numDisembarking;
             numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
             numPass += numNewPass;
             mboInterface.addToDailyPassengers(numNewPass);
             mboInterface.setPassengersOnTrain(ID, numPass);
-            gui.setNumPass(Integer.toString(numPass));
+            gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
         }
         else if(status == 0){
             gui.off(5);

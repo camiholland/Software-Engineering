@@ -42,7 +42,7 @@ public class TrainModelUI extends javax.swing.JFrame {
         yellowSteelPlaza.setVisible(false);
         yellowHerron.setVisible(false);
         yellowStationSquare.setVisible(false);
-        yellowSouthBank.setVisible(false);
+        //yellowSouthBank.setVisible(false);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -693,7 +693,10 @@ public class TrainModelUI extends javax.swing.JFrame {
 
         yellowSouthBank.setBackground(new java.awt.Color(255, 255, 0));
         yellowSouthBank.setForeground(new java.awt.Color(255, 255, 0));
-        yellowSouthBank.setOpaque(true);
+        yellowSouthBank.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        yellowSouthBank.setMaximumSize(new java.awt.Dimension(10, 10));
+        yellowSouthBank.setMinimumSize(new java.awt.Dimension(10, 10));
+        yellowSouthBank.setPreferredSize(new java.awt.Dimension(10, 10));
 
         javax.swing.GroupLayout redLinePanelLayout = new javax.swing.GroupLayout(redLinePanel);
         redLinePanel.setLayout(redLinePanelLayout);
@@ -703,7 +706,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                 .addComponent(redLineRouteImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(redLinePanelLayout.createSequentialGroup()
-                .addGap(157, 157, 157)
+                .addGap(156, 156, 156)
                 .addComponent(yellowSouthBank, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,9 +718,9 @@ public class TrainModelUI extends javax.swing.JFrame {
         redLinePanelLayout.setVerticalGroup(
             redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, redLinePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addComponent(yellowSouthBank, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(redLineRouteImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(redLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(redLinePanelLayout.createSequentialGroup()
@@ -800,73 +803,38 @@ public class TrainModelUI extends javax.swing.JFrame {
         redLineLightPanelLayout.setHorizontalGroup(
             redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                .addGap(152, 152, 152)
+                .addGap(36, 36, 36)
+                .addComponent(yellowShadyside, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(yellowHerron, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(yellowSwissvale, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addComponent(yellowPennStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(yellowFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
+                .addGap(49, 49, 49)
+                .addComponent(yellowStationSquare, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(yellowSouthHills, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(94, 94, 94)
-                    .addComponent(yellowHerron, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(398, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(211, 211, 211)
-                    .addComponent(yellowPennStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(281, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(270, 270, 270)
-                    .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(222, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(386, 386, 386)
-                    .addComponent(yellowStationSquare, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(106, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(36, 36, 36)
-                    .addComponent(yellowShadyside, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(456, Short.MAX_VALUE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         redLineLightPanelLayout.setVerticalGroup(
             redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, redLineLightPanelLayout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(yellowFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yellowSouthHills, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yellowSwissvale, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(yellowSouthHills, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowShadyside, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowHerron, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowSwissvale, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowPennStation, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowFirst, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowStationSquare, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
+                    .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE))
                 .addGap(36, 36, 36))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(yellowHerron, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(yellowPennStation, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(yellowSteelPlaza, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(yellowStationSquare, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE)))
-            .addGroup(redLineLightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(redLineLightPanelLayout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(yellowShadyside, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(38, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout routePanelLayout = new javax.swing.GroupLayout(routePanel);
@@ -930,7 +898,7 @@ public class TrainModelUI extends javax.swing.JFrame {
                         .addComponent(redLinePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(38, 38, 38))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, routePanelLayout.createSequentialGroup()
-                        .addGap(0, 56, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(greenLineLightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)))
                 .addGroup(routePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1147,8 +1115,9 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setPowerCmd(String powerCmd){
         powerCmdBox.setText(powerCmd);
     }
-    public void setNumPass(String numPass){
+    public void setNumPass(String numPass, String numDisembarking){
         numPassBox.setText(numPass);
+        numDisembarkingBox.setText(numDisembarking);
     }
     public void setInitials(String capacity, String numCrew, String numPass, String sps, String trainID){
         maxPassCapacityBox.setText(capacity);
@@ -1185,44 +1154,44 @@ public class TrainModelUI extends javax.swing.JFrame {
         //if line, green line; else, red line
         if(line){
             if(station != null){
-                if(station.equals("Pioneer")){
+                if(station.trim().equals("PIONEER")){
                     //approachingStation.isAtStation(yellowPioneer);
                     yellowPioneer.setVisible(atStation);
                 }
-                else if(station.equals("Edgebrook")){
+                else if(station.trim().equals("EDGEBROOK")){
                     yellowEdgebrook.setVisible(atStation);
                 }
-                else if(station.equals("University of Pittsburgh")){
+                else if(station.trim().equals("STATION")){
                     yellowStation.setVisible(atStation);
                 }
-                else if(station.equals("Whited")){
+                else if(station.trim().equals("WHITED")){
                     yellowWhited.setVisible(atStation);
                 }
-                else if(station.equals("South Bank")){
+                else if(station.trim().equals("SOUTH BANK")){
                     yellowSouthBank.setVisible(atStation);
                 }
-                else if(station.equals("Central")){
+                else if(station.trim().equals("CENTRAL")){
                     yellowCentral.setVisible(atStation);
                 }
-                else if(station.equals("Inglewood")){
+                else if(station.trim().equals("INGLEWOOD")){
                     yellowInglewood.setVisible(atStation);
                 }
-                else if(station.equals("Overbrook")){
+                else if(station.trim().equals("OVERBROOK")){
                     yellowOverbrook.setVisible(atStation);
                 }
-                else if(station.equals("Glenbury")){
+                else if(station.trim().equals("GLENBURY")){
                     yellowGlenbury.setVisible(atStation);
                 }
-                else if(station.equals("Dormont")){
+                else if(station.trim().equals("DORMONT")){
                     yellowDormont.setVisible(atStation);
                 }
-                else if(station.equals("Mount Lebanon")){
+                else if(station.trim().equals("MT LEBANON")){
                     yellowMtLebanon.setVisible(atStation);
                 }
-                else if(station.equals("Poplar")){
+                else if(station.trim().equals("POPLAR")){
                     yellowPoplar.setVisible(atStation);
                 }
-                else if(station.equals("Castle Shannon")){
+                else if(station.trim().equals("CASTLE SHANNON")){
                     yellowCastleShannon.setVisible(atStation);
                 }
             }
@@ -1257,21 +1226,21 @@ public class TrainModelUI extends javax.swing.JFrame {
         }
         else{
             //if(atStation){
-                if(station.equals("Shadyside"))
+                if(station.trim().equals("SHADYSIDE"))
                     yellowShadyside.setVisible(atStation);
-                else if(station.equals("Herron"))
+                else if(station.trim().equals("HERRON AVE"))
                     yellowHerron.setVisible(atStation);
-                else if(station.equals("Swissvale"))
+                else if(station.trim().equals("SWISSVALE"))
                     yellowSwissvale.setVisible(atStation);
-                else if(station.equals("Penn Station"))
+                else if(station.trim().equals("PENN STATION"))
                     yellowPennStation.setVisible(atStation);
-                else if(station.equals("Steel Plaza"))
+                else if(station.trim().equals("STEEL PLAZA"))
                     yellowSteelPlaza.setVisible(atStation);
-                else if(station.equals("First Avenue"))
+                else if(station.trim().equals("FIRST AVE"))
                     yellowFirst.setVisible(atStation);
-                else if(station.equals("Station Square"))
+                else if(station.trim().equals("STATION SQUARE"))
                     yellowStationSquare.setVisible(atStation);
-                else if(station.equals("South Hills"))
+                else if(station.trim().equals("SOUTH HILLS JUNCTION"))
                     yellowSouthHills.setVisible(atStation);
             //}
             //else{
