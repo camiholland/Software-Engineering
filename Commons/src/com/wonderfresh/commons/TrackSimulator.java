@@ -203,7 +203,7 @@ public class TrackSimulator {
         return lastTemp;
     }
     
-    public void startTrain(int ID, String line){
+    public static void startTrain(int ID, String line){
         
         TrainModelAPI aTrain = Interfaces.getTrainModelInterface();
         aTrain.addTrain(ID, line);
