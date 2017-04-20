@@ -4,6 +4,7 @@ import com.wonderfresh.commons.Block;
 import com.wonderfresh.interfaces.MboInterface;
 import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.trackcontroller.CTCDataAccess;
+import com.wonderfresh.interfaces.Interfaces;
 
 //@author Sarah
 public class CTCUI extends javax.swing.JFrame {
@@ -27,8 +28,10 @@ public class CTCUI extends javax.swing.JFrame {
         tputval = 0;
         ntrains = 0;
         wayside = new CTCDataAccess();
-        mboTrains = mbo.getDispatchedTrain();
         mbomode = false;
+        mbo = Interfaces.getMboInterface();
+        selline = "Green";
+//        addToBlockTables(selline);
     }
 
     /**
@@ -582,7 +585,7 @@ public class CTCUI extends javax.swing.JFrame {
         
         //if no errors, update mbo and update train table
         if (rowfound >= 0) {
-            //mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+            mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]));
             
             trainTable.setValueAt(values[0], rowfound, 0); //name
             trainTable.setValueAt("GA", rowfound, 1); //shb block the train is in
@@ -617,10 +620,9 @@ public class CTCUI extends javax.swing.JFrame {
             return;
         }
 
-        //mbo considers trains with id = 0 to be invalid
-        //next time I send this array, it'll see that the train is gone
+        //call mbo to remove train
         //since 0 is invalid, ids are shifted from row number
-        mboTrains[rowfound+1].id = 0;
+        mbo.removeTrain(rowfound+1);
         
         //remove row if found
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) trainTable.getModel();
@@ -651,40 +653,12 @@ public class CTCUI extends javax.swing.JFrame {
         //tell it I'm dispatching a train
         //Track Controller interface currently has no function for this
         //ask about that
-        //if not Track Controller, call Track Model
-        //their interface doesn't have this either
-        //okay
-        //ask about that
-        //call Train Model?
-        //no
-        //Train Controller?
-        //no
-        //MBO?
-        //yes
-        //mboTrain[] setDispatchedTrain(int trainID, double speed, double authority,mboTrain[] array);
-        //mboTrain[] sentDispatch = setDispatchedTrain(rowfound, values[1], values[2], ???);
-        //Ah yes. The MBO stores active trains in an array.
-        //And expects other modules to do the same.
-        //I'll make a (global?) array of mboTrains for this.
-        //and a function for replacing the array with a bigger one
-        //if there are too many trains
-        //10 seems like a safe minimum size for trainarray.
-        //reduce size when train removed, but never below array size 10
-        //or just have size = # blocks and don't change it (easier)
-        //to dispatch train, add the new train to trainarray
-        //then send trainarray with setDispatched Train
-        //so:
-        //trainarray = setDispatchedTrain(rowfound, values[1], values[2], trainarray);
-        //assuming this function returns the updated array
-        //how to check for success?
-        //ask about this
-        //they're discussing how to dispatch right now
         //pretty sure I'd call the trackcontroller
         //startTrain(line, speed, authority) from trackcontroller CTCDataAccess
         
         //doubles as a train dispatching function
-        //ids start at 1
-       // mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+        //train ids start at 1
+        mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]));
         
         //if no errors, update train table
         if (errd >= 0) {
@@ -723,20 +697,14 @@ public class CTCUI extends javax.swing.JFrame {
         int rowfound = entryErrorCheck(values, isUpdating, isTrain);
 
         //if no errors, call Track Controller
-        //boolean setSetSpeed(int block, int speed);
-        //would be something like:
-        //boolean speedSuccess = setSetSpeed(rowfound, Integer.parseInt(values[1]));
-        //assuming block can be represented as its index in the table
-        //but can we trust that we store blocks at the same index?
-        //and blocks in the two lines will have identical indexes
-        //ask about this
-        //may need to agree to identifying block by name, not id#
-        //or I may need a way to calculate id#
+        
+        
+        
         //and then:
         //public boolean setAuthority(int block, int authority);
         //boolean authSuccess = setAuthority(rowfound, Integer.parseInt(values[2]));
         //update table if both are success
-        //i'm guessing returning true is success
+        
         //if no errors, update train table
         if (rowfound >= 0) {
             //ctc can only update these values
@@ -757,12 +725,12 @@ public class CTCUI extends javax.swing.JFrame {
 
     private void chooseLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseLineActionPerformed
         //switches block table to display blocks from selected line
-        //changes table color
+        //changes table color (was getting error so removed that)
         if (chooseLine.getSelectedIndex() == 0) {
-            blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
+//            blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
             selline = "Green";
         } else {
-            blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
+//            blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
             selline = "Red";
         }
     }//GEN-LAST:event_chooseLineActionPerformed
@@ -790,11 +758,8 @@ public class CTCUI extends javax.swing.JFrame {
             return;
         }
 
-        //who to talk to about switches?
-        //Track Controller interface has no function for them
-        //neither does MBO
-        //neither does Track Model
-        //ask about this
+        //call Track Controller to set switch
+        
         
         
         
@@ -1052,24 +1017,17 @@ public class CTCUI extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Name not found.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-// void setClosedBlocks(int block, String description, String line);
-        //call Track Controller
-        //public boolean setBlockOpen(int block, boolean open);
-        //i'm guessing set open to true if opening block
-        //false if closing
-        //and proceed if it returns true?
-        //MBO also wants to know that block is closing/opening
-        //just tell track controller to close a hardcoded block: E4, green
-        //just set block E4 on green line to closed
-//        Block tempblock = greenLine.getBlock("Green", 19);
-//        tempblock.closeBlock();
+        
+        //call Track Controller to close block
+        
+        
         //if block found, open or closed as requested
         if (isOpening) {
             blockTable.setValueAt("Open", rowfound, 1);
-            //assumes block name is block id
-            mbo.setClosedBlocks(rowfound, "", selline);
+            mbo.setOpenBlocks(rowfound, "", selline);
         } else {
             blockTable.setValueAt("Closed", rowfound, 1);
+            mbo.setClosedBlocks(rowfound, "", selline);
         }
 
     }
