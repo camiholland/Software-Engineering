@@ -41,21 +41,9 @@ public class Mbo extends Thread{
     
     @Override
     public void run() {
-        
-        
-        
-        
         //get initialized interface
         MboInterface mboInterface=Interfaces.getMboInterface();
-        
-
-//tesing passenger stuff in interface************************************************************************<-takeout
-        mboInterface.setPassengersOnTrain(1, 12);
-        mboInterface.addToDailyPassengers(15);
-        
-        
-        
-        
+        mboInterface.initialize();
         //max 100 trains per line
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
@@ -183,7 +171,7 @@ public class Mbo extends Thread{
                     station=checkUserStation(station);
 /****** Get Passenger count ***********************/                    
                  //   passengerCount=passengerCount+=getPassengers(redTrain, greenTrain);
-                    gui.passengerCount.setText(" "+(passengerCount));
+                    gui.passengerCount.setText(" "+mboInterface.getDailyPassengers());
                     
                     //iterate track schedule for time to new station
                     

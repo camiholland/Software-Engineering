@@ -16,17 +16,20 @@ public class MboInterfaceImpl implements MboInterface {
 
     String[][] closedBlocks; //[id][0 red || 1 green]
     mboTrain[] array;
-    mboTrainDepartInfo[] info;
+    mboTrainDepartInfo[] info; 
     boolean mboMode;
     int dailyPassengers;
     
     public MboInterfaceImpl(){
        
     }
-    public void initializeTrainArray(){
+    public void initialize(){
         mboTrain[] mytrains= new mboTrain[100];
+        String[][] closedBlocks=new String[100][2];
         int i;
         for (i=0;i<100;i++){
+            closedBlocks[i][0]=null;
+            closedBlocks[i][1]=null;
             mboTrain a = new mboTrain();
             mytrains[i]=a;
             //System.out.println("i="+i);
@@ -35,6 +38,7 @@ public class MboInterfaceImpl implements MboInterface {
             mytrains[i].id=0;//0 in id for unused train
         }
         this.array=mytrains;
+        
         
     }
     
@@ -167,7 +171,9 @@ public class MboInterfaceImpl implements MboInterface {
         array[trainID].numPassengers=currentPassengers;
     }
 
-    
+    public int getDailyPassengers(){
+        return dailyPassengers;
+    }
     
 
  

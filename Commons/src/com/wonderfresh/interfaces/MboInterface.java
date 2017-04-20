@@ -14,7 +14,7 @@ public interface MboInterface {
     void addToDailyPassengers(int passengers);
     void setPassengersOnTrain(int trainID, int currentPassengers);
     void setMboMode(boolean mode);//true=mbo mode on : false = mbo mode off
-    void initializeTrainArray();
+    void initialize();
     void setClosedBlocks(int block, String description, String line);
     void setOpenBlocks(int block,String description, String line);
     String[][] getClosedBlocks();
@@ -29,6 +29,7 @@ public interface MboInterface {
     mboTrain[] getUpdatedSpeedAuthority();
     void setAuthority(int trainID, double authority);
     mboTrain[] getAuthority(mboTrain[] mbotrains);
+    public int getDailyPassengers();
     
     
     

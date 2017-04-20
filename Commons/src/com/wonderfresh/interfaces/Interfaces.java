@@ -51,7 +51,7 @@ public class Interfaces {
     public static void setMBOInterface(MboInterface api) {
         
         mboInterface = api;
-        mboInterface.initializeTrainArray();
+        mboInterface.initialize();
     }
     
     public static MboInterface getMboInterface(){

@@ -14,7 +14,7 @@ public class mboTrainDepartInfo {
     
     public String station="-", station2="-",station3="-";
     public String trainIDAndDepart=" Nothing to Show "; // Train 1 : Departing 1:19 pm
-    public mboTrainDepartInfo info[];
+    public mboTrainDepartInfo info[];//100 1 for 
     
     public mboTrainDepartInfo(){
          }
