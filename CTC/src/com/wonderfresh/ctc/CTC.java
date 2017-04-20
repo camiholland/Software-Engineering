@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.wonderfresh.commons.Time;
 import com.wonderfresh.interfaces.MboInterface;
-import com.wonderfresh.commons.mboTrain;
 import com.wonderfresh.trackcontroller.CTCDataAccess;
 
 //@author Sarah
@@ -193,7 +192,7 @@ public class CTC extends Thread {
         ScheduleItem tempCurrSchedItem;
         Block movingToNextBlock;
         
-        ScheduleItem[] newschedule = new ScheduleItem[nblocks];
+        ScheduleItem[] newschedule = new ScheduleItem[nblocks+1];
         //make sure lines and trains are updated (maybe not necessary)
         
         //for each train

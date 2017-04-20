@@ -17,6 +17,7 @@ public class CTCUI extends javax.swing.JFrame {
     CTCDataAccess wayside;
     mboTrain[] mboTrains;
     boolean mbomode;
+    String selline;
 
     public CTCUI() {
         initComponents();
@@ -69,9 +70,6 @@ public class CTCUI extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         editSwitchTable2 = new javax.swing.JTable();
         assortedFunctionsPanel = new javax.swing.JPanel();
-        speedpanel = new javax.swing.JPanel();
-        oneXButton = new javax.swing.JRadioButton();
-        tenXButton = new javax.swing.JRadioButton();
         modepanel = new javax.swing.JPanel();
         manualButton = new javax.swing.JRadioButton();
         fboButton = new javax.swing.JRadioButton();
@@ -406,45 +404,6 @@ public class CTCUI extends javax.swing.JFrame {
 
         assortedFunctionsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        speedpanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Simulation Speed", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
-        speedgroup.add(oneXButton);
-        oneXButton.setSelected(true);
-        oneXButton.setText("x1");
-        oneXButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                oneXButtonActionPerformed(evt);
-            }
-        });
-
-        speedgroup.add(tenXButton);
-        tenXButton.setText("x10");
-        tenXButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tenXButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout speedpanelLayout = new javax.swing.GroupLayout(speedpanel);
-        speedpanel.setLayout(speedpanelLayout);
-        speedpanelLayout.setHorizontalGroup(
-            speedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(speedpanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(oneXButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tenXButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        speedpanelLayout.setVerticalGroup(
-            speedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(speedpanelLayout.createSequentialGroup()
-                .addGroup(speedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(oneXButton)
-                    .addComponent(tenXButton))
-                .addGap(0, 10, Short.MAX_VALUE))
-        );
-
         modepanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mode", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         modegroup.add(manualButton);
@@ -550,23 +509,20 @@ public class CTCUI extends javax.swing.JFrame {
             .addGroup(assortedFunctionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(assortedFunctionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(speedpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(modepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(throughpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(schedulepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(555, Short.MAX_VALUE))
         );
         assortedFunctionsPanelLayout.setVerticalGroup(
             assortedFunctionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(assortedFunctionsPanelLayout.createSequentialGroup()
                 .addComponent(throughpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(speedpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(modepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(schedulepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         tabpane.addTab("tab4", assortedFunctionsPanel);
@@ -611,16 +567,7 @@ public class CTCUI extends javax.swing.JFrame {
         boolean isTrain = true;
         rowfound = entryErrorCheck(values, isUpdating, isTrain);
 
-        //talk to any other modules?
-        //MBO interface has this:
-        //mboTrain[] setUpdatedSpeedAuthority(int trainID, double speed, double authority, mboTrain[] array);
-        //ask whether this means what i think it means
-        //that the MBO uses this info for its own scheduling
-        //would go like this:
-        //trainarray = setUpdatedSpeedAuthority(rowfound, values[1], values[2], trainarray);
-        //track controller, on the other hand
-        //would get updates on a block-by-block basis
-        //so nothing from this train-related update
+        
         //how train-based speed and authority relate to block-by-block updates:
         //this info is associated with the train
         //when a train reaches a block, send it to that block
@@ -633,8 +580,10 @@ public class CTCUI extends javax.swing.JFrame {
         
         
         
-        //if no errors, update train table
+        //if no errors, update mbo and update train table
         if (rowfound >= 0) {
+            mbo.setUpdatedSpeedAuthority(Integer.parseInt((String)trainTable.getValueAt(rowfound, 5)), Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+            
             trainTable.setValueAt(values[0], rowfound, 0); //name
             trainTable.setValueAt("GA", rowfound, 1); //shb block the train is in
             trainTable.setValueAt(values[1], rowfound, 2); //speed
@@ -811,8 +760,10 @@ public class CTCUI extends javax.swing.JFrame {
         //changes table color
         if (chooseLine.getSelectedIndex() == 0) {
             blockTable.setBackground(new java.awt.Color(245, 255, 245)); //a light green
+            selline = "Green";
         } else {
             blockTable.setBackground(new java.awt.Color(255, 245, 245)); //a light red
+            selline = "Red";
         }
     }//GEN-LAST:event_chooseLineActionPerformed
 
@@ -844,6 +795,9 @@ public class CTCUI extends javax.swing.JFrame {
         //neither does MBO
         //neither does Track Model
         //ask about this
+        
+        
+        
         //index to the given row in the switch table, and swap values
         String blockSwap = (String) switchTable2.getValueAt(idRow, 2);
         switchTable2.setValueAt((String) switchTable2.getValueAt(idRow, 3), idRow, 2);
@@ -855,14 +809,6 @@ public class CTCUI extends javax.swing.JFrame {
         mbomode = false;
         mbo.setMboMode(false);
     }//GEN-LAST:event_fboButtonActionPerformed
-
-    private void oneXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneXButtonActionPerformed
-        simspeed = 1;
-    }//GEN-LAST:event_oneXButtonActionPerformed
-
-    private void tenXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenXButtonActionPerformed
-       simspeed = 10;
-    }//GEN-LAST:event_tenXButtonActionPerformed
 
     private void manualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualButtonActionPerformed
         mode = 0;
@@ -899,18 +845,15 @@ public class CTCUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton mboButton;
     private javax.swing.ButtonGroup modegroup;
     private javax.swing.JPanel modepanel;
-    private javax.swing.JRadioButton oneXButton;
     private javax.swing.JButton openButton;
     private javax.swing.JLabel pictureOfTrain;
     private javax.swing.JButton removeButton;
     private javax.swing.JLabel schedulefile;
     private javax.swing.JPanel schedulepanel;
     private javax.swing.ButtonGroup speedgroup;
-    private javax.swing.JPanel speedpanel;
     private javax.swing.JPanel switchPanel2;
     private javax.swing.JTable switchTable2;
     private javax.swing.JTabbedPane tabpane;
-    private javax.swing.JRadioButton tenXButton;
     private javax.swing.JPanel throughpanel;
     private javax.swing.JLabel throughput;
     private javax.swing.JButton toggleButton2;
@@ -1109,7 +1052,7 @@ public class CTCUI extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Name not found.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+// void setClosedBlocks(int block, String description, String line);
         //call Track Controller
         //public boolean setBlockOpen(int block, boolean open);
         //i'm guessing set open to true if opening block
@@ -1123,6 +1066,8 @@ public class CTCUI extends javax.swing.JFrame {
         //if block found, open or closed as requested
         if (isOpening) {
             blockTable.setValueAt("Open", rowfound, 1);
+            //assumes block name is block id
+            mbo.setClosedBlocks(rowfound, "", selline);
         } else {
             blockTable.setValueAt("Closed", rowfound, 1);
         }
