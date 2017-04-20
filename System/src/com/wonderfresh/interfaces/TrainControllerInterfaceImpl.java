@@ -35,6 +35,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
     @Override
     public int setSpeedLimit(int limit, int trainID) {
         TrainController train = trains.getTrainController(trainID);
+        System.out.println("train: " + trainID + " // limit: " + limit);
         
         if (train == null) {
             return -1;
@@ -183,8 +184,10 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
     }
 
     @Override
-    public int sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
+    public int sendBeaconInfo(boolean doors, double distance, String station, int trainID) {
         TrainController train = trains.getTrainController(trainID);
+        
+        System.out.println("beacon!!!");
         
         if (train == null) {
             return -1;
@@ -196,7 +199,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
             door = 1;
         }
         
-        train.approachStation(door,distance,station);
+        train.approachStation(door,distance * 1609.34,station);
         return 0;
     }
     
