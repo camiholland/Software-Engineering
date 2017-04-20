@@ -24,16 +24,13 @@ public class TrainControllerExecutable {
         time.setSpeed(1);
 
         Trains trains = new Trains();
+        TrainController train = new TrainController(1,3);
         
-        trains.addTrainController(new TrainController(1,3));
+        trains.addTrainController(train);
         
         TrainControllerInterfaceImpl test = new TrainControllerInterfaceImpl(trains);
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                (new LaunchPadUI(trains)).setVisible(true);
-            }
-        });
+        train.launchUI();
  
         java.awt.EventQueue.invokeLater(new Runnable() {
             
@@ -44,6 +41,7 @@ public class TrainControllerExecutable {
                 f.getContentPane().add(jPanel1);
                 f.pack();
                 f.setVisible(true);
+                f.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
             }
         });
         
