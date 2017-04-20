@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //import java.util.Iterator;
 import javax.swing.JFileChooser;
 import java.util.concurrent.TimeUnit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -45,6 +46,7 @@ public class TrackModelUI extends javax.swing.JFrame {
     
     
     public TrackModelUI(){
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         trackSimulator = TrackSimulator.getInstance();
         newTrack = trackSimulator.getTrack();
         initComponents();
@@ -204,7 +206,7 @@ public class TrackModelUI extends javax.swing.JFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel3.setText("TrackModelUI");
 
@@ -1057,7 +1059,9 @@ public class TrackModelUI extends javax.swing.JFrame {
     }//GEN-LAST:event_OpenActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        System.exit(0);
+        //frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_ExitActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
