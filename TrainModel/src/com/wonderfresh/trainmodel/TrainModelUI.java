@@ -1115,8 +1115,9 @@ public class TrainModelUI extends javax.swing.JFrame {
     public void setPowerCmd(String powerCmd){
         powerCmdBox.setText(powerCmd);
     }
-    public void setNumPass(String numPass){
+    public void setNumPass(String numPass, String numDisembarking){
         numPassBox.setText(numPass);
+        numDisembarkingBox.setText(numDisembarking);
     }
     public void setInitials(String capacity, String numCrew, String numPass, String sps, String trainID){
         maxPassCapacityBox.setText(capacity);

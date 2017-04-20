@@ -55,6 +55,7 @@ public class TrainModel {
     int numCrew;
     int maxPassCapacity;
     int numNewPass;
+    int numDisembarking;
     
     double speed;
     double totalMass;
@@ -117,6 +118,7 @@ public class TrainModel {
         numCrew = 1;
         maxPassCapacity = 222*numCars;
         numNewPass = 0;
+        numDisembarking = 0;
         
         speed = 0;
         totalMass = CAR_MASS*numCars + PASS_WEIGHT*(numPass + numCrew);
@@ -260,6 +262,13 @@ public class TrainModel {
                     gui.setStation(line, testStationString[i], true);
                     gui.setNotification("Next Stop: " + testStationString[i]);
                 }*/
+                numDisembarking = random.nextInt(numPass);
+                numPass -= numDisembarking;
+                numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
+                numPass += numNewPass;
+                mboInterface.addToDailyPassengers(numNewPass);
+                mboInterface.setPassengersOnTrain(ID, numPass);
+                gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
             }
             if(prevBlock.isStation()){
                 gui.setStation(line, previousStation, false);
@@ -331,12 +340,13 @@ public class TrainModel {
         leftDoorsStatus = status;
         if(status > 0){
             gui.on(4);
-            numPass -= random.nextInt(numPass);
+            numDisembarking = random.nextInt(numPass);
+            numPass -= numDisembarking;
             numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
             numPass += numNewPass;
             mboInterface.addToDailyPassengers(numNewPass);
             mboInterface.setPassengersOnTrain(ID, numPass);
-            gui.setNumPass(Integer.toString(numPass));
+            gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
         }
         else if(status == 0){
             gui.off(4);
@@ -358,14 +368,13 @@ public class TrainModel {
         rightDoorsStatus = status;
         if(status > 0){
             gui.on(5);
-            numPass -= random.nextInt(numPass);
-            System.out.println("Num pass leaving: " + numPass);
+            numDisembarking = random.nextInt(numPass);
+            numPass -= numDisembarking;
             numNewPass = block.takePeopleAtStation(maxPassCapacity-numPass);
-            System.out.println("Num new pass: " + numNewPass);
             numPass += numNewPass;
             mboInterface.addToDailyPassengers(numNewPass);
             mboInterface.setPassengersOnTrain(ID, numPass);
-            gui.setNumPass(Integer.toString(numPass));
+            gui.setNumPass(Integer.toString(numPass), Integer.toString(numDisembarking));
         }
         else if(status == 0){
             gui.off(5);
