@@ -256,7 +256,6 @@ public class SystemLauncher extends javax.swing.JFrame {
 
     private void CTCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CTCButtonActionPerformed
         ctc.launchUI();
-        ctc.run();
     }//GEN-LAST:event_CTCButtonActionPerformed
 
     private void CommunicationsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommunicationsButtonActionPerformed
