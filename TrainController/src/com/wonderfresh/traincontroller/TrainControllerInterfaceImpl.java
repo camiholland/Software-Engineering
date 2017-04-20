@@ -183,7 +183,7 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
     }
 
     @Override
-    public int sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
+    public int sendBeaconInfo(boolean doors, double distance, String station, int trainID) {
         TrainController train = trains.getTrainController(trainID);
         
         if (train == null) {
@@ -198,6 +198,16 @@ public class TrainControllerInterfaceImpl implements TrainControllerInterface {
         
         train.approachStation(door,distance,station);
         return 0;
+    }
+    
+    public void notify(String notice) {
+        TrainController train = trains.getTrainController(1);
+        
+        if (train == null) {
+            return;
+        } 
+        
+        train.notify(notice);
     }
     
 }

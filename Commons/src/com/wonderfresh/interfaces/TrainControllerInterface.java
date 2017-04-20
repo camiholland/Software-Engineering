@@ -34,5 +34,5 @@ public interface TrainControllerInterface {
     
     public int emergencyBrake(int trainID);
     
-    public int sendBeaconInfo(boolean doors, int distance, String station, int trainID);
+    public int sendBeaconInfo(boolean doors, double distance, String station, int trainID);
 }

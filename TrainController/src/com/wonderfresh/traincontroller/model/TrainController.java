@@ -24,10 +24,10 @@ public class TrainController {
         trainUI = new TrainControllerUI(this, trainModel);
         auto = true;
         setPointSpeed = 10;
-        setAuthority = .5;
+        setAuthority = 1000;
         setSpeed = 0;
         realSpeed = 0;
-        speedLimit = 25;
+        speedLimit = 35;
         powerCommand = 0;
         lights = 0;
         doorsLeft = 0;
@@ -75,7 +75,7 @@ public class TrainController {
     public boolean approachingStation;
     public String station;
     public int timeAtStation;
-    public int distanceToStation;
+    public double distanceToStation;
     public int stationDoors;
     public boolean brakeService;
     public boolean brakeEmergency;
@@ -151,7 +151,11 @@ public class TrainController {
         trainUI.setAuthority(authority);
         
         if(auto) {
-            setSetSpeed(speed);
+            if (speed > speedLimit) {
+                setSetSpeed(speedLimit);
+            } else {
+                setSetSpeed(speed);
+            }
         }
     }
     
@@ -213,9 +217,9 @@ public class TrainController {
           setSetSpeed(limit);
         }
 
-        if(trainUI != null) {
-            trainUI.setSpeedLimit(limit);
-        }
+
+        trainUI.setSpeedLimit(limit);
+
     }
 
     public double getPowerCommand() {
@@ -253,7 +257,13 @@ public class TrainController {
                 setSetSpeed(0);
                 powerCommand = 0;
             }
-            if (distanceToStation <= 0) {
+            
+            if(realSpeed == 0 && distanceToStation > 0 && setAuthority > 0) {
+                setSetSpeed(1);
+            }
+            
+            if (distanceToStation <= 0 && realSpeed == 0) {
+                
                 approachingStation = false;
                 timeAtStation = 30;
                 trainUI.notification("Arrived at " + station + " station.");
@@ -272,28 +282,32 @@ public class TrainController {
             } else {
                 setDoorsLeft(0,true);
             }
-            setSetSpeed(setPointSpeed);
+            if(speedLimit < setPointSpeed) {
+                setSetSpeed(speedLimit);
+            } else {
+                setSetSpeed(setPointSpeed);
+            }
         }
         
         trainModel.setPowerCommand(powerCommand, trainID);
 
-        /*if (brakeEmergency) {
-            if (realSpeed < 6.11) {
-                setRealSpeed(0);
-            } else {
-                setRealSpeed(realSpeed - 6.11);
-            }
-        } else if (setSpeed == 0) {
-            if (realSpeed < 2.68) {
-                setRealSpeed(0);
-            } else {
-                setRealSpeed(realSpeed - 2.68);
-            }
-        } else if (realSpeed < setSpeed) {
-            setRealSpeed(realSpeed+2);
-        } else if (realSpeed > setSpeed) {
-            setRealSpeed(realSpeed - 1);
-        }*/
+//        if (brakeEmergency) {
+//            if (realSpeed < 6.11) {
+//                setRealSpeed(0);
+//            } else {
+//                setRealSpeed(realSpeed - 6.11);
+//            }
+//        } else if (setSpeed == 0) {
+//            if (realSpeed < 2.68) {
+//                setRealSpeed(0);
+//            } else {
+//                setRealSpeed(realSpeed - 2.68);
+//            }
+//        } else if (realSpeed < setSpeed) {
+//            setRealSpeed(realSpeed+2);
+//        } else if (realSpeed > setSpeed) {
+//            setRealSpeed(realSpeed - 1);
+//        }
 
         if(trainUI != null) {
             trainUI.setPower(power);
@@ -371,6 +385,10 @@ public class TrainController {
         return doorsLeft;
     }
     public void setDoorsLeft(int status, boolean send) {
+        if (realSpeed != 0 || getDoorsRight() == 1) {
+            return;
+        }
+        
         doorsLeft = status;
 
         if(send) {
@@ -386,6 +404,10 @@ public class TrainController {
         return doorsRight;
     }
     public void setDoorsRight(int status, boolean send) {
+        if (realSpeed != 0 || getDoorsLeft() == 1) {
+            return;
+        }
+        
         doorsRight = status;
 
         if (send) {
@@ -435,7 +457,7 @@ public class TrainController {
         return brakeEmergency;
     }
     
-    public void approachStation(int doors, int distance, String station) {
+    public void approachStation(int doors, double distance, String station) {
         this.station = station;
         distanceToStation = distance;
         stationDoors = doors;
@@ -447,7 +469,11 @@ public class TrainController {
     }
     
     public void failure(String type) {
-        trainUI.notification("Emergency brake engaged due to " + type + " failue.");
+        trainUI.notification("Emergency brake engaged due to " + type + " failure.");
+    }
+    
+    public void notify(String note) {
+        trainUI.notification(note);
     }
 
 }

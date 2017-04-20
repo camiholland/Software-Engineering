@@ -303,62 +303,180 @@ public class InterfaceTestUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SpeedAndAuthButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedAndAuthButtonActionPerformed
-        int speed = Integer.parseInt(SpeedText.getText());
-        double auth = Double.parseDouble(AuthText.getText());
+        
+        int speed = 0;
+        double auth = 0;
+        
+        try {
+            speed = Integer.parseInt(SpeedText.getText());
+            auth = Double.parseDouble(AuthText.getText());
+        } catch (Exception ex) {
+            trains.notify("Invalid speed or authority set: setSpeedAndAuth(int speed, double auth)");
+            return;
+        }
+        
+        if(speed < 0 || auth < 0) {
+            trains.notify("Invalid speed or authority set: setSpeedAndAuth(int speed, double auth)");
+            return;
+        }
         
         trains.setSpeedAndAuth(speed, auth, 1);
     }//GEN-LAST:event_SpeedAndAuthButtonActionPerformed
 
     private void SpeedLimitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedLimitButtonActionPerformed
-        int speed = Integer.parseInt(SpeedLimitText.getText());
+        int speed = 0;
+        
+        try {
+            speed = Integer.parseInt(SpeedLimitText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid speed limit entered: setSpeedLimit(int speedLimit)");
+            return;
+        }
+        
+        if (speed <= 0) {
+            trains.notify("Invalid speed limit entered: setSpeedLimit(int speedLimit)");
+            return;
+        }
         
         trains.setSpeedLimit(speed, 1);
     }//GEN-LAST:event_SpeedLimitButtonActionPerformed
 
     private void LeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftButtonActionPerformed
-        int status = Integer.parseInt(DoorsText.getText());
+        int status = 0;
+        
+        try {
+            status = Integer.parseInt(DoorsText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid left door value entered: setLeftDoors(int status)\nOpen = 1\nClose = 0\nFail = -1");
+            return;
+        }
+        
+        if(status != 0 && status != 1 && status != -1) {
+            trains.notify("Invalid left door value entered: setLeftDoors(int status)\nOpen = 1\nClose = 0\nFail = -1");
+            return;
+        }
         
         trains.setLeftDoors(status,1);
     }//GEN-LAST:event_LeftButtonActionPerformed
 
     private void RightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightButtonActionPerformed
-        int status = Integer.parseInt(DoorsText.getText());
+        int status = 0;
         
+        try {
+            status = Integer.parseInt(DoorsText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid right door value entered: setRightDoors(int status)\nOpen = 1\nClose = 0\nFail = -1");
+            return;
+        }
+        
+        if(status != 0 && status != 1 && status != -1) {
+            trains.notify("Invalid right door value entered: setRightDoors(int status)\nOpen = 1\nClose = 0\nFail = -1");
+            return;
+        }
+       
         trains.setRightDoors(status,1);
     }//GEN-LAST:event_RightButtonActionPerformed
 
     private void SpeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeedButtonActionPerformed
-        double speed = Double.parseDouble(RealSpeedText.getText());
+        double speed = 0;
+        
+        try {
+            speed = Double.parseDouble(RealSpeedText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid speed value entered: setSpeed(double speed)");
+            return;
+        }
+        
+        if(speed < 0) {
+            trains.notify("Invalid speed value entered: setSpeed(double speed)");
+            return; 
+        }
         
         trains.setSpeed(speed,1);
     }//GEN-LAST:event_SpeedButtonActionPerformed
 
     private void TempButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TempButtonActionPerformed
-        int temp = Integer.parseInt(TempText.getText());
+        int temp = 0;
+        
+        try {
+            temp = Integer.parseInt(TempText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid temperature value entered: setTemperature(int temp)");
+            return;
+        }
         
         trains.setTemperature(temp,1);
     }//GEN-LAST:event_TempButtonActionPerformed
 
     private void LightsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LightsButtonActionPerformed
-        int status = Integer.parseInt(LightsText.getText());
+        int status = 0;
+        
+        try {
+            status = Integer.parseInt(LightsText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid lights value entered: setLights(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
+        
+        if(status != 0 && status != 1 && status != -1) {
+            trains.notify("Invalid lights value entered: setLights(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
         
         trains.setLights(status,1);
     }//GEN-LAST:event_LightsButtonActionPerformed
 
     private void ACButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ACButtonActionPerformed
-        int status = Integer.parseInt(ACText.getText());
+        int status = 0;
+        
+        try {
+            status = Integer.parseInt(ACText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid AC value entered: setAirConditioning(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
+        
+        if(status != 0 && status != 1 && status != -1) {
+            trains.notify("Invalid AC value entered: setAirConditioning(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
         
         trains.setAirConditioning(status,1);
     }//GEN-LAST:event_ACButtonActionPerformed
 
     private void HeatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HeatButtonActionPerformed
-        int status = Integer.parseInt(HeatText.getText());
+        int status = 0;
+        
+        try {
+            status = Integer.parseInt(HeatText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid heat value entered: setAirConditioning(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
+        
+        if(status != 0 && status != 1 && status != -1) {
+            trains.notify("Invalid heat value entered: setAirConditioning(int status)\nOn = 1\nOff = 0\nFail = -1");
+            return;
+        }
         
         trains.setHeating(status,1);
     }//GEN-LAST:event_HeatButtonActionPerformed
 
     private void BeaconButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeaconButtonActionPerformed
-        int doors = Integer.parseInt(StationDoorsText.getText());
+        
+        int doors = 0;
+        
+        try {
+            doors = Integer.parseInt(StationDoorsText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid doors value entered: sendBeaconInfo(int door, double distance, String station)\nRight Doors = 0\nLeft Doors = 1");
+            return;
+        }
+        
+        if (doors != 1 && doors != 0) {
+            trains.notify("Invalid doors value entered: sendBeaconInfo(int door, double distance, String station)\nRight Doors = 0\nLeft Doors = 1");
+            return;
+        }
         
         boolean door = true;
         
@@ -367,7 +485,19 @@ public class InterfaceTestUI extends javax.swing.JPanel {
         }
         
         String station = StationText.getText();
-        int distance = Integer.parseInt(DistanceText.getText());
+        double distance = 0;
+        
+        try {
+            distance = Double.parseDouble(DistanceText.getText());
+        } catch(Exception ex) {
+            trains.notify("Invalid distance value entered: sendBeaconInfo(int door, double distance, String station)\n");
+            return;
+        }
+        
+        if (distance < 0) {
+            trains.notify("Invalid distance value entered: sendBeaconInfo(int door, double distance, String station)\n");
+            return;
+        }
         
         trains.sendBeaconInfo(door, distance, station, 1);
     }//GEN-LAST:event_BeaconButtonActionPerformed

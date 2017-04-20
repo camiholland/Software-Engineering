@@ -57,7 +57,7 @@ public class Interfaces {
     public static MboInterface getMboInterface(){
         
         if(mboInterface == null) {
-            //mboInterface = new TestingMboInterface();
+            mboInterface = new TestingMboInterface();
         }
         return mboInterface;
     }

@@ -130,7 +130,7 @@ public class TestingTrainControllerInterface implements TrainControllerInterface
     }
 
     @Override
-    public int sendBeaconInfo(boolean doors, int distance, String station, int trainID) {
+    public int sendBeaconInfo(boolean doors, double distance, String station, int trainID) {
         System.out.println("TRAIN ID: " + trainID);
         System.out.println("BEACON INFO");
         System.out.println("Doors: " + doors);
