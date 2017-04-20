@@ -19,7 +19,14 @@ public class mboSection {
     String nextID="0";
     int lowBlock=-1;
     int highBlock=-1;
+    boolean hasStation=false;
+    String station="";
+    double lengthToStation=-1;
+    double lengthFromStation=-1;
     
+    public mboSection(){
+        
+    }
     
     public mboSection[] newSection(mboSection[] sections,String secID,  double secMaxSpeed, int secNumBlocks, int secNumStation, Block[] secBlocks, String secNextID){
         mboSection[] sectionArray=sections;
