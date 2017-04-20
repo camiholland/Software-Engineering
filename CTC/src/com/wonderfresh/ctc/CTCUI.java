@@ -10,7 +10,6 @@ public class CTCUI extends javax.swing.JFrame {
 
     int mode;
     int simspeed;
-    javax.swing.JTable redtable;
     SimpleTrack strak;
     double tputval;
     int ntrains;
@@ -21,7 +20,6 @@ public class CTCUI extends javax.swing.JFrame {
 
     public CTCUI() {
         initComponents();
-        redtable = new javax.swing.JTable();
         strak = new SimpleTrack();
         strak.loadTrack();
         mode = 0;
@@ -670,8 +668,11 @@ public class CTCUI extends javax.swing.JFrame {
             return;
         }
 
-        //tell MBO to remove train?
-        //ask about this
+        //mbo considers trains with id = 0 to be invalid
+        //next time I send this array, it'll see that the train is gone
+        //since 0 is invalid, ids are shifted from row number
+        mboTrains[rowfound+1].id = 0;
+        
         //remove row if found
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) trainTable.getModel();
         model.removeRow(rowfound);
@@ -732,8 +733,9 @@ public class CTCUI extends javax.swing.JFrame {
         //pretty sure I'd call the trackcontroller
         //startTrain(line, speed, authority) from trackcontroller CTCDataAccess
         
-        
-        //mboTrains = mbo.setDispatchedTrain(ntrains, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
+        //doubles as a train dispatching function
+        //ids start at 1
+        mbo.setUpdatedSpeedAuthority(ntrains+1, Double.parseDouble(values[1]), Double.parseDouble(values[2]), mboTrains);
         
         //if no errors, update train table
         if (errd >= 0) {
@@ -747,7 +749,7 @@ public class CTCUI extends javax.swing.JFrame {
             trainTable.setValueAt(values[1], rowCount, 2);
             trainTable.setValueAt(values[2], rowCount, 3);
             trainTable.setValueAt(values[3], rowCount, 4);
-            trainTable.setValueAt(ntrains, rowCount, 5); //shb the id given back?
+            trainTable.setValueAt(ntrains+1, rowCount, 5); //shb the id given back?
             ntrains++;
         }
     }//GEN-LAST:event_dispatchButtonActionPerformed
@@ -851,6 +853,7 @@ public class CTCUI extends javax.swing.JFrame {
     private void fboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fboButtonActionPerformed
         mode = 1;
         mbomode = false;
+        mbo.setMboMode(false);
     }//GEN-LAST:event_fboButtonActionPerformed
 
     private void oneXButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneXButtonActionPerformed
@@ -864,11 +867,13 @@ public class CTCUI extends javax.swing.JFrame {
     private void manualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualButtonActionPerformed
         mode = 0;
         mbomode = false;
+        mbo.setMboMode(false);
     }//GEN-LAST:event_manualButtonActionPerformed
 
     private void mboButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mboButtonActionPerformed
         mode = 2;
         mbomode = true;
+        mbo.setMboMode(true);
     }//GEN-LAST:event_mboButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1121,87 +1126,6 @@ public class CTCUI extends javax.swing.JFrame {
         } else {
             blockTable.setValueAt("Closed", rowfound, 1);
         }
-
-    }
-
-    //returns the set speed the CTC believes this block currently has
-    public int getSetSpeed(String line, int block) {
-        if (0 == line.compareTo("Green")) {
-            return strak.mytrack.getGreenLine().getBlock(line, block).getSetPointSpeed();
-        }
-        return strak.mytrack.getRedLine().getBlock(line, block).getSetPointSpeed();
-    }
-
-    //informs CTC of a change in the track.
-    public void setSetSpeed(String line, int block, int speed) {
-        if (0 == line.compareTo("Green")) {
-            strak.mytrack.getGreenLine().getBlock(line, block).setSetPointSpeed(speed);
-        }
-        strak.mytrack.getRedLine().getBlock(line, block).setSetPointSpeed(speed);
-    }
-
-    //returns the authority the CTC believes this block currently has
-    public double getAuthority(String line, int block) {
-        if (0 == line.compareTo("Green")) {
-            return strak.mytrack.getGreenLine().getBlock(line, block).getAuthority();
-        }
-        return strak.mytrack.getRedLine().getBlock(line, block).getAuthority();
-    }
-
-    //informs CTC of a change in the track.
-    public void getAuthority(String line, int block, double auth) {
-        if (0 == line.compareTo("Green")) {
-            strak.mytrack.getGreenLine().getBlock(line, block).setAuthority(auth);
-        }
-        strak.mytrack.getRedLine().getBlock(line, block).setAuthority(auth);
-    }
-
-    //returns whether or not the CTC believes a block is open
-    public boolean getBlockOpen(String line, int block) {
-        if (0 == line.compareTo("Green")) {
-            return strak.mytrack.getGreenLine().getBlock(line, block).closed;
-        }
-        return strak.mytrack.getRedLine().getBlock(line, block).closed;
-    }
-
-    //informs CTC of a change in the track.
-    public void setBlockOpen(String line, int block, boolean closed) {
-        if (0 == line.compareTo("Green")) {
-            strak.mytrack.getGreenLine().getBlock(line, block).closed = closed;
-        }
-        strak.mytrack.getRedLine().getBlock(line, block).closed = closed;
-    }
-
-    //0 = manual, 1 = fixed block auto, 2 = MBO
-    public int getMode() {
-        return mode;
-    }
-
-    public int getSimulationSpeed() {
-        return simspeed;
-    }
-
-    public void initBlockTables() {
-        redtable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        redtable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{},
-                new String[]{
-                    "Train", "Block", "Set Speed", "Authority", "Destination", "ID#"
-                }
-        ) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        redtable.setGridColor(new java.awt.Color(250, 250, 250));
-        redtable.setSelectionBackground(new java.awt.Color(14, 159, 251));
-        redtable.setShowGrid(false);
-        redtable.setShowHorizontalLines(true);
-        jScrollPane1.setViewportView(redtable);
 
     }
 
