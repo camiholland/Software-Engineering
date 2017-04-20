@@ -153,10 +153,10 @@ public class Mbo extends Thread{
         running=1;
         mboInterface.addToDailyPassengers(2);
         while(running==1){
-            System.out.println("MBO: running");
+           // System.out.println("MBO: running");
             try {
                 Thread.sleep(100);
-                System.out.println("MBO: running");
+              //  System.out.println("MBO: running");
                 
 //tesing passenger stuff in interface************************************************************************<-takeout
         //mboInterface.setPassengersOnTrain(1, 15);
@@ -166,7 +166,7 @@ public class Mbo extends Thread{
                 MboMode=mboInterface.getMode();
                 
                 //update time
-                 System.out.println("MBO: running1");
+                 //System.out.println("MBO: running1");
                 if (gui!=null){
                     gui.clock.setText(Time.stringTime(Time.getTimeNow()));//update clock
                     displayClosedTracks(closedTracks);
@@ -175,9 +175,9 @@ public class Mbo extends Thread{
                     
 /****** Get Updated Track chosen for schedule *****/
                     String station =null;
-                     System.out.println("MBO: running1.5");
+                    // System.out.println("MBO: running1.5");
                     station=checkUserStation(station);
-                     System.out.println("MBO: running2");
+                    // System.out.println("MBO: running2");
 /****** Get Passenger count ***********************/                    
                  //   passengerCount=passengerCount+=getPassengers(redTrain, greenTrain);
                     gui.passengerCount.setText(" "+mboInterface.getDailyPassengers());
@@ -186,7 +186,7 @@ public class Mbo extends Thread{
                     
 /**************Get train locations from Train Controller since the CTC is MIA******************/
                     allTrains=mboInterface.getLocation();
-                     System.out.println("MBO: running3");
+                    // System.out.println("MBO: running3");
                     allTrains=mboInterface.getAuthority(allTrains);
                     displayTrainLocations(allTrains);
                     
@@ -199,10 +199,11 @@ public class Mbo extends Thread{
     }
     
     
-    int getBrakeDistance(double speed){
+    double getBrakeDistance(double speed){
+        double braking =2.73; //m/s^2
         int lengthOfCar=33;                     //Taken from Track Layout and vehicle Data excel document. Rounded up from 32.2 to 33, in meters
         int lengthOf2Cars=lengthOfCar*2;
-        int distance=0;                         //calculated stopping distance to be returned
+        double distance=0;                         //calculated stopping distance to be returned
         int humanWeight=75;                     //Standardized Human weight in kg
         int numHumansPerTrain=300+1;              //Max people per train + driver
         
@@ -211,8 +212,18 @@ public class Mbo extends Thread{
         int trainWeight=40900*2;                //2 trains for max weight ; 40.9 t taken from vehicle document
         double maxSpeed=speed;           //the maximum speed t calculate the largest possible stopping distance required        
         int totalWeight=trainWeight+totalHumanWeight;
-        System.out.println("\n\nStats for breaking distance:\n\nTotal Weight for calculated breaking distance(in kg): "+totalWeight);
+        
+        /**
+         *    timetostop=maxSpeed/decelaration
+         * 
+         *    distance = initial velocity * time +1/2 acceleration * time *time
+         */
+        double timeStop=maxSpeed/braking;
+        distance=maxSpeed*timeStop+0.5*braking*timeStop*timeStop;
+        
+        System.out.println("\n\nStats for breaking distance:\n\nTime to brake: "+timeStop);
         System.out.println("length of 2 cars to add to breaking distance, since using point mass: "+lengthOf2Cars);
+        distance=distance+lengthOf2Cars;
         System.out.println("Max speed used for calculating distance (taken from track module): "+maxSpeed);
         System.out.println("Calculate safe breakig distance = "+distance+"\n\n");
         return distance;
