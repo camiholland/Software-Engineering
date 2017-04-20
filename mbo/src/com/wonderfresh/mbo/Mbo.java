@@ -41,8 +41,21 @@ public class Mbo extends Thread{
     
     @Override
     public void run() {
+        
+        
+        
+        
         //get initialized interface
         MboInterface mboInterface=Interfaces.getMboInterface();
+        
+
+//tesing passenger stuff in interface************************************************************************<-takeout
+        mboInterface.setPassengersOnTrain(1, 12);
+        mboInterface.addToDailyPassengers(15);
+        
+        
+        
+        
         //max 100 trains per line
         mboTrain[] redTrain=new mboTrain[100];
         mboTrain[] greenTrain=new mboTrain[100];
@@ -150,6 +163,12 @@ public class Mbo extends Thread{
         while(running==1){
             try {
                 Thread.sleep(100);
+                
+                
+//tesing passenger stuff in interface************************************************************************<-takeout
+        mboInterface.setPassengersOnTrain(1, 15);
+        mboInterface.addToDailyPassengers(2);
+                
                 //check if still in mbo mode
                 
                 //update time
