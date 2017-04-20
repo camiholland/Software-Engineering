@@ -1,5 +1,4 @@
 /**
- *
  * @author Kayla
  */
 public interface CommunicationController {
@@ -18,4 +17,3 @@ public interface CommunicationController {
     //for use by MBO only -- use to send data to MBO Antenna
     public void incomingMBOOutgoingTrainAnt2(double speed, double authority);
 }
-

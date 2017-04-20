@@ -85,7 +85,7 @@
                       <Component id="testingCircuitAntenna" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="antennasLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="antennasPanel" min="-2" pref="224" max="-2" attributes="0"/>
@@ -672,8 +672,14 @@
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingSpeedTrackCtrl">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingSpeedTrackCtrlActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingAuthorityTrackCtrl">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingAuthorityTrackCtrlActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="milesLabel1">
               <Properties>
@@ -744,7 +750,10 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="outgoingSwitchesCTC" min="-2" pref="80" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="outgoingCTCLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="outgoingCTCLabel" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -857,14 +866,29 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingIDCTC">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingIDCTCActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingLightsCTC">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingLightsCTCActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingSwitchesCTC">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingSwitchesCTCActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingOccupancyCTC">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingOccupancyCTCActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="outgoingRailwayCTC">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outgoingRailwayCTCActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="sendToCTC">
               <Properties>
@@ -902,7 +926,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                   <Component id="trainAnt1Label" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
                   <Component id="trainAnt2Label" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="mboAntLabel" min="-2" max="-2" attributes="0"/>
@@ -963,29 +987,27 @@
                               <Component id="errorTrainAnt1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="decodedLabel4" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                                      <Component id="decodedLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="encodedLabel5" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="encodedTrainModel" min="-2" pref="112" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="speedLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="authorityLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="blockIDLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="beaconLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="encodedLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="speedLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="authorityLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="blockIDLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="beaconLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="blockIDTrainModel" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="encodedTrainModel" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="beaconTrainModel" alignment="0" pref="42" max="32767" attributes="0"/>
@@ -1001,7 +1023,6 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1012,17 +1033,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="errorTrainAnt1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="encodedLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="encodedTrainModel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="encodedTrainModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="encodedLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="decodedLabel4" min="-2" pref="17" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1058,6 +1075,7 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Component id="errorTrainAnt1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1106,12 +1124,24 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="encodedTrainModel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encodedTrainModelActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="blockIDTrainModel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="blockIDTrainModelActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="speedTrainModel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="speedTrainModelActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="authorityTrainModel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="authorityTrainModelActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="mphLabel7">
               <Properties>
@@ -1155,6 +1185,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send to Train Model"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendTrainModelActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="beaconLabel2">
               <Properties>
@@ -1227,14 +1260,14 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="sendToTrainCtrl" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="encodedLabel6" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="decodedLabel2" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="encodedFromMBOAnt" min="-2" pref="69" max="-2" attributes="0"/>
+                                                  <Component id="encodedFromMBOAnt" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
@@ -1388,6 +1421,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="positionFromTrainCtrl">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="positionFromTrainCtrlActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="encodedLabel4">
               <Properties>
@@ -1466,11 +1502,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send to MBO Antenna"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendToMBOAntActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="sendToTrainCtrl">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send to Train Controller"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendToTrainCtrlActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1732,6 +1774,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="velocityToMBO">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="velocityToMBOActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="velocityLabel3">
               <Properties>
@@ -1744,6 +1789,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="positionToMBO">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="positionToMBOActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="authorityLabel9">
               <Properties>
@@ -1759,6 +1807,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send to MBO"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendToMBOActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="speedLabel10">
               <Properties>
@@ -1781,6 +1832,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="authorityFromMBO">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="authorityFromMBOActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="speedFromMBO">
               <Events>
@@ -1791,6 +1845,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send to Train Antenna 2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendToTrainAnt2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="mphLabel11">
               <Properties>

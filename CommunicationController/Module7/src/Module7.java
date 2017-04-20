@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 
 public class Module7 extends javax.swing.JFrame implements CommunicationController {
@@ -8,6 +7,9 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
     private boolean buttonPressedTrack = false, userRailway, userLights, userSwitches, userOccupancy;
     private boolean ready0 = false, ready1 = false, ready2 = false, ready3 = false;
     private boolean ready4 = false, ready5 = false, ready6 = false, ready7 = false;
+    private boolean ready8 = false, ready9 = false, ready10 = false, ready11 = false;
+    private boolean ready12 = false, ready13 = false, ready14 = false, ready15 = false;
+    private boolean ready16 = false, ready17 = false, ready18 = false, ready19 = false;
     private String userBlockID, userTrainID, userEncoded;
     private double userSpeed, userAuthority, userBeacon, userVelocity, userPosition;
     private JFrame frame; //used for JOptionPanes
@@ -26,7 +28,7 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         //automatically start program in automatic mode
         autoMode.setSelected(true);
         
-        //since we are in automatic mode, text fields must be set as editable or uneditable right away
+        //since we are in automatic mode, text fields must be set as uneditable right away
         inAutoMode();
     }
 
@@ -476,6 +478,18 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             }
         });
 
+        outgoingSpeedTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingSpeedTrackCtrlActionPerformed(evt);
+            }
+        });
+
+        outgoingAuthorityTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingAuthorityTrackCtrlActionPerformed(evt);
+            }
+        });
+
         milesLabel1.setText("miles");
 
         mphLabel1.setText("mph");
@@ -578,6 +592,36 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
 
         railwayLabel1.setText("Railway Crossing Status:");
 
+        outgoingIDCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingIDCTCActionPerformed(evt);
+            }
+        });
+
+        outgoingLightsCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingLightsCTCActionPerformed(evt);
+            }
+        });
+
+        outgoingSwitchesCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingSwitchesCTCActionPerformed(evt);
+            }
+        });
+
+        outgoingOccupancyCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingOccupancyCTCActionPerformed(evt);
+            }
+        });
+
+        outgoingRailwayCTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outgoingRailwayCTCActionPerformed(evt);
+            }
+        });
+
         sendToCTC.setText("Send to CTC");
         sendToCTC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,7 +662,9 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                                         .addComponent(switchLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(outgoingSwitchesCTC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(outgoingCTCLabel)))
+                                    .addGroup(OutgoingCTCLayout.createSequentialGroup()
+                                        .addComponent(outgoingCTCLabel)
+                                        .addGap(13, 13, 13))))
                             .addGroup(OutgoingCTCLayout.createSequentialGroup()
                                 .addComponent(occupancyLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -721,6 +767,30 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
 
         authorityLabel7.setText("Authority:");
 
+        encodedTrainModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encodedTrainModelActionPerformed(evt);
+            }
+        });
+
+        blockIDTrainModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blockIDTrainModelActionPerformed(evt);
+            }
+        });
+
+        speedTrainModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speedTrainModelActionPerformed(evt);
+            }
+        });
+
+        authorityTrainModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorityTrainModelActionPerformed(evt);
+            }
+        });
+
         mphLabel7.setText("mph");
 
         milesLabel7.setText("miles");
@@ -742,6 +812,11 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         );
 
         sendTrainModel.setText("Send to Train Model");
+        sendTrainModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendTrainModelActionPerformed(evt);
+            }
+        });
 
         beaconLabel2.setText("Beacon:");
 
@@ -759,25 +834,24 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(errorTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(trainAntenna6Layout.createSequentialGroup()
-                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(90, 90, 90)
+                        .addComponent(decodedLabel4))
+                    .addGroup(trainAntenna6Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(trainAntenna6Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(decodedLabel4))
+                                .addComponent(encodedLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(encodedTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(trainAntenna6Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(trainAntenna6Layout.createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(speedLabel7)
-                                            .addComponent(authorityLabel7)
-                                            .addComponent(blockIDLabel7)
-                                            .addComponent(beaconLabel2)))
-                                    .addComponent(encodedLabel5))
+                                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(speedLabel7)
+                                    .addComponent(authorityLabel7)
+                                    .addComponent(blockIDLabel7)
+                                    .addComponent(beaconLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(blockIDTrainModel)
-                                    .addComponent(encodedTrainModel)
                                     .addGroup(trainAntenna6Layout.createSequentialGroup()
                                         .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(beaconTrainModel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
@@ -786,23 +860,19 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(mphLabel7)
-                                            .addComponent(milesLabel7))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                            .addComponent(milesLabel7))))))))
                 .addContainerGap())
         );
         trainAntenna6Layout.setVerticalGroup(
             trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, trainAntenna6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(encodedTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(encodedLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(trainAntenna6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(errorTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(trainAntenna6Layout.createSequentialGroup()
-                        .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(encodedLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(encodedTrainModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(decodedLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(trainAntenna6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -829,7 +899,8 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                                 .addComponent(incomingTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(trainAntenna6Layout.createSequentialGroup()
                                 .addComponent(sendTrainModel)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(errorTrainAnt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -875,6 +946,12 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             }
         });
 
+        positionFromTrainCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                positionFromTrainCtrlActionPerformed(evt);
+            }
+        });
+
         encodedLabel4.setText("Encoded:");
 
         encodedFromTrainCtrl.addActionListener(new java.awt.event.ActionListener() {
@@ -911,8 +988,18 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         milesLabel8.setText("miles");
 
         sendToMBOAnt.setText("Send to MBO Antenna");
+        sendToMBOAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToMBOAntActionPerformed(evt);
+            }
+        });
 
         sendToTrainCtrl.setText("Send to Train Controller");
+        sendToTrainCtrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToTrainCtrlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout trainAnt2PanelLayout = new javax.swing.GroupLayout(trainAnt2Panel);
         trainAnt2Panel.setLayout(trainAnt2PanelLayout);
@@ -950,14 +1037,14 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                                 .addComponent(fromMBOLabel))
                             .addGroup(trainAnt2PanelLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(sendToTrainCtrl)
                                     .addGroup(trainAnt2PanelLayout.createSequentialGroup()
                                         .addComponent(encodedLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(decodedLabel2)
-                                            .addComponent(encodedFromMBOAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(encodedFromMBOAnt)))
                                     .addGroup(trainAnt2PanelLayout.createSequentialGroup()
                                         .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(speedLabel8)
@@ -981,7 +1068,6 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                 .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fromTrainCtrlLabel)
                     .addComponent(fromMBOLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(trainAnt2PanelLayout.createSequentialGroup()
                         .addGroup(trainAnt2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1076,15 +1162,32 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         decodedLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         decodedLabel3.setText("Decoded:");
 
+        velocityToMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                velocityToMBOActionPerformed(evt);
+            }
+        });
+
         velocityLabel3.setText("Velocity:");
 
         mphLabel9.setText("ft/s");
+
+        positionToMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                positionToMBOActionPerformed(evt);
+            }
+        });
 
         authorityLabel9.setText("Position:");
 
         milesLabel9.setText("miles");
 
         sendToMBO.setText("Send to MBO");
+        sendToMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToMBOActionPerformed(evt);
+            }
+        });
 
         speedLabel10.setText("Speed:");
 
@@ -1098,6 +1201,12 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             }
         });
 
+        authorityFromMBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorityFromMBOActionPerformed(evt);
+            }
+        });
+
         speedFromMBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 speedFromMBOActionPerformed(evt);
@@ -1105,6 +1214,11 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         });
 
         sendToTrainAnt2.setText("Send to Train Antenna 2");
+        sendToTrainAnt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToTrainAnt2ActionPerformed(evt);
+            }
+        });
 
         mphLabel11.setText("mph");
 
@@ -1250,7 +1364,7 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             .addGroup(antennasPanelLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(trainAnt1Label)
-                .addGap(229, 229, 229)
+                .addGap(197, 197, 197)
                 .addComponent(trainAnt2Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(mboAntLabel)
@@ -1654,7 +1768,7 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(testingCircuitAntenna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(antennasLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(antennasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1695,45 +1809,78 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         incomingOccupancyTrackCtrl.setEditable(true);
         trackCircuitSpeed.setEditable(true);
         trackCircuitAuthority.setEditable(true);
-        trackCircuitID.setEditable(true);
-        trackCircuitEncoded.setEditable(true);  
-        encodedTrainModel.setEditable(true);
-        blockIDTrainModel.setEditable(true);
-        speedTrainModel.setEditable(true);
-        authorityTrainModel.setEditable(true);
+        trackCircuitID.setEditable(true); 
+        encodedTrainModel.setEditable(false);
         circuitAntennaEncoded.setEditable(true);
         testAntennaEncoded.setEditable(true);
         testAntennaFixed.setEditable(false);
         testAntennaID.setEditable(true);
-        encodedTrainModel.setEditable(true);
         blockIDTrainModel.setEditable(true);
         speedTrainModel.setEditable(true);
         authorityTrainModel.setEditable(true);
+        beaconTrainModel.setEditable(true);
         velocityFromTrainCtrl.setEditable(true);
-        positionFromTrainCtrl.setEditable(true);
-        encodedFromTrainCtrl.setEditable(true);
-        encodedFromMBOAnt.setEditable(true);
-        speedFromMBOAnt.setEditable(true);
-        authorityFromMBOAnt.setEditable(true);
-        encodedTrainAnt2.setEditable(true);
         velocityToMBO.setEditable(true);
         positionToMBO.setEditable(true);
+        positionFromTrainCtrl.setEditable(true);
+        speedFromMBOAnt.setEditable(true);
+        authorityFromMBOAnt.setEditable(true);
         speedFromMBO.setEditable(true);
         authorityFromMBO.setEditable(true);
-        encodedMBO.setEditable(true);
+        trackCircuitBeacon.setEditable(true);
         
-        //disable buttons
-        sendTrainModel.enable();
-        sendToMBOAnt.enable();
-        sendToTrainCtrl.enable();
-        sendToMBO.enable();
-        sendToTrainAnt2.enable();
-        sendToTrackCtrl.enable();
-        sendToCTC.enable();
-        sendNull.enable();
-        send0.enable();
-        send1.enable();
-        sendMoreThan1.enable();
+        //clear all text fields
+        incomingSpeedCTC.setValue(null);
+        incomingAuthorityCTC.setValue(null);
+        incomingIDCTC.setValue(null);
+        outgoingIDTrackCtrl.setValue(null);
+        outgoingSpeedTrackCtrl.setValue(null);
+        outgoingAuthorityTrackCtrl.setValue(null);
+        trackCircuitSpeed.setValue(null);
+        trackCircuitAuthority.setValue(null);
+        trackCircuitID.setValue(null);
+        trackCircuitBeacon.setValue(null);
+        trackCircuitEncoded.setValue(null);
+        encodedTrainModel.setValue(null);
+        blockIDTrainModel.setValue(null);
+        speedTrainModel.setValue(null);
+        authorityTrainModel.setValue(null);
+        beaconTrainModel.setValue(null);
+        velocityFromTrainCtrl.setValue(null);
+        positionFromTrainCtrl.setValue(null);
+        encodedFromTrainCtrl.setValue(null);
+        encodedFromMBOAnt.setValue(null);
+        speedFromMBOAnt.setValue(null);
+        authorityFromMBOAnt.setValue(null);
+        encodedTrainAnt2.setValue(null);
+        velocityToMBO.setValue(null);
+        positionToMBO.setValue(null);
+        speedFromMBO.setValue(null);
+        authorityFromMBO.setValue(null);
+        encodedMBO.setValue(null);
+        incomingIDTrackCtrl.setValue(null);
+        incomingRailwayTrackCtrl.setValue(null);
+        incomingLightsTrackCtrl.setValue(null);
+        incomingSwitchesTrackCtrl.setValue(null);
+        incomingOccupancyTrackCtrl.setValue(null);
+        outgoingIDCTC.setValue(null);
+        outgoingRailwayCTC.setValue(null);
+        outgoingLightsCTC.setValue(null);
+        outgoingSwitchesCTC.setValue(null);
+        outgoingOccupancyCTC.setValue(null);
+        
+        //disable and enable buttons
+        sendTrainModel.setEnabled(false);
+        sendToTrackCtrl.setEnabled(true);
+        sendToCTC.setEnabled(true);
+        sendNull.setEnabled(true);
+        send0.setEnabled(true);
+        send1.setEnabled(true);
+        sendMoreThan1.setEnabled(true);
+        sendToTrainCtrl.setEnabled(false);
+        sendToMBOAnt.setEnabled(false);
+        sendToMBO.setEnabled(false);
+        sendToTrainAnt2.setEnabled(false);
     }
     
     /**
@@ -1744,19 +1891,47 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         testingMode.setSelected(true);
         autoMode.setSelected(false);
         inTestingMode();
-        initTesting(1);
     }//GEN-LAST:event_testingModeActionPerformed
 
     private void sendToCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToCTCActionPerformed
-       //buttonPressedCTC = true;
+       if((ready3&&ready4&&ready5&&ready6&&ready7) && testingMode.isSelected()) {
+           //sendToCTC(userBlockID, userLights, userSwitches, userRailway, userOccupancy);
+           JOptionPane.showMessageDialog(frame, "Data successfully sent to CTC.", "Information", JOptionPane.INFORMATION_MESSAGE);
+           ready3 = false;
+           ready4 = false;
+           ready5 = false;
+           ready6 = false;
+           ready7 = false;
+       }
+       else {
+            JOptionPane.showMessageDialog(frame, "Please type something into each text field, and press enter after each entry on this panel.", "Error", JOptionPane.ERROR_MESSAGE);
+        }     
     }//GEN-LAST:event_sendToCTCActionPerformed
 
+    /**
+     * @param evt - sends data to Track Controller in testing mode if valid entries
+     * have been typed into the text fields
+     */
     private void sendToTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToTrackCtrlActionPerformed
-        buttonPressedTrack = true;
+        if((ready0&&ready1&&ready2) && testingMode.isSelected()) {
+            //can use this if the data received by the Track Controller wants to be verified
+            //sendToTrackCtrl(userSpeed, userAuthority, userBlockID);
+            JOptionPane.showMessageDialog(frame, "Data successfully sent to Track Controller.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            ready0 = false;
+            ready1 = false;
+            ready2 = false;
+        }
+        else {
+            JOptionPane.showMessageDialog(frame, "Please type something into each text field, and press enter after each entry on this panel.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_sendToTrackCtrlActionPerformed
 
+    /**
+     * @param evt - gets block ID from text field (only works in testing mode)
+     */
     private void outgoingIDTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingIDTrackCtrlActionPerformed
-   
+        userBlockID = outgoingIDTrackCtrl.getText();
+        ready0 = true;
     }//GEN-LAST:event_outgoingIDTrackCtrlActionPerformed
 
     private void incomingIDCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incomingIDCTCActionPerformed
@@ -1821,19 +1996,61 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         speedFromMBO.setEditable(false);
         authorityFromMBO.setEditable(false);
         encodedMBO.setEditable(false);
+        trackCircuitBeacon.setEditable(false);
+        beaconTrainModel.setEditable(false);
+        
+        //clear all text fields
+        incomingSpeedCTC.setValue(null);
+        incomingAuthorityCTC.setValue(null);
+        incomingIDCTC.setValue(null);
+        outgoingIDTrackCtrl.setValue(null);
+        outgoingSpeedTrackCtrl.setValue(null);
+        outgoingAuthorityTrackCtrl.setValue(null);
+        trackCircuitSpeed.setValue(null);
+        trackCircuitAuthority.setValue(null);
+        trackCircuitID.setValue(null);
+        trackCircuitBeacon.setValue(null);
+        trackCircuitEncoded.setValue(null);
+        encodedTrainModel.setValue(null);
+        blockIDTrainModel.setValue(null);
+        speedTrainModel.setValue(null);
+        authorityTrainModel.setValue(null);
+        beaconTrainModel.setValue(null);
+        velocityFromTrainCtrl.setValue(null);
+        positionFromTrainCtrl.setValue(null);
+        encodedFromTrainCtrl.setValue(null);
+        encodedFromMBOAnt.setValue(null);
+        speedFromMBOAnt.setValue(null);
+        authorityFromMBOAnt.setValue(null);
+        encodedTrainAnt2.setValue(null);
+        velocityToMBO.setValue(null);
+        positionToMBO.setValue(null);
+        speedFromMBO.setValue(null);
+        authorityFromMBO.setValue(null);
+        encodedMBO.setValue(null);
+        incomingIDTrackCtrl.setValue(null);
+        incomingRailwayTrackCtrl.setValue(null);
+        incomingLightsTrackCtrl.setValue(null);
+        incomingSwitchesTrackCtrl.setValue(null);
+        incomingOccupancyTrackCtrl.setValue(null);
+        outgoingIDCTC.setValue(null);
+        outgoingRailwayCTC.setValue(null);
+        outgoingLightsCTC.setValue(null);
+        outgoingSwitchesCTC.setValue(null);
+        outgoingOccupancyCTC.setValue(null);
         
         //disable buttons
-        sendTrainModel.disable();
-        sendToMBOAnt.disable();
-        sendToTrainCtrl.disable();
-        sendToMBO.disable();
-        sendToTrainAnt2.disable();
-        sendToTrackCtrl.disable();
-        sendToCTC.disable();
-        sendNull.disable();
-        send0.disable();
-        send1.disable();
-        sendMoreThan1.disable();    
+        sendTrainModel.setEnabled(false);
+        sendToMBOAnt.setEnabled(false);
+        sendToTrainCtrl.setEnabled(false);
+        sendToMBO.setEnabled(false);
+        sendToTrainAnt2.setEnabled(false);
+        sendToTrackCtrl.setEnabled(false);
+        sendToCTC.setEnabled(false);
+        sendNull.setEnabled(false);
+        send0.setEnabled(false);
+        send1.setEnabled(false);
+        sendMoreThan1.setEnabled(false);  
     }
     
     /**
@@ -1845,23 +2062,32 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
         testingMode.setSelected(false);
         inAutoMode();
     }//GEN-LAST:event_autoModeActionPerformed
-
-    /**
-     * resets the ready booleans being used for testing mode
-     */
-    private void resetReady() {
-        ready0 = false;
-        ready1 = false;
-        ready2 = false;
-        ready3 = false;
-        ready4 = false;
-        ready5 = false;
-        ready6 = false;
-        ready7 = false;
-    }
-    
+  
     private void velocityFromTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityFromTrainCtrlActionPerformed
-        // TODO add your handling code here:
+        boolean valid = false;
+        while(valid == false) {
+            String veloStr = velocityFromTrainCtrl.getText();
+                try {
+                    userVelocity = Double.parseDouble(veloStr);
+                    valid = true;
+                    if(userVelocity < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative velocity.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid velocity.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready8 = true;
+        if(ready8&&ready9) {
+            userEncoded = encodeData("trainAntenna2");
+            encodedFromTrainCtrl.setValue(userEncoded);
+            sendToMBOAnt.setEnabled(true);
+            ready8 = false;
+            ready9 = false;
+        }
     }//GEN-LAST:event_velocityFromTrainCtrlActionPerformed
 
     private void encodedFromTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedFromTrainCtrlActionPerformed
@@ -1895,145 +2121,368 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
     }//GEN-LAST:event_encodedTrainAnt2ActionPerformed
 
     private void speedFromMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedFromMBOActionPerformed
-        // TODO add your handling code here:
+        boolean valid = false;
+        while(valid == false) {
+            String speedStr = speedFromMBO.getText();
+                try {
+                    userSpeed = Double.parseDouble(speedStr);
+                    valid = true;
+                    if(userSpeed < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready10 = true;
+        if(ready10&&ready11) {
+            ready10 = false;
+            ready11 = false;
+            String encoded = encodeData("mboAntenna");
+            incomingTrainAntenna2OutgoingTrainCtrl(encoded);
+        }
     }//GEN-LAST:event_speedFromMBOActionPerformed
 
     private void encodedMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedMBOActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_encodedMBOActionPerformed
 
-    /**
-     * used for initializing Testing Mode and allowing for the user to change
-     * fields and edit what they wish
-     */
-    private void initTesting(int option) {
-        //used if simply testing outgoing messages
-        if(testingMode.isSelected() && option == 1) {
-            //Outgoing to Track Controller Test
-            //pull block ID information from text field
-            outgoingIDTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    userBlockID = outgoingIDTrackCtrl.getText();
-                    //check to see if blockID is valid
-                }
-            });
-            //pull authority information from text field
-            outgoingAuthorityTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    boolean valid = false;
-                    while(valid == false) {
-                        String authorityStr = outgoingAuthorityTrackCtrl.getText();
-                            try {
-                                    userAuthority = Double.parseDouble(authorityStr);
-                                    valid = true;
-                                    if(userAuthority < 0) {
-                                       valid = false; 
-                                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative authority.", "Error", JOptionPane.ERROR_MESSAGE);
-                                       break;
-                                    }          
-                            } catch (NumberFormatException e) {
-                                valid = false;
-                                JOptionPane.showMessageDialog(frame, "Please enter a valid authority.", "Error", JOptionPane.ERROR_MESSAGE);
-                                break;
-                            }
-                    }
-                }
-            });
-            //pull speed information from text field
-            outgoingSpeedTrackCtrl.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    boolean valid = false;
-                    while(valid == false) {
-                        String speedStr = outgoingSpeedTrackCtrl.getText();
-                            try {
-                                    userSpeed = Double.parseDouble(speedStr);
-                                    valid = true;
-                                    if(userSpeed < 0) {
-                                       valid = false; 
-                                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative speed.", "Error", JOptionPane.ERROR_MESSAGE);
-                                       break;
-                                    }          
-                            } catch (NumberFormatException e) {
-                                valid = false;
-                                JOptionPane.showMessageDialog(frame, "Please enter a valid speed.", "Error", JOptionPane.ERROR_MESSAGE);
-                                break;
-                        }
-                    }
-                }
-            });
-
-            //outgoing to CTC Test
-            //pull ID information from text field
-            outgoingIDCTC.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        String ID = outgoingIDCTC.getText();
-                        //check to see if Block ID is valid                 
-                }
-            });     
-            //pull switches status information from text field
-            outgoingSwitchesCTC.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    String switches = outgoingSwitchesCTC.getText();
-                    while(!switches.equalsIgnoreCase("true") || !switches.equalsIgnoreCase("false")) {
-                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
-                        switches = outgoingSwitchesCTC.getText();                
-                    }
-                }
-            });
-            //pull lights status information from text field
-            outgoingLightsCTC.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    String lights = outgoingLightsCTC.getText();
-                    while(!lights.equalsIgnoreCase("true") || !lights.equalsIgnoreCase("false")) {
-                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
-                        lights = outgoingLightsCTC.getText();                
-                    }
-                }
-            });
-            //pull occupancy status information from text field
-            outgoingOccupancyCTC.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    String occupancy = outgoingOccupancyCTC.getText();
-                    while(!occupancy.equalsIgnoreCase("true") || !occupancy.equalsIgnoreCase("false")) {
-                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
-                        occupancy = outgoingOccupancyCTC.getText();                
-                    }
-                }
-            });
-            //pull railway status information from text field
-            outgoingRailwayCTC.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    String railway = outgoingRailwayCTC.getText();
-                    while(!railway.equalsIgnoreCase("true") || !railway.equalsIgnoreCase("false")) {
-                        JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
-                        railway = outgoingRailwayCTC.getText();                
-                    }
-                }
-            });
-           
-            if(buttonPressedTrack == true) {
-                //method from Track Controller that allows me to send information
-                //i.e. sendToTrackCtrl(speed, authority, blockID);
-                buttonPressedTrack = false;
+    private void outgoingSpeedTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingSpeedTrackCtrlActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String speedStr = outgoingSpeedTrackCtrl.getText();
+                try {
+                    userSpeed = Double.parseDouble(speedStr);
+                    valid = true;
+                    if(userSpeed < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
         }
-        //used if user changed values in the Incoming from CTC panel in testing mode
-        else if(testingMode.isSelected() && option == 2) {
-            outgoingIDTrackCtrl.setValue(userBlockID);
-            outgoingSpeedTrackCtrl.setValue(userSpeed);
-            outgoingAuthorityTrackCtrl.setValue(userAuthority);
-            initTesting(1);
+        ready1 = true;
+    }//GEN-LAST:event_outgoingSpeedTrackCtrlActionPerformed
+
+    private void outgoingAuthorityTrackCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingAuthorityTrackCtrlActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String authorityStr = outgoingAuthorityTrackCtrl.getText();
+                try {
+                    userAuthority = Double.parseDouble(authorityStr);
+                    valid = true;
+                    if(userAuthority < 0) {
+                       valid = false; 
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
         }
-        //used if user changed values in the Incoming from Track Controller panel in testing mode
-        else if(testingMode.isSelected() && option == 3) {
-            outgoingIDCTC.setValue(userBlockID);
-            outgoingLightsCTC.setValue(userLights);
-            outgoingSwitchesCTC.setValue(userSwitches);
-            outgoingOccupancyCTC.setValue(userOccupancy);
-            outgoingRailwayCTC.setValue(userRailway);
-            initTesting(1);
+        ready2 = true;
+    }//GEN-LAST:event_outgoingAuthorityTrackCtrlActionPerformed
+
+    private void outgoingIDCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingIDCTCActionPerformed
+       userBlockID = outgoingIDCTC.getText();
+       ready3 = true;
+    }//GEN-LAST:event_outgoingIDCTCActionPerformed
+
+    private void outgoingLightsCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingLightsCTCActionPerformed
+        String lights = outgoingLightsCTC.getText();
+        while(!lights.equalsIgnoreCase("true") || !lights.equalsIgnoreCase("false")) {
+            JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+            lights = outgoingLightsCTC.getText();                
         }
-    }
+        if(lights.equals("true")) {
+            userLights = true;
+        }
+        else {
+            userLights = false;
+        }
+        ready4 = true;
+    }//GEN-LAST:event_outgoingLightsCTCActionPerformed
+
+    private void outgoingSwitchesCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingSwitchesCTCActionPerformed
+        String switches = outgoingSwitchesCTC.getText();
+        while(!switches.equalsIgnoreCase("true") || !switches.equalsIgnoreCase("false")) {
+            JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+            switches = outgoingSwitchesCTC.getText();                
+        }
+        if(switches.equals("true")) {
+            userSwitches = true;
+        }
+        else {
+            userSwitches = false;
+        }
+        ready5 = true;
+    }//GEN-LAST:event_outgoingSwitchesCTCActionPerformed
+
+    private void outgoingRailwayCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingRailwayCTCActionPerformed
+        String railway = outgoingRailwayCTC.getText();
+        while(!railway.equalsIgnoreCase("true") || !railway.equalsIgnoreCase("false")) {
+            JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+            railway = outgoingRailwayCTC.getText();                
+        }
+        if(railway.equals("true")) {
+            userRailway = true;
+        }
+        else {
+            userRailway = false;
+        }
+        ready6 = true;
+    }//GEN-LAST:event_outgoingRailwayCTCActionPerformed
+
+    private void outgoingOccupancyCTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outgoingOccupancyCTCActionPerformed
+        String occupancy = outgoingOccupancyCTC.getText();
+        while(!occupancy.equalsIgnoreCase("true") || !occupancy.equalsIgnoreCase("false")) {
+            JOptionPane.showMessageDialog(frame, "Please enter true or false.", "Error", JOptionPane.ERROR_MESSAGE);
+            occupancy = outgoingOccupancyCTC.getText();                
+        }
+        if(occupancy.equals("true")) {
+            userOccupancy = true;
+        }
+        else {
+            userOccupancy = false;
+        }
+        ready7 = true;
+    }//GEN-LAST:event_outgoingOccupancyCTCActionPerformed
+
+    private void positionFromTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positionFromTrainCtrlActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String posStr = positionFromTrainCtrl.getText();
+                try {
+                    userPosition = Double.parseDouble(posStr);
+                    valid = true;
+                    if(userPosition < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative position.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid position.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready9 = true;
+        if(ready8&&ready9) {
+            userEncoded = encodeData("trainAntenna2");
+            encodedFromTrainCtrl.setValue(userEncoded);
+            sendToMBOAnt.setEnabled(true);
+            ready8 = false;
+            ready9 = false;
+        }
+    }//GEN-LAST:event_positionFromTrainCtrlActionPerformed
+
+    private void sendToMBOAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToMBOAntActionPerformed
+        if(sendToMBOAnt.isEnabled()) {
+            sendToMBOAnt.setEnabled(false);
+            incomingMBOAntennaOutgoingMBO(userEncoded);
+        }
+    }//GEN-LAST:event_sendToMBOAntActionPerformed
+
+    private void sendToMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToMBOActionPerformed
+        if(sendToMBO.isEnabled()) {
+            //sendToMBO(userVelocity, userPosition);
+            JOptionPane.showMessageDialog(frame, "Successfully sent to MBO.", "Information", JOptionPane.INFORMATION_MESSAGE); 
+            sendToMBO.setEnabled(false);
+        }
+    }//GEN-LAST:event_sendToMBOActionPerformed
+
+    private void authorityFromMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorityFromMBOActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String authorityStr = authorityFromMBO.getText();
+                try {
+                    userAuthority = Double.parseDouble(authorityStr);
+                    valid = true;
+                    if(userAuthority < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready11 = true;
+        if(ready10&&ready11) {
+            ready10 = false;
+            ready11 = false;
+            userEncoded = encodeData("mboAntenna");
+            sendToTrainAnt2.setEnabled(true);
+        }
+    }//GEN-LAST:event_authorityFromMBOActionPerformed
+
+    private void sendToTrainAnt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToTrainAnt2ActionPerformed
+        if(sendToTrainAnt2.isEnabled()) {
+            sendToTrainAnt2.setEnabled(false);
+            incomingTrainAntenna2OutgoingTrainCtrl(userEncoded);
+        }
+    }//GEN-LAST:event_sendToTrainAnt2ActionPerformed
+
+    private void sendToTrainCtrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToTrainCtrlActionPerformed
+        if(sendToTrainCtrl.isEnabled()) {
+            //method to send to train controller if want to see values received
+            //sendInfoToTrainCtrl(userSpeed, userAuthority);
+            JOptionPane.showMessageDialog(frame, "Successfully sent to Train Controller.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            sendToTrainCtrl.setEnabled(false);
+        }
+    }//GEN-LAST:event_sendToTrainCtrlActionPerformed
+
+    private void encodedTrainModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encodedTrainModelActionPerformed
+
+    }//GEN-LAST:event_encodedTrainModelActionPerformed
+
+    private void sendTrainModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendTrainModelActionPerformed
+        if(sendTrainModel.isEnabled()) {
+            //method to send to train model if want to see values received
+            //sendInfoToTrainCtrl(userSpeed, userAuthority, userBeacon, userBlockID);
+            JOptionPane.showMessageDialog(frame, "Successfully sent to Train Model.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            sendTrainModel.setEnabled(false);
+        }
+    }//GEN-LAST:event_sendTrainModelActionPerformed
+
+    private void velocityToMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_velocityToMBOActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String veloStr = velocityToMBO.getText();
+                try {
+                    userVelocity = Double.parseDouble(veloStr);
+                    valid = true;
+                    if(userVelocity < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative velocity.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid velocity.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready12 = true;
+        if(ready12&&ready13) {
+            ready12 = false;
+            ready13 = false;
+            sendToMBO.setEnabled(true);
+        }
+    }//GEN-LAST:event_velocityToMBOActionPerformed
+
+    private void positionToMBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positionToMBOActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String posStr = positionToMBO.getText();
+                try {
+                    this.userPosition = Double.parseDouble(posStr);
+                    valid = true;
+                    if(userPosition < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative position.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid position.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+        ready13 = true;
+        if(ready12&&ready13) {
+            ready12 = false;
+            ready13 = false;
+            sendToMBO.setEnabled(true);
+        }
+    }//GEN-LAST:event_positionToMBOActionPerformed
+
+    private void blockIDTrainModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blockIDTrainModelActionPerformed
+        this.userBlockID = blockIDTrainModel.getText();
+        ready14 = true;
+        if(ready14&&ready15&&ready16&&ready17) {
+            sendTrainModel.setEnabled(true);
+            ready14 = false;
+            ready15 = false;
+            ready16 = false;
+            ready17 = false;
+        }
+    }//GEN-LAST:event_blockIDTrainModelActionPerformed
+
+    private void speedTrainModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedTrainModelActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String speedStr = speedTrainModel.getText();
+                try {
+                    this.userSpeed = Double.parseDouble(speedStr);
+                    valid = true;
+                    if(userSpeed < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid speed.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+            ready15 = true;
+            if(ready14&&ready15&&ready16&&ready17) {
+                sendTrainModel.setEnabled(true);
+                ready14 = false;
+                ready15 = false;
+                ready16 = false;
+                ready17 = false;
+            }
+        }
+    }//GEN-LAST:event_speedTrainModelActionPerformed
+
+    private void authorityTrainModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorityTrainModelActionPerformed
+        boolean valid = false;
+        while(valid == false) {
+            String authorityStr = authorityTrainModel.getText();
+                try {
+                    this.userAuthority = Double.parseDouble(authorityStr);
+                    valid = true;
+                    if(userAuthority < 0) {
+                       JOptionPane.showMessageDialog(frame, "Please enter a non-negative authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                       break;
+                    }          
+                } catch (NumberFormatException e) {
+                    valid = false;
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid authority.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
+            ready16 = true;
+            if(ready14&&ready15&&ready16&&ready17) {
+                sendTrainModel.setEnabled(true);
+                ready14 = false;
+                ready15 = false;
+                ready16 = false;
+                ready17 = false;
+            }
+        }
+    }//GEN-LAST:event_authorityTrainModelActionPerformed
+
+//        else if(testingMode.isSelected() && option == 2) {
+//            outgoingIDTrackCtrl.setValue(userBlockID);
+//            outgoingSpeedTrackCtrl.setValue(userSpeed);
+//            outgoingAuthorityTrackCtrl.setValue(userAuthority);
+//            initTesting(1);
+//        }
+//        //used if user changed values in the Incoming from Track Controller panel in testing mode
+//        else if(testingMode.isSelected() && option == 3) {
+//            outgoingIDCTC.setValue(userBlockID);
+//            outgoingLightsCTC.setValue(userLights);
+//            outgoingSwitchesCTC.setValue(userSwitches);
+//            outgoingOccupancyCTC.setValue(userOccupancy);
+//            outgoingRailwayCTC.setValue(userRailway);
+//            
     
     /**
      * @param JPanel panel - is the JPanel that represents the incoming message
@@ -2059,7 +2508,6 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             panel.setBackground(Color.white);
         }
         catch(InterruptedException e) {
-            System.out.println("WTF");
         }
     }
     
@@ -2137,7 +2585,7 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
      * private method used to get the block ID to determine the appropriate track controller
      */
     private String getBlockID(String trainID) {
-        String blockID = "Santa Monica";
+        String blockID = "IDK";
         
         //if trainID is invalid, return null;
         return blockID;
@@ -2186,50 +2634,61 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
      * @param blockID - block ID from Track Model
      * handles communication from Track Model to Track Circuit
      */
-    public void incomingTrackModelOutgoingTrackCircuit(double speed, double authority, double beacon, String blockID) {     
-        trackCircuitSpeed.setValue(speed);
-        trackCircuitAuthority.setValue(authority);
-        trackCircuitID.setValue(blockID);
-        trackCircuitBeacon.setValue(beacon);
-        
-        this.userSpeed = speed;
-        this.userAuthority = authority;
-        this.userBlockID = blockID;
-        this.userBeacon = beacon;
-        
-        //trigger incoming message signal box
-        triggerIncoming(incomingMsgTrackCircuit);
-        
-        //triggers error signal box if null was received
-        if(blockID == null) {
-            triggerError(errorTrackCircuit);
-            JOptionPane.showMessageDialog(frame, "Received invalid information from Track Model.", "Error", JOptionPane.ERROR_MESSAGE);
+    public void incomingTrackModelOutgoingTrackCircuit(double speed, double authority, double beacon, String blockID) {  
+        if(autoMode.isSelected()) {
+            trackCircuitSpeed.setValue(speed);
+            trackCircuitAuthority.setValue(authority);
+            trackCircuitID.setValue(blockID);
+            trackCircuitBeacon.setValue(beacon);
+
+            this.userSpeed = speed;
+            this.userAuthority = authority;
+            this.userBlockID = blockID;
+            this.userBeacon = beacon;
+
+            //trigger incoming message signal box
+            triggerIncoming(incomingMsgTrackCircuit);
+
+            //triggers error signal box if null was received
+            if(blockID == null) {
+                triggerError(errorTrackCircuit);
+                JOptionPane.showMessageDialog(frame, "Received invalid information from Track Model.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //determine encoded data and send it to Train Antenna 1
+            String encoded = encodeData("trackCircuit");
+            incomingTrainAntenna1OutgoingTrainModel(encoded);
         }
-        
-        //determine encoded data
-        String encoded = "00001010101010101";
-        encoded = encodeData("trackCircuit");
-        
-        incomingTrainAntenna1OutgoingTrainModel(encoded);    
     }
     
-      /**
+    /**
      * @param requester - String with name of encoding data requester
      * @return String - returns encoded data
+     * encodes the data for whichever method requested it
      */
-    private String encodeData(String requester) {
+    private String encodeData(String whoToEncodeFor) {
         String encodedData = null;
-        if(requester.equals("trackCircuit")) {
+        if(whoToEncodeFor.equals("trackCircuit")) {
             //use speed, authority, blockID, and beacon and encode this
+            if(userBlockID == null) {
+                encodedData = null;
+            }
+            else {
+                String speed = Integer.toBinaryString((int)userSpeed);
+                String authority = Integer.toBinaryString((int)userAuthority);
+                //String blockID = Integer.toBinaryString(userBlockID);
+                String beacon = Integer.toBinaryString((int)userBeacon);    
+            }  
+        }
+        else if(whoToEncodeFor.equals("trainAntenna2")) {
+            //use velocity and position to encode
             
         }
-        else if(requester.equals("mboAntenna")) {
+        else if(whoToEncodeFor.equals("mboAntenna")) {
+            //use speed and authority to encode
             
         }
-        else if(requester.equals("trainAntenna2")) {
-            
-        }
-        else if(requester.equals("test")) {
+        else if(whoToEncodeFor.equals("test")) {
             
         }
         return encodedData;
@@ -2242,20 +2701,21 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
      * Antenna
      */
     private void decodeData(String encodedData, String whoToDecodeFor) {
-        if(whoToDecodeFor.equals("trackCircuit")) {
-            //use speed, authority, blockID, and beacon and encode this
+        if(whoToDecodeFor.equals("trainAntenna1")) {
+            //decode speed, authority, blockID, and beacon
             
         }
         else if(whoToDecodeFor.equals("mboAntenna")) {
-            
+            //decode velocity and position
         }
         else if(whoToDecodeFor.equals("trainAntenna2")) {
+            //decode speed and authority
             
         }
         else if(whoToDecodeFor.equals("test")) {
+            //decode whatever is given
             
         }
-
     }
     
     /**
@@ -2265,7 +2725,8 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
     private void incomingTrainAntenna1OutgoingTrainModel(String encoded) {   
         triggerIncoming(incomingTrainAnt1);
         encodedTrainModel.setValue(encoded);
-        decodeData(encoded, "trackCircuit");
+        decodeData(encoded, "trainAntenna1");
+        
         if(userBlockID == null) {
             triggerError(errorTrainAnt1);
             JOptionPane.showMessageDialog(frame, "Sending invalid information to Train Model.\nVITAL ERROR!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -2280,32 +2741,116 @@ public class Module7 extends javax.swing.JFrame implements CommunicationControll
             authorityTrainModel.setValue(userAuthority);
             beaconTrainModel.setValue(userBeacon);
         }
-        //mtehod to send information to Train Model
+        //method to send information to Train Model
     }
     
+    /**
+     * @param speed - speed from MBO
+     * @param authority - authority from MBO
+     * receives data from MBO and encodes it; then, the encoded String gets
+     * sent to Train Antenna 2
+     */
     public void incomingMBOOutgoingTrainAnt2(double speed, double authority) {
-        triggerIncoming(incomingMBOAnt);
-        speedFromMBO.setValue(speed);
-        authorityFromMBO.setValue(authority);
-        //encode();
-        //sendToAntenna2(encoded); 
+        if(autoMode.isSelected()) {
+            triggerIncoming(incomingMBOAnt);
+            speedFromMBO.setValue(speed);
+            authorityFromMBO.setValue(authority);
+
+            this.userSpeed = speed;
+            this.userAuthority = authority;
+
+            String encoded = encodeData("trainAntenna2");
+            incomingTrainAntenna2OutgoingTrainCtrl(encoded); 
+        }
     }
     
+    /**
+     * @param encoded - String of encoded data from MBOAntenna
+     * decodes the encoded data from MBOAntenna and then passes the info
+     * to Train Controller
+     */
+    private void incomingTrainAntenna2OutgoingTrainCtrl(String encoded) {
+        if(autoMode.isSelected()) {
+            triggerIncoming(incomingTrainAnt2);
+            encodedFromMBOAnt.setValue(encoded);
+            decodeData(encoded, "trainAntenna2");
+
+            if(userSpeed == 0) {
+               speedFromMBOAnt.setValue("null");
+               authorityFromMBO.setValue("null");
+               triggerError(errorTrainAnt2);
+               JOptionPane.showMessageDialog(frame, "Received invalid information from MBO Antenna.", "Error", JOptionPane.ERROR_MESSAGE);         
+            }
+            else {
+                speedFromMBOAnt.setValue(userSpeed);
+                authorityFromMBOAnt.setValue(userAuthority);
+            } 
+            //method to send speed and authority to Train Controller
+        }
+        else {
+            JOptionPane.showMessageDialog(frame, "Successfully sent to Train Antenna 2.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            encodedFromMBOAnt.setValue(encoded);
+            decodeData(encoded, "trainAntenna2");
+            speedFromMBOAnt.setValue(userSpeed);
+            authorityFromMBOAnt.setValue(userAuthority);
+            sendToTrainCtrl.setEnabled(true);
+        }
+    }
+    
+    /**
+     * @param velocity - velocity from Train Controller
+     * @param position - position from Train Controller
+     * gets data from Train Controller and encodes it; encoded String then gets
+     * sent to MBO Antenna
+     */
     public void incomingTrainCtrlOutgoingMBOAnt(double velocity, double position) {
-        triggerIncoming(incomingTrainAnt2);
-        velocityFromTrainCtrl.setValue(velocity);
-        positionFromTrainCtrl.setValue(position);
-        //encode
-        
-       //if(velocity == null) {
-       //   triggerError(errorTrainAnt2);
-       // }
-       //toMBOAntenna(encoded);
+        if(autoMode.isSelected()) {
+            triggerIncoming(incomingTrainAnt2);
+            velocityFromTrainCtrl.setValue(velocity);
+            positionFromTrainCtrl.setValue(position);
+            this.userVelocity = velocity;
+            this.userPosition = position;
+            String encoded = encodeData("mboAntenna");
+
+            if(userVelocity == 0) {
+              triggerError(errorTrainAnt2);
+              JOptionPane.showMessageDialog(frame, "Received invalid information from Train Controller.", "Error", JOptionPane.ERROR_MESSAGE); 
+            }
+            incomingMBOAntennaOutgoingMBO(encoded);
+        }
     }
     
-    private void toMBOAntenna(String encoded) {
-        triggerIncoming(incomingMBOAnt);
-        
+    /**
+     * @param encoded - encoded String of data from Train Antenna 2
+     * decodes data from Train Antenna 2, and then sends data to MBO
+     */
+    private void incomingMBOAntennaOutgoingMBO(String encoded) {
+        if(autoMode.isSelected()) {
+            triggerIncoming(incomingMBOAnt);
+            decodeData(encoded, "mboAntenna");
+
+            if(userVelocity == 0) {
+                triggerError(errorMBOAnt);
+                JOptionPane.showMessageDialog(frame, "Received invalid information from Train Antenna 2.", "Error", JOptionPane.ERROR_MESSAGE); 
+                encodedTrainAnt2.setValue("null");
+                velocityToMBO.setValue("null");
+                positionToMBO.setValue("null");
+            }
+            else {
+                encodedTrainAnt2.setValue(encoded);
+                velocityToMBO.setValue(userVelocity);
+                positionToMBO.setValue(userPosition);
+            }
+            //method to send velocity and position to MBO
+        }
+        else {
+            sendToMBO.setEnabled(true);
+            decodeData(encoded, "mboAntenna");
+            encodedTrainAnt2.setValue(encoded);
+            velocityToMBO.setValue(userVelocity);
+            positionToMBO.setValue(userPosition);
+            JOptionPane.showMessageDialog(frame, "Successfully sent to MBO Antenna.", "Information", JOptionPane.INFORMATION_MESSAGE); 
+        }
     }
             
     //main method which can run the GUI by simply running Module7.java

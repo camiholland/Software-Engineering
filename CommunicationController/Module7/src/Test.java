@@ -16,6 +16,8 @@ public class Test {
       Module7 com = new Module7();
       com.setVisible(true);
       com.incomingCTCOutgoingTrackCtrl(40, 32, "51515");
+      com.incomingTrackCtrlOutgoingCTC("sdf", true, true, true, true);
+      com.incomingTrackModelOutgoingTrackCircuit(30,40,12, "34");
            
     } 
 }
